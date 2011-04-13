@@ -50,7 +50,7 @@ partial package SingleGasNasa
   extends Interfaces.PartialPureSubstance(
      ThermoStates = Choices.IndependentVariables.pT,
      redeclare final record FluidConstants =
-        Modelica.Media.IdealGases.Common.FluidData.FluidConstants,
+        Modelica.Media.Interfaces.PartialMixtureMedium.FluidConstants,
      mediumName=data.name,
      substanceNames={data.name},
      singleState=false,
@@ -745,8 +745,8 @@ partial package MixtureGasNasa
     redeclare record extends ThermodynamicState "thermodynamic state variables"
     end ThermodynamicState;
 
-  redeclare record extends FluidConstants "fluid constants"
-  end FluidConstants;
+//   redeclare record extends FluidConstants "fluid constants"
+//   end FluidConstants;
 
   constant Modelica.Media.IdealGases.Common.DataRecord[:] data
     "Data records of ideal gas substances";
@@ -1522,6 +1522,7 @@ It has been developed by Hubertus Tummescheit.
             {100,100}}),
                 graphics));
 end MixtureGasNasa;
+
 
 
 annotation (Documentation(info="<html>
