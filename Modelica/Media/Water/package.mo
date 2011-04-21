@@ -155,8 +155,6 @@ partial package WaterIF97_base
     "Base properties of water"
     Integer phase(min=0, max=2, start=1,fixed=false)
       "2 for two-phase, 1 for one-phase, 0 if not known";
-    SaturationProperties sat(Tsat(start=300.0), psat(start=1.0e5))
-      "saturation temperature and pressure";
   equation
     MM = fluidConstants[1].molarMass;
     if smoothModel then
