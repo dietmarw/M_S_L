@@ -2196,8 +2196,8 @@ package Examples
 
     // Use type declarations from the Medium
     Medium.MassFlowRate m_flow_ext;
-    Medium.DynamicViscosity eta=Medium.dynamicViscosity(medium);
-    Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium);
+    Medium.DynamicViscosity eta=Medium.dynamicViscosity(state);
+    Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(state);
   equation
     medium.p = 1.0e5;
     m = medium.d*V;
@@ -2507,11 +2507,11 @@ for the medium model. In this scenario, that builds a new medium model
 with many more properties than the default, the standard BaseProperties
 is used as a basis. For additional properties, a user has to:<br>
 <ol>
-<li>Declare a new variable of the wanted type, e.g. <span
+<li>Declare a new variable of the wanted type, e.g., <span
 style=\"color: rgb(0, 0, 153);\">\"<span style=\"color: rgb(51, 51, 255);\">DynamicViscosity
 eta</span>\"</span>.</li>
 <li>Compute that variable by calling the function form the package,
-e.g. <span style=\"color: rgb(51, 51, 255);\">eta =
+e.g., <span style=\"color: rgb(51, 51, 255);\">eta =
 dynamicViscosity(state)</span>. Note that the instance of
 ThermodynamicState is used as an input to the function. This instance
 \"state\" is declared in PartialMedium and thus available in every medium
@@ -2536,18 +2536,18 @@ derivatives like cv are computed with are different on both sides of
 the boundaries. The ususal steps to compute properties on the phase
 boundary are: <br>
 <ol>
-<li>Declare an instance of ThermodynamicState, e.g. \"ThermodynamicState&nbsp; dew\".</li>
+<li>Declare an instance of ThermodynamicState, e.g., \"ThermodynamicState&nbsp; dew\".</li>
 <li>Compute the state, using an instance of SaturationProperties,
-e.g. dew = setDewState(sat)</li>
+e.g., dew = setDewState(sat)</li>
 <li>Compute properties on the phase boundary to your full desire,
-e.g. \"cp_d = specificHeatCapacityCp(dew)\". <br>
+e.g., \"cp_d = specificHeatCapacityCp(dew)\". <br>
 </li>
 </ol>
 <p>The sample model TestTwoPhaseStates test the extended properties</p>
 
 <p>
 The same procedure can be used to compute properties at other state
-points, e.g. when an isentropic reference state is computed.
+points, e.g., when an isentropic reference state is computed.
 </p>
 </html>
 "));
@@ -2614,7 +2614,7 @@ is given to compare the approximation.
       Medium.VelocityOfSound a=Medium.velocityOfSound(state);
       Real beta = Medium.isobaricExpansionCoefficient(state);
       Real gamma2 = Medium.isothermalCompressibility(medium2.state);
-      Medium.SpecificEnthalpy h_is = Medium.isentropicEnthalpyApproximation(2.0e5, medium2);
+      Medium.SpecificEnthalpy h_is = Medium.isentropicEnthalpyApproximation(2.0e5, medium2.state);
       parameter Medium.MolarMass[4] MMx = Medium.data.MM
         "Molar masses of flue gas";
       Medium.MolarMass MM =  1/sum(state.X[j]/MMx[j] for j in 1:4) "molar mass";
@@ -2666,11 +2666,11 @@ is given to compare the approximation.
       Real m(quantity=Medium.mediumName, start = 1.0);
       SI.InternalEnergy U;
 
-      Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(medium);
-      Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium);
-      Medium.IsentropicExponent gamma=Medium.isentropicExponent(medium);
-      Medium.SpecificEntropy s=Medium.specificEntropy(medium);
-      Medium.VelocityOfSound a=Medium.velocityOfSound(medium);
+      Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(medium.state);
+      Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium.state);
+      Medium.IsentropicExponent gamma=Medium.isentropicExponent(medium.state);
+      Medium.SpecificEntropy s=Medium.specificEntropy(medium.state);
+      Medium.VelocityOfSound a=Medium.velocityOfSound(medium.state);
     equation
 
       m = medium.d*V;
@@ -2692,18 +2692,18 @@ is given to compare the approximation.
       model TemplateMedium "Test Interfaces.TemplateMedium"
         extends Modelica.Icons.Example;
         package Medium = Interfaces.TemplateMedium "Medium model";
-        Medium.ThermodynamicState medium;
+        Medium.ThermodynamicState state;
 
-        Medium.DynamicViscosity eta=Medium.dynamicViscosity(medium);
-        Medium.ThermalConductivity lambda=Medium.thermalConductivity(medium);
-        Medium.SpecificEntropy s=Medium.specificEntropy(medium);
-        Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(medium);
-        Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium);
-        Medium.IsentropicExponent gamma=Medium.isentropicExponent(medium);
-        Medium.VelocityOfSound a=Medium.velocityOfSound(medium);
+        Medium.DynamicViscosity eta=Medium.dynamicViscosity(state);
+        Medium.ThermalConductivity lambda=Medium.thermalConductivity(state);
+        Medium.SpecificEntropy s=Medium.specificEntropy(state);
+        Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(state);
+        Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(state);
+        Medium.IsentropicExponent gamma=Medium.isentropicExponent(state);
+        Medium.VelocityOfSound a=Medium.velocityOfSound(state);
       equation
-        medium.p = 1.0e5;
-        medium.T = 300 + time/1000;
+        state.p = 1.0e5;
+        state.T = 300 + time/1000;
         annotation (Documentation(info="<html>
 
 </html>"));
@@ -2733,11 +2733,11 @@ is given to compare the approximation.
       Real m(quantity=Medium.mediumName, start = 1.0);
       SI.InternalEnergy U;
 
-      Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(medium);
-      Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium);
-      Medium.IsentropicExponent gamma=Medium.isentropicExponent(medium);
-      Medium.SpecificEntropy s=Medium.specificEntropy(medium);
-      Medium.VelocityOfSound a=Medium.velocityOfSound(medium);
+      Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(medium.state);
+      Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium.state);
+      Medium.IsentropicExponent gamma=Medium.isentropicExponent(medium.state);
+      Medium.SpecificEntropy s=Medium.specificEntropy(medium.state);
+      Medium.VelocityOfSound a=Medium.velocityOfSound(medium.state);
     equation
 
       m = medium.d*V;
