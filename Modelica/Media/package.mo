@@ -2576,7 +2576,7 @@ points, e.g., when an isentropic reference state is computed.
       Medium.ThermalConductivity lambda= Medium.thermalConductivity(medium.state);
       Real beta = Medium.isobaricExpansionCoefficient(medium.state);
       Real gamma2 = Medium.isothermalCompressibility(medium2.state);
-      Medium.SpecificEnthalpy h_is = Medium.isentropicEnthalpyApproximation(2.0e5, medium);
+      Medium.SpecificEnthalpy h_is = Medium.isentropicEnthalpyApproximation(2.0e5, medium.state);
     equation
       der(medium.p) = 1000.0;
       der(medium.T) = 1000;
@@ -5323,8 +5323,8 @@ partial package PartialMixtureMedium
       AbsolutePressure criticalPressure "critical pressure";
       MolarVolume criticalMolarVolume "critical molar Volume";
       Real acentricFactor "Pitzer acentric factor";
-      Temperature triplePointTemperature "triple point temperature";
-      AbsolutePressure triplePointPressure "triple point pressure";
+    //   Temperature triplePointTemperature "triple point temperature";
+    //   AbsolutePressure triplePointPressure "triple point pressure";
       Temperature meltingPoint "melting point at 101325 Pa";
       Temperature normalBoilingPoint "normal boiling point (at 101325 Pa)";
       DipoleMoment dipoleMoment
