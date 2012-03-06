@@ -649,8 +649,8 @@ to see the difference.
 
     model Friction "Use of model Stop"
       extends Modelica.Icons.Example;
-      Modelica.Mechanics.Translational.Components.MassWithStopAndFriction stop1
-        (                                      L=1,
+      Modelica.Mechanics.Translational.Components.MassWithStopAndFriction stop1(
+                                               L=1,
         s(fixed=true),
         v(fixed=true),
         smax=25,
@@ -668,8 +668,7 @@ to see the difference.
                                                                     annotation (Placement(
             transformation(extent={{-60,60},{-40,80}},
                                                      rotation=0)));
-      Modelica.Mechanics.Translational.Components.MassWithStopAndFriction stop2
-        (
+      Modelica.Mechanics.Translational.Components.MassWithStopAndFriction stop2(
         L=1,
         smax=0.9,
         smin=-0.9,
@@ -1825,8 +1824,8 @@ where the different effects are visualized:
       f0_max = peak*f0;
       free = false;
 
-      s = s_a - s_support;
-      s_a = s_b;
+      s = flange_a.s - s_support;
+      flange_a.s = flange_b.s;
 
     // velocity and acceleration of flanges
       v = der(s);
