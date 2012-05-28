@@ -6448,8 +6448,7 @@ quantities are assumed to be constant.
       "Return specific internal energy"
       extends Modelica.Icons.Function;
     algorithm
-      // u := (cp_const-R_gas)*(state.T-T0);
-      u := cp_const*(state.T-T0) - R_gas*state.T;
+      u := (cp_const-R_gas)*(state.T-T0);
       annotation(Documentation(info="<html></html>"));
     end specificInternalEnergy;
 
