@@ -48,7 +48,7 @@ partial package SingleGasNasa
   "Medium model of an ideal gas based on NASA source"
 
   extends Interfaces.PartialPureSubstance(
-     ThermoStates = Choices.IndependentVariables.pT,
+     ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.pT,
      redeclare final record FluidConstants =
         Modelica.Media.Interfaces.PartialMixtureMedium.FluidConstants,
      mediumName=data.name,
@@ -68,12 +68,12 @@ partial package SingleGasNasa
 
   import SI = Modelica.SIunits;
   import Modelica.Math;
-  import Modelica.Media.Interfaces.PartialMedium.Choices.ReferenceEnthalpy;
+  import Modelica.Media.Interfaces.Choices.ReferenceEnthalpy;
 
   constant Boolean excludeEnthalpyOfFormation=true
     "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-  constant ReferenceEnthalpy referenceChoice=Choices.
-        ReferenceEnthalpy.ZeroAt0K "Choice of reference enthalpy";
+  constant ReferenceEnthalpy referenceChoice=Modelica.Media.Interfaces.Choices.ReferenceEnthalpy.ZeroAt0K
+    "Choice of reference enthalpy";
   constant SpecificEnthalpy h_offset=0.0
     "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
 
@@ -421,15 +421,16 @@ end cp_T;
 
   function h_T "Compute specific enthalpy from temperature and gas data; reference is decided by the
     refChoice input, or by the referenceChoice package constant by default"
-    import Modelica.Media.Interfaces.PartialMedium.Choices;
+    import Modelica.Media.Interfaces.Choices;
     extends Modelica.Icons.Function;
     input IdealGases.Common.DataRecord data "Ideal gas data";
     input SI.Temperature T "Temperature";
-    input Boolean exclEnthForm=SingleGasNasa.excludeEnthalpyOfFormation
+    input Boolean exclEnthForm=excludeEnthalpyOfFormation
       "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-    input Choices.ReferenceEnthalpy refChoice=SingleGasNasa.referenceChoice
+    input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+                                    refChoice=referenceChoice
       "Choice of reference enthalpy";
-    input SI.SpecificEnthalpy h_off=SingleGasNasa.h_offset
+    input SI.SpecificEnthalpy h_off=h_offset
       "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
     output SI.SpecificEnthalpy h "Specific enthalpy at temperature T";
       //     annotation (InlineNoEvent=false, Inline=false,
@@ -443,15 +444,16 @@ end cp_T;
   end h_T;
 
   function h_T_der "derivative function for h_T"
-    import Modelica.Media.Interfaces.PartialMedium.Choices;
+    import Modelica.Media.Interfaces.Choices;
     extends Modelica.Icons.Function;
     input IdealGases.Common.DataRecord data "Ideal gas data";
     input SI.Temperature T "Temperature";
-    input Boolean exclEnthForm=SingleGasNasa.excludeEnthalpyOfFormation
+    input Boolean exclEnthForm=excludeEnthalpyOfFormation
       "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-    input Choices.ReferenceEnthalpy refChoice=SingleGasNasa.referenceChoice
+    input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+                                    refChoice=referenceChoice
       "Choice of reference enthalpy";
-    input SI.SpecificEnthalpy h_off=SingleGasNasa.h_offset
+    input SI.SpecificEnthalpy h_off=h_offset
       "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
     input Real dT "Temperature derivative";
     output Real h_der "Specific enthalpy at temperature T";
@@ -461,15 +463,16 @@ end cp_T;
 
   function h_Tlow "Compute specific enthalpy, low T region; reference is decided by the
     refChoice input, or by the referenceChoice package constant by default"
-    import Modelica.Media.Interfaces.PartialMedium.Choices;
+    import Modelica.Media.Interfaces.Choices;
     extends Modelica.Icons.Function;
     input IdealGases.Common.DataRecord data "Ideal gas data";
     input SI.Temperature T "Temperature";
-    input Boolean exclEnthForm=SingleGasNasa.excludeEnthalpyOfFormation
+    input Boolean exclEnthForm=excludeEnthalpyOfFormation
       "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-    input Choices.ReferenceEnthalpy refChoice=SingleGasNasa.referenceChoice
+    input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+                                    refChoice=referenceChoice
       "Choice of reference enthalpy";
-    input SI.SpecificEnthalpy h_off=SingleGasNasa.h_offset
+    input SI.SpecificEnthalpy h_off=h_offset
       "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
     output SI.SpecificEnthalpy h "Specific enthalpy at temperature T";
       //     annotation (Inline=false,InlineNoEvent=false, derivative(zeroDerivative=data,
@@ -483,15 +486,16 @@ end cp_T;
 
   function h_Tlow_der "Compute specific enthalpy, low T region; reference is decided by the
     refChoice input, or by the referenceChoice package constant by default"
-    import Modelica.Media.Interfaces.PartialMedium.Choices;
+    import Modelica.Media.Interfaces.Choices;
     extends Modelica.Icons.Function;
     input IdealGases.Common.DataRecord data "Ideal gas data";
     input SI.Temperature T "Temperature";
-    input Boolean exclEnthForm=SingleGasNasa.excludeEnthalpyOfFormation
+    input Boolean exclEnthForm=excludeEnthalpyOfFormation
       "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-    input Choices.ReferenceEnthalpy refChoice=SingleGasNasa.referenceChoice
+    input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+                                    refChoice=referenceChoice
       "Choice of reference enthalpy";
-    input SI.SpecificEnthalpy h_off=SingleGasNasa.h_offset
+    input SI.SpecificEnthalpy h_off=h_offset
       "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
     input Real dT(unit="K/s") "Temperature derivative";
     output Real h_der(unit="J/(kg.s)")
@@ -528,8 +532,7 @@ end cp_T;
     input SI.MolarMass M "Molar mass of gas";
     input SI.MolarVolume Vc "Critical molar volume of gas";
     input Real w "Acentric factor of gas";
-    input Interfaces.PartialMedium.DipoleMoment mu
-      "Dipole moment of gas molecule";
+    input DipoleMoment mu "Dipole moment of gas molecule";
     input Real k =  0.0 "Special correction for highly polar substances";
     output SI.DynamicViscosity eta "Dynamic viscosity of gas";
   protected
@@ -711,10 +714,10 @@ partial package MixtureGasNasa
   "Medium model of a mixture of ideal gases based on NASA source"
 
   import Modelica.Math;
-  import Modelica.Media.Interfaces.PartialMedium.Choices.ReferenceEnthalpy;
+  import Modelica.Media.Interfaces.Choices.ReferenceEnthalpy;
 
   extends Modelica.Media.Interfaces.PartialMixtureMedium(
-     ThermoStates = Choices.IndependentVariables.pTX,
+     ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.pTX,
      substanceNames=data[:].name,
      reducedX = false,
      singleState=false,
@@ -878,14 +881,15 @@ required from medium model \""   + mediumName + "\".");
   end specificHelmholtzEnergy;
 
   function h_TX "Return specific enthalpy"
-    import Modelica.Media.Interfaces.PartialMedium.Choices;
+    import Modelica.Media.Interfaces.Choices;
      extends Modelica.Icons.Function;
      input SI.Temperature T "Temperature";
      input MassFraction X[:]=reference_X
       "Independent Mass fractions of gas mixture";
      input Boolean exclEnthForm=excludeEnthalpyOfFormation
       "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-     input Choices.ReferenceEnthalpy refChoice=referenceChoice
+     input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+                                     refChoice=referenceChoice
       "Choice of reference enthalpy";
      input SI.SpecificEnthalpy h_off=h_offset
       "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
@@ -898,13 +902,14 @@ required from medium model \""   + mediumName + "\".");
   end h_TX;
 
   function h_TX_der "Return specific enthalpy derivative"
-    import Modelica.Media.Interfaces.PartialMedium.Choices;
+    import Modelica.Media.Interfaces.Choices;
      extends Modelica.Icons.Function;
      input SI.Temperature T "Temperature";
      input MassFraction X[nX] "Independent Mass fractions of gas mixture";
      input Boolean exclEnthForm=excludeEnthalpyOfFormation
       "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-     input Choices.ReferenceEnthalpy refChoice=referenceChoice
+     input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+                                     refChoice=referenceChoice
       "Choice of reference enthalpy";
      input SI.SpecificEnthalpy h_off=h_offset
       "User defined offset for reference enthalpy, if referenceChoice = UserDefined";

@@ -44,13 +44,14 @@ package Functions
 
   function h_T "Compute specific enthalpy from temperature and gas data; reference is decided by the
     refChoice input, or by the referenceChoice package constant by default"
-    import Modelica.Media.Interfaces.PartialMedium.Choices;
+    import Modelica.Media.Interfaces.Choices;
     extends Modelica.Icons.Function;
     input IdealGases.Common.DataRecord data "Ideal gas data";
     input SI.Temperature T "Temperature";
     input Boolean exclEnthForm=SingleGasNasa.excludeEnthalpyOfFormation
       "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-    input Choices.ReferenceEnthalpy refChoice=SingleGasNasa.referenceChoice
+    input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+                                    refChoice=SingleGasNasa.referenceChoice
       "Choice of reference enthalpy";
     input SI.SpecificEnthalpy h_off=SingleGasNasa.h_offset
       "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
@@ -75,13 +76,14 @@ package Functions
   end h_T;
 
   function h_T_der "derivative function for h_T"
-    import Modelica.Media.Interfaces.PartialMedium.Choices;
+    import Modelica.Media.Interfaces.Choices;
     extends Modelica.Icons.Function;
     input IdealGases.Common.DataRecord data "Ideal gas data";
     input SI.Temperature T "Temperature";
     input Boolean exclEnthForm=SingleGasNasa.excludeEnthalpyOfFormation
       "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-    input Choices.ReferenceEnthalpy refChoice=SingleGasNasa.referenceChoice
+    input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+                                    refChoice=SingleGasNasa.referenceChoice
       "Choice of reference enthalpy";
     input SI.SpecificEnthalpy h_off=SingleGasNasa.h_offset
       "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
@@ -94,13 +96,14 @@ package Functions
 
   function h_Tlow "Compute specific enthalpy, low T region; reference is decided by the
     refChoice input, or by the referenceChoice package constant by default"
-    import Modelica.Media.Interfaces.PartialMedium.Choices;
+    import Modelica.Media.Interfaces.Choices;
     extends Modelica.Icons.Function;
     input IdealGases.Common.DataRecord data "Ideal gas data";
     input SI.Temperature T "Temperature";
     input Boolean exclEnthForm=SingleGasNasa.excludeEnthalpyOfFormation
       "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-    input Choices.ReferenceEnthalpy refChoice=SingleGasNasa.referenceChoice
+    input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+                                    refChoice=SingleGasNasa.referenceChoice
       "Choice of reference enthalpy";
     input SI.SpecificEnthalpy h_off=SingleGasNasa.h_offset
       "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
@@ -123,13 +126,14 @@ package Functions
 
   function h_Tlow_der "Compute specific enthalpy, low T region; reference is decided by the
     refChoice input, or by the referenceChoice package constant by default"
-    import Modelica.Media.Interfaces.PartialMedium.Choices;
+    import Modelica.Media.Interfaces.Choices;
     extends Modelica.Icons.Function;
     input IdealGases.Common.DataRecord data "Ideal gas data";
     input SI.Temperature T "Temperature";
     input Boolean exclEnthForm=SingleGasNasa.excludeEnthalpyOfFormation
       "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-    input Choices.ReferenceEnthalpy refChoice=SingleGasNasa.referenceChoice
+    input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+                                    refChoice=SingleGasNasa.referenceChoice
       "Choice of reference enthalpy";
     input SI.SpecificEnthalpy h_off=SingleGasNasa.h_offset
       "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
