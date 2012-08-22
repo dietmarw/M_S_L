@@ -1,6 +1,7 @@
 within Modelica.Media;
 package Water "Medium models for water"
 
+import Modelica.Media.Interfaces.Choices;
 
 extends Modelica.Icons.Library;
   constant Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidConstants[1] waterConstants(
