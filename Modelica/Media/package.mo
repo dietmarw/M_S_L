@@ -4026,6 +4026,7 @@ Modelica source.
 
     import SI = Modelica.SIunits;
     extends Modelica.Icons.Library;
+    package Choices = Modelica.Media.Interfaces.Choices;
 
     // Constants to be set in Medium
     constant Modelica.Media.Interfaces.Choices.IndependentVariables
