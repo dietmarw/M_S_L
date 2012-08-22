@@ -155,25 +155,25 @@ end UsersGuide;
       D.Sources.Clock CLK(period=20)  annotation (Placement(transformation(
               extent={{-80,-56},{-60,-36}}, rotation=0)));
       D.Sources.Table D0(
-        y0=3,
-        x={4,3,4,3},
+        y0=L.'0',
+        x={L.'1',L.'0',L.'1',L.'0'},
         t={50,100,145,200}) annotation (Placement(transformation(extent={{-80,
                 58},{-60,78}}, rotation=0)));
       D.Sources.Table D1(
-        y0=3,
-        x={4,3,4,3},
+        y0=L.'0',
+        x={L.'1',L.'0',L.'1',L.'0'},
         t={22,140,150,180}) annotation (Placement(transformation(extent={{-80,
                 32},{-60,52}}, rotation=0)));
       D.Examples.Utilities.MUX4 MUX annotation (Placement(transformation(extent=
                {{-10,0},{70,80}}, rotation=0)));
       D.Sources.Table D2(
-        y0=3,
-        x={4,3,4,3},
+        y0=L.'0',
+        x={L.'1',L.'0',L.'1',L.'0'},
         t={22,140,150,180}) annotation (Placement(transformation(extent={{-80,6},
                 {-60,26}}, rotation=0)));
       D.Sources.Table D3(
-        y0=3,
-        x={4,3,4,3},
+        y0=L.'0',
+        x={L.'1',L.'0',L.'1',L.'0'},
         t={22,140,150,180}) annotation (Placement(transformation(extent={{-80,
                 -20},{-60,0}}, rotation=0)));
       D.Examples.Utilities.JKFF FF annotation (Placement(transformation(extent=
@@ -241,13 +241,13 @@ The multiplexer converts a parallel 4 bit signal in a sequential
       D.Sources.Clock CLK(period=10)  annotation (Placement(transformation(
               extent={{-80,-10},{-60,10}}, rotation=0)));
       D.Sources.Table J(
-        y0=3,
-        x={4,3,4,3},
+        y0=L.'0',
+        x={L.'1',L.'0',L.'1',L.'0'},
         t={50,100,145,200}) annotation (Placement(transformation(extent={{-80,
                 18},{-60,38}}, rotation=0)));
       D.Sources.Table K(
-        y0=3,
-        x={4,3,4,3},
+        y0=L.'0',
+        x={L.'1',L.'0',L.'1',L.'0'},
         t={22,140,150,180}) annotation (Placement(transformation(extent={{-80,
                 -38},{-60,-18}}, rotation=0)));
     equation
@@ -285,16 +285,17 @@ Pulse-triggered master-slave flip-flop.
 
     model HalfAdder "adding circuit for binary numbers without input carry bit"
       import Modelica.Electrical.Digital;
+      import L = Modelica.Electrical.Digital.Interfaces.Logic;
 
       Sources.Table a(
         t={1,2,3,4},
-        x={4,3,4,3},
-        y0=3)   annotation (Placement(transformation(extent={{-80,18},{-60,38}},
+        x={L.'1',L.'0',L.'1',L.'0'},
+        y0=L.'0')   annotation (Placement(transformation(extent={{-80,18},{-60,38}},
               rotation=0)));
       Sources.Table b(
-        x={4,3},
+        x={L.'1',L.'0'},
         t={2,4},
-        y0=3)   annotation (Placement(transformation(extent={{-80,-38},{-60,-18}},
+        y0=L.'0')   annotation (Placement(transformation(extent={{-80,-38},{-60,-18}},
               rotation=0)));
       Digital.Examples.Utilities.HalfAdder Adder(delayTime=0.3)
                             annotation (Placement(transformation(extent={{-40,
@@ -455,45 +456,46 @@ The simulation stop time should be 10 seconds.
 
     model Adder4 "4 Bit Adder Example"
       import Modelica.Electrical.Digital;
+      import L = Modelica.Electrical.Digital.Interfaces.Logic;
 
       Digital.Sources.Table b4(
-        y0=3,
-        x={4,3},
+        y0=L.'0',
+        x={L.'1',L.'0'},
         t={1,3}) annotation (Placement(transformation(extent={{70,-20},{110,20}},
               rotation=0)));
       Digital.Sources.Table b1(
-        x={4,3,4},
-        y0=3,
+        x={L.'1',L.'0',L.'1'},
+        y0=L.'0',
         t={1,2,3}) annotation (Placement(transformation(extent={{-170,-20},{
                 -130,20}}, rotation=0)));
       Digital.Sources.Table b2(
-        y0=3,
-        x={4},
+        y0=L.'0',
+        x={L.'1'},
         t={4}) annotation (Placement(transformation(extent={{-90,-20},{-50,20}},
               rotation=0)));
       Digital.Sources.Table b3(
-        y0=3,
-        x={4},
+        y0=L.'0',
+        x={L.'1'},
         t={1}) annotation (Placement(transformation(extent={{-10,-20},{30,20}},
               rotation=0)));
       Digital.Sources.Table a1(
-        y0=3,
-        x={4,3,4},
+        y0=L.'0',
+        x={L.'1',L.'0',L.'1'},
         t={1,2,3}) annotation (Placement(transformation(extent={{-170,40},{-130,
                 80}}, rotation=0)));
       Digital.Sources.Table a2(
-        y0=3,
-        x={4},
+        y0=L.'0',
+        x={L.'1'},
         t={1}) annotation (Placement(transformation(extent={{-90,40},{-50,80}},
               rotation=0)));
       Digital.Sources.Table a3(
-        y0=3,
-        x={4,3},
+        y0=L.'0',
+        x={L.'0',L.'1'},
         t={1,4}) annotation (Placement(transformation(extent={{-8,40},{30,80}},
               rotation=0)));
       Digital.Sources.Table a4(
-        y0=3,
-        x={3},
+        y0=L.'0',
+        x={L.'0'},
         t={1}) annotation (Placement(transformation(extent={{70,40},{110,80}},
               rotation=0)));
       Sources.Set Set(x=3)
@@ -1859,15 +1861,15 @@ components of the Electrical.Digital library.
     connector DigitalOutput = output DigitalSignal
       "output DigitalSignal as connector"
       annotation (defaultComponentName="y", Icon(coordinateSystem(
-            preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics
-          ={Polygon(
+            preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
+            Polygon(
             points={{-100,100},{100,0},{-100,-100},{-100,100}},
             lineColor={127,0,127},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid)}),
                                        Diagram(coordinateSystem(
-            preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics
-          ={Polygon(
+            preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
+            Polygon(
             points={{-100,100},{100,0},{-100,-100},{-100,100}},
             lineColor={127,0,127},
             fillColor={255,255,255},
@@ -2108,7 +2110,6 @@ If time less than <i>delayTime</i> the initial value <i>y0</i> holds.
               fillColor={213,170,255},
               fillPattern=FillPattern.Solid),
             Polygon(points={{-6,60},{-16,40},{4,40},{-6,60}}, lineColor={0,0,0}),
-
             Line(points={{0,60},{20,60}}, color={0,0,0}),
             Line(points={{10,60},{10,40}}, color={0,0,0}),
             Text(
@@ -2179,7 +2180,6 @@ If time is less than <i>Tdel</i> the initial value <i>initout</i> holds.
               fillColor={213,170,255},
               fillPattern=FillPattern.Solid),
             Polygon(points={{-6,60},{-16,40},{4,40},{-6,60}}, lineColor={0,0,0}),
-
             Line(points={{10,60},{10,40}}, color={0,0,0}),
             Line(points={{0,60},{20,60}}, color={0,0,0}),
             Text(
@@ -2213,7 +2213,7 @@ If time is less than <i>Tdel</i> the initial value <i>initout</i> holds.
 
     algorithm
       when {initial(),(tLH > 0 or tHL > 0) and change(x) and not initial()} then
-        x_old := if initial() or pre(x) == 0 then y0 else pre(x);
+        x_old := if initial() or pre(x) == L.'U' then y0 else pre(x);
         lh := delayTable[x_old, x];
         delayTime := if (lh > 0) then tLH else (if (lh < 0) then tHL else 0);
         t_next := time + delayTime;
@@ -2283,7 +2283,6 @@ is used, if it is zero, the input is not delayed.
               lineThickness=0.5,
               textString="sensitive"),
             Polygon(points={{-6,60},{-16,40},{4,40},{-6,60}}, lineColor={0,0,0}),
-
             Line(points={{10,60},{10,40}}, color={0,0,0}),
             Line(points={{0,60},{20,60}}, color={0,0,0})}));
     end InertialDelaySensitive;
@@ -3964,7 +3963,7 @@ If the signal width is greater than 1 this conversion is done for each signal.
       parameter Integer n(final min=1, start=2) "signal width";
     equation
       for i in 1:n loop
-        y[i] = if x[i] == 4 or x[i] == 8 then true else false;
+        y[i] = if x[i] == L.'1' or x[i] == L.'H' then true else false;
       end for;
       annotation (Documentation(info="<HTML>
 <P>

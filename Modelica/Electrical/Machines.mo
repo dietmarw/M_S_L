@@ -7146,7 +7146,6 @@ Converts a space phasor from polar coordinates to rectangular coordinates.
 </HTML>"));
       end FromPolar;
 
-
       annotation (Documentation(info="<HTML>
 This package contains space phasor transformation functions for use in calculations:
 <ul>
