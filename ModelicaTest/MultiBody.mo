@@ -3063,7 +3063,7 @@ a linear damper is connected here.
       annotation (experiment(StopTime=1.1));
     end WorldForces2;
 
-    model Worldtorque
+    model WorldTorques
       extends Modelica.Icons.Example;
       import Modelica.Mechanics.MultiBody.*;
       parameter Real tol=1e-4;
@@ -3154,7 +3154,7 @@ a linear damper is connected here.
           points={{69,-54},{50,-54}},
           color={0,0,127}));
       annotation (experiment(StopTime=1.1));
-    end Worldtorque;
+    end WorldTorques;
 
     model WorldForceAndTorque
       extends Modelica.Icons.Example;

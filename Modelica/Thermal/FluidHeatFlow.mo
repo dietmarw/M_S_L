@@ -1622,7 +1622,7 @@ Thermodynamic equations are defined in partial models (package Partials).</p>
         "Specific heat capacity at constant pressure";
       parameter Modelica.SIunits.SpecificHeatCapacity cv = 1
         "Specific heat capacity at constant volume";
-      parameter Modelica.SIunits.ThermalConductivity lamda = 1
+      parameter Modelica.SIunits.ThermalConductivity lambda = 1
         "Thermal conductivity";
       parameter Modelica.SIunits.KinematicViscosity nue = 1
         "Kinematic viscosity";
@@ -1636,7 +1636,7 @@ Record containing (constant) medium properties.
       rho=1.149,
       cp=1007,
       cv= 720,
-      lamda=0.0264,
+      lambda=0.0264,
       nue=16.3E-6);
       annotation (Documentation(info="<html>
 Medium: properties of air at 30 degC
@@ -1648,7 +1648,7 @@ Medium: properties of air at 30 degC
       rho=1.015,
       cp=1010,
       cv= 723,
-      lamda=0.0293,
+      lambda=0.0293,
       nue=20.3E-6);
       annotation (Documentation(info="<html>
 Medium: properties of air at 70 degC
@@ -1660,7 +1660,7 @@ Medium: properties of air at 70 degC
       rho=995.6,
       cp=4177,
       cv=4177,
-      lamda=0.615,
+      lambda=0.615,
       nue=0.8E-6);
       annotation (Documentation(info="<html>
 Medium: properties of water
