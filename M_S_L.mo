@@ -7817,44 +7817,10 @@ User's Guides that can be accessed by the following links:
 
 </html>"));
 end UsersGuide;
-
-  extends Modelica_Blocks;
-
-  extends Modelica_StateGraph;
-
-  extends Modelica_ComplexBlocks;
-
-  extends Modelica_Fluid;
-
-  extends Modelica_Media;
-
-  extends Modelica_Math;
-
-  extends Modelica_ComplexMath;
-
-  extends Modelica_Utilities;
-
-  extends Modelica_Constants;
-
-  extends Modelica_SIunits;
-
-  extends Modelica_Icons;
-
 extends Modelica_Icons.Package;
 
   package Electrical
     "Library of electrical models (analog, digital, machines, multi-phase)"
-  extends Modelica_Electrical_Analog;
-
-  extends Modelica_Electrical_Digital;
-
-  extends Modelica_Electrical_Machines;
-
-  extends Modelica_Electrical_MultiPhase;
-
-  extends Modelica_Electrical_QuasiStationary;
-
-  extends Modelica_Electrical_Spice3;
 
   extends Modelica_Icons.Package;
 
@@ -7895,11 +7861,6 @@ especially three phase induction machines such as an asynchronous motor.
   end Electrical;
 
   package Magnetic "Library of magnetic models"
-  extends Modelica_Magnetic_FluxTubes;
-
-  extends Modelica_Magnetic_FundamentalWave;
-
-  extends Modelica_Magnetic_QuasiStatic;
 
   extends Modelica_Icons.Package;
 
@@ -7950,11 +7911,6 @@ electro-magnetic devices.
 
   package Mechanics
     "Library of 1-dim. and 3-dim. mechanical components (multi-body, rotational, translational)"
-  extends Modelica_Mechanics_MultiBody;
-
-  extends Modelica_Mechanics_Rotational;
-
-  extends Modelica_Mechanics_Translational;
 
   extends Modelica_Icons.Package;
 
@@ -8009,9 +7965,6 @@ positive if heat is flowing out of the heatPort).
 
   package Thermal
     "Library of thermal system components to model heat transfer and simple thermo-fluid pipe flow"
-  extends Modelica_Thermal_FluidHeatFlow;
-
-  extends Modelica_Thermal_HeatTransfer;
 
     extends Modelica_Icons.Package;
 
