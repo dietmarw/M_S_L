@@ -2466,7 +2466,7 @@ to <b style=\"color:blue\">existing</b> libraries:<br>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Modelica.Math.Matrices.</b></td></tr>
 <tr><td valign=\"top\" width=\"150\">balanceABC</td>
-    <td valign=\"top\"> Return a balanced form of a system [A,B;C,0] 
+    <td valign=\"top\"> Return a balanced form of a system [A,B;C,0]
                       to improve its condition by a state transformation</td></tr>
 </table>
 
@@ -8011,8 +8011,7 @@ versionBuild=0,
 versionDate="2013-08-14",
 dateModified = "2013-08-14 08:44:41Z",
 revisionId="$Id::                                       $",
-uses(Complex(version="3.2.1"), ModelicaServices(version="1.2"),
-      Modelica(version="3.2.2")),
+uses(Complex(version="3.2.1"), ModelicaServices(version="3.2.1")),
 conversion(
  noneFromVersion="3.2",
  noneFromVersion="3.1",
