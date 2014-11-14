@@ -3341,5 +3341,5 @@ Copyright &copy; 1998-2013, Modelica Association, DLR, and Dassault Syst&egrave;
 </p>
 
 </html>"),
-    uses(ModelicaServices(version="1.2")));
+    uses(ModelicaServices(version="3.2.2")));
 end Modelica_Utilities;

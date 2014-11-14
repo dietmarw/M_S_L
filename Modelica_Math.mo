@@ -860,6 +860,7 @@ where <b>Q</b> is an orthogonal matrix, i.e.
     encapsulated function roots
         "Compute zeros of a polynomial where the highest coefficient is assumed as not to be zero"
       import Modelica_Math.Matrices;
+      import Modelica_Icons;
       extends Modelica_Icons.Function;
       input Real p[:]
           "Vector with polynomial coefficients p[1]*x^n + p[2]*x^(n-1) + p[n]*x +p[n-1]";
@@ -3371,6 +3372,7 @@ with
     /*diagonal transformation matrix for balancing*/
 
     encapsulated function columnNorm "Returns the column norm of a matrix"
+      import Modelica_Icons;
       extends Modelica_Icons.Function;
       input Real A[:, :] "Input matrix";
       output Real result=0.0 "1-norm of matrix A";
@@ -3515,6 +3517,7 @@ implementation variant used in this function.
     /*diagonal transformation matrix for balancing*/
 
     encapsulated function columnNorm "Returns the column norm of a matrix"
+      import Modelica_Icons;
       extends Modelica_Icons.Function;
       input Real A[:, :] "Input matrix";
       output Real result=0.0 "1-norm of matrix A";
@@ -4919,6 +4922,7 @@ X = [14.5623, 9.7082;
     Real sorted_MT[size(M, 2), size(M, 1)];
 
     encapsulated function greater "Compare whether vector v1 > v2"
+      import Modelica_Icons;
       extends Modelica_Icons.Function;
       import Modelica_Utilities.Types.Compare;
       input Real v1[:];
@@ -4941,6 +4945,7 @@ X = [14.5623, 9.7082;
     end greater;
 
     encapsulated function less "Compare whether vector v1 < v2"
+      import Modelica_Icons;
       extends Modelica_Icons.Function;
       import Modelica_Utilities.Types.Compare;
       input Real v1[:];
@@ -11913,6 +11918,7 @@ arguments to the example functions.
       extends Modelica_Icons.InterfacesPackage;
     encapsulated partial function partialScalarFunction
         "Interface for a function with one input and one output Real signal"
+      import Modelica_Icons;
       extends Modelica_Icons.Function;
       input Real u "Independent variable";
       output Real y "Dependent variable y=f(u)";

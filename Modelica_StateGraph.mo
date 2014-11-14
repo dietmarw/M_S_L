@@ -3201,6 +3201,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR
         pattern=LinePattern.None,
         fillPattern=FillPattern.Solid,
         points={{-3.3333,10.0},{16.667,0.0},{-3.3333,-10.0}}),
-      Line(origin={15.0,-0.0},  points={{15.0,0.0},{-15.0,-0.0}})}),
-    uses);
+      Line(origin={15.0,-0.0},  points={{15.0,0.0},{-15.0,-0.0}})}));
 end Modelica_StateGraph;

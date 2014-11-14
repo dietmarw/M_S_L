@@ -16,8 +16,8 @@ package UsersGuide "User's Guide of Media Library"
       annotation (Documentation(info="<HTML>
 <h4>Basic usage of medium model</h4>
 <p>
-Media models in Modelica.Media are provided by packages, inheriting from the
-partial package Modelica.Media.Interfaces.PartialMedium. Every package defines:
+Media models in Modelica_Media are provided by packages, inheriting from the
+partial package Modelica_Media.Interfaces.PartialMedium. Every package defines:
 </p>
 <ul>
 <li> Medium <b>constants</b> (such as the number of chemical substances,
@@ -78,7 +78,7 @@ In a component, the most basic usage of a medium model is as follows
 </p>
 <pre>
   <b>model</b> Pump
-    <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium
+    <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium
                          \"Medium model\" <b>annotation</b> (choicesAllMatching = <b>true</b>);
     Medium.BaseProperties medium_a \"Medium properties at location a (e.g., port_a)\";
     // Use medium variables (medium_a.p, medium_a.T, medium_a.h, ...)
@@ -88,7 +88,7 @@ In a component, the most basic usage of a medium model is as follows
 <p>
 The second way is to use the setState_XXX functions to compute the thermodynamic state
 record from which all other thermodynamic state variables can be computed (see
-<a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition.BasicDefinition\">
+<a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition.BasicDefinition\">
 Basic definition of medium</a> for further details on ThermodynamicState). The setState_XXX functions
 accept either X or Xi (see explanation below) and will decide internally which of these two compositions
 is provided by the user. The four fundamental setState_XXX functions are provided in PartialMedium
@@ -114,7 +114,7 @@ is provided by the user. The four fundamental setState_XXX functions are provide
 The simple example that explained the basic usage of BaseProperties would then become
 <pre>
   <b>model</b> Pump
-    <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium
+    <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium
                          \"Medium model\" <b>annotation</b> (choicesAllMatching = <b>true</b>);
     Medium.ThermodynamicState state_a \"Thermodynamic state record at location a (e.g., port_a)\";
     // Compute medium variables from thermodynamic state record (pressure(state_a), temperature(state_a),
@@ -124,7 +124,7 @@ The simple example that explained the basic usage of BaseProperties would then b
 </pre>
 <p>
 All media models are directly or indirectly a subpackage of package
-Modelica.Media.Interfaces.PartialMedium. Therefore,
+Modelica_Media.Interfaces.PartialMedium. Therefore,
 a medium model in a component should inherit from this
 partial package. Via the annotation \"choicesAllMatching = true\" it
 is defined that the tool should display a selection box with
@@ -140,7 +140,7 @@ is given in the next figure:
 A selected medium model leads, e.g., to the following equation:
 </p>
 <pre>
-  Pump pump(<b>redeclare package</b> Medium = Modelica.Media.Water.SimpleLiquidWater);
+  Pump pump(<b>redeclare package</b> Medium = Modelica_Media.Water.SimpleLiquidWater);
 </pre>
 <p>
 Usually, a medium model is associated with the variables of a
@@ -150,7 +150,7 @@ in the medium model:
 </p>
 <pre>
   <b>model</b> Pump
-    <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium
+    <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium
                          \"Medium model\" <b>annotation</b> (choicesAllMatching = <b>true</b>);
     Medium.BaseProperties medium_a \"Medium properties of port_a\";
     // definition of the fluid port port_a
@@ -165,7 +165,7 @@ in the medium model:
 in the case of using BaseProperties or
 <pre>
   <b>model</b> Pump
-    <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium
+    <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium
                          \"Medium model\" <b>annotation</b> (choicesAllMatching = <b>true</b>);
     Medium.ThermodynamicState state_a \"Thermodynamic state record of medium at port_a\";
     // definition of the fluid port port_a
@@ -248,16 +248,16 @@ port that fulfill the mass and energy balance and on a different grid components
 fulfill the momentum balance. A balance volume component, called junction
 volume below, should be primarily implemented in the following way
 (see also the implementation in
-<a href=\"modelica://Modelica.Media.Examples.Tests.Components.PortVolume\">
-Modelica.Media.Examples.Tests.Components.PortVolume</a>):
+<a href=\"modelica://Modelica_Media.Examples.Tests.Components.PortVolume\">
+Modelica_Media.Examples.Tests.Components.PortVolume</a>):
 </p>
 <pre>
   <b>model</b> JunctionVolume
-    <b>import</b> SI=Modelica.SIunits;
-    <b>import</b> Modelica.Media.Examples.Tests.Components.FluidPort_a;
+    <b>import</b> SI=Modelica_SIunits;
+    <b>import</b> Modelica_Media.Examples.Tests.Components.FluidPort_a;
 
     <b>parameter</b> SI.Volume V = 1e-6 \"Fixed size of junction volume\";
-    <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium
+    <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium
                            \"Medium model\" <b>annotation</b> (choicesAllMatching = <b>true</b>);
 
     FluidPort_a port(<b>redeclare package</b> Medium = Medium);
@@ -281,7 +281,7 @@ Modelica.Media.Examples.Tests.Components.PortVolume</a>):
   <b>end</b> JunctionVolume;
 </pre>
 <p>
-Assume the Modelica.Media.Air.SimpleAir medium model is used with
+Assume the Modelica_Media.Air.SimpleAir medium model is used with
 the JunctionVolume model above. This medium model uses pressure p
 and temperature T as independent variables. If the flag
 \"preferredMediumStates\" is set to <b>true</b> in the declaration
@@ -363,17 +363,17 @@ other port. Since no mass or energy is stored, no differential
 equations for thermodynamic variables are present. A component model of this type
 has therefore usually the following structure
 (see also the implementation in
-<a href=\"modelica://Modelica.Media.Examples.Tests.Components.ShortPipe\">
-Modelica.Media.Examples.Tests.Components.ShortPipe</a>):
+<a href=\"modelica://Modelica_Media.Examples.Tests.Components.ShortPipe\">
+Modelica_Media.Examples.Tests.Components.ShortPipe</a>):
 </p>
 <pre>
   <b>model</b> ShortPipe
-    <b>import</b> SI=Modelica.SIunits;
-    <b>import</b> Modelica.Media.Examples.Tests.Components;
+    <b>import</b> SI=Modelica_SIunits;
+    <b>import</b> Modelica_Media.Examples.Tests.Components;
 
     // parameters defining the pressure drop equation
 
-    <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium
+    <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium
                            \"Medium model\" <b>annotation</b> (choicesAllMatching = <b>true</b>);
 
     Component.FluidPort_a port_a (<b>redeclare package</b> Medium = Medium);
@@ -460,7 +460,7 @@ In some cases additional medium properties are needed.
 A component that needs these optional properties has to call
 one of the functions listed in the following table. They are
 defined as partial functions within package
-<a href=\"modelica://Modelica.Media.Interfaces.PartialMedium\">PartialMedium</a>,
+<a href=\"modelica://Modelica_Media.Interfaces.PartialMedium\">PartialMedium</a>,
 and then (optionally) implemented in actual medium packages.
 If a component calls such an optional function and the
 medium package does not provide a new implementation for this
@@ -474,7 +474,7 @@ properties. In the table it is assumed that there is a declaration of the
 form:
 </p>
 <pre>
-   <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium;
+   <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium;
    Medium.ThermodynamicState state;
 </pre>
 
@@ -587,12 +587,12 @@ model of a short pipe has to be changed to:
 </pre>
 
 <p>
-Note, \"Medium.DynamicViscosity\" is a type defined in Modelica.Interfaces.PartialMedium
+Note, \"Medium.DynamicViscosity\" is a type defined in Modelica_Interfaces.PartialMedium
 as
 </p>
 
 <pre>
-  <b>import</b> SI = Modelica.SIunits;
+  <b>import</b> SI = Modelica_SIunits;
   <b>type</b> DynamicViscosity = SI.DynamicViscosity (
                                      min=0,
                                      max=1.e8,
@@ -620,7 +620,7 @@ Every medium model provides the following <b>constants</b>. For example,
 if a medium is declared as:
 </p>
 <pre>
-   <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium;
+   <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium;
 </pre>
 <p>
 then constants \"Medium.mediumName\", \"Medium.nX\", etc. are defined:
@@ -825,8 +825,8 @@ elements</p>
       annotation (Documentation(info="<HTML>
 <p>
 Models for media which can exist in one-phase or two-phase conditions inherit
-from <a href=\"modelica://Modelica.Media.Interfaces.PartialTwoPhaseMedium\">
-Modelica.Media.Interfaces.PartialTwoPhaseMedium</a>
+from <a href=\"modelica://Modelica_Media.Interfaces.PartialTwoPhaseMedium\">
+Modelica_Media.Interfaces.PartialTwoPhaseMedium</a>
 (which inherits from PartialMedium). The basic usage of these
 media models is the same as described in the previous sections. However, additional
 functionalities are provided, which apply only to potentially two-phase media.
@@ -860,7 +860,7 @@ phase = 2 will force the setState value to return a state vector corresponding
 to a two-phase state, as shown in the following example;
 </p>
 <pre>
-   <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialTwoPhaseMedium;
+   <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialTwoPhaseMedium;
    Medium.ThermodynamicState state, state1, state2;
  <b>equation</b>
    // Set the state, given the pressure and the specific enthalpy
@@ -893,7 +893,7 @@ set starting from either the saturation pressure or the saturation temperature,
 as shown in the following example.
 </p>
 <pre>
-   <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialTwoPhaseMedium;
+   <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialTwoPhaseMedium;
    Medium.SaturationProperties sat_p;
    Medium.SaturationProperties sat_T;
  <b>equation</b>
@@ -996,7 +996,7 @@ to call the additional functions already defined for one-phase media.
 Here are some examples:
 </p>
 <pre>
-   <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialTwoPhaseMedium;
+   <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialTwoPhaseMedium;
    Medium.SaturationProperties sat;
    Medium.ThermodynamicState   dew_1;    // dew point, one-phase side
    Medium.ThermodynamicState   bubble_2; // bubble point, two phase side
@@ -1105,19 +1105,19 @@ exist:
 Content:
 </p>
 <ol>
-<li><a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.BasicUsage\">Basic usage of medium model</a></li>
-<li><a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.BalanceVolume\">Medium model for a balance volume</a></li>
-<li><a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.ShortPipe\">Medium model for a pressure loss</a></li>
-<li><a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.OptionalProperties\">Optional medium properties</a></li>
-<li><a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.Constants\">Constants provided by medium model</a></li>
-<li><a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.TwoPhase\">Two-phase media</a></li>
-<li><a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.Initialization\">Initialization</a></li>
+<li><a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.BasicUsage\">Basic usage of medium model</a></li>
+<li><a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.BalanceVolume\">Medium model for a balance volume</a></li>
+<li><a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.ShortPipe\">Medium model for a pressure loss</a></li>
+<li><a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.OptionalProperties\">Optional medium properties</a></li>
+<li><a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.Constants\">Constants provided by medium model</a></li>
+<li><a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.TwoPhase\">Two-phase media</a></li>
+<li><a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.Initialization\">Initialization</a></li>
 </ol>
 
 <p>
-A good demonstration how to use the media from Modelica.Media is
-given in package Modelica.Media.Examples.Tests. Under
-<a href=\"modelica://Modelica.Media.Examples.Tests.Components\">
+A good demonstration how to use the media from Modelica_Media is
+given in package Modelica_Media.Examples.Tests. Under
+<a href=\"modelica://Modelica_Media.Examples.Tests.Components\">
 Tests.Components</a> the most basic components of a Fluid library
 are defined. Under Tests.MediaTestModels these basic components are used to test
 all media models with some very simple piping networks.
@@ -1134,7 +1134,7 @@ all media models with some very simple piping networks.
 
       annotation (Documentation(info="<HTML>
 <p>
-A medium model of Modelica.Media is essentially a <b>package</b>
+A medium model of Modelica_Media is essentially a <b>package</b>
 that contains the following definitions:
 </p>
 <ul>
@@ -1160,11 +1160,11 @@ systems of equations get reasonable start values.</li>
 Note, although we use the term <b>medium model</b>, it
 is actually a Modelica <b>package</b> that contains all the constants and
 definitions required for a complete <b>medium model</b>. The basic interface to a
-medium is defined by Modelica.Media.Interfaces.PartialMedium that has the
+medium is defined by Modelica_Media.Interfaces.PartialMedium that has the
 following structure:</p>
 <pre>
 <b>partial package</b> PartialMedium
-  <b>import</b> SI = Modelica.SIunits;
+  <b>import</b> SI = Modelica_SIunits;
   <b>constant</b> String           mediumName = \"\";
   <b>constant</b> String           substanceNames[:] = {mediumName};
   <b>constant</b> String           extraPropertiesNames[:] = fill(\"\",0);
@@ -1174,7 +1174,7 @@ following structure:</p>
   <b>constant</b> AbsolutePressure reference_p = 101325;
   <b>constant</b> MassFraction     reference_X[nX]=fill(1/nX,nX);
   <b>constant</b> AbsolutePressure p_default = 101325;
-  <b>constant</b> Temperature      T_default = Modelica.SIunits.Conversions.from_degC(20);
+  <b>constant</b> Temperature      T_default = Modelica_SIunits.Conversions.from_degC(20);
   <b>constant</b> SpecificEnthalpy h_default =
                             specificEnthalpy_pTX(p_default, T_default, X_default);
   <b>constant</b> MassFraction     X_default[nX]=reference_X;
@@ -1203,9 +1203,9 @@ following structure:</p>
     ThermodynamicState state;
     <b>parameter</b> Boolean preferredMediumStates=false;
     SI.Conversions.NonSIunits.Temperature_degC T_degC =
-       Modelica.SIunits.Conversions.to_degC(T)
+       Modelica_SIunits.Conversions.to_degC(T)
     SI.Conversions.NonSIunits.Pressure_bar p_bar =
-       Modelica.SIunits.Conversions.to_bar(p)
+       Modelica_SIunits.Conversions.to_bar(p)
   <b>equation</b>
     Xi = X[1:nXi];
     <b>if</b> nX > 1 <b>then</b>
@@ -1288,7 +1288,7 @@ considerably as demonstrated in the following code fragment:
 </p>
 
 <pre>
-  <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium;
+  <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium;
   Medium.BaseProperties   medium;
   Medium.DynamicViscosity eta;
   ...
@@ -1337,7 +1337,7 @@ can be set specifically for a medium in the following way:
 
 <pre>
 <b>package</b> MyMedium
-  <b>extends</b> Modelica.Media.Interfaces.PartialMedium(
+  <b>extends</b> Modelica_Media.Interfaces.PartialMedium(
      ...
      Temperature(min=373));
 <b>end</b> MyMedium;
@@ -1348,7 +1348,7 @@ The type PartialMedium.MassFlowRate is defined as
 </p>
 
 <pre>
-<b>type</b> MassFlowRate = Modelica.SIunits.MassFlowRate
+<b>type</b> MassFlowRate = Modelica_SIunits.MassFlowRate
      (quantity = \"MassFlowRate.\" + mediumName);
 </pre>
 
@@ -1361,7 +1361,7 @@ definition of a fluid library:
 
 <pre>
 <b>connector</b> FluidPort
-  <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium;
+  <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium;
   <b>flow</b> Medium.MassFlowRate m_flow;
   ...
 <b>end</b> FluidPort;
@@ -1383,13 +1383,13 @@ of the graphical user interface.</p>
       annotation (Documentation(info="<HTML>
 <p>
 Let's now walk through the definition of a new medium model. Please refer to
-<a href=\"modelica://Modelica.Media.Interfaces.TemplateMedium\">
-Modelica.Media.Interfaces.TemplateMedium</a> to obtain a template of the new
+<a href=\"modelica://Modelica_Media.Interfaces.TemplateMedium\">
+Modelica_Media.Interfaces.TemplateMedium</a> to obtain a template of the new
 medium model code. For the moment being, consider a single-substance medium
 model.
 </p>
 <p>
-The new medium model is obtained by extending Modelica.Media.Interfaces.PartialMedium, and
+The new medium model is obtained by extending Modelica_Media.Interfaces.PartialMedium, and
 setting the following package constants:
 </p>
 <ul>
@@ -1481,7 +1481,7 @@ caused by that constraint.</li>
 </ul>
 <p> The medium implementer can declare the value reducedX as <b>final</b>. In
 this way only one implementation must be given. For instance,
-Modelica.Media.IdealGases models declare <b>final</b> reducedX = <b>false</b>, so that the
+Modelica_Media.IdealGases models declare <b>final</b> reducedX = <b>false</b>, so that the
 implementation can always assume nXi = nX. The same is true for Air.MoistAir,
 which declares <b>final</b> reducedX = <b>true</b>, and always assumes nXi = nX - 1 = 1.</p>
 <p>It is also possible to leave reducedX modifiable. In this case, the
@@ -1494,7 +1494,7 @@ case fixedX = true properly.</p>
 in the Modelica_Fluid library:</p>
 <pre>
 <b>connector</b> FluidPort
-  <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium;
+  <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium;
   Medium.AbsolutePressure      p;
   <b>flow</b> Medium.MassFlowRate     m_flow;
 
@@ -1507,9 +1507,9 @@ in the Modelica_Fluid library:</p>
 </pre>
 <p>
 For further details, refer to the implementation of
-<a href=\"modelica://Modelica.Media.IdealGases.Common.MixtureGasNasa\">
+<a href=\"modelica://Modelica_Media.IdealGases.Common.MixtureGasNasa\">
       MixtureGasNasa model</a> and
-<a href=\"modelica://Modelica.Media.Air.MoistAir\">
+<a href=\"modelica://Modelica_Media.Air.MoistAir\">
       MoistAir model</a>.
 </p>
 </html>"));
@@ -1540,7 +1540,7 @@ this function is non-linear in the independent medium variables,
 then non-linear systems of equations will occur at
 every connection point, if the FluidPort connectors from the
 Modelica_Fluid library are used (these are the same as in
-Modelica.Media.Examples.Tests.Components.FluidPort).
+Modelica_Media.Examples.Tests.Components.FluidPort).
 Only, if the above rule is fulfilled, a tool is able to
 remove these non-linear system of equations in most cases.
 </p>
@@ -1605,7 +1605,7 @@ is used in all components:
 
 <pre>
 <b>connector</b> FluidPort
-  <b>replaceable package</b> Medium = Modelica.Media.Interfaces.PartialMedium;
+  <b>replaceable package</b> Medium = Modelica_Media.Interfaces.PartialMedium;
   Medium.AbsolutePressure      p;
   <b>flow</b> Medium.MassFlowRate     m_flow;
 
@@ -1746,7 +1746,7 @@ It is assumed that medium equations in a balance volume
 are defined in the following way:
 </p>
 <pre>
-    <b>package</b> Medium = Modelica.Media.Interfaces.PartialMedium;
+    <b>package</b> Medium = Modelica_Media.Interfaces.PartialMedium;
     Medium.BaseProperties medium;
   <b>equation</b>
      // mass balance
@@ -1915,13 +1915,13 @@ states. This means that static state selection is possible.
 <p>
 After implementation of a new medium model, it should
 be tested. A basic test is already provided with model
-Modelica.Media.Examples.Tests.Components.PartialTestModel
+Modelica_Media.Examples.Tests.Components.PartialTestModel
 which might be used in the following way:
 </p>
 
 <pre>
   <b>model</b> TestOfMyMedium
-     <b>extends</b> Modelica.Media.Examples.Tests.Components.PartialTestModel(
+     <b>extends</b> Modelica_Media.Examples.Tests.Components.PartialTestModel(
               <b>redeclare package</b> Medium = MyMedium);
   <b>end</b> TestOfMyMedium;
 </pre>
@@ -1950,8 +1950,8 @@ properties. Of course, more tests should be performed.
     annotation (DocumentationClass=true, Documentation(info="<HTML>
 <p>
 If a new medium model shall be introduced, copy package
-<a href=\"modelica://Modelica.Media.Interfaces.TemplateMedium\">
-Modelica.Media.Interfaces.TemplateMedium</a> to the desired
+<a href=\"modelica://Modelica_Media.Interfaces.TemplateMedium\">
+Modelica_Media.Interfaces.TemplateMedium</a> to the desired
 location, remove the
 \"partial\" keyword from the package and provide
 the information that is requested in the comments of the
@@ -1960,17 +1960,17 @@ A more detailed description for the different parts of the
 TemplateMedium package is given here:
 </p>
 <ol>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition.BasicStructure\">
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition.BasicStructure\">
       Basic structure of medium interface</a></li>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition.BasicDefinition\">
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition.BasicDefinition\">
       Basic definition of medium model</a></li>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition.MultipleSubstances\">
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition.MultipleSubstances\">
       Multiple Substances</a></li>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition.SpecificEnthalpyAsFunction\">
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition.SpecificEnthalpyAsFunction\">
       Specific enthalpy as function</a></li>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition.StaticStateSelection\">
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition.StaticStateSelection\">
       Static State Selection</a></li>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium\">
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition.TestOfMedium\">
       Test of medium model</a></li>
 </ol>
 </HTML>"));
@@ -1996,7 +1996,7 @@ updated User's Guide.
      substance mixtures (this medium model does not describe
      real mixing of water and salt). </li>
 <li> Started to improve the documentation in
-     Modelica.Media.UsersGuide.MediumDefinition.BasicStructure</li>
+     Modelica_Media.UsersGuide.MediumDefinition.BasicStructure</li>
 </ul>
 <h4>Version 0.792, 2003-10-28</h4>
 <p>
@@ -2012,7 +2012,7 @@ for the Modelica'2003 conference (for evaluation).
 
 <h4>Planned changes for version 3.1</h4>
 
-<p>Several changes are planned for version 3.1 of Modelica.Media. In order to have an easy transition, the current version is moved
+<p>Several changes are planned for version 3.1 of Modelica_Media. In order to have an easy transition, the current version is moved
   to the ObsoleteModelica-package and current users can continue to use it for many years. The goal for the new version is to cover many more fluids, be easier to use for users and less for implementers that want to include their own models. A beta-version of the new media library will be available in the first quarter of 2009.</p>
 
 <p>The main user-visible changes are:</p>
@@ -2022,13 +2022,13 @@ for the Modelica'2003 conference (for evaluation).
 <li>All functions will have derivatives to enable analytic Jacobians.</li>
 <li>Mole-fraction based media for process applications</li>
 </ul>
-<p>For further information on the upcoming version, please contact the <a href=\"modelica://Modelica.Media.UsersGuide.Contact\">Author</a></p>
+<p>For further information on the upcoming version, please contact the <a href=\"modelica://Modelica_Media.UsersGuide.Contact\">Author</a></p>
 
 <h4>Forward compatibility</h4>
 <p> In order to simplify transition to the upcoming version of
-Modelica.Media for Modelica 3.1, a new enumeration has been
-introduced:  <a href=\"modelica://Modelica.Media.Interfaces.Choices.IndependentVariables\">IndependentVariables</a> with the
-entries ph, pT, pTX, phX and dTX. Users are advised to use this enumeration to determine the independent variables of a medium. If they are going to use the function based interface of the current Modelica.Media (and not use the BaseProperties from Modelica.Media), they should not have any trouble using the next version without any need for changes in their code.</p>
+Modelica_Media for Modelica 3.1, a new enumeration has been
+introduced:  <a href=\"modelica://Modelica_Media.Interfaces.Choices.IndependentVariables\">IndependentVariables</a> with the
+entries ph, pT, pTX, phX and dTX. Users are advised to use this enumeration to determine the independent variables of a medium. If they are going to use the function based interface of the current Modelica_Media (and not use the BaseProperties from Modelica_Media), they should not have any trouble using the next version without any need for changes in their code.</p>
 
 </html>"));
   end Future;
@@ -2053,12 +2053,12 @@ and many have contributed:
 <li> The essential parts of the media models have been implemented
      in the ThermoFluid library by Hubertus Tummescheit with
      help from Jonas Eborn and Falko Jens Wagner. These media models
-     have been converted to the Modelica.Media interface definition
+     have been converted to the Modelica_Media interface definition
      and have been improved by Hubertus Tummescheit. </li>
-<li> The effort for the development of the Modelica.Media library has been
+<li> The effort for the development of the Modelica_Media library has been
      organized by Martin Otter who also contributed to the design,
      implemented part of the generic models, contributed to the User's Guide
-     and provided the generic test suite Modelica.Media.Examples.Tests.</li>
+     and provided the generic test suite Modelica_Media.Examples.Tests.</li>
 <li> The basic idea for the medium model interface based on packages
      is from Michael Tiller who also contributed to the design.</li>
 <li> The first design of the medium model interface is from
@@ -2076,7 +2076,7 @@ and many have contributed:
      to improve the efficiency considerably (e.g., to avoid non-linear
         systems of equations).</li>
 <li>Katrin Pr&ouml;&szlig; implemented the moist air model</li>
-<li> R&uuml;diger Franke performed the first realistic tests of the Modelica.Media
+<li> R&uuml;diger Franke performed the first realistic tests of the Modelica_Media
         and Modelica_Fluid libraries and gave valuable feedback.</li>
 <li> Francesco Casella has been the most relentless bug-hunter and tester of the
      water and ideal gas properties. He also contributed to the User's Guide.</li>
@@ -2089,7 +2089,7 @@ and many have contributed:
 
   annotation (DocumentationClass=true, Documentation(info="<HTML>
 <p>
-Library <b>Modelica.Media</b> is a <b>free</b> Modelica package providing
+Library <b>Modelica_Media</b> is a <b>free</b> Modelica package providing
 a standardized interface to fluid media models and specific
 media models based on this interface.
 A fluid medium model defines <b>algebraic</b> equations
@@ -2108,7 +2108,7 @@ and design philosophies. It is particularly utilized
 in the Modelica_Fluid library (the Modelica_Fluid library is currently
 under development to provide 1D therm-fluid flow components for
 single and multiple substance flow with one and multiple phases).
-The Modelica.Media library has the following
+The Modelica_Media library has the following
 main features:
 </p>
 <ul>
@@ -2124,7 +2124,7 @@ main features:
      generate as efficient code as a traditional
      (coupled) definition. This feature is described in more
      detail in section
-     <a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition.StaticStateSelection\">Static State Selection</a>.</li>
+     <a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition.StaticStateSelection\">Static State Selection</a>.</li>
 <li> Optional variables, such as dynamic viscosity, are only computed if
      needed in the corresponding component.</li>
 <li> The independent variables of a medium model do not
@@ -2148,18 +2148,18 @@ main features:
 This User's Guide has the following main parts:
 </p>
 <ul>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage\">Medium usage</a>
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage\">Medium usage</a>
      describes how to use a medium model from
      this library in a component model.</li>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition\">Medium definition</a>
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition\">Medium definition</a>
      describes how a new fluid medium
      model has to be implemented.</li>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.ReleaseNotes\">ReleaseNotes</a>
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.ReleaseNotes\">ReleaseNotes</a>
      summarizes the changes of the library releases.</li>
-<li><a href=\"modelica://Modelica.Media.UsersGuide.Future\">Future</a>
-    provides information about the upcoming version 3.1 of Modelica.Media and
+<li><a href=\"modelica://Modelica_Media.UsersGuide.Future\">Future</a>
+    provides information about the upcoming version 3.1 of Modelica_Media and
     some changes to this version to enable forward compatibility.</li>
-<li><a href=\"modelica://Modelica.Media.UsersGuide.Contact\">Contact</a>
+<li><a href=\"modelica://Modelica_Media.UsersGuide.Contact\">Contact</a>
     provides information about the authors of the library as well as
     acknowledgements.</li>
 </ul>
@@ -2970,9 +2970,9 @@ is given to compare the approximation.
     end IdealGasN2;
 
     //   package TestMedia "Test interfaces of media"
-    //     extends Modelica.Icons.Package;
+    //     extends Modelica_Icons.Package;
     //     model TemplateMedium "Test Interfaces.TemplateMedium"
-    //       extends Modelica.Icons.Example;
+    //       extends Modelica_Icons.Example;
     //       package Medium = Interfaces.TemplateMedium "Medium model";
     //       Medium.ThermodynamicState state;
     //
@@ -3053,7 +3053,7 @@ is given to compare the approximation.
 
       connector FluidPort
           "Interface for quasi one-dimensional fluid flow in a piping network (incompressible or compressible, one or more phases, one or more substances)"
-        // extends Modelica.Icons.ObsoleteModel;
+        // extends Modelica_Icons.ObsoleteModel;
         replaceable package Medium = Modelica_Media.Interfaces.PartialMedium
             "Medium model"
                          annotation (choicesAllMatching=true);
@@ -3108,7 +3108,7 @@ is given to compare the approximation.
                         lineColor={0,0,0},
                         fillColor={0,127,255},
                         fillPattern=FillPattern.Solid)}),
-          Documentation(info="<html>Modelica.Media.Examples.Tests.Components.FluidPort_a
+          Documentation(info="<html>Modelica_Media.Examples.Tests.Components.FluidPort_a
 </html>"));
       end FluidPort_a;
 
@@ -3153,7 +3153,7 @@ is given to compare the approximation.
 
       model PortVolume
           "Fixed volume associated with a port by the finite volume method"
-        // extends Modelica.Icons.ObsoleteModel;
+        // extends Modelica_Icons.ObsoleteModel;
         replaceable package Medium = Modelica_Media.Interfaces.PartialMedium
             "Medium model"
                          annotation (choicesAllMatching=true);
@@ -3257,7 +3257,7 @@ transport.
 
       model FixedMassFlowRate
           "Ideal pump that produces a constant mass flow rate from a large reservoir at fixed temperature and mass fraction"
-        // extends Modelica.Icons.ObsoleteModel;
+        // extends Modelica_Icons.ObsoleteModel;
         parameter Medium.MassFlowRate m_flow
             "Fixed mass flow rate from an infinite reservoir to the fluid port";
 
@@ -3340,7 +3340,7 @@ transport.
 
       model FixedAmbient
           "Ambient pressure, temperature and mass fraction source"
-        // extends Modelica.Icons.ObsoleteModel;
+        // extends Modelica_Icons.ObsoleteModel;
         replaceable package Medium = Modelica_Media.Interfaces.PartialMedium
             "Medium model"
                          annotation (choicesAllMatching=true);
@@ -3429,7 +3429,7 @@ with exception of ambient pressure, do not have an effect.
       end FixedAmbient;
 
       model ShortPipe "Simple pressure loss in pipe"
-        // extends Modelica.Icons.ObsoleteModel;
+        // extends Modelica_Icons.ObsoleteModel;
         replaceable package Medium = Modelica_Media.Interfaces.PartialMedium
             "Medium model"
                          annotation (choicesAllMatching=true);
@@ -3499,7 +3499,7 @@ no mass or energy is stored in the pipe.
 
       partial model PartialTestModel "Basic test model to test a medium"
         import SI = Modelica_SIunits;
-        // extends Modelica.Icons.ObsoleteModel;
+        // extends Modelica_Icons.ObsoleteModel;
 
         replaceable package Medium = Modelica_Media.Interfaces.PartialMedium
             "Medium model"
@@ -3562,7 +3562,7 @@ no mass or energy is stored in the pipe.
       partial model PartialTestModel2
           "Slightly larger test model to test a medium"
         import SI = Modelica_SIunits;
-        // extends Modelica.Icons.ObsoleteModel;
+        // extends Modelica_Icons.ObsoleteModel;
         replaceable package Medium = Modelica_Media.Interfaces.PartialMedium
             "Medium model"
                          annotation (choicesAllMatching=true);
@@ -3636,9 +3636,9 @@ no mass or energy is stored in the pipe.
 
     package MediaTestModels "Test models to test all media"
       extends Modelica_Icons.ExamplesPackage;
-      package Air "Test models of library Modelica.Media.Air"
+      package Air "Test models of library Modelica_Media.Air"
         extends Modelica_Icons.ExamplesPackage;
-        model SimpleAir "Test Modelica.Media.Air.SimpleAir"
+        model SimpleAir "Test Modelica_Media.Air.SimpleAir"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3648,7 +3648,7 @@ no mass or energy is stored in the pipe.
 </html>"), experiment(StopTime=1.01));
         end SimpleAir;
 
-        model DryAirNasa "Test Modelica.Media.Air.DryAirNasa"
+        model DryAirNasa "Test Modelica_Media.Air.DryAirNasa"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3658,7 +3658,7 @@ no mass or energy is stored in the pipe.
 </html>"), experiment(StopTime=1.01));
         end DryAirNasa;
 
-        model MoistAir "Test Modelica.Media.Air.MoistAir"
+        model MoistAir "Test Modelica_Media.Air.MoistAir"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3672,10 +3672,10 @@ no mass or energy is stored in the pipe.
 </html>"));
       end Air;
 
-      package IdealGases "Test models of library Modelica.Media.IdealGases"
+      package IdealGases "Test models of library Modelica_Media.IdealGases"
         extends Modelica_Icons.ExamplesPackage;
 
-        model Air "Test single gas Modelica.Media.IdealGases.SingleGases.Air"
+        model Air "Test single gas Modelica_Media.IdealGases.SingleGases.Air"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3686,7 +3686,7 @@ no mass or energy is stored in the pipe.
         end Air;
 
         model Nitrogen
-            "Test single gas Modelica.Media.IdealGases.SingleGases.N2"
+            "Test single gas Modelica_Media.IdealGases.SingleGases.N2"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3698,7 +3698,7 @@ no mass or energy is stored in the pipe.
         end Nitrogen;
 
         model SimpleNaturalGas
-            "Test mixture gas Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas"
+            "Test mixture gas Modelica_Media.IdealGases.MixtureGases.SimpleNaturalGas"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3710,7 +3710,7 @@ no mass or energy is stored in the pipe.
         end SimpleNaturalGas;
 
         model SimpleNaturalGasFixedComposition
-            "Test mixture gas Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas"
+            "Test mixture gas Modelica_Media.IdealGases.MixtureGases.SimpleNaturalGas"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3721,9 +3721,9 @@ no mass or energy is stored in the pipe.
       end IdealGases;
 
       package Incompressible
-          "Test models of library Modelica.Media.Incompressible"
+          "Test models of library Modelica_Media.Incompressible"
         extends Modelica_Icons.ExamplesPackage;
-        model Glycol47 "Test Modelica.Media.Incompressible.Examples.Glycol47"
+        model Glycol47 "Test Modelica_Media.Incompressible.Examples.Glycol47"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3736,7 +3736,7 @@ no mass or energy is stored in the pipe.
         end Glycol47;
 
         model Essotherm650
-            "Test Modelica.Media.Incompressible.Examples.Essotherm65"
+            "Test Modelica_Media.Incompressible.Examples.Essotherm65"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3751,10 +3751,10 @@ no mass or energy is stored in the pipe.
 </html>"));
       end Incompressible;
 
-      package Water "Test models of library Modelica.Media.Water"
+      package Water "Test models of library Modelica_Media.Water"
         extends Modelica_Icons.ExamplesPackage;
         model ConstantPropertyLiquidWater
-            "Test Modelica.Media.Water.ConstantPropertyLiquidWater"
+            "Test Modelica_Media.Water.ConstantPropertyLiquidWater"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3765,7 +3765,7 @@ no mass or energy is stored in the pipe.
 </html>"), experiment(StopTime=1.01));
         end ConstantPropertyLiquidWater;
 
-        model IdealSteam "Test Modelica.Media.Water.IdealSteam"
+        model IdealSteam "Test Modelica_Media.Water.IdealSteam"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3776,7 +3776,7 @@ no mass or energy is stored in the pipe.
         end IdealSteam;
 
         model WaterIF97OnePhase_ph
-            "Test Modelica.Media.Water.WaterIF97OnePhase_ph"
+            "Test Modelica_Media.Water.WaterIF97OnePhase_ph"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3789,7 +3789,7 @@ no mass or energy is stored in the pipe.
 </html>"), experiment(StopTime=1.01));
         end WaterIF97OnePhase_ph;
 
-        model WaterIF97_pT "Test Modelica.Media.Water.WaterIF97_pT"
+        model WaterIF97_pT "Test Modelica_Media.Water.WaterIF97_pT"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3799,7 +3799,7 @@ no mass or energy is stored in the pipe.
 </html>"), experiment(StopTime=1.01));
         end WaterIF97_pT;
 
-        model WaterIF97_ph "Test Modelica.Media.Water.WaterIF97_ph"
+        model WaterIF97_ph "Test Modelica_Media.Water.WaterIF97_ph"
             import Modelica_Media;
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
@@ -3811,9 +3811,9 @@ no mass or energy is stored in the pipe.
 </html>"), experiment(StopTime=1.01));
         end WaterIF97_ph;
         /*
-        model WaterIF97_dT "Test Modelica.Media.Water.WaterIF97_dT"
-          extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
-             redeclare package Medium = Modelica.Media.Water.WaterIF97_dT,
+        model WaterIF97_dT "Test Modelica_Media.Water.WaterIF97_dT"
+          extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
+             redeclare package Medium = Modelica_Media.Water.WaterIF97_dT,
               ambient(use_p_ambient=false, d_ambient=996.557));
         end WaterIF97_dT;
 */
@@ -3823,10 +3823,10 @@ no mass or energy is stored in the pipe.
       end Water;
 
       package LinearFluid
-          "Test models of library Modelica.Media.Incompressible"
+          "Test models of library Modelica_Media.Incompressible"
         extends Modelica_Icons.ExamplesPackage;
         model LinearColdWater
-            "Test Modelica.Media.Incompressible.Examples.Glycol47"
+            "Test Modelica_Media.Incompressible.Examples.Glycol47"
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
                 redeclare package Medium = CompressibleLiquids.LinearColdWater);
@@ -3836,7 +3836,7 @@ no mass or energy is stored in the pipe.
         end LinearColdWater;
 
         model LinearWater_pT
-            "Test Modelica.Media.Incompressible.Examples.Essotherm65"
+            "Test Modelica_Media.Incompressible.Examples.Essotherm65"
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
                 redeclare package Medium =
@@ -4137,7 +4137,7 @@ output window.
 <p>
 This package demonstrates how to solve one non-linear algebraic
 equation in one unknown with function
-Modelica.Media.Common.OneNonLinearEquation.
+Modelica_Media.Common.OneNonLinearEquation.
 </p>
 
 </html>"));
@@ -4147,7 +4147,7 @@ Modelica.Media.Common.OneNonLinearEquation.
 Physical properties for fluids are needed in so many different variants
 that a library can only provide models for the most common situations.
 With the following examples we are going to demonstrate how to use the
-existing packages and functions in Modelica.Media to customize these
+existing packages and functions in Modelica_Media to customize these
 models for advanced applications. The high level functions try to
 abstract as much as possible form the fact that different media are
 based on different variables, e.g., ideal gases need pressure and
@@ -4174,10 +4174,10 @@ input to arbitrary property functions.<br>
 
 <p>
 A small library of generic volume, pipe, pump and ambient models
-is provided in Modelica.Media.Examples.Tests.Components to demonstrate
-how fluid components should be implemented that are using Modelica.Media
+is provided in Modelica_Media.Examples.Tests.Components to demonstrate
+how fluid components should be implemented that are using Modelica_Media
 models. This library is also used to test all media models in
-Modelica.Media.Examples.Tests.MediaTestModels.
+Modelica_Media.Examples.Tests.MediaTestModels.
 </p>
 </html>"));
 end Examples;
@@ -4531,7 +4531,7 @@ permitting advanced equation balance checking by Modelica tools.
 Please note that this doesn't mean that the additional equations
 should be connection equations, nor that exactly those variables
 should be supplied, in order to complete the model.
-For further information, see the Modelica.Media User's guide, and
+For further information, see the Modelica_Media User's guide, and
 Section 4.7 (Balanced Models) of the Modelica 3.0 specification.</p>
 </html>"));
     end BaseProperties;
@@ -4980,9 +4980,9 @@ kappa is defined as - 1/v * der(v,p), with v = 1/d at constant temperature T.
         max=1.e5) "Type for mass flow rate with medium specific attributes";
 
     // Only for backwards compatibility to version 3.2 (
-    // (do not use these definitions in new models, but use Modelica.Media.Interfaces.Choices instead)
+    // (do not use these definitions in new models, but use Modelica_Media.Interfaces.Choices instead)
     package Choices = Modelica_Media.Interfaces.Choices annotation (obsolete=
-          "Use Modelica.Media.Interfaces.Choices");
+          "Use Modelica_Media.Interfaces.Choices");
 
     annotation (Documentation(info="<html>
 <p>
@@ -4993,7 +4993,7 @@ are defined that every medium is supposed to support
 inherits from <b>PartialMedium</b> and provides the
 equations for the medium. The details of this package
 are described in
-<a href=\"modelica://Modelica.Media.UsersGuide\">Modelica.Media.UsersGuide</a>.
+<a href=\"modelica://Modelica_Media.UsersGuide\">Modelica_Media.UsersGuide</a>.
 </p>
 </html>", revisions="<html>
 
@@ -7787,7 +7787,7 @@ critical pressure.
     //   record GibbsDerivs
 
     //     "Derivatives of dimensionless Gibbs-function w.r.t. dimensionless pressure and temperature"
-    //     extends Modelica.Icons.Record;
+    //     extends Modelica_Icons.Record;
     //     Real pi "Dimensionless pressure";
     //     Real tau "Dimensionless temperature";
     //     Real g "Dimensionless Gibbs-function";
@@ -7801,7 +7801,7 @@ critical pressure.
     //   record HelmholtzDerivs
 
     //     "Derivatives of dimensionless Helmholtz-function w.r.t. dimensionless pressure, density and temperature"
-    //     extends Modelica.Icons.Record;
+    //     extends Modelica_Icons.Record;
     //     Real delta "Dimensionless density";
     //     Real tau "Dimensionless temperature";
     //     Real f "Dimensionless Helmholtz-function";
@@ -9098,7 +9098,7 @@ Summing all mass fractions together results in
 
     annotation (Documentation(info="<html>
 <p>
-This function should currently only be used in Modelica.Media,
+This function should currently only be used in Modelica_Media,
 since it might be replaced in the future by another strategy,
 where the tool is responsible for the solution of the non-linear
 equation.
@@ -9158,7 +9158,7 @@ provide a package in the following way:
 </html>"));
   end OneNonLinearEquation;
   annotation (Documentation(info="<HTML><h4>Package description</h4>
-      <p>Package Modelica.Media.Common provides records and functions shared by many of the property sub-packages.
+      <p>Package Modelica_Media.Common provides records and functions shared by many of the property sub-packages.
       High accuracy fluid property models share a lot of common structure, even if the actual models are different.
       Common data structures and computations shared by these property models are collected in this library.
    </p>
@@ -9172,7 +9172,7 @@ provide a package in the following way:
       <li>Code reorganization, enhanced documentation, additional functions: <i>December, 2002</i>
       by <a href=\"http://www.control.lth.se/~hubertus/\">Hubertus Tummescheit</a> and move to Modelica
                             properties library.</li>
-      <li>Inclusion into Modelica.Media: September 2003 </li>
+      <li>Inclusion into Modelica_Media: September 2003 </li>
       </ul>
 
       <address>Author: Hubertus Tummescheit, <br>
@@ -9275,7 +9275,7 @@ end Common;
 </p>
 
 <p>
-Ideal gas medium model for dry air based on the package <a href=\"modelica://Modelica.Media.IdealGases\">IdealGases</a> with additional functions for dynamic viscosity and thermal conductivity in a limited temperature range.
+Ideal gas medium model for dry air based on the package <a href=\"modelica://Modelica_Media.IdealGases\">IdealGases</a> with additional functions for dynamic viscosity and thermal conductivity in a limited temperature range.
 </p>
 </html>"));
     end DryAirNasa;
@@ -9336,7 +9336,7 @@ Ideal gas medium model for dry air based on the package <a href=\"modelica://Mod
           annotation (Documentation(info="<html>
 <h4>Usage</h4>
 <p>
-The package Air_ph can be used as any other medium model (see <a href=\"modelica://Modelica.Media.UsersGuide\">User's Guide of Media Library</a> for further information).
+The package Air_ph can be used as any other medium model (see <a href=\"modelica://Modelica_Media.UsersGuide\">User's Guide of Media Library</a> for further information).
 </p>
 </html>"));
         end Air_ph;
@@ -9353,7 +9353,7 @@ The package Air_ph can be used as any other medium model (see <a href=\"modelica
           annotation (Documentation(info="<html>
 <h4>Usage</h4>
 <p>
-The package Air_pT can be used as any other medium model (see <a href=\"modelica://Modelica.Media.UsersGuide\">User's Guide of Media Library</a> for further information).
+The package Air_pT can be used as any other medium model (see <a href=\"modelica://Modelica_Media.UsersGuide\">User's Guide of Media Library</a> for further information).
 </p>
 </html>"));
         end Air_pT;
@@ -9371,7 +9371,7 @@ The package Air_pT can be used as any other medium model (see <a href=\"modelica
           annotation (Documentation(info="<html>
 <h4>Usage</h4>
 <p>
-The package Air_dT can be used as any other medium model (see <a href=\"modelica://Modelica.Media.UsersGuide\">User's Guide of Media Library</a> for further information).
+The package Air_dT can be used as any other medium model (see <a href=\"modelica://Modelica_Media.UsersGuide\">User's Guide of Media Library</a> for further information).
 </p>
 </html>"));
         end Air_dT;
@@ -9846,10 +9846,10 @@ The following quantities are always computed:
 In some cases additional medium properties are needed.
 A component that needs these optional properties has to call
 one of the functions listed in
-<a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.OptionalProperties\">
-Modelica.Media.UsersGuide.MediumUsage.OptionalProperties</a> and in
-<a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.TwoPhase\">
-Modelica.Media.UsersGuide.MediumUsage.TwoPhase</a>.
+<a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.OptionalProperties\">
+Modelica_Media.UsersGuide.MediumUsage.OptionalProperties</a> and in
+<a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.TwoPhase\">
+Modelica_Media.UsersGuide.MediumUsage.TwoPhase</a>.
 </p>
 <p>Many further properties can be computed. Using the well-known Bridgman's Tables, all first partial derivatives of the standard thermodynamic variables can be computed easily.</p>
 </html>"));
@@ -11398,9 +11398,9 @@ Modelica.Media.UsersGuide.MediumUsage.TwoPhase</a>.
         end Air_Utilities;
         annotation (Documentation(info="<html>
 <p>
-Calculation of fluid properties of air in the fluid region of 130 Kelvin to 2000 Kelvin at pressures up to 2000 MPa. To use this package in your model, select <a href=\"modelica://Modelica.Media.Air.ReferenceAir.Air_dT\">
-Air_dT</a>, <a href=\"modelica://Modelica.Media.Air.ReferenceAir.Air_pT\">
-Air_pT</a> or <a href=\"modelica://Modelica.Media.Air.ReferenceAir.Air_ph\">Air_ph</a> according to which variables you choose to determine your state.
+Calculation of fluid properties of air in the fluid region of 130 Kelvin to 2000 Kelvin at pressures up to 2000 MPa. To use this package in your model, select <a href=\"modelica://Modelica_Media.Air.ReferenceAir.Air_dT\">
+Air_dT</a>, <a href=\"modelica://Modelica_Media.Air.ReferenceAir.Air_pT\">
+Air_pT</a> or <a href=\"modelica://Modelica_Media.Air.ReferenceAir.Air_ph\">Air_ph</a> according to which variables you choose to determine your state.
 </p>
 
 <h4>Restriction</h4>
@@ -11551,7 +11551,7 @@ required from medium model \""     + mediumName + "\".");
           x_water =Xi[Water]/max(X_air, 100*Modelica_Constants.eps);
           phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
           annotation (Documentation(info="<html>
-<p>This model computes thermodynamic properties of moist air from three independent (thermodynamic or/and numerical) state variables. Preferred numerical states are temperature T, pressure p and the reduced composition vector Xi, which contains the water mass fraction only. As an EOS the <b>ideal gas law</b> is used and associated restrictions apply. The model can also be used in the <b>fog region</b>, when moisture is present in its liquid state. However, it is assumed that the liquid water volume is negligible compared to that of the gas phase. Computation of thermal properties is based on property data of <a href=\"modelica://Modelica.Media.Air.DryAirNasa\"> dry air</a> and water (source: VDI-W&auml;rmeatlas), respectively. Besides the standard thermodynamic variables <b>absolute and relative humidity</b>, x_water and phi, respectively, are given by the model. Upper case X denotes absolute humidity with respect to mass of moist air while absolute humidity with respect to mass of dry air only is denoted by a lower case x throughout the model. See <a href=\"modelica://Modelica.Media.Air.MoistAir\">package description</a> for further information.</p>
+<p>This model computes thermodynamic properties of moist air from three independent (thermodynamic or/and numerical) state variables. Preferred numerical states are temperature T, pressure p and the reduced composition vector Xi, which contains the water mass fraction only. As an EOS the <b>ideal gas law</b> is used and associated restrictions apply. The model can also be used in the <b>fog region</b>, when moisture is present in its liquid state. However, it is assumed that the liquid water volume is negligible compared to that of the gas phase. Computation of thermal properties is based on property data of <a href=\"modelica://Modelica_Media.Air.DryAirNasa\"> dry air</a> and water (source: VDI-W&auml;rmeatlas), respectively. Besides the standard thermodynamic variables <b>absolute and relative humidity</b>, x_water and phi, respectively, are given by the model. Upper case X denotes absolute humidity with respect to mass of moist air while absolute humidity with respect to mass of dry air only is denoted by a lower case x throughout the model. See <a href=\"modelica://Modelica_Media.Air.MoistAir\">package description</a> for further information.</p>
 </html>"));
         end BaseProperties;
 
@@ -11574,7 +11574,7 @@ required from medium model \""     + mediumName + "\".");
                   X,
                   {1 - sum(X)}));
           annotation (smoothOrder=2, Documentation(info="<html>
-The <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from pressure p, temperature T and composition X.
+The <a href=\"modelica://Modelica_Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from pressure p, temperature T and composition X.
 </html>"));
         end setState_pTX;
 
@@ -11603,7 +11603,7 @@ The <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermo
                   X,
                   {1 - sum(X)}));
           annotation (smoothOrder=2, Documentation(info="<html>
-The <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
+The <a href=\"modelica://Modelica_Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
 </html>"));
         end setState_phX;
 
@@ -11629,7 +11629,7 @@ The <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermo
                   X,
                   {1 - sum(X)}));
           annotation (smoothOrder=2, Documentation(info="<html>
-The <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from density d, temperature T and composition X.
+The <a href=\"modelica://Modelica_Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from density d, temperature T and composition X.
 </html>"));
         end setState_dTX;
 
@@ -11749,7 +11749,7 @@ Relative humidity is computed from the thermodynamic state record with 1.0 as th
 
         /*
     redeclare function setState_psX "Return thermodynamic state as function of p, s and composition X"
-      extends Modelica.Icons.Function;
+      extends Modelica_Icons.Function;
       input AbsolutePressure p "Pressure";
       input SpecificEntropy s "Specific entropy";
       input MassFraction X[:]=reference_X "Mass fractions";
@@ -11766,7 +11766,7 @@ Relative humidity is computed from the thermodynamic state record with 1.0 as th
         algorithm
           R := dryair.R*(1 - state.X[Water]) + steam.R*state.X[Water];
           annotation (smoothOrder=2, Documentation(info="<html>
-The ideal gas constant for moist air is computed from <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state</a> assuming that all water is in the gas phase.
+The ideal gas constant for moist air is computed from <a href=\"modelica://Modelica_Media.Air.MoistAir.ThermodynamicState\">thermodynamic state</a> assuming that all water is in the gas phase.
 </html>"));
         end gasConstant;
 
@@ -11912,7 +11912,7 @@ The ideal gas constant for moist air is computed from the gas phase composition.
             derivative=saturationPressure_der,
             Documentation(info="<html>
 Saturation pressure of water in the liquid and the solid region is computed using correlations. Functions for the
-<a href=\"modelica://Modelica.Media.Air.MoistAir.sublimationPressureIce\">solid</a> and the <a href=\"modelica://Modelica.Media.Air.MoistAir.saturationPressureLiquid\"> liquid</a> region, respectively, are combined using the first derivative continuous <a href=\"modelica://Modelica.Media.Air.MoistAir.Utilities.spliceFunction\">spliceFunction</a>. This functions range of validity is from 190 to 647.096 K. For more information on the type of correlation used, see the documentation of the linked functions.
+<a href=\"modelica://Modelica_Media.Air.MoistAir.sublimationPressureIce\">solid</a> and the <a href=\"modelica://Modelica_Media.Air.MoistAir.saturationPressureLiquid\"> liquid</a> region, respectively, are combined using the first derivative continuous <a href=\"modelica://Modelica_Media.Air.MoistAir.Utilities.spliceFunction\">spliceFunction</a>. This functions range of validity is from 190 to 647.096 K. For more information on the type of correlation used, see the documentation of the linked functions.
 </html>"));
         end saturationPressure;
 
@@ -11939,7 +11939,7 @@ Saturation pressure of water in the liquid and the solid region is computed usin
             Inline=false,
             smoothOrder=5,
             Documentation(info="<html>
-Derivative function of <a href=\"modelica://Modelica.Media.Air.MoistAir.saturationPressure\">saturationPressure</a>
+Derivative function of <a href=\"modelica://Modelica_Media.Air.MoistAir.saturationPressure\">saturationPressure</a>
 </html>"));
         end saturationPressure_der;
 
@@ -11978,7 +11978,7 @@ Derivative function of <a href=\"modelica://Modelica.Media.Air.MoistAir.saturati
                 T_max,
                 f_nonlinear_data=Internal.f_nonlinear_Data());
           annotation (Documentation(info="<html>
- Computes saturation temperature from (partial) pressure via numerical inversion of the function <a href=\"modelica://Modelica.Media.Air.MoistAir.saturationPressure\">saturationPressure</a>. Therefore additional inputs are required (or the defaults are used) for upper and lower temperature bounds.
+ Computes saturation temperature from (partial) pressure via numerical inversion of the function <a href=\"modelica://Modelica_Media.Air.MoistAir.saturationPressure\">saturationPressure</a>. Therefore additional inputs are required (or the defaults are used) for upper and lower temperature bounds.
 </html>"));
         end saturationTemperature;
 
@@ -12048,7 +12048,7 @@ The specific heat capacity of water (liquid and solid) is calculated using a
             Inline=false,
             smoothOrder=5,
             Documentation(info="<html>
-Specific enthalpy of liquid water is computed from temperature using a polynomial approach. Kept for compatibility reasons, better use <a href=\"modelica://Modelica.Media.Air.MoistAir.enthalpyOfWater\">enthalpyOfWater</a> instead.
+Specific enthalpy of liquid water is computed from temperature using a polynomial approach. Kept for compatibility reasons, better use <a href=\"modelica://Modelica_Media.Air.MoistAir.enthalpyOfWater\">enthalpyOfWater</a> instead.
 </html>"));
         end enthalpyOfLiquid;
 
@@ -12070,7 +12070,7 @@ Specific enthalpy of liquid water is computed from temperature using a polynomia
             Inline=false,
             smoothOrder=5,
             Documentation(info="<html>
-Specific enthalpy of moist air is computed from temperature, provided all water is in the gaseous state. The first entry in the composition vector X must be the mass fraction of steam. For a function that also covers the fog region please refer to <a href=\"modelica://Modelica.Media.Air.MoistAir.h_pTX\">h_pTX</a>.
+Specific enthalpy of moist air is computed from temperature, provided all water is in the gaseous state. The first entry in the composition vector X must be the mass fraction of steam. For a function that also covers the fog region please refer to <a href=\"modelica://Modelica_Media.Air.MoistAir.h_pTX\">h_pTX</a>.
 </html>"));
         end enthalpyOfGas;
 
@@ -12158,7 +12158,7 @@ Pressure is assumed to be around 1 bar. This function is usually used to determi
                 dT,
                 0);
           annotation (Documentation(info="<html>
-Derivative function for <a href=\"modelica://Modelica.Media.Air.MoistAir.enthalpyOfWater\">enthalpyOfWater</a>.
+Derivative function for <a href=\"modelica://Modelica_Media.Air.MoistAir.enthalpyOfWater\">enthalpyOfWater</a>.
 
 </html>"));
         end enthalpyOfWater_der;
@@ -12222,7 +12222,7 @@ Temperature is returned from the thermodynamic state record input as a simple as
                 X[1:nXi],
                 steam);
           annotation (Documentation(info="<html>
-Temperature is computed from pressure, specific enthalpy and composition via numerical inversion of function <a href=\"modelica://Modelica.Media.Air.MoistAir.h_pTX\">h_pTX</a>.
+Temperature is computed from pressure, specific enthalpy and composition via numerical inversion of function <a href=\"modelica://Modelica_Media.Air.MoistAir.h_pTX\">h_pTX</a>.
 </html>"));
         end T_phX;
 
@@ -12375,7 +12375,7 @@ Specific enthalpy of moist air is computed from pressure, temperature and compos
             Inline=false,
             smoothOrder=1,
             Documentation(info="<html>
-Derivative function for <a href=\"modelica://Modelica.Media.Air.MoistAir.h_pTX\">h_pTX</a>.
+Derivative function for <a href=\"modelica://Modelica_Media.Air.MoistAir.h_pTX\">h_pTX</a>.
 </html>"));
         end h_pTX_der;
 
@@ -12561,7 +12561,7 @@ Specific internal energy is determined from pressure p, temperature T and compos
                   h_off=25104.684) + X_liquid*enthalpyOfWater_der(T=T, dT=dT)
            + dX_liq*enthalpyOfWater(T) - dR_gas*T - R_gas*dT;
           annotation (Documentation(info="<html>
-Derivative function for <a href=\"modelica://Modelica.Media.Air.MoistAir.specificInternalEnergy_pTX\">specificInternalEnergy_pTX</a>.
+Derivative function for <a href=\"modelica://Modelica_Media.Air.MoistAir.specificInternalEnergy_pTX\">specificInternalEnergy_pTX</a>.
 </html>"));
         end specificInternalEnergy_pTX_der;
 
@@ -12892,7 +12892,7 @@ It must be noted that the relationship of both axis variables is not right-angle
 <p>
 <b>Legend:</b> blue - constant specific enthalpy, red - constant temperature, black - constant relative humidity</p>
 
-<p>The model provides data for lines of constant specific enthalpy, temperature and relative humidity in a Mollier Diagram or Psychrometric Chart as they were used for the figures above. For limitations and ranges of validity please refer to the <a href=\"modelica://Modelica.Media.Air.MoistAir\">MoistAir package description</a>. Absolute humidity <b>x</b> is increased with time in this model. The specific enthalpies adjusted for plotting are then obtained from:</p>
+<p>The model provides data for lines of constant specific enthalpy, temperature and relative humidity in a Mollier Diagram or Psychrometric Chart as they were used for the figures above. For limitations and ranges of validity please refer to the <a href=\"modelica://Modelica_Media.Air.MoistAir\">MoistAir package description</a>. Absolute humidity <b>x</b> is increased with time in this model. The specific enthalpies adjusted for plotting are then obtained from:</p>
 <ul>
 <li><b>y_h</b>: constant specific enthalpy</li>
 <li><b>y_T</b>: constant temperature</li>
@@ -13024,7 +13024,7 @@ It must be noted that the relationship of both axis variables is not right-angle
                 X[1:nX],
                 steam);
           annotation (Documentation(info="<html>
-Temperature is computed from pressure, specific entropy and composition via numerical inversion of function <a href=\"modelica://Modelica.Media.Air.MoistAir.specificEntropy\">specificEntropy</a>.
+Temperature is computed from pressure, specific entropy and composition via numerical inversion of function <a href=\"modelica://Modelica_Media.Air.MoistAir.specificEntropy\">specificEntropy</a>.
 </html>",     revisions="<html>
 <p>2012-01-12        Stefan Wischhusen: Initial Release.</p>
 </html>"));
@@ -13049,7 +13049,7 @@ Temperature is computed from pressure, specific entropy and composition via nume
                   X,
                   {1 - sum(X)}));
           annotation (smoothOrder=2, Documentation(info="<html>
-The <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
+The <a href=\"modelica://Modelica_Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
 </html>",     revisions="<html>
 <p>2012-01-12        Stefan Wischhusen: Initial Release.</p>
 </html>"));
@@ -13185,7 +13185,7 @@ The thermodynamic model may be used for <b>temperatures</b> ranging from <b>190 
 <p>Several additional functions that are not needed to describe the thermodynamic system, but are required to model transport processes, like heat and mass transfer, may be called. They usually neglect the moisture influence unless otherwise stated.</p>
 
 <h4>Application</h4>
-<p>The model's main area of application is all processes that involve moist air cooling under near atmospheric pressure with possible moisture condensation. This is the case in all domestic and industrial air conditioning applications. Another large domain of moist air applications covers all processes that deal with dehydration of bulk material using air as a transport medium. Engineering tasks involving moist air are often performed (or at least visualized) by using charts that contain all relevant thermodynamic data for a moist air system. These so called psychrometric charts can be generated from the medium properties in this package. The model <a href=\"modelica://Modelica.Media.Air.MoistAir.PsychrometricData\">PsychrometricData</a> may be used for this purpose in order to obtain data for figures like those below (the plotting itself is not part of the model though).</p>
+<p>The model's main area of application is all processes that involve moist air cooling under near atmospheric pressure with possible moisture condensation. This is the case in all domestic and industrial air conditioning applications. Another large domain of moist air applications covers all processes that deal with dehydration of bulk material using air as a transport medium. Engineering tasks involving moist air are often performed (or at least visualized) by using charts that contain all relevant thermodynamic data for a moist air system. These so called psychrometric charts can be generated from the medium properties in this package. The model <a href=\"modelica://Modelica_Media.Air.MoistAir.PsychrometricData\">PsychrometricData</a> may be used for this purpose in order to obtain data for figures like those below (the plotting itself is not part of the model though).</p>
 
 <p>
 <img src=\"modelica://Modelica/Resources/Images/Media/Air/Mollier.png\"><br>
@@ -13900,7 +13900,7 @@ The thermodynamic model may be used for <b>temperatures</b> ranging from <b>190 
                     2000.0,
                     1e-9);
             annotation (inverse(h=
-                    Modelica.Media.Air.ReferenceMoistAir.Utilities.h_pTX(
+                    Modelica_Media.Air.ReferenceMoistAir.Utilities.h_pTX(
                           p=p,
                           T=T,
                           X=X)));
@@ -13945,7 +13945,7 @@ The thermodynamic model may be used for <b>temperatures</b> ranging from <b>190 
                     2000.0,
                     1e-9);
             annotation (inverse(s=
-                    Modelica.Media.Air.ReferenceMoistAir.Utilities.s_pTX(
+                    Modelica_Media.Air.ReferenceMoistAir.Utilities.s_pTX(
                           p=p,
                           T=T,
                           X=X)));
@@ -13990,7 +13990,7 @@ The thermodynamic model may be used for <b>temperatures</b> ranging from <b>190 
                     1e7,
                     1e-9);
             annotation (inverse(d=
-                    Modelica.Media.Air.ReferenceMoistAir.Utilities.rho_pTX(
+                    Modelica_Media.Air.ReferenceMoistAir.Utilities.rho_pTX(
                           p=p,
                           T=T,
                           X=X)), Documentation(revisions="<html>
@@ -15874,8 +15874,8 @@ The thermodynamic model may be used for <b>temperatures</b> ranging from <b>190 
                 o[8]);
 
               //   //Gibbs equation
-              //   g.g := g0 - s_0*Modelica.Media.Air.ReferenceMoistAir.Utilities.Ice09_Utilities.Basic.Constants.Tred
-              //     *g.theta + Modelica.Media.Air.ReferenceMoistAir.Utilities.Ice09_Utilities.Basic.Constants.Tred
+              //   g.g := g0 - s_0*Modelica_Media.Air.ReferenceMoistAir.Utilities.Ice09_Utilities.Basic.Constants.Tred
+              //     *g.theta + Modelica_Media.Air.ReferenceMoistAir.Utilities.Ice09_Utilities.Basic.Constants.Tred
               //     *GibbsComplex.fromReal(r_1*((t[1] - g.theta)*GibbsComplexMath.log(t[1] - g.theta)
               //      + (t[1] + g.theta)*GibbsComplexMath.log(t[1] + g.theta) - 2*t[1]*
               //     GibbsComplexMath.log(t[1]) - g.theta^2/t[1]) + r2*((t[2] - g.theta)*
@@ -15900,7 +15900,7 @@ The thermodynamic model may be used for <b>temperatures</b> ranging from <b>190 
                 *MyComplexF.toReal(MyComplexF.'*'(r2p, o[10]));
 
               //   //Second derivative of g w.r.t. p
-              //   g.gpp := g0pp + Modelica.Media.Air.ReferenceMoistAir.Utilities.Ice09_Utilities.Basic.Constants.Tred
+              //   g.gpp := g0pp + Modelica_Media.Air.ReferenceMoistAir.Utilities.Ice09_Utilities.Basic.Constants.Tred
               //     *GibbsComplex.fromReal(r2pp*((t[2] - g.theta)*GibbsComplexMath.log(t[2] - g.theta)
               //      + (t[2] + g.theta)*GibbsComplexMath.log(t[2] + g.theta) - 2*t[2]*
               //     GibbsComplexMath.log(t[2]) - g.theta^2/t[2]));
@@ -15929,7 +15929,7 @@ The thermodynamic model may be used for <b>temperatures</b> ranging from <b>190 
                 MyComplexF.'*'(r2, o[12])));
 
               //   //Second derivative of g w.r.t. T
-              //   g.gTT := 1/Modelica.Media.Air.ReferenceMoistAir.Utilities.Ice09_Utilities.Basic.Constants.Tred
+              //   g.gTT := 1/Modelica_Media.Air.ReferenceMoistAir.Utilities.Ice09_Utilities.Basic.Constants.Tred
               //     *GibbsComplex.fromReal(r_1*(1/(t[1] - g.theta) + 1/(t[1] + g.theta) - 2/t[1])
               //      + r2*(1/(t[2] - g.theta) + 1/(t[2] + g.theta) - 2/t[2]));
 
@@ -17086,7 +17086,7 @@ The thermodynamic model may be used for <b>temperatures</b> ranging from <b>190 
                       T,
                       p_der,
                       T_der);
-            //pd := xw/(Modelica.Media.Air.ReferenceMoistAir.k_mair + xw)*p;
+            //pd := xw/(Modelica_Media.Air.ReferenceMoistAir.k_mair + xw)*p;
             pd_der := (xw_der*(Modelica_Media.Air.ReferenceMoistAir.k_mair + xw)
                - xw*xw_der)*p + xw/(Modelica_Media.Air.ReferenceMoistAir.k_mair
                + xw)*p_der;
@@ -17779,7 +17779,7 @@ The functions provided by this package shall be used inside of the restricted li
 
 <h4>Usage</h4>
 <p>
-The package MoistAir can be used as any other medium model (see <a href=\"modelica://Modelica.Media.UsersGuide\">User's Guide of Media Library</a> for further information). The package defines two boolean constants <b>useEnhancementFactor</b> and <b>useDissociation</b>, which give the user fine grained control of the calculations.
+The package MoistAir can be used as any other medium model (see <a href=\"modelica://Modelica_Media.UsersGuide\">User's Guide of Media Library</a> for further information). The package defines two boolean constants <b>useEnhancementFactor</b> and <b>useDissociation</b>, which give the user fine grained control of the calculations.
 </p>
 <table border=1 cellspacing=0 cellpadding=2>
 <tr>
@@ -17899,7 +17899,7 @@ The saturation pressure p<sub>ds</sub> of water in moist air is calculated by p<
 <p>
 For temperatures above 773.15 K effects of dissociation are taken into account. Dissociation is modeled according to [11].
 For high temperatures the calculated values for moist air with 0 kg(water)/kg(dry air) (i.e. dry air) may differ from those
-calculated by the package Modelica.Media.Air.ReferenceAir, because there no dissociation is considered.
+calculated by the package Modelica_Media.Air.ReferenceAir, because there no dissociation is considered.
 </p>
 
 <h4>References</h4>
@@ -18925,9 +18925,9 @@ The following quantities are always computed:
 </table>
 <p>
 For the other variables, see the functions in
-Modelica.Media.IdealGases.Common.SingleGasNasa.
+Modelica_Media.IdealGases.Common.SingleGasNasa.
 Note, dynamic viscosity and thermal conductivity are only provided
-for gases that use a data record from Modelica.Media.IdealGases.FluidData.
+for gases that use a data record from Modelica_Media.IdealGases.FluidData.
 Currently these are the following gases:
 </p>
 <pre>
@@ -18984,7 +18984,7 @@ this never caused problems so far.
 </p>
 <p>
 This model has been copied from the ThermoFluid library
-and adapted to the Modelica.Media package.
+and adapted to the Modelica_Media package.
 </p>
 </HTML>"));
     end SingleGasNasa;
@@ -19810,7 +19810,7 @@ average of the pure component conductivities.
           y := s_TX(x,Xfull) - sum(Xfull[i]*Modelica_Constants.R/MMX[i]*
           (if Xfull[i]<Modelica_Constants.eps then Y[i] else
           Modelica_Math.log(Y[i]*p/reference_p)) for i in 1:nX);
-            // s_TX(x,X)- data[:].R*X*(Modelica.Math.log(p/reference_p)
+            // s_TX(x,X)- data[:].R*X*(Modelica_Math.log(p/reference_p)
             //       + MixEntropy(massToMoleFractions(X,data[:].MM)));
         end f_nonlinear;
 
@@ -20566,7 +20566,7 @@ It has been developed by Hubertus Tummescheit.
 <p>
 This package contains FluidConstants data records for the following 37 gases
 (see also the description in
-<a href=\"modelica://Modelica.Media.IdealGases\">Modelica.Media.IdealGases</a>):
+<a href=\"modelica://Modelica_Media.IdealGases\">Modelica_Media.IdealGases</a>):
 </p>
 <pre>
 Argon             Methane          Methanol       Carbon Monoxide  Carbon Dioxide
@@ -38432,7 +38432,7 @@ Sulfur Dioxide    Sulfur Trioxide
 This package contains medium
 models for the following 37 gases
 (see also the description in
-<a href=\"modelica://Modelica.Media.IdealGases\">Modelica.Media.IdealGases</a>):
+<a href=\"modelica://Modelica_Media.IdealGases\">Modelica_Media.IdealGases</a>):
 </p>
 <pre>
 Argon             Methane          Methanol       Carbon Monoxide  Carbon Dioxide
@@ -38564,36 +38564,36 @@ Sulfur Dioxide    Sulfur Trioxide
   report TP-2002-211556</p>
 </blockquote>
 <p>Medium models for some of these gases are available in package
-<a href=\"modelica://Modelica.Media.IdealGases.SingleGases\">IdealGases.SingleGases</a>
-and some examples for mixtures are available in package <a href=\"modelica://Modelica.Media.IdealGases.MixtureGases\">IdealGases.MixtureGases</a>
+<a href=\"modelica://Modelica_Media.IdealGases.SingleGases\">IdealGases.SingleGases</a>
+and some examples for mixtures are available in package <a href=\"modelica://Modelica_Media.IdealGases.MixtureGases\">IdealGases.MixtureGases</a>
 </p>
 <h4>Using and Adapting Medium Models</h4>
 <p>
 The data records allow computing the ideal gas specific enthalpy, specific entropy and heat capacity of the substances listed below. From them, even the Gibbs energy and equilibrium constants for reactions can be computed. Critical data that is needed for computing the viscosity and thermal conductivity is not included. In order to add mixtures or single substance medium packages that are
 subtypes of
-<a href=\"modelica://Modelica.Media.Interfaces.PartialMedium\">Interfaces.PartialMedium</a>
+<a href=\"modelica://Modelica_Media.Interfaces.PartialMedium\">Interfaces.PartialMedium</a>
 (i.e., can be utilized at all places where PartialMedium is defined),
 a few additional steps have to be performed:
 </p>
 <ol>
 <li>
 All single gas media need to define a constant instance of record
-<a href=\"modelica://Modelica.Media.Interfaces.PartialMedium.FluidConstants\">IdealGases.Common.SingleGasNasa.FluidConstants</a>.
+<a href=\"modelica://Modelica_Media.Interfaces.PartialMedium.FluidConstants\">IdealGases.Common.SingleGasNasa.FluidConstants</a>.
 For 37 ideal gases such records are provided in package
-<a href=\"modelica://Modelica.Media.IdealGases.Common.FluidData\">IdealGases.Common.FluidData</a>.
+<a href=\"modelica://Modelica_Media.IdealGases.Common.FluidData\">IdealGases.Common.FluidData</a>.
 For the other gases, such a record instance has to be provided by the user, e.g., by getting
 the data from a commercial or public data base. A public source of the needed data is for example the <a href=\"http://webbook.nist.gov/chemistry/\"> NIST Chemistry WebBook</a></li>
 
 <li>When the data is available, and a user has an instance of a
-<a href=\"modelica://Modelica.Media.Interfaces.PartialMedium.FluidConstants\">FluidConstants</a> record filled with data, a medium package has to be written. Note that only the dipole moment, the accentric factor and critical data are necessary for the viscosity and thermal conductivity functions.</li>
+<a href=\"modelica://Modelica_Media.Interfaces.PartialMedium.FluidConstants\">FluidConstants</a> record filled with data, a medium package has to be written. Note that only the dipole moment, the accentric factor and critical data are necessary for the viscosity and thermal conductivity functions.</li>
 <li><ul>
 <li>For single components, a new package following the pattern in
-<a href=\"modelica://Modelica.Media.IdealGases.SingleGases\">IdealGases.SingleGases</a> has to be created, pointing both to a data record for cp and to a user-defined fluidContants record.</li>
+<a href=\"modelica://Modelica_Media.IdealGases.SingleGases\">IdealGases.SingleGases</a> has to be created, pointing both to a data record for cp and to a user-defined fluidContants record.</li>
 <li>For mixtures of several components, a new package following the pattern in
-<a href=\"modelica://Modelica.Media.IdealGases.MixtureGases\">IdealGases.MixtureGases</a> has to be created, building an array of data records for cp and an array of (partly) user-defined fluidContants records.</li>
+<a href=\"modelica://Modelica_Media.IdealGases.MixtureGases\">IdealGases.MixtureGases</a> has to be created, building an array of data records for cp and an array of (partly) user-defined fluidContants records.</li>
 </ul></li>
 </ol>
-<p>Note that many properties can computed for the full set of 1241 gases listed below, but due to the missing viscosity and thermal conductivity functions, no fully Modelica.Media-compliant media can be defined.</p>
+<p>Note that many properties can computed for the full set of 1241 gases listed below, but due to the missing viscosity and thermal conductivity functions, no fully Modelica_Media-compliant media can be defined.</p>
 <p>
 Data records for heat capacity, specific enthalpy and specific entropy exist for the following substances and ions:
 </p>
@@ -38885,7 +38885,7 @@ density and heat capacity as functions of temperature.</li>
       end BaseProps_Tpoly;
 
       //     record BaseProps_Tpoly_old "Fluid state record"
-      //       extends Modelica.Media.Interfaces.PartialMedium.ThermodynamicState;
+      //       extends Modelica_Media.Interfaces.PartialMedium.ThermodynamicState;
       //       //      SI.SpecificHeatCapacity cp "Specific heat capacity";
       //       SI.Temperature T "Temperature";
       //       SI.Pressure p "Pressure";
@@ -38990,7 +38990,7 @@ density and heat capacity as functions of temperature.</li>
         T(start = T_start,
           stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default))
         "Base properties of T dependent medium"
-      //  redeclare parameter SpecificHeatCapacity R=Modelica.Constants.R,
+      //  redeclare parameter SpecificHeatCapacity R=Modelica_Constants.R,
 
         Modelica_SIunits.SpecificHeatCapacity cp "Specific heat capacity";
         parameter Modelica_SIunits.Temperature T_start=298.15
@@ -39323,7 +39323,7 @@ which is only exactly true for a fluid with constant density d=d0.
       end T_ps;
 
       package Polynomials_Temp
-        "Temporary Functions operating on polynomials (including polynomial fitting); only to be used in Modelica.Media.Incompressible.TableBased"
+        "Temporary Functions operating on polynomials (including polynomial fitting); only to be used in Modelica_Media.Incompressible.TableBased"
         extends Modelica_Icons.Package;
 
         function evaluate "Evaluate polynomial at a given abscissa value"
@@ -39664,8 +39664,8 @@ energy, which makes all medium properties pure functions of temperature.</li>
 The default setting for both these flags is true, which enables the simulation tool
 to choose temperature as the only medium state and avoids non-linear equation
 systems, see the section about
-<a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition.StaticStateSelection\">Static
-state selection</a> in the Modelica.Media User's Guide.
+<a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition.StaticStateSelection\">Static
+state selection</a> in the Modelica_Media User's Guide.
 </p>
 
 <h4>Contents</h4>
@@ -39673,18 +39673,18 @@ state selection</a> in the Modelica.Media User's Guide.
 Currently, the package contains the following parts:
 </p>
 <ol>
-<li> <a href=\"modelica://Modelica.Media.Incompressible.TableBased\">
+<li> <a href=\"modelica://Modelica_Media.Incompressible.TableBased\">
       Table based medium models</a></li>
-<li> <a href=\"modelica://Modelica.Media.Incompressible.Examples\">
+<li> <a href=\"modelica://Modelica_Media.Incompressible.Examples\">
       Example medium models</a></li>
 </ol>
 
 <p>
 A few examples are given in the Examples package. The model
-<a href=\"modelica://Modelica.Media.Incompressible.Examples.Glycol47\">
+<a href=\"modelica://Modelica_Media.Incompressible.Examples.Glycol47\">
 Examples.Glycol47</a> shows how the medium models can be used. For more
 realistic examples of how to implement volume models with medium properties
-look in the <a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage\">Medium
+look in the <a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage\">Medium
 usage section</a> of the User's Guide.
 </p>
 
@@ -40139,7 +40139,7 @@ Example:
 <pre>
     Medium.AbsolutePressure p=3e5;
     // Viscosity on the liquid phase boundary
-    Modelica.SIunits.DynamicViscosity eta_liq;
+    Modelica_SIunits.DynamicViscosity eta_liq;
 
     equation
 
@@ -40172,7 +40172,7 @@ Example:
 <pre>
     Medium.AbsolutePressure p=3e5;
     // Viscosity on the vapor phase boundary
-    Modelica.SIunits.DynamicViscosity eta_vap;
+    Modelica_SIunits.DynamicViscosity eta_vap;
 
     equation
 
@@ -40381,7 +40381,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
         dTp := Common.CubicSplineDerEval(localx, T_coef[int, :])/R134aData.data.FPCRIT;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the derivative of saturation temperature of R134a with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.saturationTemperature\"> saturatuionTemperature</a>.
+<p>This function calculates the derivative of saturation temperature of R134a with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.saturationTemperature\"> saturatuionTemperature</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40413,7 +40413,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           *der_p;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the time derivative of saturation temperature of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.saturationTemperature\"> saturatuionTemperature</a>.
+<p>This function calculates the time derivative of saturation temperature of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.saturationTemperature\"> saturatuionTemperature</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40472,7 +40472,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           int, 1:4])/R134aData.data.FPCRIT;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the derivative of liquid density of R134a in the two-phase region with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.bubbleDensity\"> bubbleDensity</a>.
+<p>This function calculates the derivative of liquid density of R134a in the two-phase region with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.bubbleDensity\"> bubbleDensity</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40507,7 +40507,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           dl_coef[int, 1:4])/R134aData.data.FPCRIT*der_sat.psat;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the time derivative of liquid density of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.bubbleDensity\"> bubbleDensity</a>.
+<p>This function calculates the time derivative of liquid density of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.bubbleDensity\"> bubbleDensity</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40565,7 +40565,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           int, 1:4])/R134aData.data.FPCRIT;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the derivative of vapor density of R134a in two-phase region with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.dewDensity\"> dewDensity</a>.
+<p>This function calculates the derivative of vapor density of R134a in two-phase region with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.dewDensity\"> dewDensity</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40600,7 +40600,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           dv_coef[int, 1:4])/R134aData.data.FPCRIT*der_sat.psat;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the time derivative of vapor density of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.dewDensity\"> dewDensity</a>.
+<p>This function calculates the time derivative of vapor density of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.dewDensity\"> dewDensity</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40659,7 +40659,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           int, 1:4])/R134aData.data.FPCRIT;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the derivative of liquid enthalpy of R134a with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.bubbleEnthalpy\"> bubbleEnthalpy</a>.
+<p>This function calculates the derivative of liquid enthalpy of R134a with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.bubbleEnthalpy\"> bubbleEnthalpy</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40694,7 +40694,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           hl_coef[int, 1:4])/R134aData.data.FPCRIT*der_sat.psat;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the time derivative of liquid specific enthalpy of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.bubbleEnthalpy\"> bubbleEnthalpy</a>.
+<p>This function calculates the time derivative of liquid specific enthalpy of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.bubbleEnthalpy\"> bubbleEnthalpy</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40753,7 +40753,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           int, 1:4])/R134aData.data.FPCRIT;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the derivative of vapor enthalpy of R134a in the two-phase region with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.dewEnthalpy\"> dewEnthalpy</a>.
+<p>This function calculates the derivative of vapor enthalpy of R134a in the two-phase region with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.dewEnthalpy\"> dewEnthalpy</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40788,7 +40788,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           hv_coef[int, 1:4])/R134aData.data.FPCRIT*der_sat.psat;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the time derivative of vapor enthalpy of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.dewEnthalpy\"> dewEnthalpy</a>.
+<p>This function calculates the time derivative of vapor enthalpy of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.dewEnthalpy\"> dewEnthalpy</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40851,7 +40851,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           int, 1:4])/R134aData.data.FPCRIT;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the derivative of vapor entropy of R134a with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.dewEntropy\"> dewEntropy</a>.
+<p>This function calculates the derivative of vapor entropy of R134a with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.dewEntropy\"> dewEntropy</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40886,7 +40886,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           sv_coef[int, 1:4])/R134aData.data.FPCRIT*der_sat.psat;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the time derivative of vapor specific entropy of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.dewEntropy\"> dewEntropy</a>.
+<p>This function calculates the time derivative of vapor specific entropy of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.dewEntropy\"> dewEntropy</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40948,7 +40948,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           int, 1:4])/R134aData.data.FPCRIT;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the derivative of liquid entropy of R134a with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.bubbleEntropy\"> bubbleEntropy</a>.
+<p>This function calculates the derivative of liquid entropy of R134a with regard to the state variable p (absolute pressure). The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.bubbleEntropy\"> bubbleEntropy</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -40982,7 +40982,7 @@ the fundamental equation of state of Tillner-Roth and Baehr (1994) and the Maxwe
           sl_coef[int, 1:4])/R134aData.data.FPCRIT*der_sat.psat;
 
         annotation (Documentation(info="<html>
-<p>This function calculates the time derivative of liquid specific entropy of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica.Media.R134a.R134a_ph.bubbleEntropy\"> bubbleEntropy</a>.
+<p>This function calculates the time derivative of liquid specific entropy of R134a with regard to the time derivative of p. The non-derivative function is <a href=\"modelica://Modelica_Media.R134a.R134a_ph.bubbleEntropy\"> bubbleEntropy</a>.
 </p>
 <h3> Restrictions</h3>
 <p>It is only valid in the two-phase region (i.e., p<sub>triple</sub> &le; p &le; p<sub>crit</sub> ).
@@ -41564,7 +41564,7 @@ The isentropic efficiency function should not be applied in liquid region.
 <p> This function calculates the density and temperature of R134a from absolute pressure and specific enthalpy. In one-phase region the function calls the fundamental helmholtz equation of Tillner-Roth (1994). In two-phase the density and temperature is computed from cubic splines for saturated pressure, liquid and vapor density.
 </p>
 <h4>Restrictions</h4>
-The function cannot be inverted in a numerical way. Please use functions <a href=\"modelica://Modelica.Media.R134a.R134a_ph.rho_props_ph\">rho_props_ph</a> and <a href=\"modelica://Modelica.Media.R134a.R134a_ph.T_props_ph\">T_props_ph</a> for this purpose.
+The function cannot be inverted in a numerical way. Please use functions <a href=\"modelica://Modelica_Media.R134a.R134a_ph.rho_props_ph\">rho_props_ph</a> and <a href=\"modelica://Modelica_Media.R134a.R134a_ph.T_props_ph\">T_props_ph</a> for this purpose.
 </html>"));
       end dt_ph;
 
@@ -42048,7 +42048,7 @@ This function computes the specific enthalpy in two-phase for R134a depending on
         end if;
 
         annotation (Documentation(info="<html>
-This function calculates the derivative of density w.r.t. time. It is used as derivative function for <a href=\"modelica://Modelica.Media.R134a.R134a_ph.rho_props_ph\"> rho_props_ph</a>.
+This function calculates the derivative of density w.r.t. time. It is used as derivative function for <a href=\"modelica://Modelica_Media.R134a.R134a_ph.rho_props_ph\"> rho_props_ph</a>.
 </html>"));
       end rho_ph_der;
 
@@ -42093,7 +42093,7 @@ This function integrates the derivative of density w.r.t. time in order to allow
         end if;
 
         annotation (Documentation(info="<html>
-This function calculates the derivative of temperature w.r.t. time. It is used as derivative function for <a href=\"modelica://Modelica.Media.R134a.R134a_ph.T_props_ph\"> T_props_ph</a>.
+This function calculates the derivative of temperature w.r.t. time. It is used as derivative function for <a href=\"modelica://Modelica_Media.R134a.R134a_ph.T_props_ph\"> T_props_ph</a>.
 </html>"));
       end T_ph_der;
 
@@ -49785,8 +49785,8 @@ This model calculates medium properties
 for water in the <b>liquid</b>, <b>gas</b> and <b>two phase</b> regions
 according to the IAPWS/IF97 standard, i.e., the accepted industrial standard
 and best compromise between accuracy and computation time.
-For more details see <a href=\"modelica://Modelica.Media.Water.IF97_Utilities\">
-Modelica.Media.Water.IF97_Utilities</a>. Three variable pairs can be the
+For more details see <a href=\"modelica://Modelica_Media.Water.IF97_Utilities\">
+Modelica_Media.Water.IF97_Utilities</a>. Three variable pairs can be the
 independent variables of the model:
 </p>
 <ol>
@@ -49821,10 +49821,10 @@ The following quantities are always computed:
 In some cases additional medium properties are needed.
 A component that needs these optional properties has to call
 one of the functions listed in
-<a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.OptionalProperties\">
-Modelica.Media.UsersGuide.MediumUsage.OptionalProperties</a> and in
-<a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.TwoPhase\">
-Modelica.Media.UsersGuide.MediumUsage.TwoPhase</a>.
+<a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.OptionalProperties\">
+Modelica_Media.UsersGuide.MediumUsage.OptionalProperties</a> and in
+<a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.TwoPhase\">
+Modelica_Media.UsersGuide.MediumUsage.TwoPhase</a>.
 </p>
 <p>Many further properties can be computed. Using the well-known Bridgman's Tables, all first partial derivatives of the standard thermodynamic variables can be computed easily.</p>
 </html>"));
@@ -50590,8 +50590,8 @@ This model calculates medium properties
 for water in the <b>liquid</b>, <b>gas</b> and <b>two phase</b> regions
 according to the IAPWS/IF97 standard, i.e., the accepted industrial standard
 and best compromise between accuracy and computation time.
-For more details see <a href=\"modelica://Modelica.Media.Water.IF97_Utilities\">
-Modelica.Media.Water.IF97_Utilities</a>. Three variable pairs can be the
+For more details see <a href=\"modelica://Modelica_Media.Water.IF97_Utilities\">
+Modelica_Media.Water.IF97_Utilities</a>. Three variable pairs can be the
 independent variables of the model:
 </p>
 <ol>
@@ -50626,10 +50626,10 @@ The following quantities are always computed:
 In some cases additional medium properties are needed.
 A component that needs these optional properties has to call
 one of the functions listed in
-<a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.OptionalProperties\">
-Modelica.Media.UsersGuide.MediumUsage.OptionalProperties</a> and in
-<a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.TwoPhase\">
-Modelica.Media.UsersGuide.MediumUsage.TwoPhase</a>.
+<a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.OptionalProperties\">
+Modelica_Media.UsersGuide.MediumUsage.OptionalProperties</a> and in
+<a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.TwoPhase\">
+Modelica_Media.UsersGuide.MediumUsage.TwoPhase</a>.
 </p>
 <p>Many further properties can be computed. Using the well-known Bridgman's Tables, all first partial derivatives of the standard thermodynamic variables can be computed easily.
 </p>
@@ -52359,7 +52359,7 @@ Modelica.Media.UsersGuide.MediumUsage.TwoPhase</a>.
  </address>
  <ul>
  <li>Initial version: July 2000</li>
- <li>Revised and extended for inclusion in Modelica.Thermal: December 2002</li>
+ <li>Revised and extended for inclusion in Modelica_Thermal: December 2002</li>
 </ul>
 </html>"));
         end Regions;
@@ -56815,7 +56815,7 @@ white-space:nowrap;
 <p>Based on IAPWS-IF97, Modelica functions are available for calculating
 the most common thermophysical properties (thermodynamic and transport
 properties). The implementation requires part of the common medium
-property infrastructure of the Modelica.Thermal.Properties library in the file
+property infrastructure of the Modelica_Thermal.Properties library in the file
 Common.mo. There are a few extensions from the version of IF97 as
 documented in <a href=\"modelica://Modelica/Resources/Documentation/Media/Water/IF97documentation/IF97.pdf\">IF97.pdf</a> in order to improve performance for
 dynamic simulations. Input variables for calculating the properties are
@@ -59116,7 +59116,7 @@ of Water and Steam. ASME Journal of Engineering for Gas Turbines and Power 122 (
 
       //   function isentropicEnthalpy
       //     "Isentropic specific enthalpy from p,s (preferably use dynamicIsentropicEnthalpy in dynamic simulation!)"
-      //     extends Modelica.Icons.Function;
+      //     extends Modelica_Icons.Function;
       //     input SI.Pressure p "Pressure";
       //     input SI.SpecificEntropy s "Specific entropy";
       //     input Integer phase = 0 "2 for two-phase, 1 for one-phase, 0 if not known";
@@ -59413,8 +59413,8 @@ one of the following functions:
       <td valign=\"top\">molar mass</td></tr>
 </table>
 <p>More details are given in
-<a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.OptionalProperties\">
-Modelica.Media.UsersGuide.MediumUsage.OptionalProperties</a>.
+<a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.OptionalProperties\">
+Modelica_Media.UsersGuide.MediumUsage.OptionalProperties</a>.
 
 Many additional optional functions are defined to compute properties of
 saturated media, either liquid (bubble point) or vapour (dew point).
@@ -59471,8 +59471,8 @@ SaturationProperties record sat, the following functions are provided:
       <td valign=\"top\">Surface tension between liquid and vapour phase</td></tr>
 </table>
 <p>Details on usage and some examples are given in:
-<a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage.TwoPhase\">
-Modelica.Media.UsersGuide.MediumUsage.TwoPhase</a>.
+<a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage.TwoPhase\">
+Modelica_Media.UsersGuide.MediumUsage.TwoPhase</a>.
 </p>
 <p>Many further properties can be computed. Using the well-known Bridgman's Tables,
 all first partial derivatives of the standard thermodynamic variables can be computed easily.
@@ -59495,48 +59495,48 @@ distributed with computer implementations and are included here
   end Water;
 annotation (preferredView="info",Documentation(info="<HTML>
 <p>
-This library contains <a href=\"modelica://Modelica.Media.Interfaces\">interface</a>
+This library contains <a href=\"modelica://Modelica_Media.Interfaces\">interface</a>
 definitions for media and the following <b>property</b> models for
 single and multiple substance fluids with one and multiple phases:
 </p>
 <ul>
-<li> <a href=\"modelica://Modelica.Media.IdealGases\">Ideal gases:</a><br>
+<li> <a href=\"modelica://Modelica_Media.IdealGases\">Ideal gases:</a><br>
      1241 high precision gas models based on the
      NASA Glenn coefficients, plus ideal gas mixture models based
      on the same data.</li>
-<li> <a href=\"modelica://Modelica.Media.Water\">Water models:</a><br>
+<li> <a href=\"modelica://Modelica_Media.Water\">Water models:</a><br>
      ConstantPropertyLiquidWater, WaterIF97 (high precision
      water model according to the IAPWS/IF97 standard)</li>
-<li> <a href=\"modelica://Modelica.Media.Air\">Air models:</a><br>
+<li> <a href=\"modelica://Modelica_Media.Air\">Air models:</a><br>
      SimpleAir, DryAirNasa, ReferenceAir, MoistAir, ReferenceMoistAir.</li>
-<li> <a href=\"modelica://Modelica.Media.Incompressible\">
+<li> <a href=\"modelica://Modelica_Media.Incompressible\">
      Incompressible media:</a><br>
      TableBased incompressible fluid models (properties are defined by tables rho(T),
      HeatCapacity_cp(T), etc.)</li>
-<li> <a href=\"modelica://Modelica.Media.CompressibleLiquids\">
+<li> <a href=\"modelica://Modelica_Media.CompressibleLiquids\">
      Compressible liquids:</a><br>
      Simple liquid models with linear compressibility</li>
-<li> <a href=\"modelica://Modelica.Media.R134a\">Refrigerant Tetrafluoroethane (R134a)</a>.</li>
+<li> <a href=\"modelica://Modelica_Media.R134a\">Refrigerant Tetrafluoroethane (R134a)</a>.</li>
 </ul>
 <p>
 The following parts are useful, when newly starting with this library:
 <ul>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide\">Modelica.Media.UsersGuide</a>.</li>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.MediumUsage\">Modelica.Media.UsersGuide.MediumUsage</a>
+<li> <a href=\"modelica://Modelica_Media.UsersGuide\">Modelica_Media.UsersGuide</a>.</li>
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.MediumUsage\">Modelica_Media.UsersGuide.MediumUsage</a>
      describes how to use a medium model in a component model.</li>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition\">
-     Modelica.Media.UsersGuide.MediumDefinition</a>
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.MediumDefinition\">
+     Modelica_Media.UsersGuide.MediumDefinition</a>
      describes how a new fluid medium model has to be implemented.</li>
-<li> <a href=\"modelica://Modelica.Media.UsersGuide.ReleaseNotes\">Modelica.Media.UsersGuide.ReleaseNotes</a>
+<li> <a href=\"modelica://Modelica_Media.UsersGuide.ReleaseNotes\">Modelica_Media.UsersGuide.ReleaseNotes</a>
      summarizes the changes of the library releases.</li>
-<li> <a href=\"modelica://Modelica.Media.Examples\">Modelica.Media.Examples</a>
+<li> <a href=\"modelica://Modelica_Media.Examples\">Modelica_Media.Examples</a>
      contains examples that demonstrate the usage of this library.</li>
 </ul>
 <p>
 Copyright &copy; 1998-2013, Modelica Association.
 </p>
 <p>
-<i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
+<i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica_UsersGuide.ModelicaLicense2\">Modelica_UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
 </p>
 </HTML>", revisions="<html>
 <ul>

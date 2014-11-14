@@ -2432,6 +2432,7 @@ following references, especially (Armstrong and Canudas de Witt 1996):
     protected
       encapsulated model Set_s_start "Set s_start"
         import Modelica_Blocks;
+        import Modelica_Mechanics_Translational;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Blocks.Interfaces.RealInput s_start(unit="m") "Start position"
         annotation (HideResult=true, Placement(transformation(extent={{-140,-20},{
@@ -2448,6 +2449,7 @@ following references, especially (Armstrong and Canudas de Witt 1996):
 
       encapsulated model Set_v_start "Set v_start"
         import Modelica_Blocks;
+        import Modelica_Mechanics_Translational;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Blocks.Interfaces.RealInput v_start(unit="m/s")
           "Start velocity"
@@ -2466,6 +2468,7 @@ following references, especially (Armstrong and Canudas de Witt 1996):
       encapsulated model Set_a_start "Set a_start"
         import Modelica_SIunits;
         import Modelica_Blocks;
+        import Modelica_Mechanics_Translational;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Blocks.Interfaces.RealInput a_start(unit="m/s2")
           "Start acceleration"
@@ -2485,6 +2488,7 @@ following references, especially (Armstrong and Canudas de Witt 1996):
 
       encapsulated model Set_flange_f "Set flange_f to zero"
         import Modelica_Blocks;
+        import Modelica_Mechanics_Translational;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Mechanics_Translational.Interfaces.Flange_b flange annotation (
             Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));

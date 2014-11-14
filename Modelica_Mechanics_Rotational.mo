@@ -4852,6 +4852,8 @@ no rolling resistance. This component defines the kinematic constraint:
 
     protected
       encapsulated model Set_phi_start "Set phi_start"
+        import Modelica_Blocks;
+        import Modelica_Mechanics_Rotational;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Blocks.Interfaces.RealInput phi_start(unit="rad")
           "Start angle"
@@ -4868,6 +4870,8 @@ no rolling resistance. This component defines the kinematic constraint:
       end Set_phi_start;
 
       encapsulated model Set_w_start "Set w_start"
+        import Modelica_Blocks;
+        import Modelica_Mechanics_Rotational;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Blocks.Interfaces.RealInput w_start(unit="rad/s")
           "Start angular velocity"
@@ -4884,6 +4888,9 @@ no rolling resistance. This component defines the kinematic constraint:
       end Set_w_start;
 
       encapsulated model Set_a_start "Set a_start"
+        import Modelica_Blocks;
+        import Modelica_Mechanics_Rotational;
+        import Modelica_SIunits;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Blocks.Interfaces.RealInput a_start(unit="rad/s2")
           "Start angular acceleration" annotation (HideResult=true, Placement(
@@ -4902,6 +4909,8 @@ no rolling resistance. This component defines the kinematic constraint:
       end Set_a_start;
 
       encapsulated model Set_flange_tau "Set flange.tau to zero"
+        import Modelica_Blocks;
+        import Modelica_Mechanics_Rotational;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Mechanics_Rotational.Interfaces.Flange_b flange annotation (
             Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));

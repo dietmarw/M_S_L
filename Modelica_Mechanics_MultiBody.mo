@@ -12884,6 +12884,7 @@ between two frame connectors, e.g., between two parts.
         "Return the constraint residues to express that two frames have the same orientation"
         import Modelica_Math;
         import Modelica_Mechanics_MultiBody.Frames;
+        import Modelica_Icons;
         extends Modelica_Icons.Function;
         input Frames.Orientation R1
           "Orientation object to rotate frame 0 into frame 1";
@@ -13638,6 +13639,7 @@ is not possible or too difficult to compute, use function from_T2(..).
         encapsulated function equalityConstraint
           "Return the constraint residues to express that two frames have the same quaternion orientation"
           import Modelica_Mechanics_MultiBody.Frames.Quaternions;
+          import Modelica_Icons;
           extends Modelica_Icons.Function;
           input Quaternions.Orientation Q1
             "Quaternions orientation object to rotate frame 0 into frame 1";
@@ -14097,6 +14099,7 @@ The used variables have the following declaration:
         encapsulated function equalityConstraint
           "Return the constraint residues to express that two frames have the same orientation"
           import Modelica_Mechanics_MultiBody.Frames.TransformationMatrices;
+          import Modelica_Icons;
           extends Modelica_Icons.Function;
           input TransformationMatrices.Orientation T1
             "Orientation object to rotate frame 0 into frame 1";
@@ -27177,6 +27180,8 @@ are forced to be used as states.
       outer Modelica_Mechanics_MultiBody.World world;
 
       encapsulated model Housing
+        import Modelica_SIunits;
+        import Modelica_Mechanics_MultiBody;
         input Modelica_SIunits.Torque t[3];
         Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a annotation (
             Placement(transformation(extent={{-116,-16},{-84,16}}, rotation=0)));
@@ -27310,10 +27315,13 @@ November 3-4, 2003, pp. 149-158</p>
 
       encapsulated model RotorWith3DEffects
         "1D inertia attachable on 3-dim. bodies (3D dynamic effects are taken into account)"
+        import Modelica_Mechanics_MultiBody;
         import Modelica_Mechanics_MultiBody.Frames;
         import Modelica_Mechanics_MultiBody.Types;
-        import SI = Modelica_SIunits;
-        import Cv = Modelica_SIunits.Conversions;
+        import Modelica_SIunits;
+        import Modelica_SIunits.Conversions;
+        import Modelica_Mechanics_Rotational;
+        import Modelica_Math;
 
         parameter Boolean animation=true
           "= true, if animation shall be enabled (show rotor as cylinder)";
