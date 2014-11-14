@@ -7818,7 +7818,7 @@ User's Guides that can be accessed by the following links:
 </html>"));
 end UsersGuide;
 extends Modelica_Icons.Package;
-
+/*
   package Electrical
     "Library of electrical models (analog, digital, machines, multi-phase)"
 
@@ -8004,6 +8004,7 @@ and fluid heat flow.
 </p>
 </html>"));
   end Thermal;
+*/
 annotation (
 preferredView="info",
 version="3.2.2",
@@ -8093,33 +8094,71 @@ TU Hamburg-Harburg, Politecnico di Milano, XRG Simulation.
 </p>
 </html>"),
 uses(
-Modelica_Math,
+Modelica_Blocks_Examples,
+Modelica_Blocks_Interfaces,
 Modelica_Blocks,
+Modelica_ComplexBlocks_Examples,
+Modelica_ComplexBlocks_Interfaces,
 Modelica_ComplexBlocks,
 Modelica_ComplexMath,
 Modelica_Constants,
+Modelica_Electrical_Analog_Examples,
+Modelica_Electrical_Analog_Interfaces,
 Modelica_Electrical_Analog,
+Modelica_Electrical_Digital_Examples,
+Modelica_Electrical_Digital_Interfaces,
 Modelica_Electrical_Digital,
+Modelica_Electrical_Machines_Examples,
+Modelica_Electrical_Machines_Interfaces,
 Modelica_Electrical_Machines,
+Modelica_Electrical_MultiPhase_Examples,
+Modelica_Electrical_MultiPhase_Interfaces,
 Modelica_Electrical_MultiPhase,
+Modelica_Electrical_QuasiStationary_Machines_Examples,
+Modelica_Electrical_QuasiStationary_Machines_Interfaces,
 Modelica_Electrical_QuasiStationary,
+Modelica_Electrical_QuasiStationary_MultiPhase_Examples,
+Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces,
+Modelica_Electrical_QuasiStationary_SinglePhase_Examples,
+Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces,
+Modelica_Electrical_Spice3_Examples,
+Modelica_Electrical_Spice3_Interfaces,
 Modelica_Electrical_Spice3,
-Modelica_Electrical_StateGraph,
+Modelica_Fluid_Examples,
+Modelica_Fluid_Interfaces,
 Modelica_Fluid,
 Modelica_Icons,
+Modelica_Magnetic_FluxTubes_Examples,
+Modelica_Magnetic_FluxTubes_Interfaces,
 Modelica_Magnetic_FluxTubes,
+Modelica_Magnetic_FundamentalWave_Examples,
+Modelica_Magnetic_FundamentalWave_Interfaces,
 Modelica_Magnetic_FundamentalWave,
-Modelica_Magnetic_QuasiStatic,
+Modelica_Magnetic_QuasiStatic_FundamentalWave_Examples,
+Modelica_Magnetic_QuasiStatic_FundamentalWave,
+Modelica_Math,
+Modelica_Mechanics_MultiBody_Examples,
+Modelica_Mechanics_MultiBody_Interfaces,
 Modelica_Mechanics_MultiBody,
+Modelica_Mechanics_Rotational_Examples,
+Modelica_Mechanics_Rotational_Interfaces,
 Modelica_Mechanics_Rotational,
+Modelica_Mechanics_Translational_Examples,
+Modelica_Mechanics_Translational_Interfaces,
 Modelica_Mechanics_Translational,
+Modelica_Media_Examples,
+Modelica_Media_Interfaces,
 Modelica_Media,
-Modelica_Services,
 Modelica_SIunits,
+Modelica_StateGraph_Examples,
+Modelica_StateGraph_Interfaces,
 Modelica_StateGraph,
+Modelica_Thermal_FluidHeatFlow_Examples,
+Modelica_Thermal_FluidHeatFlow_Interfaces,
 Modelica_Thermal_FluidHeatFlow,
+Modelica_Thermal_HeatTransfer_Examples,
+Modelica_Thermal_HeatTransfer_Interfaces,
 Modelica_Thermal_HeatTransfer,
-Modelica_Utilities));
-//Complex,
-//Modelica_Reference,
+Modelica_Utilities_Examples,
+Modelica_Utilities)) ;
 end M_S_L;
