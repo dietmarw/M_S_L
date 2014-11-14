@@ -1852,5 +1852,5 @@ Modelica.Mechanics.Rotational package. Open the models and
 simulate them according to the provided description in the models.
 </p>
 
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Mechanics_Rotational_Examples;

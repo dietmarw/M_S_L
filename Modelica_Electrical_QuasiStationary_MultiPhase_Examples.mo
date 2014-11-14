@@ -264,6 +264,5 @@ P.Vaske, Berechnung von Drehstromschaltungen (German, Calculation of polyphase c
 
   annotation (Documentation(info="<html>
 Examples to demonstrate the usage of quasistationary electric components.
-</html>"), uses(Modelica_ComplexBlocks(version="3.2.2"), Modelica(version=
-            "3.2.1")));
+</html>"), uses(Modelica_ComplexBlocks(version="3.2.2")));
 end Modelica_Electrical_QuasiStationary_MultiPhase_Examples;

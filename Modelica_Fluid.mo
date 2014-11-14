@@ -28010,5 +28010,5 @@ Copyright &copy; 2002-2013, ABB, DLR, Dassault Syst&egrave;mes AB, Modelon, TU B
 <i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica_UsersGuide.ModelicaLicense2\">Modelica_UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
 </p>
 </html>"),
-    uses(Modelica_Icons, Modelica(version="3.2.1")));
+    uses(Modelica_Icons));
 end Modelica_Fluid;

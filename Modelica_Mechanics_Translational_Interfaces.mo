@@ -1020,5 +1020,5 @@ translational mechanical components. The components of this package can
 only be used as basic building elements for models.
 </p>
 
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Mechanics_Translational_Interfaces;

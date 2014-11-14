@@ -2707,6 +2707,5 @@ Hubertus Tummescheit, Lund Institute of Technology, Lund, Sweden.
        added component ThermalCollector</li>
 
 </ul>
-</html>"),
-    uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Thermal_HeatTransfer;

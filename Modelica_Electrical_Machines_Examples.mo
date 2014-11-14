@@ -4721,5 +4721,5 @@ This package contains test examples of electric machines.
   <li> v2.1.2 2010/02/09 Anton Haumer<br>
        included new Examples (AIMC_Transformer, DC_Comparison)</li>
   </ul>
-</HTML>"), uses(Modelica(version="3.2.1")));
+</HTML>"));
 end Modelica_Electrical_Machines_Examples;

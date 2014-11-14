@@ -5651,6 +5651,5 @@ Copyright &copy; 1998-2013, Modelica Association and Fraunhofer-Gesellschaft.
         Line(
           points={{42,-12},{17,-12},{17,-54},{-71,-54}},
           color={0,0,0},
-          smooth=Smooth.None)})),
-    uses(Modelica(version="3.2.1")));
+          smooth=Smooth.None)})));
 end Modelica_Electrical_Digital;

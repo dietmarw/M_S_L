@@ -54510,6 +54510,5 @@ Copyright &copy; 1998-2013, Modelica Association.
         Line(
           points={{-76,-80},{-94,-16},{-94,-16}},
           color={175,175,175},
-          smooth=Smooth.None)}),
-    uses(Modelica(version="3.2.1")));
+          smooth=Smooth.None)}));
 end Modelica_Media;

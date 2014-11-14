@@ -1331,5 +1331,5 @@ annotation (Documentation(info="<HTML>
        <i>new test example: OneMass</i><br>
        <i>new test example: TwoMass</i></li>
   </ul>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Thermal_FluidHeatFlow_Examples;

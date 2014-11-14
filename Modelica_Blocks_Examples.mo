@@ -1345,5 +1345,5 @@ This package contains utility models and bus definitions needed for the
 This package contains example models to demonstrate the
 usage of package blocks.
 </p>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Blocks_Examples;

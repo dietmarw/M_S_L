@@ -2427,6 +2427,6 @@ end Utilities;
   annotation (                                Documentation(info="<html>
 <p>This package contains examples that demonstrate the usage of the components of the Electrical.Digital library.</p>
 <p>The examples are simple to understand. They will show a typical behavior of the components, and they will give hints to users.</p>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 
 end Modelica_Electrical_Digital_Examples;

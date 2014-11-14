@@ -458,7 +458,7 @@ extends Modelica_Icons.Package;
       parameter Modelica_SIunits.Inductance L1(start=1) "Primary inductance";
       parameter Modelica_SIunits.Inductance L2(start=1) "Secondary inductance";
       parameter Modelica_SIunits.Inductance M(start=1) "Coupling inductance";
-      Real dv "Difference between voltage drop over primary inductor and 
+      Real dv "Difference between voltage drop over primary inductor and
     voltage drop over secondary inductor";
     equation
       v1 = L1*der(i1) + M*der(i2);
@@ -10368,6 +10368,5 @@ Christoph Clau&szlig;
           points={{-12,60},{-12,-60}},
           color={0,0,0}),
         Line(points={{-80,0},{-12,0}}, color={0,0,0}),
-        Line(points={{12,0},{80,0}}, color={0,0,0})}),
-    uses(Modelica(version="3.2.1")));
+        Line(points={{12,0},{80,0}}, color={0,0,0})}));
 end Modelica_Electrical_Analog;

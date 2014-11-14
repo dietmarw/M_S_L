@@ -10195,6 +10195,5 @@ Copyright &copy; 1998-2014, Modelica Association, Anton Haumer, Christian Kral a
           origin={2.835,10},
           fillPattern=FillPattern.Solid,
           points={{-70,-90},{-60,-90},{-30,-20},{20,-20},{50,-90},{60,-90},{60,
-              -100},{-70,-100},{-70,-90}})}),
-    uses(Modelica(version="3.2.1")));
+              -100},{-70,-100},{-70,-90}})}));
 end Modelica_Electrical_Machines;

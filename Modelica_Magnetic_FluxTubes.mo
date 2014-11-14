@@ -166,17 +166,17 @@ Magna Physics Publishing and Oxford University Press 1994
 
 <h5>Version 3.2.2, 2014-01-15 (Christian&nbsp;Kral)</h5>
 <ul>
-<li>Added constant 
+<li>Added constant
 <a href=\"modelica://Modelica.Magnetic.FluxTubes.Basic.ConstantPermeance\">permeance model</a></li>
-<li>Added 
+<li>Added
 <a href=\"modelica://Modelica.Magnetic.FluxTubes.Shapes.FixedShape.GenericFluxTube\">GenericFluxTube</a></li>
 <li>Added parameter <code>useConductance</code> including alternative parameterization in
 <a href=\"modelica://Modelica.Magnetic.FluxTubes.Basic.EddyCurrent\">EddyCurrent</a></li>
-<li>Added 
+<li>Added
 <a href=\"modelica://Modelica.Magnetic.FluxTubes.Basic.Idle\">Idle</a></li>
-<li>Added 
+<li>Added
 <a href=\"modelica://Modelica.Magnetic.FluxTubes.Basic.Short\">Short</a></li>
-<li>Added 
+<li>Added
 <a href=\"modelica://Modelica.Magnetic.FluxTubes.Basic.Crossing\">Crossing</a></li>
 
 </ul>
@@ -2239,6 +2239,5 @@ See <a href=\"modelica://Modelica.Magnetic.FluxTubes.UsersGuide.ReleaseNotes\">r
       origin={62.5,0.0},
       fillColor={160,160,164},
       fillPattern=FillPattern.Solid,
-      extent={{-12.5,-50.0},{12.5,50.0}})}),
-    uses(Modelica(version="3.2.1")));
+      extent={{-12.5,-50.0},{12.5,50.0}})}));
 end Modelica_Magnetic_FluxTubes;

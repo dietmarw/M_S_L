@@ -2861,5 +2861,5 @@ Default machine parameters of model <a href=\"modelica://Modelica.Electrical.Mac
       end SMR_CurrentSource;
     end SynchronousMachines;
   end BasicMachines;
-  annotation (uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
+  annotation (uses(Complex(version="3.2.2")));
 end Modelica_Magnetic_QuasiStatic_FundamentalWave_Examples;

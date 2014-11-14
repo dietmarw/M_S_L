@@ -2003,5 +2003,5 @@ how fluid components should be implemented that are using Modelica_Media
 models. This library is also used to test all media models in
 Modelica_Media.Examples.Tests.MediaTestModels.
 </p>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Media_Examples;

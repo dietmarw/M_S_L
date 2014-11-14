@@ -2315,5 +2315,5 @@ For manufacturing of a winding, the obtained wire diameter d_wireCalculated must
 <p>
 This package contains examples to demonstrate the usage of the flux tubes components.
 </p>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Magnetic_FluxTubes_Examples;

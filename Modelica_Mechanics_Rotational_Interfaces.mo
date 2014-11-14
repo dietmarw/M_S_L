@@ -1103,5 +1103,5 @@ This package contains connectors and partial models for 1-dim.
 rotational mechanical components. The components of this package can
 only be used as basic building elements for models.
 </p>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Mechanics_Rotational_Interfaces;

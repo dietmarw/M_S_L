@@ -541,5 +541,5 @@ i.e., with small derivatives.
 <p>
 This package contains interface definitions of the magnetic ports as well as partial models.
 </p>
-</html>"), uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
+</html>"), uses(Complex(version="3.2.2")));
 end Modelica_Magnetic_FundamentalWave_Interfaces;

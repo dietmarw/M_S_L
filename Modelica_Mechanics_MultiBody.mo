@@ -26470,6 +26470,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
           lineColor={135,135,135},
           fillPattern=FillPattern.Sphere,
           fillColor={255,255,255})}),
-    uses(ModelicaServices(version="3.2.2"), ModelicaIcons,
-      Modelica(version="3.2.1")));
+    uses(ModelicaServices(version="3.2.2"), ModelicaIcons));
 end Modelica_Mechanics_MultiBody;

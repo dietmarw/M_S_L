@@ -547,5 +547,5 @@ Modelica in file \"Modelica/package.mo\".</i>
        by Christoph Clauss<br> initially implemented<br>
        </li>
 </ul>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Electrical_Analog_Interfaces;

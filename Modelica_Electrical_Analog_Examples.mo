@@ -4718,5 +4718,5 @@ Christoph Clau&szlig;
     D-01069 Dresden
 </dd>
 </dl>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Electrical_Analog_Examples;

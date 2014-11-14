@@ -3113,6 +3113,5 @@ Copyright &copy; 1998-2014, Modelica Association and Anton Haumer.
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           extent={{-20,-74},{0,-54}})}),
-    uses(                           Complex(version="3.2.2"), Modelica(version=
-            "3.2.1")));
+    uses(Complex(version="3.2.2")));
 end Modelica_Electrical_MultiPhase;

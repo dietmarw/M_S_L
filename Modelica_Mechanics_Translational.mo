@@ -2968,5 +2968,5 @@ Copyright &copy; 1998-2013, Modelica Association, Anton Haumer and Universit&aum
        by Martin Otter and an existing Dymola library onedof.lib by Peter Beater.</li>
 </ul>
 </html>"),
-    uses(Modelica_Icons, Modelica(version="3.2.1")));
+    uses(Modelica_Icons));
 end Modelica_Mechanics_Translational;

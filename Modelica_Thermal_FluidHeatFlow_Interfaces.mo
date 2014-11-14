@@ -413,5 +413,5 @@ annotation (Documentation(info="<HTML>
   <li> v1.50 2005/09/07 Anton Haumer<br>
        semiLinear works fine</li>
   </ul>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Thermal_FluidHeatFlow_Interfaces;

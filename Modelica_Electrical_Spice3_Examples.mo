@@ -2303,5 +2303,5 @@ print v(11) v(12) v(13)
   end Spice3BenchmarkFourBitBinaryAdder;
   annotation (Documentation(info="<html>
 <p>This package Example circuits contains some useful examples to demonstrate how the library is working and how the models can be used.</p>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Electrical_Spice3_Examples;

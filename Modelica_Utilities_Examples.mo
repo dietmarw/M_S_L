@@ -412,5 +412,5 @@ the following examples are present.
      contains 3 parameters that are read from file \"Modelica.Utilities/data/Examples_readRealParameters.txt\".
      </li>
 </ul>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Utilities_Examples;

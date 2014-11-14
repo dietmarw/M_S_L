@@ -107,6 +107,5 @@ on the model behaviour.
   annotation(preferredView="info",
       Documentation(info="<html>
 <p>The SPICE3 package uses the Modelica.Electrical.Analog interfaces. Only special partial models used in the SPICE3 package are located in this Interfaces package.</p>
-</html>"),
-    uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Electrical_Spice3_Interfaces;

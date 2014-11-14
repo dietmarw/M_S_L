@@ -3054,5 +3054,5 @@ Note: Reference enthalpy might have to be extended with enthalpy of formation.
 This package provides basic interfaces definitions of media models for different
 kind of media.
 </p>
-</HTML>"), uses(Modelica(version="3.2.1")));
+</HTML>"));
 end Modelica_Media_Interfaces;

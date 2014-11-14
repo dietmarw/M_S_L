@@ -8119,8 +8119,7 @@ Modelica_SIunits,
 Modelica_StateGraph,
 Modelica_Thermal_FluidHeatFlow,
 Modelica_Thermal_HeatTransfer,
-Modelica_Utilities,
-      Modelica(version="3.2.1")));
+Modelica_Utilities));
 //Complex,
 //Modelica_Reference,
 end M_S_L;

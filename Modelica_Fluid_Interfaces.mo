@@ -1186,6 +1186,6 @@ The lengths along the flow path <code><b>pathLengths[m]</b></code> are an input 
        for elementary two port transport elements, whereas PartialTwoPort
        is a component for a container component.</li>
 </ul>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 
 end Modelica_Fluid_Interfaces;

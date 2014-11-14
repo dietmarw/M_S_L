@@ -7121,6 +7121,5 @@ Copyright &copy; 1998-2013, Modelica Association, Anton Haumer, Christian Kral a
             {25,-98.4},{30.6,-100},{36.2,-97.6},{41.9,-91.5},{47.5,-81.9},{53.9,
             -67.2},{62,-44.8},{70,-20}},
         smooth=Smooth.Bezier)}),
-    uses(Complex(version="3.2.2"), Modelica_Icons,
-      Modelica(version="3.2.1")));
+    uses(Complex(version="3.2.2"), Modelica_Icons));
 end Modelica_Electrical_QuasiStationary;

@@ -1483,5 +1483,5 @@ This package contains the space phasor connector and partial models for machine 
   <li> v2.2.0 2011/02/10 Anton Haumer<br>
        conditional ThermalPort for all machines</li>
   </ul>
-</HTML>"), uses(Modelica(version="3.2.1")));
+</HTML>"));
 end Modelica_Electrical_Machines_Interfaces;

@@ -242,5 +242,5 @@ Circuit layout (vector group) of primary and secondary windings have to be defin
 <p>
 This package contains the quasi stationary space phasor connector and partial models for quasi stationary machine models.
 </p>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Electrical_QuasiStationary_Machines_Interfaces;

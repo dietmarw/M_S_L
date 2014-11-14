@@ -17676,5 +17676,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
        of Dieter Moormann and Hilding Elmqvist.</li>
 </ul>
 </html>"),
-    uses(Modelica_Icons, Modelica(version="3.2.1")));
+    uses(Modelica_Icons));
 end Modelica_Blocks;

@@ -5794,5 +5794,5 @@ The total pressures offer an additional perspective on the model. After setting 
         experiment(StopTime=1.1));
     end MomentumBalanceFittings;
   end Explanatory;
-  annotation(preferredView="info", uses(Modelica(version="3.2.1")));
+  annotation(preferredView="info");
 end Modelica_Fluid_Examples;

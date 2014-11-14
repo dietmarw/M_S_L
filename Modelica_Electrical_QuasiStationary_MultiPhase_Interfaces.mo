@@ -370,5 +370,5 @@ The source partial model relies on the
 </p>
 </html>"));
   end ReferenceSource;
-  annotation (uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
+  annotation (uses(Complex(version="3.2.2")));
 end Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces;

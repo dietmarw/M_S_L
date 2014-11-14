@@ -36,6 +36,5 @@ Plotting the imaginary part versus the real part, you will see an Archimedean sp
   end TestConversionBlock;
   annotation(Documentation(info="<html>
 <p>This library demonstrates the usage of Complex blocks.</p>
-</html>"), uses(Modelica_ComplexBlocks(version="3.2.2"), Modelica(version=
-            "3.2.1")));
+</html>"), uses(Modelica_ComplexBlocks(version="3.2.2")));
 end Modelica_ComplexBlocks_Examples;

@@ -4113,6 +4113,5 @@ Copyright &copy; 2013-2014, <a href=\"modelica://Modelica.Magnetic.FundamentalWa
 </p>
 </html>"), uses(
       Complex(version="3.2.2"),
-      Modelica_ComplexBlocks(version="3.2.2"),
-      Modelica(version="3.2.1")));
+      Modelica_ComplexBlocks(version="3.2.2")));
 end Modelica_Magnetic_QuasiStatic_FundamentalWave;

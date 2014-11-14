@@ -268,5 +268,5 @@ Simulate for 7200 s; plot Twinding.T and Tcore.T.
   end Motor;
   annotation (                              Documentation(info="<html>
 
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"));
 end Modelica_Thermal_HeatTransfer_Examples;

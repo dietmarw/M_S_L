@@ -3850,6 +3850,5 @@ Copyright &copy; 2009-2014, Modelica Association, <a href=\"modelica://Modelica.
 <i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
 </p>
 </html>"),
-    uses(Complex(version="3.2.2"), ModelicaIcons,
-      Modelica(version="3.2.1")));
+    uses(Complex(version="3.2.2"), ModelicaIcons));
 end Modelica_Magnetic_FundamentalWave;
