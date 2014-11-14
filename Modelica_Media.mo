@@ -3877,11 +3877,9 @@ no mass or energy is stored in the pipe.
 
       encapsulated package Inverse_sine_definition
           "Define sine as non-linear equation to be solved"
-        import Modelica =
-               M_S_L;
           import Modelica_Math;
-          import M_S_L;
-        extends M_S_L.Media.Common.OneNonLinearEquation;
+        import Modelica_Media;
+        extends Modelica_Media.Common.OneNonLinearEquation;
 
         redeclare record extends f_nonlinear_Data "Data for nonlinear equation"
           Real A;
@@ -59585,6 +59583,5 @@ Copyright &copy; 1998-2013, Modelica Association.
         Line(
           points={{-76,-80},{-94,-16},{-94,-16}},
           color={175,175,175},
-          smooth=Smooth.None)}),
-    uses(M_S_L(version="3.2.2")));
+          smooth=Smooth.None)}));
 end Modelica_Media;

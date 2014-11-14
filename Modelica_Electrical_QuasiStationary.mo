@@ -442,7 +442,7 @@ ideal AC DC converter</a>, which is used in the
 <li>Implementation of ideal transformer model</li>
 </ul>
 
-<h5>Version 1.0.0</h5> 
+<h5>Version 1.0.0</h5>
 <ul><li>First official release</li></ul>
 </html>",     revisions="<html>
 </html>"));
@@ -1503,21 +1503,21 @@ The abstraction of a variable inductor at quasi stationary operation assumes:
 <p>
 The linear impedance connects the complex voltage <code><u>v</u></code> with the
 complex current <code><u>i</u></code> by <code><u>i</u>*<u>Z</u> = <u>v</u></code>.
-The impedance <code>Z_ref</code> is given as complex input signal, representing the 
-resistive and reactive component of the input impedance. The resistive 
+The impedance <code>Z_ref</code> is given as complex input signal, representing the
+resistive and reactive component of the input impedance. The resistive
 component is modeled temperature dependent, so the real part <code>R = real(<u>Z</u>)</code> is determined from
 the actual operating temperature and the reference input resistance <code>real(<u>Z</u>_ref)</code>.
 </p>
 
 <p>
-The variable impedance model has a 
+The variable impedance model has a
 <a href=\"modelica://Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort\">conditional heat port</a>.
 A linear temperature dependency of the resistance is taken into account.
 </p>
 
 <h4>Note</h4>
 <p>
-A zero crossing of the either the real or imaginary part of the <code>Z_ref</code> signal could cause 
+A zero crossing of the either the real or imaginary part of the <code>Z_ref</code> signal could cause
 singularities due to the actual structure of the connected network.
 </p>
 
@@ -1586,21 +1586,21 @@ singularities due to the actual structure of the connected network.
 <p>
 The linear admittance connects the complex voltage <code><u>v</u></code> with the
 complex current <code><u>i</u></code> by <code><u>v</u>*<u>G</u> = <u>i</u></code>.
-The impedance <code>G_ref</code> is given as complex input signal, representing the 
-resistive and reactive component of the input admittance. The resistive 
+The impedance <code>G_ref</code> is given as complex input signal, representing the
+resistive and reactive component of the input admittance. The resistive
 component is modeled temperature dependent, so the real part <code>G = real(<u>Y</u>)</code> is detesrmined from
 the actual operating temperature and the reference input conductance <code>real(<u>Y</u>_ref)</code>.
 </p>
 
 <p>
-The variable admittance model has a 
+The variable admittance model has a
 <a href=\"modelica://Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort\">conditional heat port</a>.
 A linear temperature dependency of the conductance is taken into account.
 </p>
 
 <h4>Note</h4>
 <p>
-A zero crossing of the either the real or imaginary part of the <code>Y_ref</code> signal could cause 
+A zero crossing of the either the real or imaginary part of the <code>Y_ref</code> signal could cause
 singularities due to the actual structure of the connected network.
 </p>
 
@@ -6007,24 +6007,22 @@ Delta (polygon) connection of a multi phase circuit.
 
       model MultiStar
         "Star connection of multi phase systems consisting of multiple base systems"
-        import Modelica =
-               M_S_L;
         parameter Integer m(final min=1) = 3 "Number of phases";
         final parameter Integer mSystems=
             Modelica_Electrical_MultiPhase.Functions.numberOfSymmetricBaseSystems(
             m) "Number of base systems";
         final parameter Integer mBasic=integer(m/mSystems)
           "Phase number of base systems";
-        M_S_L.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
+        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.PositivePlug
           plug_p(final m=m) annotation (Placement(transformation(extent={{-110,
                   -10},{-90,10}}, rotation=0)));
-        M_S_L.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug
+        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.NegativePlug
           starpoints(final m=mSystems) annotation (Placement(transformation(
                 extent={{90,-10},{110,10}}, rotation=0)));
-        M_S_L.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPins_p
+        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_p
           plugToPins_p(final m=m) annotation (Placement(transformation(extent={
                   {-80,-10},{-60,10}}, rotation=0)));
-        M_S_L.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPins_n
+        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_n
           plugToPins_n(final m=mSystems)
           annotation (Placement(transformation(extent={{80,-10},{60,10}})));
       equation
@@ -6083,24 +6081,22 @@ Star (wye) connection of a multi phase circuit consiting of multiple base system
 
       model MultiDelta
         "Delta (polygon) connection of multi phase systems consisting of multiple base systems"
-        import Modelica =
-               M_S_L;
         parameter Integer m(final min=2) = 3 "Number of phases";
         final parameter Integer mSystems=
             Modelica_Electrical_MultiPhase.Functions.numberOfSymmetricBaseSystems(
             m) "Number of base systems";
         final parameter Integer mBasic=integer(m/mSystems)
           "Phase number of base systems";
-        M_S_L.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
+        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.PositivePlug
           plug_p(final m=m) annotation (Placement(transformation(extent={{-110,
                   -10},{-90,10}}, rotation=0)));
-        M_S_L.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug
+        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.NegativePlug
           plug_n(final m=m) annotation (Placement(transformation(extent={{90,-10},
                   {110,10}}, rotation=0)));
-        M_S_L.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPins_p
+        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_p
           plugToPins_p(final m=m) annotation (Placement(transformation(extent={
                   {-80,-10},{-60,10}}, rotation=0)));
-        M_S_L.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPins_n
+        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_n
           plugToPins_n(final m=m) annotation (Placement(transformation(extent={
                   {80,-10},{60,10}}, rotation=0)));
       equation
@@ -6132,7 +6128,7 @@ Star (wye) connection of a multi phase circuit consiting of multiple base system
                     thickness=0.5)}), Documentation(info="<html>
 <p>
 Delta (polygon) connection of a multi phase circuit consiting of multiple base systems (see
-<a href=\"modelica://Modelica.Magnetic.FundamentalWave.UsersGuide.MultiPhase\">multi phase guidelines</a>). 
+<a href=\"modelica://Modelica.Magnetic.FundamentalWave.UsersGuide.MultiPhase\">multi phase guidelines</a>).
 </p>
 <h4>See also</h4>
 <p>
@@ -6951,12 +6947,12 @@ The inductances <code>L</code> are given as <code>m</code> input signals.
 <p>
 The linear impedances connect the complex voltages <code><u>v</u></code> with the complex
 currents <code><u>i</u></code> by <code><u>i</u>*Z = <u>v</u></code>,
-using <code>m</code> 
+using <code>m</code>
 <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Basic.VariableImpedance\">
 single phase variable impedance</a>.
-The impedances <code>Z_ref</code> are given as complex input signals, representing the 
-resistive and reactive components of the input impedances. The resistive 
-components are modeled temperature dependent, so the real parts <code>R = real(<u>Z</u>)</code> 
+The impedances <code>Z_ref</code> are given as complex input signals, representing the
+resistive and reactive components of the input impedances. The resistive
+components are modeled temperature dependent, so the real parts <code>R = real(<u>Z</u>)</code>
 are determined from
 the actual operating temperature and the reference input resistances <code>real(<u>Z</u>_ref)</code>.
 </p>
@@ -7037,12 +7033,12 @@ A linear temperature dependency of the resistances is also taken into account.
 <p>
 The linear admittances connect the complex voltages <code><u>v</u></code> with the complex
 currents <code><u>i</u></code> by <code><u>v</u>*Z = <u>i</u></code>,
-using <code>m</code> 
+using <code>m</code>
 <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Basic.VariableAdmittance\">
 single phase variable admittances</a>.
-The admittances <code>Y_ref</code> are given as complex input signals, representing the 
-resistive and reactive components of the input admittance. The resistive 
-components are modeled temperature dependent, so the real parts <code>G = real(<u>Y</u>)</code> 
+The admittances <code>Y_ref</code> are given as complex input signals, representing the
+resistive and reactive components of the input admittance. The resistive
+components are modeled temperature dependent, so the real parts <code>G = real(<u>Y</u>)</code>
 are determined from
 the actual operating temperature and the reference input conductances <code>real(<u>Y</u>_ref)</code>.
 </p>
@@ -7519,8 +7515,6 @@ Quasi stationary theory can be found in the
       extends Modelica_Icons.Package;
       block SymmetricalComponents
         "Creates symmetrical components from signals representing quasi static phasors"
-        import Modelica =
-               M_S_L;
         extends Modelica_ComplexBlocks.Interfaces.ComplexMIMO(final nin=m,final
             nout=m);
         parameter Integer m=3 "Number of phases";
@@ -7716,8 +7710,8 @@ Quasi stationary theory can be found in the
       algorithm
         y := sum({'abs'(u[k]) for k in 1:m})/m;
         annotation (Inline=true, Documentation(info="<HTML>
-  This function determines the continuous quasi <a href=\"Modelica://Modelica.Blocks.Math.RootMeanSquare\">RMS</a> value of a multi phase system, 
-  represented by m quasi static time domain phasors. 
+  This function determines the continuous quasi <a href=\"Modelica://Modelica.Blocks.Math.RootMeanSquare\">RMS</a> value of a multi phase system,
+  represented by m quasi static time domain phasors.
 </HTML>"));
       end quasiRMS;
 
@@ -8421,8 +8415,8 @@ Additionally the reference angle is specified in the connector. The time derivat
           "Magntiude of total complex apparent power";
         Real pf[m] = {cos(Modelica_ComplexMath.arg(Complex(P[k],Q[k]))) for k in 1:m}
           "Power factor";
-        /*  
-  Real pf_total = cos(Modelica.ComplexMath.arg(Complex(P_total,Q_total))) 
+        /*
+  Real pf_total = cos(Modelica.ComplexMath.arg(Complex(P_total,Q_total)))
    "Total power factor";
   */
         Modelica_SIunits.AngularVelocity omega
@@ -8489,8 +8483,8 @@ a <a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Basic.Plug
           "Magntiude of total complex apparent power";
         Real pf[m] = {cos(Modelica_ComplexMath.arg(Complex(P[k],Q[k]))) for k in 1:m}
           "Power factor";
-        /*  
-  Real pf_total = cos(Modelica.ComplexMath.arg(Complex(P_total,Q_total))) 
+        /*
+  Real pf_total = cos(Modelica.ComplexMath.arg(Complex(P_total,Q_total)))
     "Total power factor";
   */
         Modelica_SIunits.AngularVelocity omega
@@ -8779,6 +8773,5 @@ Copyright &copy; 1998-2013, Modelica Association, Anton Haumer, Christian Kral a
             {25,-98.4},{30.6,-100},{36.2,-97.6},{41.9,-91.5},{47.5,-81.9},{53.9,
             -67.2},{62,-44.8},{70,-20}},
         smooth=Smooth.Bezier)}),
-    uses(                           Complex(version="3.2.1"), M_S_L(version=
-            "3.2.2")));
+    uses(Complex(version="3.2.2"), Modelica_Icons));
 end Modelica_Electrical_QuasiStationary;

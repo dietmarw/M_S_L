@@ -1984,5 +1984,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
 <li><i>Nov. 15, 1997</i> by <a href=\"http://www.robotic.dlr.de/Martin.Otter/\">Martin Otter</a> and <a href=\"http://www.control.lth.se/~hubertus/\">Hubertus Tummescheit</a>:<br/>Some chapters realized.</li>
 </ul>
 </html>"),
-    uses(                           Complex(version="3.2.1")));
+    uses(Modelica_Icons));
 end Modelica_SIunits;

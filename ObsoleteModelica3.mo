@@ -3512,7 +3512,7 @@ to the left and/or the right flange.
       end Gear;
     end Rotational;
   end Mechanics;
-  annotation (uses(Modelica(version="3.2.1")),
+  annotation (uses(Modelica_Icons),
 Documentation(info="<html>
 <p>
 This package contains models and blocks from the Modelica Standard Library

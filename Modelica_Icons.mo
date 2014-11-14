@@ -137,15 +137,15 @@ package Modelica_Icons "Library of icons"
   partial model Example "Icon for runnable examples"
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-          Ellipse(lineColor=  {75,138,73},
+          Ellipse(lineColor = {75,138,73},
                   fillColor={255,255,255},
-                  fillPattern=  FillPattern.Solid,
-                  extent=  {{-100,-100},{100,100}}),
-          Polygon(lineColor=  {0,0,255},
-                  fillColor=  {75,138,73},
-                  pattern=  LinePattern.None,
-                  fillPattern=  FillPattern.Solid,
-                  points=  {{-36,60},{64,0},{-36,-60},{-36,60}})}), Documentation(info="<html>
+                  fillPattern = FillPattern.Solid,
+                  extent = {{-100,-100},{100,100}}),
+          Polygon(lineColor = {0,0,255},
+                  fillColor = {75,138,73},
+                  pattern = LinePattern.None,
+                  fillPattern = FillPattern.Solid,
+                  points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Documentation(info="<html>
 <p>This icon indicates an example. The play button suggests that the example can be executed.</p>
 </html>"));
   end Example;
@@ -492,10 +492,10 @@ This icon is designed for a <b>translational sensor</b> model.
             extent={{-150,105},{150,145}},
             textString="%name"),
           Ellipse(
-            lineColor=  {108,88,49},
-            fillColor=  {255,215,136},
-            fillPattern=  FillPattern.Solid,
-            extent=  {{-100,-100},{100,100}}),
+            lineColor = {108,88,49},
+            fillColor = {255,215,136},
+            fillPattern = FillPattern.Solid,
+            extent = {{-100,-100},{100,100}}),
           Text(
             lineColor={108,88,49},
             extent={{-90.0,-90.0},{90.0,90.0}},
@@ -982,6 +982,5 @@ This icon of an <b>electrical motor</b> model will be removed in future versions
 
 <p>Copyright &copy; 1998-2013, Modelica Association, DLR, AIT, and Modelon AB. </p>
 <p><i>This Modelica package is <b>free</b> software; it can be redistributed and/or modified under the terms of the <b>Modelica license</b>, see the license conditions and the accompanying <b>disclaimer</b> in <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a>.</i> </p>
-</html>"),
-    uses(Complex(version="3.2.1")));
+</html>"));
 end Modelica_Icons;

@@ -350,8 +350,8 @@ no. 829420.
 <h5>Version 3.2.2, 2014-09-13</h5>
 
 <ul>
-<li>Updated documentation of 
-    <a href=\"modelica://Modelica.Magnetic.FundamentalWave.Components.Short\">Short</a>, 
+<li>Updated documentation of
+    <a href=\"modelica://Modelica.Magnetic.FundamentalWave.Components.Short\">Short</a>,
     <a href=\"modelica://Modelica.Magnetic.FundamentalWave.Components.Idle\">Idle</a> and
     <a href=\"modelica://Modelica.Magnetic.FundamentalWave.BasicMachines.Components.PermanentMagnet\">PermanentMagnet</a>
     </li>
@@ -361,7 +361,7 @@ no. 829420.
     <li><a href=\"modelica://Modelica.Magnetic.FundamentalWave.Components.Permeance\">Permenace</a></li>
 </ul>
 <li>Removed parameter text from icon layer for reluctance and permeance model</li>
-<li>Restructured cage models with reluctance instead of inductance model according to ticket #1536; 
+<li>Restructured cage models with reluctance instead of inductance model according to ticket #1536;
 the re-structuring of the model required to change the initial conditions of the included examples, since the number of rotor states is reduced by new implementation</li>
 <li>Some more bug fixes according to #1226, since not all reference orientations have been correct</li>
 <li>Added variables for magnitude and argument of complex magnetic potential difference and flux, see #1405</li>
@@ -1858,8 +1858,6 @@ Simulate for 1.5 seconds and plot (versus time):
 
       model AIMS_Start_MultiPhase
         "Starting of multi phase asynchronous induction machine with slip rings"
-        import Modelica =
-               M_S_L;
         extends Modelica_Icons.Example;
         constant Integer m3=3 "Number of stator phases of threephase system";
         parameter Integer m=5 "Number of stator phases";
@@ -1884,7 +1882,7 @@ Simulate for 1.5 seconds and plot (versus time):
             terminalConnection="Y", m=m3)
                                     annotation (Placement(transformation(extent=
                  {{20,-50},{40,-30}}, rotation=0)));
-        M_S_L.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SlipRing
+        Modelica_Magnetic_FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SlipRing
           aimsM(
           Jr=aimsData.Jr,
           Js=aimsData.Js,
@@ -1916,7 +1914,7 @@ Simulate for 1.5 seconds and plot (versus time):
           Rr=aimsData.Rr*mr/3,
           TrOperational=293.15) annotation (Placement(transformation(extent={{
                   20,30},{40,50}}, rotation=0)));
-        M_S_L.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SlipRing
+        Modelica_Magnetic_FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SlipRing
           aims3(
           p=aimsData.p,
           fsNominal=aimsData.fsNominal,
@@ -2423,8 +2421,6 @@ and accelerate the inertias.</p>
 
       model SMPM_Inverter_MultiPhase
         "Starting of multi phase permanent magnet synchronous machine with inverter"
-        import Modelica =
-               M_S_L;
         extends Modelica_Icons.Example;
         constant Integer m3=3 "Number of stator phases of threephase system";
         parameter Integer m=5 "Number of stator phases";
@@ -2479,7 +2475,7 @@ and accelerate the inertias.</p>
             terminalConnection="Y", m=m3)
                                     annotation (Placement(transformation(extent=
                  {{-10,-70},{10,-50}}, rotation=0)));
-        M_S_L.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_PermanentMagnet
+        Modelica_Magnetic_FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_PermanentMagnet
           smpmM(
           Jr=smpmData.Jr,
           Js=smpmData.Js,
@@ -2512,7 +2508,7 @@ and accelerate the inertias.</p>
           TrOperational=293.15,
           ir(fixed=true)) annotation (Placement(transformation(extent={{-10,-30},
                   {10,-10}}, rotation=0)));
-        M_S_L.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_PermanentMagnet
+        Modelica_Magnetic_FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_PermanentMagnet
           smpm3(
           p=smpmData.p,
           fsNominal=smpmData.fsNominal,
@@ -3048,8 +3044,6 @@ Simulate for 30 seconds and plot (versus <code>rotorAngleM.rotorDisplacementAngl
 
       model SMEE_Generator_MultiPhase
         "Electrical excited multi phase synchronous machine operating as generator"
-        import Modelica =
-               M_S_L;
         extends Modelica_Icons.Example;
         import Modelica_Constants.pi;
         constant Integer m3=3 "Number of stator phases of threephase system";
@@ -3114,7 +3108,7 @@ Simulate for 30 seconds and plot (versus <code>rotorAngleM.rotorDisplacementAngl
             terminalConnection="Y", m=m3)
                                          annotation (Placement(transformation(
                 extent={{-10,-70},{10,-50}}, rotation=0)));
-        M_S_L.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcited
+        Modelica_Magnetic_FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcited
           smeeM(
           phiMechanical(start=-(Modelica_Constants.pi + gamma0)/p, fixed=true),
 
@@ -3150,7 +3144,7 @@ Simulate for 30 seconds and plot (versus <code>rotorAngleM.rotorDisplacementAngl
           TeOperational=293.15,
           ir(fixed=true)) annotation (Placement(transformation(extent={{-10,30},
                   {10,50}}, rotation=0)));
-        M_S_L.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcited
+        Modelica_Magnetic_FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcited
           smee3(
           phiMechanical(start=-(Modelica_Constants.pi + gamma0)/p, fixed=true),
 
@@ -3677,8 +3671,6 @@ Simulate for 1.5 seconds and plot (versus time):
 
       model SMR_Inverter_MultiPhase
         "Starting of multi phase synchronous reluctance machine with inverter"
-        import Modelica =
-               M_S_L;
         extends Modelica_Icons.Example;
         constant Integer m3=3 "Number of stator phases of threephase system";
         parameter Integer m=5 "Number of stator phases";
@@ -3698,7 +3690,7 @@ Simulate for 1.5 seconds and plot (versus time):
             terminalConnection="Y", m=m3)
                                     annotation (Placement(transformation(extent=
                  {{-10,-70},{10,-50}}, rotation=0)));
-        M_S_L.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ReluctanceRotor
+        Modelica_Magnetic_FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ReluctanceRotor
           smrM(
           Jr=smrData.Jr,
           Js=smrData.Js,
@@ -3728,7 +3720,7 @@ Simulate for 1.5 seconds and plot (versus time):
           TrOperational=293.15,
           ir(fixed=true)) annotation (Placement(transformation(extent={{-10,-30},
                   {10,-10}}, rotation=0)));
-        M_S_L.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ReluctanceRotor
+        Modelica_Magnetic_FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ReluctanceRotor
           smr3(
           p=smrData.p,
           fsNominal=smrData.fsNominal,
@@ -6041,10 +6033,8 @@ according to the following figure.
 
       model SymmetricMultiPhaseCageWinding "Symmetrical rotor cage"
         import Modelica_Constants.pi;
-        import Modelica =
-               M_S_L;
         extends
-          M_S_L.Magnetic.FundamentalWave.Interfaces.PartialTwoPortExtended;
+          Modelica_Magnetic_FundamentalWave.Interfaces.PartialTwoPortExtended;
         parameter Integer m=3 "Number of phases";
         parameter Boolean useHeatPort=false
           "Enable / disable (=fixed temperatures) thermal port"
@@ -6068,7 +6058,7 @@ according to the following figure.
         parameter Real effectiveTurns=1 "Effective number of turns";
         Modelica_SIunits.Current i[m] = electroMagneticConverter.i
           "Cage currents";
-        M_S_L.Magnetic.FundamentalWave.Components.MultiPhaseElectroMagneticConverter
+        Modelica_Magnetic_FundamentalWave.Components.MultiPhaseElectroMagneticConverter
           electroMagneticConverter(
           final m=m,
           final effectiveTurns=fill(effectiveTurns, m),
@@ -6106,7 +6096,7 @@ according to the following figure.
         Modelica_Electrical_MultiPhase.Basic.Star starAuxiliary(final m=m)
           annotation (Placement(transformation(extent={{30,-90},{50,-70}},
                 rotation=0)));
-        M_S_L.Magnetic.FundamentalWave.Components.Reluctance strayReluctance(
+        Modelica_Magnetic_FundamentalWave.Components.Reluctance strayReluctance(
             final R_m(d=m*effectiveTurns^2/2/Lsigma, q=m*effectiveTurns^2/2/
                 Lsigma))
           "Stray reluctance equivalent to ideally coupled stray inductances"
@@ -6206,14 +6196,12 @@ The symmetric rotor cage model of this library does not consist of rotor bars an
       end SymmetricMultiPhaseCageWinding;
 
       model SaliencyCageWinding "Rotor cage with saliency in d- and q-axis"
-        import Modelica =
-               M_S_L;
         extends
-          M_S_L.Magnetic.FundamentalWave.Interfaces.PartialTwoPortExtended;
+          Modelica_Magnetic_FundamentalWave.Interfaces.PartialTwoPortExtended;
         parameter Boolean useHeatPort=false
           "Enable / disable (=fixed temperatures) thermal port"
           annotation (Evaluate=true);
-        parameter M_S_L.Magnetic.FundamentalWave.Types.SalientResistance RRef(d(
+        parameter Modelica_Magnetic_FundamentalWave.Types.SalientResistance RRef(d(
               start=1), q(start=1)) "Salient cage resistance";
         parameter Modelica_SIunits.Temperature TRef(start=293.15)
           "Reference temperature of winding";
@@ -6228,7 +6216,7 @@ The symmetric rotor cage model of this library does not consist of rotor bars an
         parameter Modelica_SIunits.Temperature TOperational(start=293.15)
           "Operational temperature of winding"
           annotation (Dialog(enable=not useHeatPort));
-        parameter M_S_L.Magnetic.FundamentalWave.Types.SalientInductance Lsigma(
+        parameter Modelica_Magnetic_FundamentalWave.Types.SalientInductance Lsigma(
             d(start=1), q(start=1)) "Salient cage stray inductance";
         parameter Real effectiveTurns=1 "Effective number of turns";
         Modelica_Blocks.Interfaces.RealOutput i[2](
@@ -6237,7 +6225,7 @@ The symmetric rotor cage model of this library does not consist of rotor bars an
         Modelica_Blocks.Interfaces.RealOutput lossPower(
           final quantity="Power", final unit="W")=sum(resistor.resistor.LossPower)
           "Damper losses";
-        M_S_L.Magnetic.FundamentalWave.Components.MultiPhaseElectroMagneticConverter
+        Modelica_Magnetic_FundamentalWave.Components.MultiPhaseElectroMagneticConverter
           electroMagneticConverter(
           final m=2,
           final orientation={0,Modelica_Constants.pi/2},
@@ -6271,7 +6259,7 @@ The symmetric rotor cage model of this library does not consist of rotor bars an
                           useHeatPort
           "Connector of thermal rotor resistance heat ports"
           annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
-        M_S_L.Magnetic.FundamentalWave.Components.Reluctance strayReluctance(
+        Modelica_Magnetic_FundamentalWave.Components.Reluctance strayReluctance(
             final R_m(d=effectiveTurns^2/Lsigma.d, q=effectiveTurns^2/Lsigma.q))
           "Stray reluctance equivalent to ideally coupled stray inductances"
           annotation (Placement(transformation(
@@ -7749,6 +7737,5 @@ Copyright &copy; 2009-2014, Modelica Association, <a href=\"modelica://Modelica.
 <i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
 </p>
 </html>"),
-    uses(                           Complex(version="3.2.1"), M_S_L(version=
-            "3.2.2")));
+    uses(Complex(version="3.2.2"), ModelicaIcons));
 end Modelica_Magnetic_FundamentalWave;

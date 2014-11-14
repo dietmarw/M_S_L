@@ -1730,7 +1730,7 @@ end UsersGuide;
         checkValve=true,
         N_nominal=1200,
         redeclare function flowCharacteristic =
-            M_S_L.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow
+            Modelica_Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow
             ( V_flow_nominal={0,0.25,0.5}, head_nominal={100,60,0}),
         use_N_in=true,
         nParallel=1,
@@ -1884,7 +1884,7 @@ If using Dymola, turn off \"Equidistant time grid\" to avoid numerical errors.
         portsData={Vessels.BaseClasses.VesselPortsData(diameter=0.01),
             Vessels.BaseClasses.VesselPortsData(diameter=0.01)},
         redeclare model HeatTransfer =
-            M_S_L.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
+            Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
               k=10),
         ports(each p(start=1e5)),
         T_start=Modelica_SIunits.Conversions.from_degC(20)) annotation (
@@ -1943,11 +1943,11 @@ If using Dymola, turn off \"Equidistant time grid\" to avoid numerical errors.
         T_start=Modelica_SIunits.Conversions.from_degC(80),
         length=2,
         redeclare model HeatTransfer =
-            M_S_L.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
+            Modelica_Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
         diameter=0.01,
         nNodes=1,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow,
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow,
         use_HeatTransfer=true,
         modelStructure=Types.ModelStructure.a_v_b,
         p_a_start=130000)
@@ -1959,11 +1959,11 @@ If using Dymola, turn off \"Equidistant time grid\" to avoid numerical errors.
         length=10,
         T_start=Modelica_SIunits.Conversions.from_degC(40),
         redeclare model HeatTransfer =
-            M_S_L.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
+            Modelica_Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
         diameter=0.01,
         nNodes=1,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow,
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow,
         use_HeatTransfer=true,
         modelStructure=Types.ModelStructure.a_v_b,
         p_a_start=110000)
@@ -1999,10 +1999,10 @@ If using Dymola, turn off \"Equidistant time grid\" to avoid numerical errors.
         use_T_start=true,
         T_start=Modelica_SIunits.Conversions.from_degC(80),
         redeclare model HeatTransfer =
-            M_S_L.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
+            Modelica_Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
         diameter=0.01,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow,
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow,
         length=10,
         p_a_start=130000)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -3374,7 +3374,7 @@ This example is based on
           initType=BaseClasses.Init.InitialValues,
           side_pipeArea={0.0001},
           redeclare model HeatTransfer =
-              M_S_L.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (   k=
+              Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (   k=
                   4.9))
           annotation (Placement(transformation(extent={{-110,-60},{-30,-20}},
                 rotation=0)));
@@ -3548,12 +3548,12 @@ This example is based on
           N_nominal=200,
           use_N_in=true,
           redeclare model Monitoring =
-              M_S_L.Fluid.Machines.BaseClasses.PumpMonitoring.PumpMonitoringNPSH,
+              Modelica_Fluid.Machines.BaseClasses.PumpMonitoring.PumpMonitoringNPSH,
           V(displayUnit="ml") = 0.0001,
           energyDynamics=Types.Dynamics.FixedInitial,
           massDynamics=Types.Dynamics.FixedInitial,
           redeclare function flowCharacteristic =
-              M_S_L.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow
+              Modelica_Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow
               (V_flow_nominal={0,0.1e-3,0.15e-3}, head_nominal={10,5,0}),
           p_a_start=100000,
           p_b_start=100000)
@@ -3565,12 +3565,12 @@ This example is based on
           N_nominal=200,
           use_N_in=true,
           redeclare model Monitoring =
-              M_S_L.Fluid.Machines.BaseClasses.PumpMonitoring.PumpMonitoringNPSH,
+              Modelica_Fluid.Machines.BaseClasses.PumpMonitoring.PumpMonitoringNPSH,
           V(displayUnit="ml") = 0.0001,
           energyDynamics=Types.Dynamics.FixedInitial,
           massDynamics=Types.Dynamics.FixedInitial,
           redeclare function flowCharacteristic =
-              M_S_L.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow
+              Modelica_Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow
               (V_flow_nominal={0,0.1e-3,0.15e-3}, head_nominal={10,5,0}),
           p_a_start=100000,
           p_b_start=100000)
@@ -3650,7 +3650,7 @@ This example is based on
           use_HeatTransfer=true,
           T_start=298,
           redeclare model HeatTransfer =
-              M_S_L.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
+              Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
                k=4.9)) annotation (Placement(transformation(extent={{-110,-140},
                   {-70,-100}}, rotation=0)));
         Pipes.DynamicPipe pipeB1B2(
@@ -3663,7 +3663,7 @@ This example is based on
           redeclare package Medium = BatchMedium,
           length=1,
           redeclare model FlowModel =
-              M_S_L.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow,
+              Modelica_Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow,
           diameter=pipeDiameter,
           height_ab=-0.1)
           annotation (Placement(transformation(extent={{-70,134},{-50,154}},
@@ -3672,7 +3672,7 @@ This example is based on
           redeclare package Medium = BatchMedium,
           length=1,
           redeclare model FlowModel =
-              M_S_L.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow,
+              Modelica_Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow,
           diameter=pipeDiameter,
           height_ab=-0.1)
           annotation (Placement(transformation(extent={{50,134},{30,154}}, rotation=
@@ -3734,7 +3734,7 @@ This example is based on
           use_HeatTransfer=true,
           T_start=298,
           redeclare model HeatTransfer =
-              M_S_L.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
+              Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
                k=4.9)) annotation (Placement(transformation(extent={{80,-80},{
                   40,-40}}, rotation=0)));
         Fittings.MultiPort multiPort(redeclare package Medium = BatchMedium,
@@ -5745,7 +5745,7 @@ present that are regulated by a central control system.
         redeclare package Medium = Medium,
         modelStructure=pipeModelStructure,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
                                            annotation (Placement(transformation(
               extent={{-80,-10},{-60,10}},
                                          rotation=0)));
@@ -5757,7 +5757,7 @@ present that are regulated by a central control system.
         length=0.5,
         modelStructure=pipeModelStructure,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
                                            annotation (Placement(transformation(
             origin={-50,20},
             extent={{-10,-10},{10,10}},
@@ -5770,7 +5770,7 @@ present that are regulated by a central control system.
         length=0.5,
         modelStructure=pipeModelStructure,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
                                            annotation (Placement(transformation(
             origin={-50,-20},
             extent={{-10,-10},{10,10}},
@@ -5783,7 +5783,7 @@ present that are regulated by a central control system.
         modelStructure=pipeModelStructure,
         use_HeatTransfer=true,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
                                            annotation (Placement(transformation(
               extent={{-20,-50},{0,-30}}, rotation=0)));
       Pipes.DynamicPipe pipe6(
@@ -5793,7 +5793,7 @@ present that are regulated by a central control system.
         length=20,
         modelStructure=pipeModelStructure,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
                                            annotation (Placement(transformation(
               extent={{20,-50},{40,-30}}, rotation=0)));
       Valves.ValveIncompressible valve1(
@@ -5822,7 +5822,7 @@ present that are regulated by a central control system.
         modelStructure=pipeModelStructure,
         use_HeatTransfer=true,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
                                            annotation (Placement(transformation(
               extent={{-20,30},{0,50}}, rotation=0)));
       Valves.ValveIncompressible valve3(
@@ -5869,7 +5869,7 @@ present that are regulated by a central control system.
         modelStructure=pipeModelStructure,
         use_HeatTransfer=true,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
                                            annotation (Placement(transformation(
             origin={10,10},
             extent={{-10,10},{10,-10}},
@@ -5882,7 +5882,7 @@ present that are regulated by a central control system.
         modelStructure=pipeModelStructure,
         use_HeatTransfer=true,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
                                            annotation (Placement(transformation(
               extent={{20,30},{40,50}}, rotation=0)));
       Pipes.DynamicPipe pipe10(
@@ -5893,7 +5893,7 @@ present that are regulated by a central control system.
         modelStructure=pipeModelStructure,
         use_HeatTransfer=true,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
                                            annotation (Placement(transformation(
               extent={{20,-30},{40,-10}},
                                         rotation=0)));
@@ -5904,7 +5904,7 @@ present that are regulated by a central control system.
         length=20,
         modelStructure=pipeModelStructure,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow)
                                            annotation (Placement(transformation(
               extent={{20,-70},{40,-50}}, rotation=0)));
       Modelica_Thermal_HeatTransfer.Sources.FixedHeatFlow[pipe8.nNodes] heat8(
@@ -5916,7 +5916,7 @@ present that are regulated by a central control system.
         redeclare package Medium = Medium,
         modelStructure=pipeModelStructure,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow,
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow,
         length=0.5)                        annotation (Placement(transformation(
               extent={{54,0},{74,20}},  rotation=0)));
     equation
@@ -6074,7 +6074,7 @@ The fluid temperatures in the pipes of interest are exposed through heatPorts.
         use_T_start=true,
         nNodes=5,
         redeclare model HeatTransfer =
-            M_S_L.Fluid.Pipes.BaseClasses.HeatTransfer.LocalPipeFlowHeatTransfer,
+            Modelica_Fluid.Pipes.BaseClasses.HeatTransfer.LocalPipeFlowHeatTransfer,
         use_HeatTransfer=true,
         diameter=2.54e-2,
         m_flow_start=0.01,
@@ -6235,10 +6235,10 @@ This avoids a high-index DAE and overdetermined initial conditions.
           modelStructure_1=Types.ModelStructure.av_b,
           modelStructure_2=Types.ModelStructure.a_vb,
           redeclare model HeatTransfer_2 =
-              M_S_L.Fluid.Pipes.BaseClasses.HeatTransfer.ConstantFlowHeatTransfer
+              Modelica_Fluid.Pipes.BaseClasses.HeatTransfer.ConstantFlowHeatTransfer
               (alpha0=200),
           redeclare model HeatTransfer_1 =
-              M_S_L.Fluid.Pipes.BaseClasses.HeatTransfer.LocalPipeFlowHeatTransfer
+              Modelica_Fluid.Pipes.BaseClasses.HeatTransfer.LocalPipeFlowHeatTransfer
               (alpha0=1000),
           Twall_start=300,
           dT=10,
@@ -6755,7 +6755,7 @@ Simple model of circular (or any other closed shape) wall to be used for pipe (o
           length=1,
           diameter=0.15,
           redeclare model FlowModel =
-              M_S_L.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow (
+              Modelica_Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow (
                 show_Res=true))
           annotation (Placement(transformation(extent={{20,-20},{40,0}})));
         Sensors.TraceSubstances traceSource(redeclare package Medium = Medium)
@@ -6844,7 +6844,7 @@ of magnitude.
           redeclare package Medium = Medium,
           diameter=0.15,
           redeclare model FlowModel =
-              M_S_L.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow (
+              Modelica_Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow (
                 show_Res=true),
           modelStructure=Types.ModelStructure.a_v_b,
           length=5) "Outlet duct"
@@ -6886,7 +6886,7 @@ of magnitude.
           redeclare package Medium = Medium,
           diameter=0.15,
           redeclare model FlowModel =
-              M_S_L.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow (
+              Modelica_Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow (
                 show_Res=true),
           modelStructure=Types.ModelStructure.a_v_b,
           length=5) "Inlet duct"
@@ -7055,7 +7055,7 @@ of magnitude.
         diameter=2.54e-2,
         length=0,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
             show_Res=true,
             m_flow_nominal=1,
             m_flow_turbulent=eps_m_flow_turbulent*1,
@@ -7077,7 +7077,7 @@ of magnitude.
         diameter=2.54e-2,
         length=1000,
         redeclare model FlowModel =
-            M_S_L.Fluid.Pipes.BaseClasses.FlowModels.NominalLaminarFlow (
+            Modelica_Fluid.Pipes.BaseClasses.FlowModels.NominalLaminarFlow (
             show_Res=true,
             dp_nominal=100000,
             m_flow_nominal=1)) annotation (Placement(transformation(extent={{20,
@@ -14036,11 +14036,11 @@ The details of the model are described in the
           geometry "Geometry of thick edged orifice" annotation (Placement(
               transformation(extent={{-20,0},{0,20}})), choices(
             choice=
-                M_S_L.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices.circular(),
+                Modelica_Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices.circular(),
             choice=
-                M_S_L.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices.rectangular(),
+                Modelica_Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices.rectangular(),
             choice=
-                M_S_L.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices.general()));
+                Modelica_Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices.general()));
 
       protected
         parameter Medium.AbsolutePressure dp_small=
@@ -15268,9 +15268,9 @@ The used sufficient criteria for monotonicity follows from:
           input LossFactorData data
             "Constant loss factors for both flow directions" annotation (
               choices(
-              choice=M_S_L.Fluid.Fittings.Utilities.QuadraticTurbulent.LossFactorData.wallFriction(),
-              choice=M_S_L.Fluid.Fittings.Utilities.QuadraticTurbulent.LossFactorData.suddenExpansion(),
-              choice=M_S_L.Fluid.Fittings.Utilities.QuadraticTurbulent.LossFactorData.sharpEdgedOrifice()));
+              choice=Modelica_Fluid.Fittings.Utilities.QuadraticTurbulent.LossFactorData.wallFriction(),
+              choice=Modelica_Fluid.Fittings.Utilities.QuadraticTurbulent.LossFactorData.suddenExpansion(),
+              choice=Modelica_Fluid.Fittings.Utilities.QuadraticTurbulent.LossFactorData.sharpEdgedOrifice()));
           input Modelica_SIunits.AbsolutePressure dp_small=1
             "Turbulent flow if |dp| >= dp_small";
           output Modelica_SIunits.MassFlowRate m_flow
@@ -26567,8 +26567,6 @@ Calculation of pressure loss for a valve with different geometries at overall fl
         extends Modelica_Icons.Information;
 
         package HeatTransfer
-          import Modelica =
-                 M_S_L;
           extends Modelica_Icons.Information;
 
           package Channel
@@ -28501,12 +28499,12 @@ with
 <tr><td><b> zeta_TOT           </b></td><td> as pressure loss coefficient [-].</td></tr>
 </table>
 
-<p> 
-Note that the Darcy friction factor for a smooth surface <b> lambda_FRI_smooth </b> is calculated with the previous equation and an absolute roughness of <b> K = 0 </b>. 
-</p> 
- 
-<p> 
-The correction for surface roughness through <b> CF_Fri </b> is used only in the turbulent regime, where the fluid flow is influenced by surface asperities not covered by a laminar boundary layer. Here the correction according to friction starts at <b> Re &ge; Re_lam_leave </b> according to <i>[Idelchik 2006, p. 336, sec. 15]</i>. Here the end of the laminar regime is restricted to a Reynolds number smaller than 2e3 w.r.t <i>[VDI, p. Lac 6, fig. 16]</i>. 
+<p>
+Note that the Darcy friction factor for a smooth surface <b> lambda_FRI_smooth </b> is calculated with the previous equation and an absolute roughness of <b> K = 0 </b>.
+</p>
+
+<p>
+The correction for surface roughness through <b> CF_Fri </b> is used only in the turbulent regime, where the fluid flow is influenced by surface asperities not covered by a laminar boundary layer. Here the correction according to friction starts at <b> Re &ge; Re_lam_leave </b> according to <i>[Idelchik 2006, p. 336, sec. 15]</i>. Here the end of the laminar regime is restricted to a Reynolds number smaller than 2e3 w.r.t <i>[VDI, p. Lac 6, fig. 16]</i>.
 </p>
 
 <p>
@@ -28528,7 +28526,7 @@ with
 
 <p>
 Note that the beginning of the laminar regime cannot be beneath <b> Re &le; 5e2 </b>.
-</p> 
+</p>
 
 <p>
 In addition the influence or decreasing Reynolds numbers <b> Re </b> on the pressure loss coefficient <b> zeta_TOT </b> in the laminar and turbulent regime is considered through a second correction factor <b> CF_Re </b> according to <i>[Miller 1984, p. 149, sec. 9.4]</i> by:
@@ -34135,8 +34133,6 @@ This function approximates abs(x)^a*sign(x), such that the derivative is positiv
     protected
       encapsulated function regRoot2_utility
         "Interpolating with two 3-order polynomials with a prescribed derivative at x=0"
-        import Modelica =
-               M_S_L;
         import Modelica_Icons;
         extends Modelica_Icons.Function;
         import Modelica_Fluid.Utilities.evaluatePoly3_derivativeAtZero;
@@ -34331,8 +34327,6 @@ k1=1, k2=3 is shown in the next figure:
     protected
       encapsulated function regSquare2_utility
         "Interpolating with two 3-order polynomials with a prescribed derivative at x=0"
-        import Modelica =
-               M_S_L;
         import Modelica_Icons;
         extends Modelica_Icons.Function;
         import Modelica_Fluid.Utilities.evaluatePoly3_derivativeAtZero;
@@ -34988,5 +34982,5 @@ Copyright &copy; 2002-2013, ABB, DLR, Dassault Syst&egrave;mes AB, Modelon, TU B
 <i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
 </p>
 </html>"),
-    uses(M_S_L(version="3.2.2")));
+    uses(Modelica_Icons));
 end Modelica_Fluid;

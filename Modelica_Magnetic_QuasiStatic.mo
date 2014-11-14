@@ -17,22 +17,22 @@ Let us assume that the air gap model contains stator and rotor magnetic ports wh
 </p>
 
 <p>
-<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_relationship.png\"/>, 
+<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_relationship.png\"/>,
 </p>
 
 <p>where
-<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_s.png\"/> 
+<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_s.png\"/>
 is the connector reference angle of the stator ports,
-<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_r.png\"/> 
+<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_r.png\"/>
 is the connector reference angle of the rotor ports, and
-<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_mechanical.png\"/> 
-is the difference of the mechanical angles of the flange and the support, respectively, 
+<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_mechanical.png\"/>
+is the difference of the mechanical angles of the flange and the support, respectively,
 multiplied by the number of pole pairs,
-<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/p.png\"/>. 
-The stator and rotor reference angles are directly related with the electrical frequencies of the 
-electric circuits of the stator, 
+<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/p.png\"/>.
+The stator and rotor reference angles are directly related with the electrical frequencies of the
+electric circuits of the stator,
 <img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/f_s.png\"/>,
-and rotor, 
+and rotor,
 <img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/f_r.png\"/>,
 respectively, by means of:
 </p>
@@ -55,7 +55,7 @@ This is a strict consequence of the elctro magnetic coupling between the quasi s
 </table>
 
 <p>
-The complex magnetic flux with respect a stator and rotor magnetic port are equal, 
+The complex magnetic flux with respect a stator and rotor magnetic port are equal,
 </p>
 
 <p>
@@ -118,7 +118,7 @@ email: <a HREF=\"mailto:a.haumer@haumer.at\">a.haumer@haumer.at</a><br>
 <li>Update and improvement of documentation</li>
 <li>Added new component:</li>
 <ul>
-    <li><a href=\"modelica://Modelica.Magnetic.FundamentalWave.Components.Permeance\">Permenace</a></li>   
+    <li><a href=\"modelica://Modelica.Magnetic.FundamentalWave.Components.Permeance\">Permenace</a></li>
 </ul>
 <li>Removed parameter text from icon layer for reluctance and permeance model</li>
 <li>Fixed issues of ticket #1524</li>
@@ -126,7 +126,7 @@ email: <a HREF=\"mailto:a.haumer@haumer.at\">a.haumer@haumer.at</a><br>
 <li>Bug fixes according to #1226</li>
 <li>Added magnitude and argument of complex magnetic potentials, magnetic fluxes, voltages and currents in interface, electromagnetic coupling and machine models, see #1405</li>
 <li>Added active, reactive and aparrent power and power factor in interface and machine models, see #1405</li>
-<li>Added new interface model 
+<li>Added new interface model
 <a href=\"modelica://Modelica.Magnetic.QuasiStatic.FundamentalWave.Interfaces.PartialTwoPortExtended\">PartialTwoPortExtended</a>
 to simplify consistent inclusion of variables, see #1405</li>
 </ul>
@@ -155,7 +155,7 @@ to simplify consistent inclusion of variables, see #1405</li>
 <ul>
 <li>Changed implementation of symmetrical components: symmetricTransformationMatrix(m) is now
     multiplied by numberOfSymmetricBaseSystems(m) in order to overcome differences in calculation
-    of current and voltage symmetrical components. The symmetrical components of a system of 
+    of current and voltage symmetrical components. The symmetrical components of a system of
     even phase numbers are now equal to the symmetrical components of one corresponding base system.
 <li>Imporoved examples package and removed SMPM_Inverter example<li>
 </ul>
@@ -212,7 +212,7 @@ to simplify consistent inclusion of variables, see #1405</li>
     <tr>
       <td valign=\"top\">[Lang1984]</td>
       <td valign=\"top\">W. Lang,
-        &quot;&Uuml;ber die Bemessung verlustarmer Asynchronmotoren mit K&auml;figl&auml;ufer f&uuml;r 
+        &quot;&Uuml;ber die Bemessung verlustarmer Asynchronmotoren mit K&auml;figl&auml;ufer f&uuml;r
         Pulsumrichterspeisung,&quot;
         Doctoral Thesis,
         Technical University of Vienna, 1984.</td>
@@ -222,7 +222,7 @@ to simplify consistent inclusion of variables, see #1405</li>
       end References;
       annotation (Documentation(info="<html>
 <p>
-This is the library of quasi static fundamental wave models for multi phase electric machines. This is complementary library with the transient machine models of 
+This is the library of quasi static fundamental wave models for multi phase electric machines. This is complementary library with the transient machine models of
 <a href=\"modelica://\"></a>
 </p>
 
@@ -3602,7 +3602,7 @@ The total complex magnetic potential difference of the single phase winding is d
 </p>
 
 <p>
-where 
+where
 <img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma.png\">
 is the reference angle of the electrical and magnetic system, respectively. The induced voltage <img src=\"modelica://Modelica/Resources/Images/Magnetic/FundamentalWave/v.png\"> is identical to zero.
 
@@ -5127,16 +5127,16 @@ This salient air gap model can be used for machines with uniform airgaps and for
 For the mechanical interaction of the air gap model with the stator and the rotor it is equipped with to
 <a href=\"modelica://Modelica.Mechanics.Rotational.Interfaces.Flange_a\">rotational connectors</a>. The torques acting on both connectors have the same absolute values but different signs. The stator and the rotor reference angles,
 <img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_s.png\"> and
-<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_r.png\"> are related by 
-<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_relationship.png\"> 
+<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_r.png\"> are related by
+<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma_relationship.png\">
 where
-<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma.png\"> 
-is the electrical angle between stator and rotor. 
+<img src=\"modelica://Modelica/Resources/Images/Magnetic/QuasiStatic/FundamentalWave/gamma.png\">
+is the electrical angle between stator and rotor.
 </p>
 
 <p>
 The air gap model has two magnetic stator and two magnetic rotor
-<a href=\"modelica://StaticFundamentalWave.Interfaces.MagneticPort\">ports</a>. The magnetic potential difference and the magnetic flux of the stator and rotor are equal complex quanitites, respectively, but the reference angles are different; see <a href=\"Modelica.Magnetic.QuasiStatic.FundamentalWave.UsersGuide.Concept\">Concept</a>. The d and q axis components with respect to the rotor fixed reference frame (superscript r) are determined from the stator (superscript s) and rotor (superscript r) reference quantities, by 
+<a href=\"modelica://StaticFundamentalWave.Interfaces.MagneticPort\">ports</a>. The magnetic potential difference and the magnetic flux of the stator and rotor are equal complex quanitites, respectively, but the reference angles are different; see <a href=\"Modelica.Magnetic.QuasiStatic.FundamentalWave.UsersGuide.Concept\">Concept</a>. The d and q axis components with respect to the rotor fixed reference frame (superscript r) are determined from the stator (superscript s) and rotor (superscript r) reference quantities, by
 </p>
 
 <p>
@@ -5319,7 +5319,7 @@ Magnetic.FundamentalWave.BasicMachines.Components.RotorSaliencyAirGap</a>
 
 <p>
 The symmetric rotor cage model of this library does not consist of rotor bars and end rings. Instead the symmetric cage is modeled by an equivalent symmetrical winding. The rotor cage model consists of
-<img src=\"modelica://Modelica/Resources/Images/Magnetic/FundamentalWave/m.png\"> phases. If the cage is modeled by equivalent stator winding parameters, the number of effective turns, 
+<img src=\"modelica://Modelica/Resources/Images/Magnetic/FundamentalWave/m.png\"> phases. If the cage is modeled by equivalent stator winding parameters, the number of effective turns,
 <img src=\"modelica://Modelica/Resources/Images/Magnetic/FundamentalWave/effectiveTurns.png\">, has to be chosen equivalent to the effective number of stator turns.
 </p>
 
@@ -5536,7 +5536,7 @@ Magnetic.FundamentalWave.BasicMachines.Components.RotorSaliencyAirGap</a>
           annotation (
             Documentation(info="<html>
 <p>Permanent magnet model with magnetic, mechanical and thermal connector including losses. The PM model is source  of constant magnetic potential difference. The PM loss is calculated by
-<a href=\"modelica://Modelica.Magnetic.QuasiStatic.FundamentalWave.Losses.PermanentMagnetLosses\">PermanentMagnetLosses</a>. 
+<a href=\"modelica://Modelica.Magnetic.QuasiStatic.FundamentalWave.Losses.PermanentMagnetLosses\">PermanentMagnetLosses</a>.
 </p>
 </html>"),  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
                     {100,100}}), graphics),
@@ -5589,7 +5589,7 @@ Stray load losses are modeled similar to standards EN 60034-2 and IEEE 512, i.e.
 but without scaling them to zero at no-load current.
 </p>
 <p>
-For an estimation of dependency on varying angular velocity see: 
+For an estimation of dependency on varying angular velocity see:
 <a href=\"modelica://Modelica.Magnetic.QuasiStatic.FundamentalWave.UsersGuide.References\">[Lang1984]</a>
 </p>
 <p>
@@ -6056,7 +6056,7 @@ This package provides sensors for the magnetic potential difference and the magn
         flow Modelica_SIunits.ComplexMagneticFlux Phi
           "Complex magnetic flux flowing into the pin";
         annotation (Documentation(info="<html>
-<p>Base definition of complex quasi static magnetic port. The potential variable is the complex magnetic potential difference <code>V_m</code> and the flow variable is the complex magnetic flux <code>Phi</code>.</p> 
+<p>Base definition of complex quasi static magnetic port. The potential variable is the complex magnetic potential difference <code>V_m</code> and the flow variable is the complex magnetic flux <code>Phi</code>.</p>
 </p>
 
 <h4>See also</h4>
@@ -6093,9 +6093,9 @@ This package provides sensors for the magnetic potential difference and the magn
           Documentation(info="<html>
 
 <p>
-The positive port is based on 
+The positive port is based on
 <a href=\"modelica://Modelica.Magnetic.QuasiStatic.FundamentalWave.Interfaces.MagneticPort\">MagneticPort</a>.
-Additionally the reference angle is specified in the connector. The time derivative of the reference angle is the actual angluar velocity of the quasi static voltage and current. The symbol is also designed such way to look different than the 
+Additionally the reference angle is specified in the connector. The time derivative of the reference angle is the actual angluar velocity of the quasi static voltage and current. The symbol is also designed such way to look different than the
 <a href=\"modelica://Modelica.Magnetic.QuasiStatic.FundamentalWave.Interfaces.NegativeMagneticPort\">NegativeMagneticPort</a>.
 </p>
 
@@ -6220,7 +6220,7 @@ This interface model contains an extended set of (output) variables compared to
         annotation (
           Documentation(info="<html>
 <p>
-The partial two port elementary model extends from the partial two port model and adds one equation considering the balance of flow variables, <code>port_p.Phi + port_n.Phi = Complex(0,0)</code>. Additionally, a variable for magnetic potential difference of the two magnetic ports, <code>V_m</code>, and the flux into the positive port, <code>Phi</code>, are defined. 
+The partial two port elementary model extends from the partial two port model and adds one equation considering the balance of flow variables, <code>port_p.Phi + port_n.Phi = Complex(0,0)</code>. Additionally, a variable for magnetic potential difference of the two magnetic ports, <code>V_m</code>, and the flux into the positive port, <code>Phi</code>, are defined.
 </p>
 </html>"),Icon(graphics),
           Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -6623,8 +6623,8 @@ The partial two port elementary model extends from the partial two port model an
                     lineColor={0,0,255})}),
           Documentation(info="<HTML>
 <p>
-This is a simple voltage-frequency-controller. The amplitude of the voltage is linear dependent (<code>VNominal/fNominal</code>) on the frequency (input signal <code>u</code>), but limited by <code>VNominal</code> (nominal RMS voltage per phase). An 
-<code>m</code> quasi static phasor signal is proivded as output signal <code>y</code>, representing complex voltages. 
+This is a simple voltage-frequency-controller. The amplitude of the voltage is linear dependent (<code>VNominal/fNominal</code>) on the frequency (input signal <code>u</code>), but limited by <code>VNominal</code> (nominal RMS voltage per phase). An
+<code>m</code> quasi static phasor signal is proivded as output signal <code>y</code>, representing complex voltages.
 The output voltages may serve as inputs for complex voltage sources with phase input. Symmetrical voltages are assumed.
 </p>
 
@@ -6973,5 +6973,5 @@ Copyright &copy; 2013-2014, <a href=\"modelica://Modelica.Magnetic.FundamentalWa
 </p>
 </html>"));
   end FundamentalWave;
-  annotation (uses(                           Complex(version="3.2.1")));
+  annotation (uses(                           Complex(version="3.2.2")));
 end Modelica_Magnetic_QuasiStatic;

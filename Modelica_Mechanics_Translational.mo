@@ -541,12 +541,7 @@ If damping is added the amplitudes are bounded.
     end Oscillator;
 
     model Sensors "Sensors for translational systems."
-      import Modelica =
-             M_S_L;
-      import Modelica_Mechanics_Translational;
-
       extends Modelica_Icons.Example;
-
       Modelica_Mechanics_Translational.Sensors.ForceSensor forceSensor
         annotation (Placement(transformation(extent={{-34,40},{-14,60}},
               rotation=0)));
@@ -572,7 +567,7 @@ If damping is added the amplitudes are bounded.
       Modelica_Mechanics_Translational.Sensors.PositionSensor positionSensor2
         annotation (Placement(transformation(extent={{60,40},{80,60}}, rotation=
                0)));
-      M_S_L.Mechanics.Translational.Sensors.MultiSensor multiSensor
+      Modelica_Mechanics_Translational.Sensors.MultiSensor multiSensor
         annotation (Placement(transformation(extent={{-8,40},{12,60}})));
     equation
       connect(sineForce.y, force.f)
@@ -2436,16 +2431,13 @@ following references, especially (Armstrong and Canudas de Witt 1996):
 
     protected
       encapsulated model Set_s_start "Set s_start"
-        import Modelica =
-               M_S_L;
         import Modelica_Blocks;
-        import M_S_L;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Blocks.Interfaces.RealInput s_start(unit="m") "Start position"
         annotation (HideResult=true, Placement(transformation(extent={{-140,-20},{
                 -100,20}}, rotation=0)));
 
-        M_S_L.Mechanics.Translational.Interfaces.Flange_b flange annotation (
+        Modelica_Mechanics_Translational.Interfaces.Flange_b flange annotation (
             Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
       initial equation
         flange.s = s_start;
@@ -2455,17 +2447,14 @@ following references, especially (Armstrong and Canudas de Witt 1996):
       end Set_s_start;
 
       encapsulated model Set_v_start "Set v_start"
-        import Modelica =
-               M_S_L;
         import Modelica_Blocks;
-        import M_S_L;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Blocks.Interfaces.RealInput v_start(unit="m/s")
           "Start velocity"
         annotation (HideResult=true, Placement(transformation(extent={{-140,-20},{
                 -100,20}}, rotation=0)));
 
-        M_S_L.Mechanics.Translational.Interfaces.Flange_b flange annotation (
+        Modelica_Mechanics_Translational.Interfaces.Flange_b flange annotation (
             Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
       initial equation
         der(flange.s) = v_start;
@@ -2475,18 +2464,15 @@ following references, especially (Armstrong and Canudas de Witt 1996):
       end Set_v_start;
 
       encapsulated model Set_a_start "Set a_start"
-        import Modelica =
-               M_S_L;
         import Modelica_SIunits;
         import Modelica_Blocks;
-        import M_S_L;
         extends Modelica_Blocks.Icons.Block;
         Modelica_Blocks.Interfaces.RealInput a_start(unit="m/s2")
           "Start acceleration"
         annotation (HideResult=true, Placement(transformation(extent={{-140,-20},{
                 -100,20}}, rotation=0)));
 
-        M_S_L.Mechanics.Translational.Interfaces.Flange_b flange(s(stateSelect=
+        Modelica_Mechanics_Translational.Interfaces.Flange_b flange(s(stateSelect=
                 StateSelect.avoid)) annotation (Placement(transformation(extent
                 ={{90,-10},{110,10}}, rotation=0)));
         Modelica_SIunits.Velocity v = der(flange.s)        annotation(HideResult=true);
@@ -2498,12 +2484,9 @@ following references, especially (Armstrong and Canudas de Witt 1996):
       end Set_a_start;
 
       encapsulated model Set_flange_f "Set flange_f to zero"
-        import Modelica =
-               M_S_L;
         import Modelica_Blocks;
-        import M_S_L;
         extends Modelica_Blocks.Icons.Block;
-        M_S_L.Mechanics.Translational.Interfaces.Flange_b flange annotation (
+        Modelica_Mechanics_Translational.Interfaces.Flange_b flange annotation (
             Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
       equation
         flange.f = 0;
@@ -5292,5 +5275,5 @@ Copyright &copy; 1998-2013, Modelica Association, Anton Haumer and Universit&aum
        by Martin Otter and an existing Dymola library onedof.lib by Peter Beater.</li>
 </ul>
 </html>"),
-    uses(M_S_L(version="3.2.2")));
+    uses(Modelica_Icons));
 end Modelica_Mechanics_Translational;

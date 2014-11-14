@@ -3644,7 +3644,7 @@ is present in variable convection.fluid.
         inner Modelica_Mechanics_MultiBody.World world(
           gravityType=Types.GravityTypes.NoGravity,
           redeclare function gravityAcceleration =
-              M_S_L.Mechanics.MultiBody.Examples.Elementary.Utilities.theoreticalNormalGravityWGS84
+              Modelica_Mechanics_MultiBody.Examples.Elementary.Utilities.theoreticalNormalGravityWGS84
               (phi=geodeticLatitude),
           axisLength=10,
           nominalLength=10) annotation (Placement(transformation(extent={{-80,-20},
@@ -3729,7 +3729,7 @@ the rotation angle of the pendulum, rev.phi, has the following values:
         Real wz = time;
         Modelica_Mechanics_MultiBody.Visualizers.Advanced.Surface surface(
           redeclare function surfaceCharacteristic =
-              M_S_L.Mechanics.MultiBody.Examples.Elementary.Utilities.sineSurface
+              Modelica_Mechanics_MultiBody.Examples.Elementary.Utilities.sineSurface
               (
               x_min=x_min,
               x_max=x_max,
@@ -4567,7 +4567,7 @@ a size of about 50 Mbyte (for 5000 output intervals).
             animateGravity=false) annotation (Placement(transformation(extent={
                   {-80,-20},{-60,0}}, rotation=0)));
         Utilities.EngineV6_analytic engine(redeclare model Cylinder =
-              M_S_L.Mechanics.MultiBody.Examples.Loops.Utilities.Cylinder_analytic_CAD)
+              Modelica_Mechanics_MultiBody.Examples.Loops.Utilities.Cylinder_analytic_CAD)
           annotation (Placement(transformation(extent={{-40,0},{0,40}}, rotation=0)));
         Modelica_Mechanics_Rotational.Components.Inertia load(
                                                    phi(
@@ -5966,11 +5966,11 @@ of the cylinder. If this assumption is not fulfilled, an error occurs.
           replaceable model Cylinder = Cylinder_analytic_CAD constrainedby
             CylinderBase "Cylinder type"
                annotation (choices(choice(redeclare model Cylinder =
-                  M_S_L.Mechanics.MultiBody.Examples.Loops.Utilities.Cylinder_analytic_CAD
+                  Modelica_Mechanics_MultiBody.Examples.Loops.Utilities.Cylinder_analytic_CAD
                   "Analytic loop handling + CAD animation"),
                                                            choice(redeclare
                   model Cylinder =
-                    M_S_L.Mechanics.MultiBody.Examples.Loops.Utilities.Cylinder_analytic
+                    Modelica_Mechanics_MultiBody.Examples.Loops.Utilities.Cylinder_analytic
                   "Analytic loop handling + standard animation")));
 
           Cylinder cylinder1(
@@ -12882,11 +12882,7 @@ between two frame connectors, e.g., between two parts.
 
       encapsulated function equalityConstraint
         "Return the constraint residues to express that two frames have the same orientation"
-        import Modelica_Icons;
         import Modelica_Math;
-
-        import Modelica =
-               M_S_L;
         import Modelica_Mechanics_MultiBody.Frames;
         extends Modelica_Icons.Function;
         input Frames.Orientation R1
@@ -13641,10 +13637,6 @@ is not possible or too difficult to compute, use function from_T2(..).
 
         encapsulated function equalityConstraint
           "Return the constraint residues to express that two frames have the same quaternion orientation"
-          import Modelica_Icons;
-
-          import Modelica =
-                 M_S_L;
           import Modelica_Mechanics_MultiBody.Frames.Quaternions;
           extends Modelica_Icons.Function;
           input Quaternions.Orientation Q1
@@ -14104,10 +14096,6 @@ The used variables have the following declaration:
 
         encapsulated function equalityConstraint
           "Return the constraint residues to express that two frames have the same orientation"
-          import Modelica_Icons;
-
-          import Modelica =
-                 M_S_L;
           import Modelica_Mechanics_MultiBody.Frames.TransformationMatrices;
           extends Modelica_Icons.Function;
           input TransformationMatrices.Orientation T1
@@ -27189,12 +27177,8 @@ are forced to be used as states.
       outer Modelica_Mechanics_MultiBody.World world;
 
       encapsulated model Housing
-        import Modelica =
-               M_S_L;
-        import Modelica_SIunits;
-        import M_S_L;
         input Modelica_SIunits.Torque t[3];
-        M_S_L.Mechanics.MultiBody.Interfaces.Frame_a frame_a annotation (
+        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a annotation (
             Placement(transformation(extent={{-116,-16},{-84,16}}, rotation=0)));
       equation
         frame_a.f = zeros(3);
@@ -27326,13 +27310,6 @@ November 3-4, 2003, pp. 149-158</p>
 
       encapsulated model RotorWith3DEffects
         "1D inertia attachable on 3-dim. bodies (3D dynamic effects are taken into account)"
-        import Modelica_SIunits;
-        import Modelica_Math;
-        import Modelica_Mechanics_Rotational;
-        import M_S_L;
-
-        import Modelica =
-               M_S_L;
         import Modelica_Mechanics_MultiBody.Frames;
         import Modelica_Mechanics_MultiBody.Types;
         import SI = Modelica_SIunits;
@@ -27359,7 +27336,7 @@ November 3-4, 2003, pp. 149-158</p>
             tab="Animation",
             group="if animation = true",
             enable=animation));
-        input Types.Color cylinderColor=M_S_L.Mechanics.MultiBody.Types.Defaults.RodColor
+        input Types.Color cylinderColor=Modelica_Mechanics_MultiBody.Types.Defaults.RodColor
           "Color of cylinder representing the rotor" annotation (Dialog(
             colorSelector=true,
             tab="Animation",
@@ -27399,7 +27376,7 @@ November 3-4, 2003, pp. 149-158</p>
           "(right) driven flange (flange axis directed OUT OF cut plane)"
           annotation (Placement(transformation(extent={{90,-10},{110,10}},
                 rotation=0)));
-        M_S_L.Mechanics.MultiBody.Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
           "Frame in which rotor housing is fixed" annotation (Placement(
               transformation(
               origin={0,-100},
@@ -27407,12 +27384,12 @@ November 3-4, 2003, pp. 149-158</p>
               rotation=90)));
 
       protected
-        outer M_S_L.Mechanics.MultiBody.World world;
+        outer Modelica_Mechanics_MultiBody.World world;
         parameter Real e[3](each final unit="1")=
           Modelica_Math.Vectors.normalizeWithAssert(n)
           "Unit vector in direction of rotor axis, resolved in frame_a";
         parameter Modelica_SIunits.Inertia nJ[3]=J*e;
-        M_S_L.Mechanics.MultiBody.Visualizers.Advanced.Shape cylinder(
+        Modelica_Mechanics_MultiBody.Visualizers.Advanced.Shape cylinder(
           shapeType="cylinder",
           color=cylinderColor,
           specularCoefficient=specularCoefficient,
@@ -27435,7 +27412,7 @@ November 3-4, 2003, pp. 149-158</p>
         w = der(phi);
         a = der(w);
 
-        w_a =M_S_L.Mechanics.MultiBody.Frames.angularVelocity2(frame_a.R);
+        w_a =Modelica_Mechanics_MultiBody.Frames.angularVelocity2(frame_a.R);
         if exact then
           J*a = flange_a.tau + flange_b.tau - nJ*der(w_a);
         else
@@ -27687,12 +27664,8 @@ November 3-4, 2003, pp. 149-158</p>
         Modelica_Math.Vectors.normalizeWithAssert(n_b)
         "Unit vector in direction of flange_b rotation axis";
       encapsulated model Housing
-        import Modelica =
-               M_S_L;
-        import Modelica_SIunits;
-        import M_S_L;
         input Modelica_SIunits.Torque t[3];
-        M_S_L.Mechanics.MultiBody.Interfaces.Frame_a frame_a annotation (
+        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a annotation (
             Placement(transformation(extent={{-116,-16},{-84,16}}, rotation=0)));
       equation
         frame_a.f = zeros(3);
@@ -32873,7 +32846,7 @@ This shape visualizes the x-y plane by a box
 
     protected
       Advanced.Surface surface( redeclare function surfaceCharacteristic =
-            M_S_L.Mechanics.MultiBody.Visualizers.Advanced.SurfaceCharacteristics.torus
+            Modelica_Mechanics_MultiBody.Visualizers.Advanced.SurfaceCharacteristics.torus
             (   ri=ri, ro=ro, opening=opening, startAngle=startAngle, stopAngle=stopAngle),
               nu=n_ri,
               nv=n_ro,
@@ -32978,7 +32951,7 @@ the last point of the parametrization coincide in this case.
 
         Visualizers.Advanced.Surface torus(redeclare function
           surfaceCharacteristic =
-            M_S_L.Mechanics.MultiBody.Visualizers.Advanced.SurfaceCharacteristics.torus
+            Modelica_Mechanics_MultiBody.Visualizers.Advanced.SurfaceCharacteristics.torus
             (     ri=ri,
                   ro=rCurvature2,
                   opening=Modelica_Constants.pi - Modelica_Math.asin(rw/rCurvature2)),
@@ -33437,13 +33410,13 @@ respective function:
             noHeader);
         import Modelica_Utilities.Streams.print;
         input Real colorMap[:,3] "Color map to be stored in svg format"
-          annotation(choices( choice=M_S_L.Mechanics.MultiBody.Visualizers.Colors.ColorMaps.jet(),
-                              choice=M_S_L.Mechanics.MultiBody.Visualizers.Colors.ColorMaps.hot(),
-                              choice=M_S_L.Mechanics.MultiBody.Visualizers.Colors.ColorMaps.gray(),
-                              choice=M_S_L.Mechanics.MultiBody.Visualizers.Colors.ColorMaps.spring(),
-                              choice=M_S_L.Mechanics.MultiBody.Visualizers.Colors.ColorMaps.summer(),
-                              choice=M_S_L.Mechanics.MultiBody.Visualizers.Colors.ColorMaps.autumn(),
-                              choice=M_S_L.Mechanics.MultiBody.Visualizers.Colors.ColorMaps.winter()));
+          annotation(choices( choice=Modelica_Mechanics_MultiBody.Visualizers.Colors.ColorMaps.jet(),
+                              choice=Modelica_Mechanics_MultiBody.Visualizers.Colors.ColorMaps.hot(),
+                              choice=Modelica_Mechanics_MultiBody.Visualizers.Colors.ColorMaps.gray(),
+                              choice=Modelica_Mechanics_MultiBody.Visualizers.Colors.ColorMaps.spring(),
+                              choice=Modelica_Mechanics_MultiBody.Visualizers.Colors.ColorMaps.summer(),
+                              choice=Modelica_Mechanics_MultiBody.Visualizers.Colors.ColorMaps.autumn(),
+                              choice=Modelica_Mechanics_MultiBody.Visualizers.Colors.ColorMaps.winter()));
         input String fileName="colorMap.svg"
           "File where the svg representation shall be stored";
         input Real width(unit="mm")=10 "Width in svg-figure";
@@ -34210,7 +34183,7 @@ The direct usage of the Surface model, as well as of the Torus and the Voluminou
           specularCoefficient=specularCoefficient,
           transparency=transparency,
           redeclare function surfaceCharacteristic =
-              M_S_L.Mechanics.MultiBody.Visualizers.Advanced.SurfaceCharacteristics.pipeWithScalarField
+              Modelica_Mechanics_MultiBody.Visualizers.Advanced.SurfaceCharacteristics.pipeWithScalarField
               (rOuter=rOuter,
                length=length,
                xsi=xsi,
@@ -35323,6 +35296,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
           lineColor={135,135,135},
           fillPattern=FillPattern.Sphere,
           fillColor={255,255,255})}),
-    uses(                           ModelicaServices(version="1.2"), M_S_L(
-          version="3.2.2")));
+    uses(ModelicaServices(version="3.2.2"), ModelicaIcons));
 end Modelica_Mechanics_MultiBody;

@@ -12,22 +12,22 @@ package Modelica_Electrical_MultiPhase
 This package contains packages for electrical multiphase components, based on Modelica.Electrical.Analog:
 </p>
 <ul>
-<li><a href=\"modelica://Modelica.Electrical.MultiPhase.Basic\">Basic</a> 
+<li><a href=\"modelica://Modelica.Electrical.MultiPhase.Basic\">Basic</a>
     components (resistor, capacitor, inductor, ...)</li>
-<li><a href=\"modelica://Modelica.Electrical.MultiPhase.Ideal\">Ideal</a> 
+<li><a href=\"modelica://Modelica.Electrical.MultiPhase.Ideal\">Ideal</a>
     elements (switches, diode, transformer, ...)</li>
-<li><a href=\"modelica://Modelica.Electrical.MultiPhase.Sensors\">Sensors</a> 
+<li><a href=\"modelica://Modelica.Electrical.MultiPhase.Sensors\">Sensors</a>
     to measure potentials, voltages, and currents</li>
-<li>Time-dependent and controlled voltage and current 
+<li>Time-dependent and controlled voltage and current
 <a href=\"modelica://Modelica.Electrical.MultiPhase.Sources\">sources</a></li>
 </ul>
 <p>
 This package is intended to be used the same way as Modelica.Electrical.Analog
 but to make design of multiphase models easier.
-The package is based on the 
-<a href=\"modelica://Modelica.Electrical.MultiPhase.Interfaces.Plug\">plug</a>: 
+The package is based on the
+<a href=\"modelica://Modelica.Electrical.MultiPhase.Interfaces.Plug\">plug</a>:
 a composite connector containing <code>m</code> pins.
-It is possible to connect plugs to plugs or single pins of a plug to single pins. 
+It is possible to connect plugs to plugs or single pins of a plug to single pins.
 Potentials may be accessed as <code>plug.pin[].v</code>, currents may be accessed as <code>plug.pin[].i</code>.
 </p>
 </html>"));
@@ -818,7 +818,7 @@ Star (wye) connection of a multi phase circuit consiting of multiple base system
               color={0,0,255})}), Documentation(info="<html>
 <p>
 Delta (polygon) connection of a multi phase circuit consiting of multiple base systems (see
-<a href=\"modelica://Modelica.Magnetic.FundamentalWave.UsersGuide.MultiPhase\">multi phase guidelines</a>). 
+<a href=\"modelica://Modelica.Magnetic.FundamentalWave.UsersGuide.MultiPhase\">multi phase guidelines</a>).
 </p>
 <h4>See also</h4>
 <p>
@@ -2474,14 +2474,12 @@ like thyristor, diode, switch, transformer.
   package Blocks "Blocks for multi phase systems"
     extends Modelica_Icons.Package;
     block QuasiRMS
-      import Modelica =
-             M_S_L;
       extends Modelica_Blocks.Interfaces.SO;
       parameter Integer m(min=2) = 3 "Number of phases";
       Modelica_Blocks.Interfaces.RealInput u[m]
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     equation
-      y =M_S_L.Electrical.MultiPhase.Functions.quasiRMS(u);
+      y =Modelica_Electrical_MultiPhase.Functions.quasiRMS(u);
 
       annotation (Documentation(info="<HTML>
 <p>
@@ -2810,10 +2808,8 @@ thus measuring the m potential differences <i>v[m]</i> between the m pins of plu
 
     model VoltageQuasiRMSSensor
       "Continuous quasi voltage RMS sensor for multi phase system"
-      import Modelica =
-             M_S_L;
       extends Modelica_Icons.RotationalSensor;
-      extends M_S_L.Electrical.MultiPhase.Interfaces.TwoPlug;
+      extends Modelica_Electrical_MultiPhase.Interfaces.TwoPlug;
       parameter Integer m(min=1) = 3 "Number of phases";
 
       Modelica_Blocks.Interfaces.RealOutput V "Continuous quasi RMS of voltage"
@@ -2821,10 +2817,10 @@ thus measuring the m potential differences <i>v[m]</i> between the m pins of plu
             origin={0,-100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      M_S_L.Electrical.MultiPhase.Sensors.VoltageSensor voltageSensor(final m=m)
+      Modelica_Electrical_MultiPhase.Sensors.VoltageSensor voltageSensor(final m=m)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}},
               rotation=0)));
-      M_S_L.Electrical.MultiPhase.Blocks.QuasiRMS quasiRMS(final m=m)
+      Modelica_Electrical_MultiPhase.Blocks.QuasiRMS quasiRMS(final m=m)
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=270,
@@ -2914,10 +2910,8 @@ thus measuring the m currents <i>i[m]</i> flowing from the m pins of plug_p to t
 
     model CurrentQuasiRMSSensor
       "Continuous quasi current RMS sensor for multi phase system"
-      import Modelica =
-             M_S_L;
       extends Modelica_Icons.RotationalSensor;
-      extends M_S_L.Electrical.MultiPhase.Interfaces.TwoPlug;
+      extends Modelica_Electrical_MultiPhase.Interfaces.TwoPlug;
       parameter Integer m(min=1) = 3 "Number of phases";
       Modelica_Blocks.Interfaces.RealOutput I
         "Continuous quasi average RMS of current" annotation (Placement(
@@ -2925,10 +2919,10 @@ thus measuring the m currents <i>i[m]</i> flowing from the m pins of plug_p to t
             origin={0,-100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      M_S_L.Electrical.MultiPhase.Sensors.CurrentSensor currentSensor(final m=m)
+      Modelica_Electrical_MultiPhase.Sensors.CurrentSensor currentSensor(final m=m)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}},
               rotation=0)));
-      M_S_L.Electrical.MultiPhase.Blocks.QuasiRMS quasiRMS(final m=m)
+      Modelica_Electrical_MultiPhase.Blocks.QuasiRMS quasiRMS(final m=m)
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=270,
@@ -3794,6 +3788,5 @@ Copyright &copy; 1998-2014, Modelica Association and Anton Haumer.
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           extent={{-20,-74},{0,-54}})}),
-    uses(                           Complex(version="3.2.1"), M_S_L(version=
-            "3.2.2")));
+    uses(                           Complex(version="3.2.2")));
 end Modelica_Electrical_MultiPhase;

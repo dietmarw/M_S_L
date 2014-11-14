@@ -11991,14 +11991,14 @@ This package contains loss models and their parameter records used for machine m
     type LinearTemperatureCoefficient20 =
         Modelica_SIunits.LinearTemperatureCoefficient
       "Linear temperature coefficient with choices" annotation (choices(
-        choice=M_S_L.Electrical.Machines.Thermal.Constants.alpha20Zero
+        choice=Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero
           "Not temperature dependent",
-        choice=M_S_L.Electrical.Machines.Thermal.Constants.alpha20Aluminium
+        choice=Modelica_Electrical_Machines.Thermal.Constants.alpha20Aluminium
           "Aluminium",
-        choice=M_S_L.Electrical.Machines.Thermal.Constants.alpha20Brass "Brass",
-        choice=M_S_L.Electrical.Machines.Thermal.Constants.alpha20Bronze
+        choice=Modelica_Electrical_Machines.Thermal.Constants.alpha20Brass "Brass",
+        choice=Modelica_Electrical_Machines.Thermal.Constants.alpha20Bronze
           "Bronze",
-        choice=M_S_L.Electrical.Machines.Thermal.Constants.alpha20Copper
+        choice=Modelica_Electrical_Machines.Thermal.Constants.alpha20Copper
           "Copper"));
     package Constants "Material Constants"
       extends Modelica_Icons.Package;
@@ -12248,8 +12248,6 @@ Thermal parts for asynchronous induction machines
       extends Modelica_Icons.VariantsPackage;
       model ThermalAmbientSMPM
         "Thermal ambient for synchronous induction machine with permanent magnets"
-        import Modelica =
-               M_S_L;
         parameter Boolean useDamperCage(start=true)
           "Enable / disable damper cage" annotation (Evaluate=true);
         extends
@@ -12516,8 +12514,6 @@ Thermal parts for synchronous induction machines
       extends Modelica_Icons.VariantsPackage;
       model ThermalAmbientDCPM
         "Thermal ambient for DC machine with permanent magnets"
-        import Modelica =
-               M_S_L;
         extends Interfaces.DCMachines.PartialThermalAmbientDCMachines(
             redeclare final Interfaces.DCMachines.ThermalPortDCPM thermalPort);
         parameter Modelica_SIunits.Temperature Tpm(start=TDefault)
@@ -16181,6 +16177,5 @@ Copyright &copy; 1998-2014, Modelica Association, Anton Haumer, Christian Kral a
           origin={2.835,10},
           fillPattern=FillPattern.Solid,
           points={{-70,-90},{-60,-90},{-30,-20},{20,-20},{50,-90},{60,-90},{60,
-              -100},{-70,-100},{-70,-90}})}),
-    uses(M_S_L(version="3.2.2")));
+              -100},{-70,-100},{-70,-90}})}));
 end Modelica_Electrical_Machines;

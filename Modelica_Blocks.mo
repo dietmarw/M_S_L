@@ -1639,11 +1639,11 @@ If k=0, the block reduces to y=0.
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
         points={{90.0,-80.0},{68.0,-72.0},{68.0,-88.0},{90.0,-80.0}}),
-      Line(visible=  true,
-        origin=  {-24.667,-27.333},
-        points=  {{-55.333,87.333},{-19.333,-40.667},{86.667,-52.667}},
-        color=  {0,0,127},
-        smooth=  Smooth.Bezier),
+      Line(visible = true,
+        origin = {-24.667,-27.333},
+        points = {{-55.333,87.333},{-19.333,-40.667},{86.667,-52.667}},
+        color = {0,0,127},
+        smooth = Smooth.Bezier),
       Text(visible=true,
           lineColor={192,192,192},
         extent={{-30.0,14.0},{86.0,60.0}},
@@ -1736,11 +1736,11 @@ Example:
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
         points={{90.0,-80.0},{68.0,-72.0},{68.0,-88.0},{90.0,-80.0}}),
-      Line(visible=  true,
-          origin=  {-26.667,6.667},
-          points=  {{106.667,43.333},{-13.333,29.333},{-53.333,-86.667}},
-          color=  {0,0,127},
-          smooth=  Smooth.Bezier),
+      Line(visible = true,
+          origin = {-26.667,6.667},
+          points = {{106.667,43.333},{-13.333,29.333},{-53.333,-86.667}},
+          color = {0,0,127},
+          smooth = Smooth.Bezier),
       Text(visible=true,
         lineColor={192,192,192},
         extent={{0.0,-60.0},{60.0,0.0}},
@@ -1842,11 +1842,11 @@ Example:
             fillColor={192,192,192},
             fillPattern=FillPattern.Solid,
             points={{90.0,-80.0},{68.0,-72.0},{68.0,-88.0},{90.0,-80.0}}),
-        Line(visible=  true,
-            origin=  {-1.939,-1.816},
-            points=  {{81.939,36.056},{65.362,36.056},{14.39,-26.199},{-29.966,113.485},{-65.374,-61.217},{-78.061,-78.184}},
-            color=  {0,0,127},
-            smooth=  Smooth.Bezier),
+        Line(visible = true,
+            origin = {-1.939,-1.816},
+            points = {{81.939,36.056},{65.362,36.056},{14.39,-26.199},{-29.966,113.485},{-65.374,-61.217},{-78.061,-78.184}},
+            color = {0,0,127},
+            smooth = Smooth.Bezier),
         Text(visible=true,
               lineColor={192,192,192},
             extent={{0.0,-70.0},{60.0,-10.0}},
@@ -1983,7 +1983,7 @@ This is discussed in the description of package
               lineColor={192,192,192},
               fillColor={192,192,192},
               fillPattern=FillPattern.Solid),
-            Line(points=  {{-80.0,-80.0},{-80.0,-20.0},{60.0,80.0}}, color=  {0,0,127}),
+            Line(points = {{-80.0,-80.0},{-80.0,-20.0},{60.0,80.0}}, color = {0,0,127}),
             Text(
               extent={{0,6},{60,-56}},
               lineColor={192,192,192},
@@ -2106,7 +2106,7 @@ This is discussed in the description of package
               fillColor={192,192,192},
               fillPattern=FillPattern.Solid,
               points={{90.0,-80.0},{68.0,-72.0},{68.0,-88.0},{90.0,-80.0}}),
-          Line(visible=  true, points=  {{-80,-80},{-80,-20},{60,80}}, color=  {0,0,127}),
+          Line(visible = true, points = {{-80,-80},{-80,-20},{60,80}}, color = {0,0,127}),
           Text(visible=true,
               lineColor={192,192,192},
               extent={{-20.0,-60.0},{80.0,-20.0}},
@@ -2920,11 +2920,11 @@ the model.
                 fillColor={192,192,192},
                 fillPattern=FillPattern.Solid,
                 points={{-79.5584,91.817},{-87.5584,69.817},{-71.5584,69.817},{-79.5584,91.817}}),
-            Line(visible=  true,
-                origin=  {-1.939,-1.816},
-                points=  {{81.939,36.056},{65.362,36.056},{14.39,-26.199},{-29.966,113.485},{-65.374,-61.217},{-78.061,-78.184}},
-                color=  {0,0,127},
-                smooth=  Smooth.Bezier),
+            Line(visible = true,
+                origin = {-1.939,-1.816},
+                points = {{81.939,36.056},{65.362,36.056},{14.39,-26.199},{-29.966,113.485},{-65.374,-61.217},{-78.061,-78.184}},
+                color = {0,0,127},
+                smooth = Smooth.Bezier),
             Line(visible=true,
                 points={{-90.9779,-80.7697},{81.0221,-80.7697}},
                 color={192,192,192}),
@@ -3050,11 +3050,11 @@ initType=Modelica.Blocks.Types.Init.SteadyState).
               lineColor={192,192,192},
               extent={{0.0,-60.0},{60.0,0.0}},
               textString="PTn"),
-            Line(visible=  true,
-              origin=  {-17.976,-6.521},
-              points=  {{96.962,55.158},{16.42,50.489},{-18.988,18.583},{-32.024,-53.479},{-62.024,-73.479}},
-              color=  {0,0,127},
-              smooth=  Smooth.Bezier),
+            Line(visible = true,
+              origin = {-17.976,-6.521},
+              points = {{96.962,55.158},{16.42,50.489},{-18.988,18.583},{-32.024,-53.479},{-62.024,-73.479}},
+              color = {0,0,127},
+              smooth = Smooth.Bezier),
             Text(visible=true,
               lineColor={192,192,192},
               extent={{-70.0,48.0},{26.0,94.0}},
@@ -3344,7 +3344,7 @@ The critical damping filter is defined as
             fillColor={255,255,255},
             fillPattern=FillPattern.Backward,
             extent={{-80.0,-78.0},{22.0,10.0}}),
-          Line(visible=  true, origin=  {3.333,-6.667}, points=  {{-83.333,34.667},{24.667,34.667},{42.667,-71.333}}, color=  {0,0,127}, smooth=  Smooth.Bezier)}),
+          Line(visible = true, origin = {3.333,-6.667}, points = {{-83.333,34.667},{24.667,34.667},{42.667,-71.333}}, color = {0,0,127}, smooth = Smooth.Bezier)}),
         Documentation(info="<html>
 
 <p>
@@ -5483,8 +5483,6 @@ b2_k = 1/(beta_k^2 + gamma_k^2) b1_k = -2*beta_k/(beta_k^2 + gamma_k^2)
             "Compute correction factor of low pass filter such that amplitude at cut-off frequency is -3db (=10^(-3/20) = 0.70794...)"
             extends Modelica_Icons.Function;
 
-            import Modelica =
-                   M_S_L;
             import Modelica_Utilities.Streams;
 
             input Real c1[:]
@@ -5725,8 +5723,6 @@ function. The solver function is a direct mapping of the Algol 60 procedure
             import Modelica_Constants;
             extends Modelica_Icons.Function;
 
-            import Modelica =
-                   M_S_L;
              input Real a "Coefficient of s^1";
              input Real b "Coefficient of s^0";
              input Modelica_SIunits.AngularVelocity w
@@ -9738,17 +9734,14 @@ values are visualized in a diagram animation.
 
     encapsulated package UnitConversions
       "Conversion blocks to convert between SI and non-SI unit signals"
-      import Modelica =
-             M_S_L;
       import SI = Modelica_SIunits;
       import NonSI = Modelica_SIunits.Conversions.NonSIunits;
       import Modelica_Icons;
       import Modelica_SIunits;
-      import M_S_L;
       extends Modelica_Icons.Package;
 
       block To_degC "Convert from Kelvin to degCelsius"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="K"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="K"), y(
               unit="degC"));
 
       equation
@@ -9769,7 +9762,7 @@ the result as output signal.
       end To_degC;
 
       block From_degC "Convert from degCelsius to Kelvin"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="degC"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="degC"),
             y(unit="K"));
       equation
         y =Modelica_SIunits.Conversions.from_degC(u);
@@ -9789,7 +9782,7 @@ the result as output signal.
       end From_degC;
 
       block To_degF "Convert from Kelvin to degFahrenheit"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="K"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="K"), y(
               unit="degF"));
       equation
         y =Modelica_SIunits.Conversions.to_degF(u);
@@ -9809,7 +9802,7 @@ the result as output signal.
       end To_degF;
 
       block From_degF "Convert from degFahrenheit to Kelvin"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="degF"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="degF"),
             y(unit="K"));
       equation
         y =Modelica_SIunits.Conversions.from_degF(u);
@@ -9829,7 +9822,7 @@ the result as output signal.
       end From_degF;
 
       block To_degRk "Convert from Kelvin to degRankine"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="K"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="K"), y(
               unit="degRk"));
       equation
         y =Modelica_SIunits.Conversions.to_degRk(u);
@@ -9849,7 +9842,7 @@ the result as output signal.
       end To_degRk;
 
       block From_degRk "Convert from degRankine to Kelvin"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="degRk"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="degRk"),
             y(unit="K"));
       equation
         y =Modelica_SIunits.Conversions.from_degRk(u);
@@ -9869,7 +9862,7 @@ the result as output signal.
       end From_degRk;
 
       block To_deg "Convert from radian to degree"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="rad"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="rad"),
             y(unit="deg"));
       equation
         y =Modelica_SIunits.Conversions.to_deg(u);
@@ -9889,7 +9882,7 @@ the result as output signal.
       end To_deg;
 
       block From_deg "Convert from degree to radian"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="deg"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="deg"),
             y(unit="rad"));
       equation
         y =Modelica_SIunits.Conversions.from_deg(u);
@@ -9909,7 +9902,7 @@ the result as output signal.
       end From_deg;
 
       block To_rpm "Convert from radian per second to revolutions per minute"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="rad/s"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="rad/s"),
             y(unit="1/min"));
       equation
         y =Modelica_SIunits.Conversions.to_rpm(u);
@@ -9929,7 +9922,7 @@ the result as output signal.
       end To_rpm;
 
       block From_rpm "Convert from revolutions per minute to radian per second"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="1/min"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="1/min"),
             y(unit="rad/s"));
       equation
         y =Modelica_SIunits.Conversions.from_rpm(u);
@@ -9949,7 +9942,7 @@ the result as output signal.
       end From_rpm;
 
       block To_kmh "Convert from metre per second to kilometre per hour"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="m/s"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="m/s"),
             y(unit="km/h"));
       equation
         y =Modelica_SIunits.Conversions.to_kmh(u);
@@ -9969,7 +9962,7 @@ the result as output signal.
       end To_kmh;
 
       block From_kmh "Convert from kilometre per hour to metre per second"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="km/h"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="km/h"),
             y(unit="m/s"));
       equation
         y =Modelica_SIunits.Conversions.from_kmh(u);
@@ -9989,7 +9982,7 @@ the result as output signal.
       end From_kmh;
 
       block To_day "Convert from second to day"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="s"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="s"), y(
               unit="d"));
       equation
         y =Modelica_SIunits.Conversions.to_day(u);
@@ -10009,7 +10002,7 @@ the result as output signal.
       end To_day;
 
       block From_day "Convert from day to second"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="d"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="d"), y(
               unit="s"));
       equation
         y =Modelica_SIunits.Conversions.from_day(u);
@@ -10029,7 +10022,7 @@ the result as output signal.
       end From_day;
 
       block To_hour "Convert from second to hour"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="s"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="s"), y(
               unit="h"));
       equation
         y =Modelica_SIunits.Conversions.to_hour(u);
@@ -10049,7 +10042,7 @@ the result as output signal.
       end To_hour;
 
       block From_hour "Convert from hour to second"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="h"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="h"), y(
               unit="s"));
       equation
         y =Modelica_SIunits.Conversions.from_hour(u);
@@ -10069,7 +10062,7 @@ the result as output signal.
       end From_hour;
 
       block To_minute "Convert from second to minute"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="s"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="s"), y(
               unit="min"));
       equation
         y =Modelica_SIunits.Conversions.to_minute(u);
@@ -10089,7 +10082,7 @@ the result as output signal.
       end To_minute;
 
       block From_minute "Convert from minute to second"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="min"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="min"),
             y(unit="s"));
       equation
         y =Modelica_SIunits.Conversions.from_minute(u);
@@ -10109,7 +10102,7 @@ the result as output signal.
       end From_minute;
 
       block To_litre "Convert from cubic metre to litre"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="m3"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="m3"), y(
               unit="l"));
       equation
         y =Modelica_SIunits.Conversions.to_litre(u);
@@ -10129,7 +10122,7 @@ the result as output signal.
       end To_litre;
 
       block From_litre "Convert from litre to cubic metre"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="l"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="l"), y(
               unit="m3"));
       equation
         y =Modelica_SIunits.Conversions.from_litre(u);
@@ -10149,7 +10142,7 @@ the result as output signal.
       end From_litre;
 
       block To_kWh "Convert from Joule to kilo Watt hour"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="J"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="J"), y(
               unit="kW.h"));
       equation
         y =Modelica_SIunits.Conversions.to_kWh(u);
@@ -10169,7 +10162,7 @@ the result as output signal.
       end To_kWh;
 
       block From_kWh "Convert from kilo Watt hour to Joule"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="kW.h"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="kW.h"),
             y(unit="J"));
       equation
         y =Modelica_SIunits.Conversions.from_kWh(u);
@@ -10189,7 +10182,7 @@ the result as output signal.
       end From_kWh;
 
       block To_bar "Convert from Pascal to bar"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="Pa"), y(
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="Pa"), y(
               unit="bar"));
       equation
         y =Modelica_SIunits.Conversions.to_bar(u);
@@ -10209,7 +10202,7 @@ the result as output signal.
       end To_bar;
 
       block From_bar "Convert from bar to Pascal"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="bar"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="bar"),
             y(unit="Pa"));
       equation
         y =Modelica_SIunits.Conversions.from_bar(u);
@@ -10229,7 +10222,7 @@ the result as output signal.
       end From_bar;
 
       block To_gps "Convert from kilogram per second to gram per second"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="kg/s"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="kg/s"),
             y(unit="g/s"));
       equation
         y =Modelica_SIunits.Conversions.to_gps(u);
@@ -10249,7 +10242,7 @@ the result as output signal.
       end To_gps;
 
       block From_gps "Convert from gram per second to kilogram per second"
-        extends M_S_L.Blocks.Interfaces.PartialConversionBlock(   u(unit="g/s"),
+        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="g/s"),
             y(unit="kg/s"));
       equation
         y =Modelica_SIunits.Conversions.from_gps(u);
@@ -16280,7 +16273,7 @@ If parameter duration is set to 0.0, the limiting case of a Step signal is achie
                   74.6},{-43.8,79.1},{-38.2,79.8},{-32.6,76.6},{-26.9,69.7},{-21.3,
                   59.4},{-14.9,44.1},{-6.83,21.2},{10.1,-30.8},{17.3,-50.2},{23.7,
                   -64.2},{29.3,-73.1},{35,-78.4},{40.6,-80},{46.2,-77.6},{51.9,-71.5},
-                  {57.5,-61.9},{63.9,-47.2},{72,-24.8},{80,0}}, color={0,0,0}, smooth = Smooth.Bezier),
+                  {57.5,-61.9},{63.9,-47.2},{72,-24.8},{80,0}}, color={0,0,0}, smooth=  Smooth.Bezier),
             Text(
               extent={{-147,-152},{153,-112}},
               lineColor={0,0,0},
@@ -16505,7 +16498,7 @@ The Real output y is a cosine signal:
                   {-18.1,-55.3},{-14.1,-52.5},{-10.1,-45.3},{-5.23,-32.1},{8.44,
                   13.7},{13.3,26.4},{18.1,34.8},{22.1,38},{26.9,37.2},{31.8,31.8},
                   {38.2,19.4},{51.1,-10.5},{57.5,-21.2},{63.1,-25.9},{68.7,-25.9},
-                  {75.2,-20.5},{80,-13.8}}, color={0,0,0}, smooth = Smooth.Bezier),
+                  {75.2,-20.5},{80,-13.8}}, color={0,0,0}, smooth=  Smooth.Bezier),
             Text(
               extent={{-147,-152},{153,-112}},
               lineColor={0,0,0},
@@ -20617,7 +20610,7 @@ in the Blocks.Logical library.
 </html>"));
     end PartialBooleanBlock;
   end Icons;
-annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100.0,-100.0},{100.0,100.0}}, initialScale=0.1), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100.0,-100.0},{100.0,100.0}}, initialScale=0.1), graphics={
       Rectangle(
         origin={0.0,35.1488},
         fillColor={255,255,255},
@@ -20702,5 +20695,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
        of Dieter Moormann and Hilding Elmqvist.</li>
 </ul>
 </html>"),
-    uses(M_S_L(version="3.2.2"), Modelica(version="3.2.2")));
+    uses(Modelica_Icons));
 end Modelica_Blocks;

@@ -860,9 +860,6 @@ where <b>Q</b> is an orthogonal matrix, i.e.
     encapsulated function roots
         "Compute zeros of a polynomial where the highest coefficient is assumed as not to be zero"
       import Modelica_Math.Matrices;
-      import Modelica =
-             M_S_L;
-        import Modelica_Icons;
       extends Modelica_Icons.Function;
       input Real p[:]
           "Vector with polynomial coefficients p[1]*x^n + p[2]*x^(n-1) + p[n]*x +p[n-1]";
@@ -2263,8 +2260,6 @@ called as: <code>(,R,p) = QR(A)</code>.
 
   function hessenberg "Return upper Hessenberg form of a matrix"
     extends Modelica_Icons.Function;
-    import Modelica =
-           M_S_L;
     import Modelica_Math.Matrices;
 
     input Real A[:, size(A, 1)] "Square matrix A";
@@ -2778,8 +2773,8 @@ Diff = [Matrices.inv(T)*A*T, Matrices.inv(T)*B;
         C*T, zeros(1,2)] - [As, Bs; Cs, zeros(1,2)];
 err  = Matrices.norm(Diff);
 
--> Results in: 
-scale = {16, 1, 0.0625}   
+-> Results in:
+scale = {16, 1, 0.0625}
 norm(A)  = 1000.15, norm(B)  = 100.504, norm(C)  = 100.006
 norm(As) = 10.8738, norm(Bs) = 16.0136, norm(Cs) = 10.2011
 err = 0
@@ -3376,9 +3371,6 @@ with
     /*diagonal transformation matrix for balancing*/
 
     encapsulated function columnNorm "Returns the column norm of a matrix"
-      import Modelica =
-             M_S_L;
-        import Modelica_Icons;
       extends Modelica_Icons.Function;
       input Real A[:, :] "Input matrix";
       output Real result=0.0 "1-norm of matrix A";
@@ -3523,9 +3515,6 @@ implementation variant used in this function.
     /*diagonal transformation matrix for balancing*/
 
     encapsulated function columnNorm "Returns the column norm of a matrix"
-      import Modelica =
-             M_S_L;
-        import Modelica_Icons;
       extends Modelica_Icons.Function;
       input Real A[:, :] "Input matrix";
       output Real result=0.0 "1-norm of matrix A";
@@ -4930,9 +4919,6 @@ X = [14.5623, 9.7082;
     Real sorted_MT[size(M, 2), size(M, 1)];
 
     encapsulated function greater "Compare whether vector v1 > v2"
-      import Modelica =
-             M_S_L;
-        import Modelica_Icons;
       extends Modelica_Icons.Function;
       import Modelica_Utilities.Types.Compare;
       input Real v1[:];
@@ -4955,9 +4941,6 @@ X = [14.5623, 9.7082;
     end greater;
 
     encapsulated function less "Compare whether vector v1 < v2"
-      import Modelica =
-             M_S_L;
-        import Modelica_Icons;
       extends Modelica_Icons.Function;
       import Modelica_Utilities.Types.Compare;
       input Real v1[:];
@@ -10931,8 +10914,6 @@ Householder reflection is widely used in numerical linear algebra, e.g., to perf
         "Perform the similarity transformation S*A*S of matrix A with symmetric householder matrix S = I - 2u*u'"
       extends Modelica_Icons.Function;
 
-      import Modelica =
-             M_S_L;
       import Modelica_Math.Vectors;
 
       input Real A[:, size(A, 1)] "Square matrix A";
@@ -11932,9 +11913,6 @@ arguments to the example functions.
       extends Modelica_Icons.InterfacesPackage;
     encapsulated partial function partialScalarFunction
         "Interface for a function with one input and one output Real signal"
-      import Modelica =
-             M_S_L;
-        import Modelica_Icons;
       extends Modelica_Icons.Function;
       input Real u "Independent variable";
       output Real y "Dependent variable y=f(u)";
@@ -13917,8 +13895,6 @@ end log10;
 
 partial function baseIcon1
     "This icon will be removed in future Modelica versions, use Modelica.Math.Icons.AxisLeft instead."
-  import Modelica =
-         M_S_L;
   // extends Modelica.Icons.ObsoleteModel;
 
   annotation (
@@ -13959,8 +13935,6 @@ end baseIcon1;
 
 partial function baseIcon2
     "This icon will be removed in future Modelica versions, use Modelica.Math.Icons.AxisCenter instead."
-  import Modelica =
-         M_S_L;
   // extends Modelica.Icons.ObsoleteModel;
 
   annotation (
@@ -14168,5 +14142,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
 </ul>
 
 </html>"),
-    uses(M_S_L(version="3.2.2")));
+    uses(Modelica_Icons));
 end Modelica_Math;

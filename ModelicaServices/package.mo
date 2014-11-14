@@ -1,14 +1,14 @@
 within ;
 package ModelicaServices "ModelicaServices (Default implementation) - Models and functions used in the Modelica Standard Library requiring a tool specific implementation"
-extends Modelica.Icons.Package;
+extends Modelica_Icons.Package;
 constant String target="Default"
   "Target of this ModelicaServices implementation";
 
 
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Information;
+  extends Modelica_Icons.Information;
   class ModelicaLicense2 "Modelica License 2"
-    extends Modelica.Icons.Information;
+    extends Modelica_Icons.Information;
     annotation (Documentation(info="<html>
 <head>
   <title>The Modelica License 2</title>
@@ -557,10 +557,10 @@ if you are not the copyright-holder, since article 2c) does not allow
 a selling fee for a (in this case physical) copy. However, mere
 printing and shipping costs may be recovered.</p>
 </html>"));
-    end ModelicaLicense2;
+  end ModelicaLicense2;
 
   class ReleaseNotes "Release notes"
-    extends Modelica.Icons.ReleaseNotes;
+    extends Modelica_Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <h4>Version 3.2.1, 2012-12-05</h4>
 
@@ -613,10 +613,10 @@ printing and shipping costs may be recovered.</p>
 First version of the ModelicaServices library.
 </p>
 </html>"));
-    end ReleaseNotes;
+  end ReleaseNotes;
 
   class Contact "Contact"
-    extends Modelica.Icons.Contact;
+    extends Modelica_Icons.Contact;
     annotation (Documentation(info="<html>
 <h5>Main Author:</h5>
 
@@ -641,17 +641,17 @@ The design of the Animation.Shape component is from Hilding Elmqvist, Dassault S
 </p>
 </html>"));
 
-    end Contact;
+  end Contact;
   annotation (DocumentationClass=true);
-  end UsersGuide;
+end UsersGuide;
 
 
 package Animation "Models and functions for 3-dim. animation"
-  extends Modelica.Icons.Package;
+  extends Modelica_Icons.Package;
   model Shape
     "Different visual shapes with variable size; all data have to be set as modifiers (see info layer)"
     extends
-      Modelica.Utilities.Internal.PartialModelicaServices.Animation.PartialShape;
+      Modelica_Utilities.Internal.PartialModelicaServices.Animation.PartialShape;
 
     annotation (Icon(coordinateSystem(
           preserveAspectRatio=true,
@@ -667,11 +667,12 @@ The interface of this model is documented at
 
 </html>"));
 
-    end Shape;
+  end Shape;
 
   model Surface
     "Animation of a moveable, parameterized surface; the surface characteristic is provided by a function"
-    extends Modelica.Utilities.Internal.PartialModelicaServices.Animation.PartialSurface;
+    extends
+      Modelica_Utilities.Internal.PartialModelicaServices.Animation.PartialSurface;
 
     annotation (Documentation(info="<html>
 <p>
@@ -682,18 +683,18 @@ The interface of this model is defined at
 </p>
 
 </html>"));
-    end Surface;
-  end Animation;
+  end Surface;
+end Animation;
 
 
 package ExternalReferences "Library of functions to access external resources"
-  extends Modelica.Icons.Package;
+  extends Modelica_Icons.Package;
   function loadResource
     "Return the absolute path name of a URI or local file name (in this default implementation URIs are not supported, but only local file names)"
     extends
-      Modelica.Utilities.Internal.PartialModelicaServices.ExternalReferences.PartialLoadResource;
-    algorithm
-    fileReference := Modelica.Utilities.Files.fullPathName(uri);
+      Modelica_Utilities.Internal.PartialModelicaServices.ExternalReferences.PartialLoadResource;
+  algorithm
+    fileReference := Modelica_Utilities.Files.fullPathName(uri);
 
     annotation (Documentation(info="<html>
 <p>
@@ -701,13 +702,13 @@ The interface of this model is documented at
 <a href=\"modelica://Modelica.Utilities.Files.loadResource\">Modelica.Utilities.Files.loadResource</a>.
 </p>
 </html>"));
-    end loadResource;
-  end ExternalReferences;
+  end loadResource;
+end ExternalReferences;
 
 
 package Machine
   // Machine dependent constants
-  extends Modelica.Icons.Package;
+  extends Modelica_Icons.Package;
   final constant Real eps=1.e-15 "Biggest number such that 1.0 + eps = 1.0";
   final constant Real small=1.e-60
     "Smallest number such that small and -small are representable on the machine";
@@ -723,11 +724,11 @@ but indirectly via the alias definition in
 <a href=\"modelica://Modelica.Constants\">Modelica.Constants</a>.
 </p>
 </html>"));
-  end Machine;
+end Machine;
 
 
 package Types "Library of types with vendor specific choices"
-  extends Modelica.Icons.Package;
+  extends Modelica_Icons.Package;
   type SolverMethod = String
     "String defining the integration method to solve differential equations in a clocked discretized continuous-time partition"
     annotation (choices(
@@ -746,18 +747,18 @@ For details, see chapter 16.8.2 \"Solver Method\" in the Modelica Language
 Specification (version &ge; 3.3).
 </p>
 </html>"));
-  end Types;
+end Types;
 
 
 annotation (
   Protection(access=Access.hide),
   preferredView="info",
-  version="3.2.1",
+  version="3.2.2",
   versionBuild=2,
   versionDate="2013-08-14",
   dateModified = "2013-08-14 08:44:41Z",
   revisionId="$Id::                                       $",
-  uses(Modelica(version="3.2.1")),
+  uses(Modelica_Icons),
   conversion(
     noneFromVersion="1.0",
     noneFromVersion="1.1",

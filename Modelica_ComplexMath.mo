@@ -678,6 +678,6 @@ as well as functions operating on vectors of complex numbers.
           points={{-50,-75},{-5,-30}},
           color={0,0,0},
           smooth=Smooth.None)}),
-    uses(Complex(version="3.2.1")));
+    uses(Complex(version="3.2.2")));
 
 end Modelica_ComplexMath;

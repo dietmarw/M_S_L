@@ -2403,8 +2403,6 @@ leading white space.
       Integer i;
 
       encapsulated function concatenate "Concatenate strings together"
-         import Modelica =
-                M_S_L;
         import Modelica_Icons;
          extends Modelica_Icons.Function;
          input String strings[:];
@@ -3343,5 +3341,5 @@ Copyright &copy; 1998-2013, Modelica Association, DLR, and Dassault Syst&egrave;
 </p>
 
 </html>"),
-    uses(ModelicaServices(version="1.2"), M_S_L(version="3.2.2")));
+    uses(ModelicaServices(version="1.2")));
 end Modelica_Utilities;

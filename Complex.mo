@@ -30,8 +30,7 @@ operator record Complex "Complex number with overloaded operators"
             radius=25.0)}));
   end 'constructor';
 
-  encapsulated operator function '0'
-    "Zero-element of addition (= Complex(0))"
+  encapsulated operator function '0' "Zero-element of addition (= Complex(0))"
     import Complex;
     output Complex result "Complex(0)";
   algorithm
@@ -236,7 +235,7 @@ operator record Complex "Complex number with overloaded operators"
   end 'String';
 
 annotation (Protection(access=Access.hide),
-version="3.2.1",
+version="3.2.2",
 versionBuild=2,
 versionDate="2013-08-14",
 dateModified = "2013-08-14 08:44:41Z",
