@@ -64,283 +64,13 @@ This library contains blocks for processing complex signals.
   end UsersGuide;
 
 
-  package Interfaces
-    "Library of connectors and partial models for input/output blocks"
-    extends Modelica_Icons.InterfacesPackage;
-
-  connector ComplexInput = input Complex "'input Complex' as connector"
-    annotation (defaultComponentName="u",
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=true, initialScale=0.2),
-          graphics={Polygon(
-            points={{-100,100},{100,0},{-100,-100},{-100,100}},
-            lineColor={85,170,255},
-            fillColor={85,170,255},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=true, initialScale=0.2,
-          extent={{-100,-100},{100,100}}), graphics={Polygon(
-            points={{0,50},{100,0},{0,-50},{0,50}},
-            lineColor={85,170,255},
-            fillColor={85,170,255},
-            fillPattern=FillPattern.Solid), Text(
-            extent={{-10,85},{-10,60}},
-            lineColor={0,0,127},
-            textString="%name")}),
-      Documentation(info="<html>
-<p>
-Connector with one input signal of type Complex.
-</p>
-</html>"));
-
-  connector ComplexOutput = output Complex "'output Complex' as connector"
-    annotation (defaultComponentName="y",
-    Icon(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}),
-          graphics={Polygon(
-            points={{-100,100},{100,0},{-100,-100},{-100,100}},
-            lineColor={85,170,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}), graphics={Polygon(
-            points={{-100,50},{0,0},{-100,-50},{-100,50}},
-            lineColor={85,170,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid), Text(
-            extent={{30,110},{30,60}},
-            lineColor={0,0,127},
-            textString="%name")}),
-      Documentation(info="<html>
-<p>
-Connector with one output signal of type Complex.
-</p>
-</html>"));
-
-      partial block ComplexSO "Single Output continuous control block"
-        extends Modelica_Blocks.Icons.Block;
-        ComplexOutput y "Connector of Complex output signal"
-          annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-        annotation (Documentation(info="<html>
-<p>
-Block has one continuous Complex output signal.
-</p>
-</html>"));
-      end ComplexSO;
-
-      partial block ComplexMO "Multiple Output continuous control block"
-        extends Modelica_Blocks.Icons.Block;
-        parameter Integer nout(min=1) = 1 "Number of outputs";
-        ComplexOutput y[nout] "Connector of Complex output signals"
-          annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-        annotation (Documentation(info="<html>
-<p>
-Block has one continuous Complex output signal vector.
-</p>
-</html>"));
-      end ComplexMO;
-
-      partial block ComplexSISO
-      "Single Input Single Output continuous control block"
-        extends Modelica_Blocks.Icons.Block;
-        ComplexInput u "Connector of Complex input signal"
-          annotation (Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-        ComplexOutput y "Connector of Complex output signal"
-          annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-        parameter Boolean useConjugateInput = false
-        "If true, input is processed conjugate complex";
-    protected
-        ComplexInput uInternal = (if useConjugateInput then Modelica_ComplexMath.conj(u) else u)
-        "Equals either u or conjugate complex input u if useComplexInput = true";
-        annotation (Documentation(info="<html>
-<p>
-Block has one continuous Complex input and one continuous Complex output signal.
-</p>
-</html>"));
-      end ComplexSISO;
-
-      partial block ComplexSI2SO
-      "2 Single Input / 1 Single Output continuous control block"
-        extends Modelica_Blocks.Icons.Block;
-        ComplexInput u1 "Connector of Complex input signal 1"
-          annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-        ComplexInput u2 "Connector of Complex input signal 2"
-          annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
-        ComplexOutput y "Connector of Complex output signal"
-          annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-        parameter Boolean useConjugateInput1 = false
-        "If true, input 1 is processed conjugate complex";
-        parameter Boolean useConjugateInput2 = false
-        "If true, input 2 is processed conjugate complex";
-    protected
-        ComplexInput u1Internal = (if useConjugateInput1 then Modelica_ComplexMath.conj(u1) else u2)
-        "Equals either u1 or conjugate complex input u1 if useComplexInput1 = true";
-        ComplexInput u2Internal = (if useConjugateInput2 then Modelica_ComplexMath.conj(u2) else u2)
-        "Equals either u2 or conjugate complex input u2 if useComplexInput2 = true";
-        annotation (Documentation(info="<html>
-<p>
-Block has two continuous Complex input signals u1 and u2 and one
-continuous Complex output signal y.
-</p>
-</html>"));
-      end ComplexSI2SO;
-
-      partial block ComplexSIMO
-      "Single Input Multiple Output continuous control block"
-        extends Modelica_Blocks.Icons.Block;
-        parameter Integer nout=1 "Number of outputs";
-
-        ComplexInput u "Connector of Complex input signal"
-          annotation (Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-        ComplexOutput y[nout] "Connector of Complex output signals"
-          annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-        parameter Boolean useConjugateInput = false
-        "If true, input is processed conjugate complex";
-    protected
-        ComplexInput uInternal = (if useConjugateInput then Modelica_ComplexMath.conj(u) else u)
-        "Equals either u or conjugate complex input u if useComplexInput = true";
-
-        annotation (Documentation(info="<html>
-<p>
- Block has one continuous Complex input signal and a
-vector of continuous Complex output signals.
-</p>
-</html>"));
-      end ComplexSIMO;
-
-      partial block ComplexMISO
-      "Multiple Input Single Output continuous control block"
-        extends Modelica_Blocks.Icons.Block;
-        parameter Integer nin=1 "Number of inputs";
-        ComplexInput u[nin] "Connector of Complex input signals"
-          annotation (Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-        ComplexOutput y "Connector of Complex output signal"
-          annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-        parameter Boolean useConjugateInput[nin] = fill(false,nin)
-        "If true, inputs are processed conjugate complex";
-    protected
-        ComplexInput uInternal[nin]=
-          {if useConjugateInput[k] then Modelica_ComplexMath.conj(u[k]) else u[k] for k in 1:nin}
-        "Equals either u or conjugate complex input u if useComplexInput = true";
-
-        annotation (Documentation(info="<html>
-<p>
-Block has a vector of continuous Complex input signals and
-one continuous Complex output signal.
-</p>
-</html>"));
-      end ComplexMISO;
-
-      partial block ComplexMIMO
-      "Multiple Input Multiple Output continuous control block"
-        extends Modelica_Blocks.Icons.Block;
-        parameter Integer nin=1 "Number of inputs";
-        parameter Integer nout=1 "Number of outputs";
-        ComplexInput u[nin] "Connector of Complex input signals"
-          annotation (Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-        ComplexOutput y[nout] "Connector of Complex output signals"
-          annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-        parameter Boolean useConjugateInput[nin] = fill(false,nin)
-        "If true, inputs are processed conjugate complex";
-    protected
-        ComplexInput uInternal[nin]=
-          {if useConjugateInput[k] then Modelica_ComplexMath.conj(u[k]) else u[k] for k in 1:nin}
-        "Equals either u or conjugate complex input u if useComplexInput = true";
-
-        annotation (Documentation(info="<html>
-<p>
-Block has a continuous Complex input vector and a continuous Complex output signal vector.
-The signal sizes of the input and output vector may be different.
-</p>
-</html>"));
-      end ComplexMIMO;
-
-      partial block ComplexMIMOs
-      "Multiple Input Multiple Output continuous control block with same number of inputs and outputs"
-        extends Modelica_Blocks.Icons.Block;
-        parameter Integer n=1 "Number of inputs (= number of outputs)";
-        ComplexInput u[n] "Connector of Complex input signals"
-          annotation (Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-        ComplexOutput y[n] "Connector of Complex output signals"
-          annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-        parameter Boolean useConjugateInput[n] = fill(false,n)
-        "If true, inputs are processed conjugate complex";
-    protected
-        ComplexInput uInternal[n]=
-          {if useConjugateInput[k] then Modelica_ComplexMath.conj(u[k]) else u[k] for k in 1:n}
-        "Equals either u or conjugate complex input u if useComplexInput = true";
-
-        annotation (Documentation(info="<html>
-<p>
-Block has a continuous Complex input vector and a continuous Complex output signal vector
-where the signal sizes of the input and output vector are identical.
-</p>
-</html>"));
-      end ComplexMIMOs;
-
-      partial block ComplexMI2MO
-      "2 Multiple Input / Multiple Output continuous control block"
-        extends Modelica_Blocks.Icons.Block;
-        parameter Integer n=1 "Dimension of input and output vectors.";
-        ComplexInput u1[n] "Connector 1 of Complex input signals"
-          annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-        ComplexInput u2[n] "Connector 2 of Complex input signals"
-          annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
-        ComplexOutput y[n] "Connector of Complex output signals"
-          annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-        parameter Boolean useConjugateInput1[n] = fill(false,n)
-        "If true, inputs 1 are processed conjugate complex";
-        parameter Boolean useConjugateInput2[n] = fill(false,n)
-        "If true, inputs 2 are processed conjugate complex";
-    protected
-        ComplexInput u1Internal[n]=
-          {if useConjugateInput1[k] then Modelica_ComplexMath.conj(u1[k]) else u1[k] for k in 1:n}
-        "Equals either u1 or conjugate complex input u1 if useComplexInput = true";
-        ComplexInput u2Internal[n]=
-          {if useConjugateInput2[k] then Modelica_ComplexMath.conj(u2[k]) else u2[k] for k in 1:n}
-        "Equals either u1 or conjugate complex input u1 if useComplexInput = true";
-
-        annotation (Documentation(info="<html>
-<p>
-Block has two continuous Complex input vectors u1 and u2 and one
-continuous Complex output vector y.
-All vectors have the same number of elements.
-</p>
-</html>"));
-      end ComplexMI2MO;
-
-      partial block ComplexSignalSource
-      "Base class for continuous signal source"
-        extends ComplexSO;
-        parameter Complex offset=Complex(0) "Offset of output signal y";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output y = offset for time < startTime";
-      annotation (Documentation(info="<html>
-<p>
-Basic block for Complex sources.
-This component has one continuous Complex output signal y
-and two parameters (offset, startTime) to shift the
-generated signal.
-</p>
-</html>"));
-      end ComplexSignalSource;
-  annotation(Documentation(info="<html>
-<p>This library defines Complex input and output signals, as well as partial blocks.</p>
-</html>"));
-  end Interfaces;
-
   package ComplexMath
     "Library of mathematical functions as input/output blocks"
     extends Modelica_Icons.Package;
 
         block Conj "Output is equal to the conjugate complex input signal"
 
-          extends Modelica_ComplexBlocks.Interfaces.ComplexSISO(final
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO(final
           useConjugateInput=true);
 
         equation
@@ -385,12 +115,12 @@ This block computes output <code>y</code> as
         "Gain value multiplied with input signal";
           parameter Boolean useConjugateInput = false
         "If true, input is processed conjugate complex";
-          Interfaces.ComplexInput u "Input signal connector"
-            annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
+      Modelica_ComplexBlocks_Interfaces.ComplexInput u "Input signal connector"
+        annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
-          Interfaces.ComplexOutput y "Output signal connector"
-            annotation (Placement(transformation(extent={{100,-10},{120,10}},
-              rotation=0)));
+      Modelica_ComplexBlocks_Interfaces.ComplexOutput y
+        "Output signal connector" annotation (Placement(transformation(extent={
+                {100,-10},{120,10}}, rotation=0)));
 
         equation
           y = k * (if useConjugateInput then Modelica_ComplexMath.conj(u) else u);
@@ -435,7 +165,7 @@ input <code>u</code>. Optionally, the input <code>u</code> can be processed conj
         end Gain;
 
         block Sum "Output the sum of the elements of the input vector"
-          extends Interfaces.ComplexMISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexMISO;
           parameter Complex k[nin]=fill(Complex(1,0), nin)
         "Optional: sum coefficients";
         equation
@@ -486,15 +216,15 @@ Example:
         block Feedback
       "Output difference between commanded input 1 and feedback input 2"
 
-          Interfaces.ComplexInput u1 annotation (Placement(transformation(
-              extent={{-100,-20},{-60,20}}, rotation=0)));
-          Interfaces.ComplexInput u2
-            annotation (Placement(transformation(
+      Modelica_ComplexBlocks_Interfaces.ComplexInput u1 annotation (Placement(
+            transformation(extent={{-100,-20},{-60,20}}, rotation=0)));
+      Modelica_ComplexBlocks_Interfaces.ComplexInput u2 annotation (Placement(
+            transformation(
             origin={0,-80},
             extent={{-20,-20},{20,20}},
             rotation=90)));
-          Interfaces.ComplexOutput y annotation (Placement(transformation(
-              extent={{80,-10},{100,10}}, rotation=0)));
+      Modelica_ComplexBlocks_Interfaces.ComplexOutput y annotation (Placement(
+            transformation(extent={{80,-10},{100,10}}, rotation=0)));
 
           parameter Boolean useConjugateInput1 = false
         "If true, input 1 is processed conjugate complex";
@@ -569,7 +299,7 @@ result in the following equation:
         end Feedback;
 
         block Add "Output the sum of the two inputs"
-          extends Interfaces.ComplexSI2SO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSI2SO;
           parameter Complex k1=Complex(1,0) "Gain of input 1";
           parameter Complex k2=Complex(1,0) "Gain of input 2";
         equation
@@ -700,18 +430,18 @@ result in the following equation:
           parameter Boolean useConjugateInput3 = false
         "If true, input 3 is processed conjugate complex";
 
-          Interfaces.ComplexInput u1 "Connector 1 of Complex input signals"
-            annotation (Placement(transformation(extent={{-140,60},{-100,100}},
-              rotation=0)));
-          Interfaces.ComplexInput u2 "Connector 2 of Complex input signals"
-            annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-              rotation=0)));
-          Interfaces.ComplexInput u3 "Connector 3 of Complex input signals"
-            annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
-              rotation=0)));
-          Interfaces.ComplexOutput y "Connector of Complex output signals"
-            annotation (Placement(transformation(extent={{100,-10},{120,10}},
-              rotation=0)));
+      Modelica_ComplexBlocks_Interfaces.ComplexInput u1
+        "Connector 1 of Complex input signals" annotation (Placement(
+            transformation(extent={{-140,60},{-100,100}}, rotation=0)));
+      Modelica_ComplexBlocks_Interfaces.ComplexInput u2
+        "Connector 2 of Complex input signals" annotation (Placement(
+            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+      Modelica_ComplexBlocks_Interfaces.ComplexInput u3
+        "Connector 3 of Complex input signals" annotation (Placement(
+            transformation(extent={{-140,-100},{-100,-60}}, rotation=0)));
+      Modelica_ComplexBlocks_Interfaces.ComplexOutput y
+        "Connector of Complex output signals" annotation (Placement(
+            transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
         equation
           y = k1*(if useConjugateInput1 then Modelica_ComplexMath.conj(u1) else u1)
@@ -814,7 +544,7 @@ three input signals <code>u1</code>, <code>u2</code> and <code>u3</code>. Option
         end Add3;
 
         block Product "Output product of the two inputs"
-          extends Interfaces.ComplexSI2SO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSI2SO;
         equation
           y = u1Internal * u2Internal;
           annotation (
@@ -859,7 +589,7 @@ the two inputs <code>u1</code> and <code>u2</code>. Optionally, either input <co
         end Product;
 
         block Division "Output first input divided by second input"
-          extends Interfaces.ComplexSI2SO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSI2SO;
           parameter Boolean useConjugateInput1 = false
         "If true, input 1 is processed conjugate complex";
           parameter Boolean useConjugateInput2 = false
@@ -930,7 +660,7 @@ the two inputs <code>u1</code> and <code>u2</code>. Optionally, either input <co
         end Division;
 
         block Sqrt "Output the square root of the input (input >= 0 required)"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.'sqrt'(uInternal);
           annotation (defaultComponentName="sqrt1",
@@ -1000,7 +730,7 @@ Otherwise an error occurs.
         end Sqrt;
 
         block Sin "Output the sine of the input"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.sin(uInternal);
           annotation (
@@ -1089,7 +819,7 @@ as <b>sine</b> of the input <code>u</code>. Optionally, the input <code>u</code>
         end Sin;
 
         block Cos "Output the cosine of the input"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.cos(uInternal);
           annotation (
@@ -1178,7 +908,7 @@ as <b>cos</b> of the input <code>u</code>. Optionally, the input <code>u</code> 
         end Cos;
 
         block Tan "Output the tangent of the input"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.tan(uInternal);
           annotation (
@@ -1265,7 +995,7 @@ as <b>tan</b> of the input <code>u</code>. Optionally, the input <code>u</code> 
         end Tan;
 
         block Asin "Output the arc sine of the input"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.asin(uInternal);
           annotation (
@@ -1359,7 +1089,7 @@ Otherwise an error occurs.
         end Asin;
 
         block Acos "Output the arc cosine of the input"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.acos(uInternal);
           annotation (
@@ -1449,7 +1179,7 @@ Otherwise an error occurs.
         end Acos;
 
         block Atan "Output the arc tangent of the input"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.atan(uInternal);
           annotation (
@@ -1540,7 +1270,7 @@ This blocks computes the output <code>y</code> as the
         end Atan;
 
         block Sinh "Output the hyperbolic sine of the input"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.sinh(uInternal);
           annotation (
@@ -1631,7 +1361,7 @@ This blocks computes the output <code>y</code> as the
         end Sinh;
 
         block Cosh "Output the hyperbolic cosine of the input"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.cosh(uInternal);
           annotation (
@@ -1722,7 +1452,7 @@ This blocks computes the output <code>y</code> as the
         end Cosh;
 
         block Tanh "Output the hyperbolic tangent of the input"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.tanh(uInternal);
           annotation (
@@ -1813,7 +1543,7 @@ This blocks computes the output <code>y</code> as the
         end Tanh;
 
         block Exp "Output the exponential (base e) of the input"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.exp(uInternal);
           annotation (
@@ -1903,7 +1633,7 @@ This blocks computes the output <code>y</code> as the
 
         block Log
       "Output the natural (base e) logarithm of the input (input > 0 required)"
-          extends Interfaces.ComplexSISO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSISO;
         equation
           y = Modelica_ComplexMath.log(uInternal);
           annotation (
@@ -1998,7 +1728,7 @@ zero or negative.
         end Log;
 
     block RealToComplex "Converts Cartesian representation to complex"
-      extends Modelica_ComplexBlocks.Interfaces.ComplexSO;
+      extends Modelica_ComplexBlocks_Interfaces.ComplexSO;
       Modelica_Blocks.Interfaces.RealInput re annotation (Placement(
             transformation(extent={{-130,40},{-90,80}}), iconTransformation(
               extent={{-140,40},{-100,80}})));
@@ -2036,7 +1766,7 @@ zero or negative.
     end RealToComplex;
 
     block PolarToComplex "Converts polar representation to complex"
-      extends Modelica_ComplexBlocks.Interfaces.ComplexSO;
+      extends Modelica_ComplexBlocks_Interfaces.ComplexSO;
       Modelica_Blocks.Interfaces.RealInput len annotation (Placement(
             transformation(extent={{-130,40},{-90,80}}), iconTransformation(
               extent={{-140,40},{-100,80}})));
@@ -2081,7 +1811,7 @@ zero or negative.
       Modelica_Blocks.Interfaces.RealOutput im annotation (Placement(
             transformation(extent={{100,-80},{140,-40}}), iconTransformation(
               extent={{100,-80},{140,-40}})));
-      Interfaces.ComplexInput u
+      Modelica_ComplexBlocks_Interfaces.ComplexInput u
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
       parameter Boolean useConjugateInput = false
         "If true, input is processed conjugate complex";
@@ -2125,7 +1855,7 @@ zero or negative.
       Modelica_Blocks.Interfaces.RealOutput phi annotation (Placement(
             transformation(extent={{100,-80},{140,-40}}), iconTransformation(
               extent={{100,-80},{140,-40}})));
-      Interfaces.ComplexInput u
+      Modelica_ComplexBlocks_Interfaces.ComplexInput u
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
       parameter Boolean useConjugateInput = false
         "If true, input is processed conjugate complex";
@@ -2187,7 +1917,7 @@ connected with continuous blocks or with sampled-data blocks.
     block ComplexExpression
       "Set output signal to a time varying Complex expression"
 
-      Modelica_ComplexBlocks.Interfaces.ComplexOutput y=Complex(0)
+      Modelica_ComplexBlocks_Interfaces.ComplexOutput y=Complex(0)
         "Value of Complex output" annotation (Dialog(group=
               "Time varying output signal"), Placement(transformation(extent={{
                 100,-10},{120,10}}, rotation=0)));
@@ -2227,7 +1957,7 @@ Variable <b>y</b> is both a variable and a connector.
 
         block ComplexConstant "Generate constant signal of type Complex"
           parameter Complex k(re(start=1),im(start=0)) "Constant output value";
-          extends Modelica_ComplexBlocks.Interfaces.ComplexSO;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSO;
 
         equation
           y = k;
@@ -2298,7 +2028,7 @@ The Complex output y is a constant signal:
 
         block ComplexStep "Generate step signal of type Complex"
           parameter Complex height=Complex(1) "Height of step";
-          extends Interfaces.ComplexSignalSource;
+          extends Modelica_ComplexBlocks_Interfaces.ComplexSignalSource;
 
         equation
           y = offset + (if time < startTime then Complex(0) else height);
@@ -2411,7 +2141,7 @@ The Complex output y is a step signal (of real and imaginary part):
         "Constant angular velocity of complex phasor";
       parameter Modelica_SIunits.Angle phi0 = 0
         "Initial angle of complex phasor at time = 0";
-      extends Modelica_ComplexBlocks.Interfaces.ComplexSO;
+      extends Modelica_ComplexBlocks_Interfaces.ComplexSO;
 
     equation
       y = magnitude * Modelica_ComplexMath.exp(Complex(0,w*time+phi0));

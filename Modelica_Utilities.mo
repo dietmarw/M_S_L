@@ -158,7 +158,6 @@ in Modelica that will allow to catch errors at a defined place.
 </HTML>"));
 end UsersGuide;
 
-
   package Files "Functions to work with files and directories"
     extends Modelica_Icons.Package;
 
@@ -2742,7 +2741,7 @@ This model is documented at
         parameter Integer nu=2 "Number of points in u-Dimension" annotation(Dialog(group="Surface properties"));
         parameter Integer nv=2 "Number of points in v-Dimension" annotation(Dialog(group="Surface properties"));
         replaceable function surfaceCharacteristic =
-           Modelica_Mechanics_MultiBody.Interfaces.partialSurfaceCharacteristic
+           Modelica_Mechanics_MultiBody_Interfaces.partialSurfaceCharacteristic
             "Function defining the surface characteristic"
                 annotation(choicesAllMatching=true,Dialog(group="Surface properties"));
 

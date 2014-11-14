@@ -1153,10 +1153,9 @@ model World
   import Modelica_Mechanics_MultiBody.Types.GravityTypes;
   import Modelica_Mechanics_MultiBody.Types;
 
-    Interfaces.Frame_b frame_b
-      "Coordinate system fixed in the origin of the world frame"
-                               annotation (Placement(transformation(extent={{84,
-            -16},{116,16}}, rotation=0)));
+    Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
+      "Coordinate system fixed in the origin of the world frame" annotation (
+        Placement(transformation(extent={{84,-16},{116,16}}, rotation=0)));
 
   parameter Boolean enableAnimation=true
       "= true, if animation of all components is enabled";
@@ -1286,7 +1285,7 @@ model World
         gravityType=gravityType,
         g=g*Modelica_Math.Vectors.normalizeWithAssert(n),
         mue=mue) constrainedby
-      Modelica_Mechanics_MultiBody.Interfaces.partialGravityAcceleration
+      Modelica_Mechanics_MultiBody_Interfaces.partialGravityAcceleration
       "Function to compute the gravity acceleration, resolved in world frame"
        annotation(choicesAllMatching=true,Dialog(enable=gravityType==
                    Modelica.Mechanics.MultiBody.Types.GravityTypes.NoGravity),
@@ -1602,22 +1601,22 @@ of these axes can be set via parameters.
 </html>"));
 end World;
 
-
   package Forces "Components that exert forces and/or torques between frames"
     extends Modelica_Icons.SourcesPackage;
 
     model WorldForce
       "External force acting at frame_b, defined by 3 input signals and resolved in frame world, frame_b or frame_resolve"
 
-      extends Interfaces.PartialOneFrame_b;
-      Interfaces.Frame_resolve frame_resolve if resolveInFrame ==
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialOneFrame_b;
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
+                                                resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameB.frame_resolve
-        "The input signals are optionally resolved in this frame"
-        annotation (Placement(transformation(
+        "The input signals are optionally resolved in this frame" annotation (
+          Placement(transformation(
             origin={0,-100},
             extent={{-16,-16},{16,16}},
             rotation=270)));
-      Modelica_Blocks.Interfaces.RealInput force[3](each final quantity="Force", each final unit="N")
+      Modelica_Blocks_Interfaces.RealInput force[3](each final quantity="Force", each final unit="N")
         "x-, y-, z-coordinates of force resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
@@ -1652,7 +1651,8 @@ end World;
       Internal.BasicWorldForce basicWorldForce(resolveInFrame=resolveInFrame)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     protected
-      Interfaces.ZeroPosition zeroPosition if not (resolveInFrame ==
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if
+                                              not (resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameB.frame_resolve)
         annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     equation
@@ -1771,16 +1771,17 @@ This leads to the following animation
     model WorldTorque
       "External torque acting at frame_b, defined by 3 input signals and resolved in frame world, frame_b or frame_resolve"
 
-      extends Interfaces.PartialOneFrame_b;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialOneFrame_b;
 
-      Interfaces.Frame_resolve frame_resolve if resolveInFrame ==
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
+                                                resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameB.frame_resolve
-        "The input signals are optionally resolved in this frame"
-        annotation (Placement(transformation(
+        "The input signals are optionally resolved in this frame" annotation (
+          Placement(transformation(
             origin={0,100},
             extent={{16,-16},{-16,16}},
             rotation=270)));
-      Modelica_Blocks.Interfaces.RealInput torque[3](each final quantity="Torque", each final unit="N.m")
+      Modelica_Blocks_Interfaces.RealInput torque[3](each final quantity="Torque", each final unit="N.m")
         "x-, y-, z-coordinates of torque resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
@@ -1814,7 +1815,8 @@ This leads to the following animation
       Internal.BasicWorldTorque basicWorldTorque(resolveInFrame=resolveInFrame)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     protected
-      Interfaces.ZeroPosition zeroPosition if not (resolveInFrame ==
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if
+                                              not (resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameB.frame_resolve)
         annotation (Placement(transformation(extent={{20,10},{40,30}})));
     equation
@@ -1939,20 +1941,21 @@ This leads to the following animation
       "External force and torque acting at frame_b, defined by 3+3 input signals and resolved in frame world, frame_b or in frame_resolve"
 
       import Modelica_Mechanics_MultiBody.Types;
-      extends Interfaces.PartialOneFrame_b;
-      Interfaces.Frame_resolve frame_resolve if resolveInFrame ==
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialOneFrame_b;
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
+                                                resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameB.frame_resolve
-        "The input signals are optionally resolved in this frame"
-        annotation (Placement(transformation(
+        "The input signals are optionally resolved in this frame" annotation (
+          Placement(transformation(
             origin={0,100},
             extent={{16,-16},{-16,16}},
             rotation=270)));
-      Modelica_Blocks.Interfaces.RealInput force[3](each final quantity="Force",
+      Modelica_Blocks_Interfaces.RealInput force[3](each final quantity="Force",
           each final unit="N")
         "x-, y-, z-coordinates of force resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput torque[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealInput torque[3](each final quantity=
             "Torque", each final unit="N.m")
         "x-, y-, z-coordinates of torque resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(extent={{-140,40},{-100,80}},
@@ -2009,7 +2012,8 @@ This leads to the following animation
       Internal.BasicWorldTorque basicWorldTorque(resolveInFrame=resolveInFrame)
         annotation (Placement(transformation(extent={{-10,50},{10,70}})));
     protected
-      Interfaces.ZeroPosition zeroPosition if not (resolveInFrame ==
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if
+                                              not (resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameB.frame_resolve)
         annotation (Placement(transformation(extent={{58,70},{78,90}})));
     equation
@@ -2170,15 +2174,16 @@ This leads to the following animation
     model Force
       "Force acting between two frames, defined by 3 input signals and resolved in frame world, frame_a, frame_b or frame_resolve"
       import Modelica_SIunits.Conversions.to_unit1;
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
-      Interfaces.Frame_resolve frame_resolve if resolveInFrame ==
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
+                                                resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve
-        "The input signals are optionally resolved in this frame"
-        annotation (Placement(transformation(
+        "The input signals are optionally resolved in this frame" annotation (
+          Placement(transformation(
             origin={40,100},
             extent={{-16,-16},{16,16}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealInput force[3](each final quantity="Force", each final unit="N")
+      Modelica_Blocks_Interfaces.RealInput force[3](each final quantity="Force", each final unit="N")
         "x-, y-, z-coordinates of force resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
             origin={-60,120},
@@ -2231,7 +2236,8 @@ This leads to the following animation
       Internal.BasicForce basicForce(resolveInFrame=resolveInFrame)
         annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     protected
-      Interfaces.ZeroPosition zeroPosition if not (resolveInFrame ==
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if
+                                              not (resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve)
         annotation (Placement(transformation(extent={{40,10},{60,30}})));
     equation
@@ -2364,16 +2370,17 @@ clarity this is not shown in the animation):
     model Torque
       "Torque acting between two frames, defined by 3 input signals and resolved in frame world, frame_a, frame_b or frame_resolve"
       import Modelica_SIunits.Conversions.to_unit1;
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
-      Interfaces.Frame_resolve frame_resolve if resolveInFrame ==
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
+                                                resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve
-        "The input signals are optionally resolved in this frame"
-        annotation (Placement(transformation(
+        "The input signals are optionally resolved in this frame" annotation (
+          Placement(transformation(
             origin={40,100},
             extent={{-16,-16},{16,16}},
             rotation=90)));
 
-      Modelica_Blocks.Interfaces.RealInput torque[3](each final quantity="Torque", each final unit="N.m")
+      Modelica_Blocks_Interfaces.RealInput torque[3](each final quantity="Torque", each final unit="N.m")
         "x-, y-, z-coordinates of torque resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
             origin={-60,120},
@@ -2427,7 +2434,8 @@ clarity this is not shown in the animation):
       Internal.BasicTorque basicTorque(resolveInFrame=resolveInFrame)
         annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
     protected
-      Interfaces.ZeroPosition zeroPosition if not (resolveInFrame ==
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if
+                                              not (resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve)
         annotation (Placement(transformation(extent={{34,10},{54,30}})));
     equation
@@ -2565,26 +2573,27 @@ clarity this is not shown in the animation):
       import Modelica_Mechanics_MultiBody.Types;
       import Modelica_SIunits.Conversions.to_unit1;
 
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
 
-      Modelica_Blocks.Interfaces.RealInput force[3](each final quantity="Force",
+      Modelica_Blocks_Interfaces.RealInput force[3](each final quantity="Force",
           each final unit="N")
         "x-, y-, z-coordinates of force resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
             origin={-80,120},
             extent={{-20,-20},{20,20}},
             rotation=270)));
-      Modelica_Blocks.Interfaces.RealInput torque[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealInput torque[3](each final quantity=
             "Torque", each final unit="N.m")
         "x-, y-, z-coordinates of torque resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
             origin={0,120},
             extent={{-20,-20},{20,20}},
             rotation=270)));
-      Interfaces.Frame_resolve frame_resolve if resolveInFrame ==
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
+                                                resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve
-        "The input signals are optionally resolved in this frame"
-        annotation (Placement(transformation(
+        "The input signals are optionally resolved in this frame" annotation (
+          Placement(transformation(
             origin={80,100},
             extent={{-16,-16},{16,16}},
             rotation=90)));
@@ -2657,7 +2666,8 @@ clarity this is not shown in the animation):
       Internal.BasicTorque basicTorque(resolveInFrame=resolveInFrame)
         annotation (Placement(transformation(extent={{-4,10},{16,30}})));
     protected
-      Interfaces.ZeroPosition zeroPosition if not (resolveInFrame ==
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if
+                                              not (resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve)
         annotation (Placement(transformation(extent={{20,30},{40,50}})));
     equation
@@ -2841,14 +2851,14 @@ clarity this is not shown in the animation):
       "General line force component with an optional point mass on the connection line"
 
       import Modelica_Mechanics_MultiBody.Types;
-      extends Interfaces.PartialTwoFrames;
-      Modelica_Mechanics_Translational.Interfaces.Flange_a flange_b
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
+      Modelica_Mechanics_Translational_Interfaces.Flange_a flange_b
         "1-dim. translational flange (connect force of Translational library between flange_a and flange_b)"
         annotation (Placement(transformation(
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
-      Modelica_Mechanics_Translational.Interfaces.Flange_b flange_a
+      Modelica_Mechanics_Translational_Interfaces.Flange_b flange_a
         "1-dim. translational flange (connect force of Translational library between flange_a and flange_b)"
         annotation (Placement(transformation(
             origin={-60,100},
@@ -3216,14 +3226,14 @@ in the other flange connector.
 
       import Modelica_Mechanics_MultiBody.Types;
 
-      extends Interfaces.PartialTwoFrames;
-      Modelica_Mechanics_Translational.Interfaces.Flange_a flange_b
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
+      Modelica_Mechanics_Translational_Interfaces.Flange_a flange_b
         "1-dim. translational flange (connect force of Translational library between flange_a and flange_b)"
         annotation (Placement(transformation(
             origin={60,110},
             extent={{-10,-10},{10,10}},
             rotation=90)));
-      Modelica_Mechanics_Translational.Interfaces.Flange_b flange_a
+      Modelica_Mechanics_Translational_Interfaces.Flange_b flange_a
         "1-dim. translational flange (connect force of Translational library between flange_a and flange_b)"
         annotation (Placement(transformation(
             origin={-60,110},
@@ -3704,7 +3714,7 @@ in the other flange connector.
 
     model Spring "Linear translational spring with optional mass"
       import Modelica_Mechanics_MultiBody.Types;
-      extends Interfaces.PartialTwoFrames;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
       parameter Boolean animation=true "= true, if animation shall be enabled";
       parameter Boolean showMass=true
         "= true, if point mass shall be visualized as sphere if animation=true and m>0";
@@ -3881,9 +3891,9 @@ ALT=\"model Examples.Elementary.SpringWithMass\">
       input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient
         "Reflection of ambient light (= 0: light is completely absorbed)"
         annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
-      extends Interfaces.PartialLineForce;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialLineForce;
       extends
-        Modelica_Thermal_HeatTransfer.Interfaces.PartialElementaryConditionalHeatPort(
+        Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPort(
          final T=293.15);
     protected
       Modelica_SIunits.Position r0_b[3]=e_a*noEvent(min(length_a, s));
@@ -4017,9 +4027,9 @@ where a mass is hanging on a damper.
       input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient
         "Reflection of ambient light (= 0: light is completely absorbed)"
         annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
-      extends Interfaces.PartialLineForce;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialLineForce;
       extends
-        Modelica_Thermal_HeatTransfer.Interfaces.PartialElementaryConditionalHeatPort(
+        Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPort(
          final T=293.15);
 
     protected
@@ -4139,9 +4149,9 @@ and der(s) is the time derivative of s.
         "Initial length of damper";
       Modelica_SIunits.Position s_damper(start=s_damper_start, fixed=true)
         "Actual length of damper (frame_a - damper - spring - frame_b)";
-      extends Interfaces.PartialLineForce;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialLineForce;
       extends
-        Modelica_Thermal_HeatTransfer.Interfaces.PartialElementaryConditionalHeatPort(
+        Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPort(
          final T=293.15);
     equation
       f = c*(s - s_unstretched - s_damper);
@@ -4246,15 +4256,15 @@ force element) and der(s_damper) is the time derivative of s_damper.
 
       model BasicForce
         "Force acting between two frames, defined by 3 input signals"
-        extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
         import Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB;
-        Interfaces.Frame_resolve frame_resolve
-          "The input signals are optionally resolved in this frame"
-          annotation (Placement(transformation(
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve
+          "The input signals are optionally resolved in this frame" annotation
+          (Placement(transformation(
               origin={40,100},
               extent={{-16,-16},{16,16}},
               rotation=90)));
-        Modelica_Blocks.Interfaces.RealInput force[3](each final quantity="Force", each final unit="N")
+        Modelica_Blocks_Interfaces.RealInput force[3](each final quantity="Force", each final unit="N")
           "x-, y-, z-coordinates of force resolved in frame defined by resolveInFrame"
           annotation (Placement(transformation(
               origin={-60,120},
@@ -4374,15 +4384,15 @@ values from the outside in order that the model remains balanced
       model BasicTorque
         "Torque acting between two frames, defined by 3 input signals"
         import Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB;
-        extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
-        Interfaces.Frame_resolve frame_resolve
-          "The input signals are optionally resolved in this frame"
-          annotation (Placement(transformation(
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve
+          "The input signals are optionally resolved in this frame" annotation
+          (Placement(transformation(
               origin={40,100},
               extent={{-16,-16},{16,16}},
               rotation=90)));
 
-        Modelica_Blocks.Interfaces.RealInput torque[3](each final quantity="Torque", each final unit="N.m")
+        Modelica_Blocks_Interfaces.RealInput torque[3](each final quantity="Torque", each final unit="N.m")
           "x-, y-, z-coordinates of torque resolved in frame defined by resolveInFrame"
           annotation (Placement(transformation(
               origin={-60,120},
@@ -4504,15 +4514,15 @@ values from the outside in order that the model remains balanced
       model BasicWorldForce
         "External force acting at frame_b, defined by 3 input signals"
         import Modelica_Mechanics_MultiBody.Types.ResolveInFrameB;
-        extends Interfaces.PartialOneFrame_b;
-        Interfaces.Frame_resolve frame_resolve
-          "The input signals are optionally resolved in this frame"
-          annotation (Placement(transformation(
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialOneFrame_b;
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve
+          "The input signals are optionally resolved in this frame" annotation
+          (Placement(transformation(
               origin={0,-100},
               extent={{-16,-16},{16,16}},
               rotation=270)));
 
-        Modelica_Blocks.Interfaces.RealInput force[3](each final quantity="Force", each final unit="N")
+        Modelica_Blocks_Interfaces.RealInput force[3](each final quantity="Force", each final unit="N")
           "x-, y-, z-coordinates of force resolved in frame defined by resolveInFrame"
           annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
                 rotation=0)));
@@ -4606,15 +4616,15 @@ values from the outside in order that the model remains balanced
       model BasicWorldTorque
         "External torque acting at frame_b, defined by 3 input signals"
         import Modelica_Mechanics_MultiBody.Types.ResolveInFrameB;
-        extends Interfaces.PartialOneFrame_b;
-        Interfaces.Frame_resolve frame_resolve
-          "The input signals are optionally resolved in this frame"
-          annotation (Placement(transformation(
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialOneFrame_b;
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve
+          "The input signals are optionally resolved in this frame" annotation
+          (Placement(transformation(
               origin={0,100},
               extent={{16,-16},{-16,16}},
               rotation=270)));
 
-        Modelica_Blocks.Interfaces.RealInput torque[3](each final quantity="Torque", each final unit="N.m")
+        Modelica_Blocks_Interfaces.RealInput torque[3](each final quantity="Torque", each final unit="N.m")
           "x-, y-, z-coordinates of torque resolved in frame defined by resolveInFrame"
           annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
                 rotation=0)));
@@ -4721,7 +4731,7 @@ values from the outside in order that the model remains balanced
         "Standard gravity fields (no/parallel/point field)"
         extends Modelica_Icons.Function;
         extends
-          Modelica_Mechanics_MultiBody.Interfaces.partialGravityAcceleration;
+          Modelica_Mechanics_MultiBody_Interfaces.partialGravityAcceleration;
         import Modelica_Mechanics_MultiBody.Types.GravityTypes;
         input GravityTypes gravityType "Type of gravity field" annotation(Dialog);
         input Modelica_SIunits.Acceleration g[3]
@@ -7250,828 +7260,6 @@ The used variables have the following declaration:
           Line(points={{-78,-56},{-2,-18}}, color={95,95,95})}));
   end Frames;
 
-  package Interfaces
-    "Connectors and partial models for 3-dim. mechanical components"
-
-    extends Modelica_Icons.InterfacesPackage;
-
-    connector Frame
-      "Coordinate system fixed to the component with one cut-force and cut-torque (no icon)"
-
-      Modelica_SIunits.Position r_0[3]
-        "Position vector from world frame to the connector frame origin, resolved in world frame";
-      Frames.Orientation R
-        "Orientation object to rotate the world frame into the connector frame";
-      flow Modelica_SIunits.Force f[3] "Cut-force resolved in connector frame"
-        annotation (unassignedMessage="All Forces cannot be uniquely calculated.
-The reason could be that the mechanism contains
-a planar loop or that joints constrain the
-same motion. For planar loops, use for one
-revolute joint per loop the joint
-Joints.RevolutePlanarLoopConstraint instead of
-Joints.Revolute.");
-      flow Modelica_SIunits.Torque t[3]
-        "Cut-torque resolved in connector frame";
-      annotation (Documentation(info="<html>
-<p>
-Basic definition of a coordinate system that is fixed to a mechanical
-component. In the origin of the coordinate system the cut-force
-and the cut-torque is acting. This component has no icon definition
-and is only used by inheritance from frame connectors to define
-different icons.
-</p>
-</html>"));
-    end Frame;
-
-    connector Frame_a
-      "Coordinate system fixed to the component with one cut-force and cut-torque (filled rectangular icon)"
-      extends Frame;
-
-      annotation (defaultComponentName="frame_a",
-       Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.16), graphics={Rectangle(
-              extent={{-10,10},{10,-10}},
-              lineColor={95,95,95},
-              lineThickness=0.5), Rectangle(
-              extent={{-30,100},{30,-100}},
-              lineColor={0,0,0},
-              fillColor={192,192,192},
-              fillPattern=FillPattern.Solid)}),
-       Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.16), graphics={Text(
-              extent={{-140,-50},{140,-88}},
-              lineColor={0,0,0},
-              textString="%name"), Rectangle(
-              extent={{-12,40},{12,-40}},
-              lineColor={0,0,0},
-              fillColor={192,192,192},
-              fillPattern=FillPattern.Solid)}),
-        Documentation(info="<html>
-<p>
-Basic definition of a coordinate system that is fixed to a mechanical
-component. In the origin of the coordinate system the cut-force
-and the cut-torque is acting.
-This component has a filled rectangular icon.
-</p>
-</html>"));
-    end Frame_a;
-
-    connector Frame_b
-      "Coordinate system fixed to the component with one cut-force and cut-torque (non-filled rectangular icon)"
-      extends Frame;
-
-      annotation (defaultComponentName="frame_b",
-       Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.16), graphics={Rectangle(
-              extent={{-10,10},{10,-10}},
-              lineColor={95,95,95},
-              lineThickness=0.5), Rectangle(
-              extent={{-30,100},{30,-100}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}),
-       Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.16), graphics={Text(
-              extent={{-140,-50},{140,-88}},
-              lineColor={0,0,0},
-              textString="%name"), Rectangle(
-              extent={{-12,40},{12,-40}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}),
-        Documentation(info="<html>
-<p>
-Basic definition of a coordinate system that is fixed to a mechanical
-component. In the origin of the coordinate system the cut-force
-and the cut-torque is acting. This component has a non-filled rectangular icon.
-</p>
-</html>"));
-    end Frame_b;
-
-  connector Frame_resolve "Coordinate system fixed to the component used to express in which
-coordinate system a vector is resolved (non-filled rectangular icon)"
-    extends Frame;
-
-    annotation (defaultComponentName="frame_resolve",
-      Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.16), graphics={Rectangle(
-              extent={{-10,10},{10,-10}},
-              lineColor={95,95,95},
-              pattern=LinePattern.Dot), Rectangle(
-              extent={{-30,100},{30,-100}},
-              lineColor={95,95,95},
-              pattern=LinePattern.Dot,
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.16), graphics={Text(
-              extent={{-140,-50},{140,-88}},
-              lineColor={0,0,0},
-              textString="%name"), Rectangle(
-              extent={{-12,40},{12,-40}},
-              lineColor={95,95,95},
-              pattern=LinePattern.Dot,
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}),
-      Documentation(info="<html>
-<p>
-Basic definition of a coordinate system that is fixed to a mechanical
-component. In the origin of the coordinate system the cut-force
-and the cut-torque is acting. This coordinate system is used to
-express in which coordinate system a vector is resolved.
-A component that uses a Frame_resolve connector has to set the
-cut-force and cut-torque of this frame to zero. When connecting
-from a Frame_resolve connector to another frame connector,
-by default the connecting line has line style \"dotted\".
-This component has a non-filled rectangular icon.
-</p>
-</html>"));
-  end Frame_resolve;
-
-    connector FlangeWithBearing
-      "Connector consisting of 1-dim. rotational flange and its bearing frame"
-      parameter Boolean includeBearingConnector=false
-        "= true, if bearing frame connector is present, otherwise not present";
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a flange
-        "1-dim. rotational flange";
-      Modelica_Mechanics_MultiBody.Interfaces.Frame bearingFrame if
-        includeBearingConnector
-        "3-dim. frame in which the 1-dim. shaft is mounted";
-
-      annotation (
-        defaultComponentName="flange",
-        Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={
-            Rectangle(
-              extent={{-20,1},{20,-1}},
-              lineColor={135,135,135},
-              lineThickness=0.5),
-            Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={255,255,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Rectangle(
-              extent={{-100,25},{100,-25}},
-              lineColor={64,64,64},
-              fillPattern=FillPattern.HorizontalCylinder,
-              fillColor={192,192,192}),
-            Line(points={{-80,60},{80,60}}, color={0,0,0}),
-            Line(points={{-80,-60},{80,-60}}, color={0,0,0}),
-            Line(points={{0,100},{0,60}}, color={0,0,0}),
-            Line(points={{0,-60},{0,-100}}, color={0,0,0}),
-            Rectangle(extent={{-100,100},{100,-100}}, lineColor={135,135,135}),
-            Rectangle(extent={{-100,25},{100,-25}}, lineColor={64,64,64})}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={
-            Line(
-              points={{-50,-40},{50,-40}},
-              color={0,0,0},
-              thickness=0.5),
-            Line(
-              points={{-50,40},{50,40}},
-              color={0,0,0},
-              thickness=0.5),
-            Text(
-              extent={{-158,-66},{158,-124}},
-              lineColor={0,0,0},
-              lineThickness=0.5,
-              textString="%name"),
-            Rectangle(
-              extent={{-60,60},{60,-60}},
-              lineColor={255,255,255},
-              lineThickness=0.5,
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Rectangle(
-              extent={{-60,15},{60,-15}},
-              lineColor={64,64,64},
-              fillPattern=FillPattern.HorizontalCylinder,
-              fillColor={192,192,192}),
-            Line(points={{0,60},{0,40}}, color={0,0,0}),
-            Line(points={{0,-40},{0,-60}}, color={0,0,0}),
-            Line(points={{-50,40},{50,40}}, color={0,0,0}),
-            Line(points={{-50,-40},{50,-40}}, color={0,0,0}),
-            Rectangle(extent={{-60,60},{60,-60}}, lineColor={135,135,135}),
-            Rectangle(extent={{-60,15},{60,-15}}, lineColor={64,64,64})}),
-        Documentation(info="<html>
-<p>
-This hierarchical connector models a 1-dim. rotational flange
-connector and its optional bearing defined by a 3-dim. frame connector.
-If a connection to the subconnectors should be clearly visible,
-connect first an  instance of
-<a href=\"modelica://Modelica.Mechanics.MultiBody.Interfaces.FlangeWithBearingAdaptor\">FlangeWithBearingAdaptor</a>
-to the FlangeWithBearing connector.
-</p>
-</html>"));
-
-    end FlangeWithBearing;
-
-    model FlangeWithBearingAdaptor
-      "Adaptor to allow direct connections to the sub-connectors of FlangeWithBearing"
-      parameter Boolean includeBearingConnector=false
-        "= true, if bearing frame connector is present, otherwise not present";
-
-      Modelica_Mechanics_MultiBody.Interfaces.FlangeWithBearing flangeAndFrame(
-          includeBearingConnector=includeBearingConnector)
-        "Compound connector consisting of 1-dim. rotational flange and 3-dim. frame mounting"
-        annotation (Placement(transformation(extent={{-130,-30},{-70,30}},
-              rotation=0)));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_b flange
-        "1-dim. rotational flange"
-        annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=
-               0)));
-      Frame_a frame if includeBearingConnector
-        "3-dim. frame in which the 1-dim. shaft is mounted"             annotation (Placement(
-            transformation(
-            origin={0,-100},
-            extent={{-16,-16},{16,16}},
-            rotation=90)));
-
-    equation
-      connect(flange, flangeAndFrame.flange) annotation (Line(
-          points={{0,0},{-100,0}},
-          color={0,0,0}));
-      connect(frame, flangeAndFrame.bearingFrame) annotation (Line(
-          points={{0,-100},{0,-40},{-100,-40},{-100,0}},
-          color={0,0,0},
-          thickness=0.5));
-      annotation (
-        defaultComponentName="adaptor",
-        Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={
-            Rectangle(
-              extent={{-100,30},{20,-100}},
-              lineColor={255,255,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Line(
-              points={{-100,-10},{-100,-40},{0,-40},{0,-100}},
-              color={0,0,0},
-              thickness=0.5),
-            Line(points={{-90,0},{0,0}}, color={0,0,0}),
-            Text(
-              extent={{-216,88},{86,36}},
-              lineColor={0,0,255},
-              textString="%name")}),
-        Documentation(info="<html>
-<p>
-Adaptor object to make a more visible connection to the flange and frame
-subconnectors of a
-<a href=\"modelica://Modelica.Mechanics.MultiBody.Interfaces.FlangeWithBearing\">FlangeWithBearing</a>
-connector.
-</p>
-</html>"));
-    end FlangeWithBearingAdaptor;
-
-    partial model PartialTwoFrames
-      "Base model for components providing two frame connectors + outer world + assert to guarantee that the component is connected"
-
-      Interfaces.Frame_a frame_a
-        "Coordinate system fixed to the component with one cut-force and cut-torque"
-                                 annotation (Placement(transformation(extent={{
-                -116,-16},{-84,16}}, rotation=0)));
-      Interfaces.Frame_b frame_b
-        "Coordinate system fixed to the component with one cut-force and cut-torque"
-                                 annotation (Placement(transformation(extent={{84,
-                -16},{116,16}}, rotation=0)));
-    protected
-      outer Modelica_Mechanics_MultiBody.World world;
-    equation
-      assert(cardinality(frame_a) > 0,
-        "Connector frame_a of component is not connected");
-      assert(cardinality(frame_b) > 0,
-        "Connector frame_b of component is not connected");
-      annotation (
-        Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Text(
-              extent={{-136,-25},{-100,-50}},
-              lineColor={128,128,128},
-              textString="a"), Text(
-              extent={{100,-25},{136,-50}},
-              lineColor={128,128,128},
-              textString="b")}),
-        Documentation(info="<HTML>
-<p>
-This partial model provides two frame connectors, access to the world
-object and an assert to check that both frame connectors are connected.
-Therefore, inherit from this partial model if the two frame connectors are
-needed and if the two frame connectors should be connected for a correct model.
-</p>
-</HTML>"));
-    end PartialTwoFrames;
-
-    partial model PartialTwoFramesDoubleSize
-      "Base model for components providing two frame connectors + outer world + assert to guarantee that the component is connected (default icon size is factor 2 larger as usual)"
-
-      Interfaces.Frame_a frame_a
-        "Coordinate system fixed to the component with one cut-force and cut-torque"
-       annotation (Placement(transformation(extent={{-108,-8},{-92,8}})));
-      Interfaces.Frame_b frame_b
-        "Coordinate system fixed to the component with one cut-force and cut-torque"
-        annotation (Placement(transformation(extent={{92,-8},{108,8}})));
-
-    protected
-      outer Modelica_Mechanics_MultiBody.World world;
-    equation
-      assert(cardinality(frame_a) > 0,
-        "Connector frame_a of component is not connected");
-      assert(cardinality(frame_b) > 0,
-        "Connector frame_b of component is not connected");
-      annotation (
-        Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.2), graphics={Text(
-              extent={{-117,-13},{-106,-23}},
-              lineColor={128,128,128},
-              textString="a"), Text(
-              extent={{110,-15},{122,-25}},
-              lineColor={128,128,128},
-              textString="b")}),
-        Documentation(info="<HTML>
-<p>
-This partial model provides two frame connectors, access to the world
-object and an assert to check that both frame connectors are connected.
-Therefore, inherit from this partial model if the two frame connectors are
-needed and if the two frame connectors should be connected for a correct model.
-</p>
-<p>
-When dragging \"PartialTwoFrames\", the default size is a factor of two
-larger as usual. This partial model is used by the Joint.Assemblies
-joint aggregation models.
-</p>
-</HTML>"));
-    end PartialTwoFramesDoubleSize;
-
-    partial model PartialOneFrame_a
-      "Base model for components providing one frame_a connector + outer world + assert to guarantee that the component is connected"
-
-      Interfaces.Frame_a frame_a
-        "Coordinate system fixed to the component with one cut-force and cut-torque"
-                                                                                                            annotation (Placement(
-            transformation(extent={{-116,-16},{-84,16}}, rotation=0)));
-    protected
-      outer Modelica_Mechanics_MultiBody.World world;
-    equation
-      assert(cardinality(frame_a) > 0,
-        "Connector frame_a of component is not connected");
-      annotation (                      Documentation(info="<html>
-<p>
-This partial model provides one frame_a connector, access to the world
-object and an assert to check that the frame_a connector is connected.
-Therefore, inherit from this partial model if the frame_a connector is
-needed and if this connector should be connected for a correct model.
-</p>
-</html>"));
-    end PartialOneFrame_a;
-
-    partial model PartialOneFrame_b
-      "Base model for components providing one frame_b connector + outer world + assert to guarantee that the component is connected"
-
-      Interfaces.Frame_b frame_b
-        "Coordinate system fixed to the component with one cut-force and cut-torque"
-        annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
-               0)));
-    protected
-      outer Modelica_Mechanics_MultiBody.World world;
-    equation
-      assert(cardinality(frame_b) > 0,
-        "Connector frame_b of component is not connected");
-      annotation (
-        Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Text(
-              extent={{94,-20},{130,-45}},
-              lineColor={128,128,128},
-              textString="b")}),
-        Documentation(info="<HTML>
-<p>
-This partial model provides one frame_b connector, access to the world
-object and an assert to check that the frame_b connector is connected.
-Therefore, inherit from this partial model if the frame_b connector is
-needed and if this connector should be connected for a correct model.
-</p>
-</HTML>"));
-    end PartialOneFrame_b;
-
-    partial model PartialElementaryJoint
-      "Base model for elementary joints (has two frames + outer world + assert to guarantee that the joint is connected)"
-
-      Interfaces.Frame_a frame_a
-        "Coordinate system fixed to the joint with one cut-force and cut-torque"
-                                 annotation (Placement(transformation(extent={{
-                -116,-16},{-84,16}}, rotation=0)));
-      Interfaces.Frame_b frame_b
-        "Coordinate system fixed to the joint with one cut-force and cut-torque"
-                                 annotation (Placement(transformation(extent={{84,
-                -16},{116,16}}, rotation=0)));
-
-    protected
-      outer Modelica_Mechanics_MultiBody.World world;
-    equation
-      Connections.branch(frame_a.R, frame_b.R);
-      assert(cardinality(frame_a) > 0,
-        "Connector frame_a of joint object is not connected");
-      assert(cardinality(frame_b) > 0,
-        "Connector frame_b of joint object is not connected");
-      annotation (Documentation(info="<HTML>
-<p>
-All <b>elementary joints</b> should inherit from this base model, i.e.,
-joints that are directly defined by equations, provided they compute
-either the rotation object of frame_b from the rotation object of frame_a
-and from relative quantities (or vice versa), or there is a constraint
-equation between the rotation objects of the two frames.
-In other cases, a joint object should inherit from
-<b>Interfaces.PartialTwoFrames</b> (e.g., joint Spherical, because there
-is no constraint between the rotation objects of frame_a and frame_b
-or joint Cylindrical because it is not an elementary joint).
-</p>
-<p>
-This partial model provides two frame connectors, a \"Connections.branch\"
-between frame_a and frame_b, access to the world
-object and an assert to check that both frame connectors are connected.
-</p>
-</html>"));
-    end PartialElementaryJoint;
-
-    partial model PartialForce
-      "Base model for force elements (provide frame_b.f and frame_b.t in subclasses)"
-
-      Interfaces.Frame_a frame_a
-        "Coordinate system fixed to the joint with one cut-force and cut-torque"
-                                 annotation (Placement(transformation(extent={{
-                -116,-16},{-84,16}}, rotation=0)));
-      Interfaces.Frame_b frame_b
-        "Coordinate system fixed to the joint with one cut-force and cut-torque"
-                                 annotation (Placement(transformation(extent={{84,
-                -16},{116,16}}, rotation=0)));
-
-      Modelica_SIunits.Position r_rel_b[3]
-        "Position vector from origin of frame_a to origin of frame_b, resolved in frame_b";
-    protected
-      outer Modelica_Mechanics_MultiBody.World world;
-    equation
-      assert(cardinality(frame_a) > 0,
-        "Connector frame_a of force object is not connected");
-      assert(cardinality(frame_b) > 0,
-        "Connector frame_b of force object is not connected");
-
-      /* Determine relative position vector
-     between frame_a and frame_b
-  */
-      r_rel_b = Frames.resolve2(frame_b.R, frame_b.r_0 - frame_a.r_0);
-
-      /* Force and torque balance between frame_a and frame_b */
-      zeros(3) = frame_a.f + Frames.resolveRelative(frame_b.f, frame_b.R, frame_a.
-         R);
-      zeros(3) = frame_a.t + Frames.resolveRelative(frame_b.t + cross(r_rel_b,
-        frame_b.f), frame_b.R, frame_a.R);
-      annotation (Documentation(info="<HTML>
-<p>
-All <b>3-dimensional force</b> and <b>torque elements</b>
-should be based on this superclass.
-This model defines frame_a and frame_b, computes the relative
-translation and rotation between the two frames and calculates
-the cut-force and cut-torque at frame_a by a force and torque
-balance from the cut-force and cut-torque at frame_b.
-As a result, in a subclass, only the relationship between
-the cut-force and cut-torque at frame_b has to be defined as
-a function of the following relative quantities:
-</p>
-<pre>
-  r_rel_b[3]: Position vector from origin of frame_a to origin
-              of frame_b, resolved in frame_b
-  R_rel     : Relative orientation object to rotate from frame_a to frame_b
-</pre>
-<p>
-Assume that force f = {100,0,0} should be applied on the body
-to which this force element is attached at frame_b, then
-the definition should be:
-</p>
-<pre>
-   <b>model</b> Constant_x_Force
-      extends Modelica.Mechanics.MultiBody.Interfaces.PartialForce;
-   <b>equation</b>
-      frame_b.f = {-100, 0, 0};
-      frame_b.t = zeros(3);
-   <b>end</b> Constant_x_Force;
-</pre>
-<p>
-Note, that frame_b.f and frame_b.t are flow variables and therefore
-the negative value of frame_b.f and frame_b.t is acting at the part
-to which this force element is connected.
-</p>
-</HTML>"),   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Text(
-              extent={{-136,42},{-100,17}},
-              lineColor={128,128,128},
-              textString="a"), Text(
-              extent={{102,44},{138,19}},
-              lineColor={128,128,128},
-              textString="b")}));
-    end PartialForce;
-
-    partial model PartialLineForce "Base model for line force elements"
-
-      parameter Modelica_SIunits.Position s_small=1.E-6
-        "Prevent zero-division if relative distance s=0"
-        annotation (Dialog(tab="Advanced"));
-      parameter Boolean fixedRotationAtFrame_a=false
-        "=true, if rotation frame_a.R is fixed (to directly connect line forces)"
-         annotation (Evaluate=true, choices(checkBox=true),Dialog(tab="Advanced", group="If enabled, can give wrong results, see MultiBody.UsersGuide.Tutorial.ConnectionOfLineForces"));
-      parameter Boolean fixedRotationAtFrame_b=false
-        "=true, if rotation frame_b.R is fixed (to directly connect line forces)"
-         annotation (Evaluate=true, choices(checkBox=true),Dialog(tab="Advanced", group="If enabled, can give wrong results, see MultiBody.UsersGuide.Tutorial.ConnectionOfLineForces"));
-
-      Interfaces.Frame_a frame_a
-        "Coordinate system fixed to the force element with one cut-force and cut-torque"
-                                 annotation (Placement(transformation(extent={{
-                -116,-16},{-84,16}}, rotation=0)));
-      Interfaces.Frame_b frame_b
-        "Coordinate system fixed to the force element with one cut-force and cut-torque"
-                                 annotation (Placement(transformation(extent={{84,
-                -16},{116,16}}, rotation=0)));
-      Modelica_SIunits.Force f
-        "Line force acting on frame_a and on frame_b (positive, if acting on frame_b and directed from frame_a to frame_b)";
-      Modelica_SIunits.Position s
-        "(Guarded) distance between the origin of frame_a and the origin of frame_b (>= s_small))";
-      Real e_a[3](each final unit="1")
-        "Unit vector on the line connecting the origin of frame_a with the origin of frame_b resolved in frame_a (directed from frame_a to frame_b)";
-      Modelica_SIunits.Position r_rel_a[3]
-        "Position vector from origin of frame_a to origin of frame_b, resolved in frame_a";
-    protected
-      outer Modelica_Mechanics_MultiBody.World world;
-    equation
-      assert(cardinality(frame_a) > 0,
-        "Connector frame_a of line force object is not connected");
-      assert(cardinality(frame_b) > 0,
-        "Connector frame_b of line force object is not connected");
-
-      // Determine distance s and n_a
-      r_rel_a = Frames.resolve2(frame_a.R, frame_b.r_0 - frame_a.r_0);
-      s = noEvent(max(Modelica_Math.Vectors.length(
-                                    r_rel_a), s_small));
-      e_a = r_rel_a/s;
-
-      /* Determine forces and torques at frame_a and frame_b */
-      frame_a.f = -e_a*f;
-      frame_b.f = -Frames.resolve2(Frames.relativeRotation(frame_a.R, frame_b.R),
-         frame_a.f);
-
-      // Additional equations, if direct connections of line forces
-      if fixedRotationAtFrame_a then
-        Connections.root(frame_a.R);
-        frame_a.R = Frames.nullRotation();
-      else
-        frame_a.t = zeros(3);
-      end if;
-
-      if fixedRotationAtFrame_b then
-        Connections.root(frame_b.R);
-        frame_b.R = Frames.nullRotation();
-      else
-        frame_b.t = zeros(3);
-      end if;
-
-      annotation (Documentation(info="<HTML>
-<p>
-All <b>line force</b> elements should be based on this base model.
-This model defines frame_a and frame_b, computes the relative
-distance <b>s</b> and provides the force and torque
-balance of the cut-forces and cut-torques at frame_a and
-frame_b, respectively. In sub-models, only the line force <b>f</b>,
-acting at frame_b on the line from frame_a to frame_b, as a function
-of the relative distance <b>s</b> and its derivative <b>der</b>(<b>s</b>)
-has to be defined. Example:
-</p>
-<pre>
-   <b>model</b> Spring
-      <b>parameter</b> Real c \"spring constant\",
-      <b>parameter</b> Real s_unstretched \"unstretched spring length\";
-      <b>extends</b> Modelica.Mechanics.MultiBody.Interfaces.PartialLineForce;
-   <b>equation</b>
-      f = c*(s-s_unstretched);
-   <b>end</b> Spring;
-</pre>
-</HTML>"),   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Text(
-              extent={{-136,-44},{-100,-19}},
-              lineColor={128,128,128},
-              textString="a"), Text(
-              extent={{100,-42},{136,-17}},
-              lineColor={128,128,128},
-              textString="b"),
-            Ellipse(visible=fixedRotationAtFrame_a, extent={{-70,30},{-130,-30}}, lineColor={255,0,0}),
-            Text(visible=fixedRotationAtFrame_a,
-              extent={{-62,50},{-140,30}},
-              lineColor={255,0,0},
-              textString="R=0"),
-            Ellipse(visible=fixedRotationAtFrame_b, extent={{70,30},{130,-30}}, lineColor={255,0,0}),
-            Text(visible=fixedRotationAtFrame_b,
-              extent={{62,50},{140,30}},
-              lineColor={255,0,0},
-              textString="R=0")}));
-    end PartialLineForce;
-
-    partial model PartialAbsoluteSensor
-      "Base model to measure an absolute frame variable"
-      extends Modelica_Icons.RotationalSensor;
-      parameter Integer n_out = 1 "Number of output signals";
-      Interfaces.Frame_a frame_a
-        "Coordinate system from which absolute quantities are provided as output signals"
-        annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
-              rotation=0)));
-
-      Modelica_Blocks.Interfaces.RealOutput y[n_out]
-        "Measured data as signal vector"
-        annotation (Placement(transformation(extent={{100,-10},{120,10}},
-              rotation=0)));
-    protected
-      outer Modelica_Mechanics_MultiBody.World world;
-
-    equation
-      assert(cardinality(frame_a) > 0,
-        "Connector frame_a of absolute sensor object is not connected");
-      annotation (
-        Documentation(info="<html>
-<p>
-This is the base class of a 3-dim. mechanics component with one frame and one
-output port in order to measure an absolute quantity in the frame connector
-and to provide the measured signal as output for further processing
-with the blocks of package Modelica.Blocks.
-</p>
-</html>"),     Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={
-            Line(points={{-70,0},{-100,0}}, color={0,0,0}),
-            Line(points={{70,0},{100,0}}, color={0,0,255}),
-            Text(
-              extent={{-132,-125},{131,-79}},
-              textString="%name",
-              lineColor={0,0,255})}));
-    end PartialAbsoluteSensor;
-
-    partial model PartialRelativeSensor
-      "Base model to measure a relative variable between two frames"
-      extends Modelica_Icons.RotationalSensor;
-      parameter Integer n_out = 1 "Number of output signals";
-      Interfaces.Frame_a frame_a "Coordinate system a" annotation (Placement(
-            transformation(extent={{-116,-16},{-84,16}}, rotation=0)));
-      Interfaces.Frame_b frame_b "Coordinate system b" annotation (Placement(
-            transformation(extent={{84,-16},{116,16}}, rotation=0)));
-
-      Modelica_Blocks.Interfaces.RealOutput y[n_out]
-        "Measured data as signal vector"
-        annotation (Placement(transformation(
-            origin={0,-110},
-            extent={{10,-10},{-10,10}},
-            rotation=90)));
-    protected
-      outer Modelica_Mechanics_MultiBody.World world;
-
-    equation
-      assert(cardinality(frame_a) > 0,
-        "Connector frame_a of relative sensor object is not connected");
-      assert(cardinality(frame_b) > 0,
-        "Connector frame_b of relative sensor object is not connected");
-
-      annotation (
-        Documentation(info="<html>
-<p>
-This is a base class for 3-dim. mechanical components with two frames
-and one output port in order to measure relative quantities
-between the two frames or the cut-forces/torques in the frame and
-to provide the measured signals as output for further processing
-with the blocks of package Modelica.Blocks.
-</p>
-</html>"),     Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={
-            Line(points={{-70,0},{-101,0}}, color={0,0,0}),
-            Line(points={{70,0},{100,0}}, color={0,0,0}),
-            Line(points={{0,-100},{0,-70}}, color={0,0,127}),
-            Text(
-              extent={{-132,76},{129,124}},
-              textString="%name",
-              lineColor={0,0,255}),
-            Text(
-              extent={{-118,52},{-82,27}},
-              lineColor={128,128,128},
-              textString="a"),
-            Text(
-              extent={{85,53},{121,28}},
-              lineColor={128,128,128},
-              textString="b")}));
-    end PartialRelativeSensor;
-
-    partial model PartialVisualizer
-      "Base model for visualizers (has a frame_a on the left side + outer world + assert to guarantee that the component is connected)"
-
-      Interfaces.Frame_a frame_a
-        "Coordinate system in which visualization data is resolved"                          annotation (Placement(
-            transformation(extent={{-116,-16},{-84,16}}, rotation=0)));
-    protected
-      outer Modelica_Mechanics_MultiBody.World world;
-    equation
-      assert(cardinality(frame_a) > 0,
-        "Connector frame_a of visualizer object is not connected");
-      annotation (Documentation(info="<html>
-<p>
-This partial model provides one frame_a connector, access to the world
-object and an assert to check that the frame_a connector is connected.
-It is used by inheritance from all visualizer objects.
-</p>
-</html>"));
-    end PartialVisualizer;
-
-    model ZeroPosition
-      "Set absolute position vector of frame_resolve to a zero vector and the orientation object to a null rotation"
-       extends Modelica_Blocks.Icons.Block;
-      Interfaces.Frame_resolve frame_resolve
-        annotation (Placement(transformation(extent={{-116,-16},{-84,16}})));
-    equation
-      Connections.root(frame_resolve.R);
-      frame_resolve.R = Modelica_Mechanics_MultiBody.Frames.nullRotation();
-      frame_resolve.r_0 = zeros(3);
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Text(
-              extent={{-74,24},{80,-20}},
-              lineColor={0,0,0},
-              textString="r = 0")}));
-    end ZeroPosition;
-
-    partial function partialGravityAcceleration
-      extends Modelica_Icons.Function;
-       input Modelica_SIunits.Position r[3]
-        "Position vector from world frame to actual point, resolved in world frame";
-       output Modelica_SIunits.Acceleration gravity[3]
-        "Gravity acceleration at position r, resolved in world frame";
-      annotation (Documentation(info="<html>
-<p>
-This partial function defines the interface to the gravity function
-used in the World object. All gravity field functions must inherit
-from this function. The input to the function is the absolute position
-vector of a point in the gravity field, whereas the output is the
-gravity acceleration at this point, resolved in the world frame.
-</p>
-</html>"));
-    end partialGravityAcceleration;
-
-    partial function partialSurfaceCharacteristic
-      extends Modelica_Icons.Function;
-       input Integer nu "Number of points in u-Dimension";
-       input Integer nv "Number of points in v-Dimension";
-       input Boolean multiColoredSurface=false
-        "= true: Color is defined for each surface point";
-       output Modelica_SIunits.Position X[nu,nv]
-        "[nu,nv] positions of points in x-Direction resolved in surface frame";
-       output Modelica_SIunits.Position Y[nu,nv]
-        "[nu,nv] positions of points in y-Direction resolved in surface frame";
-       output Modelica_SIunits.Position Z[nu,nv]
-        "[nu,nv] positions of points in z-Direction resolved in surface frame";
-       output Real C[if multiColoredSurface then nu else 0,
-                     if multiColoredSurface then nv else 0,3]
-        "[nu,nv,3] Color array, defining the color for each surface point";
-    end partialSurfaceCharacteristic;
-
-    partial function partialColorMap
-      "Interface for a function returning a color map"
-      extends Modelica_Icons.Function;
-      input Integer n_colors=64 "Number of colors in the color map";
-      output Real colorMap[n_colors,3] "Color map to map a scalar to a color";
-      annotation (Documentation(info="<html>
-<p>
-This partial function defines the interface of a function that returns
-a color map. Predefined color map functions are defined in package
-<a href=\"modelica://Modelica.Mechanics.MultiBody.Visualizers.Colors.ColorMaps\">Modelica.Mechanics.MultiBody.Visualizers.Colors.ColorMaps</a>.
-</p>
-</html>"));
-    end partialColorMap;
-
-    annotation ( Documentation(info="<html>
-<p>
-This package contains connectors and partial models (i.e., models
-that are only used to build other models) of the MultiBody library.
-</p>
-</html>"));
-  end Interfaces;
 
   package Joints "Components that constrain the motion between two frames"
     extends Modelica_Icons.Package;
@@ -8079,11 +7267,11 @@ that are only used to build other models) of the MultiBody library.
     model Prismatic
       "Prismatic joint (1 translational degree-of-freedom, 2 potential states, optional axis flange)"
 
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialElementaryJoint;
-      Modelica_Mechanics_Translational.Interfaces.Flange_a axis if useAxisFlange
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialElementaryJoint;
+      Modelica_Mechanics_Translational_Interfaces.Flange_a axis if useAxisFlange
         "1-dim. translational flange that drives the joint"
         annotation (Placement(transformation(extent={{90,50},{70,70}}, rotation=0)));
-      Modelica_Mechanics_Translational.Interfaces.Flange_b support if useAxisFlange
+      Modelica_Mechanics_Translational_Interfaces.Flange_b support if useAxisFlange
         "1-dim. translational flange of the drive drive support (assumed to be fixed in the world frame, NOT in the joint)"
         annotation (Placement(transformation(extent={{-30,50},{-50,70}}, rotation=
                0)));
@@ -8155,7 +7343,7 @@ Possible reasons:
         R=frame_a.R) if world.enableAnimation and animation;
       Modelica_Mechanics_Translational.Components.Fixed fixed
         annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-      Modelica_Mechanics_Translational.Interfaces.InternalSupport internalAxis(
+      Modelica_Mechanics_Translational_Interfaces.InternalSupport internalAxis(
           f=f) annotation (Placement(transformation(extent={{70,50},{90,30}})));
       Modelica_Mechanics_Translational.Sources.ConstantForce constantForce(
           f_constant=0) if                                               not useAxisFlange
@@ -8295,20 +7483,20 @@ vector \"n\" defining the translation axis
     model Revolute
       "Revolute joint (1 rotational degree-of-freedom, 2 potential states, optional axis flange)"
 
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a axis if useAxisFlange
+      Modelica_Mechanics_Rotational_Interfaces.Flange_a axis if useAxisFlange
         "1-dim. rotational flange that drives the joint"
         annotation (Placement(transformation(extent={{10,90},{-10,110}}, rotation=
                0)));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_b support if useAxisFlange
+      Modelica_Mechanics_Rotational_Interfaces.Flange_b support if useAxisFlange
         "1-dim. rotational flange of the drive support (assumed to be fixed in the world frame, NOT in the joint)"
         annotation (Placement(transformation(extent={{-70,90},{-50,110}},
               rotation=0)));
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system fixed to the joint with one cut-force and cut-torque"
         annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
               rotation=0)));
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_b
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
         "Coordinate system fixed to the joint with one cut-force and cut-torque"
         annotation (Placement(transformation(extent={{84,-16},{116,16}},
               rotation=0)));
@@ -8389,7 +7577,7 @@ Possible reasons:
       Modelica_Mechanics_Rotational.Components.Fixed fixed
         "support flange is fixed to ground"
         annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
-      Modelica_Mechanics_Rotational.Interfaces.InternalSupport internalAxis(tau=
+      Modelica_Mechanics_Rotational_Interfaces.InternalSupport internalAxis(tau=
            tau)
         annotation (Placement(transformation(extent={{-10,90},{10,70}})));
       Modelica_Mechanics_Rotational.Sources.ConstantTorque constantTorque(
@@ -8600,14 +7788,14 @@ vector \"n\" defining the translation axis
       import T = Modelica_Mechanics_MultiBody.Frames.TransformationMatrices;
       import Modelica_Mechanics_MultiBody.Types;
 
-      Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system fixed to the joint with one cut-force and cut-torque"
         annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
               rotation=0)));
-      Interfaces.Frame_b frame_b
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
         "Coordinate system fixed to the joint with one cut-force and cut-torque"
-        annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
-               0)));
+        annotation (Placement(transformation(extent={{84,-16},{116,16}},
+              rotation=0)));
 
       parameter Boolean animation=true
         "= true, if animation shall be enabled (show axis as cylinder)";
@@ -8800,7 +7988,7 @@ this force is an unknown quantity).
 
     model Cylindrical
       "Cylindrical joint (2 degrees-of-freedom, 4 potential states)"
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
       parameter Boolean animation=true
         "= true, if animation shall be enabled (show cylinder)";
       parameter Modelica_Mechanics_MultiBody.Types.Axis n={1,0,0}
@@ -8951,7 +8139,7 @@ vector \"n\" defining the cylinder axis
     model Universal
       "Universal joint (2 degrees-of-freedom, 4 potential states)"
 
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
       parameter Boolean animation=true "= true, if animation shall be enabled";
       parameter Modelica_Mechanics_MultiBody.Types.Axis n_a={1,0,0}
         "Axis of revolute joint 1 resolved in frame_a"
@@ -9133,7 +8321,7 @@ phi_b.start = 45<sup>o</sup>).
 
     model Planar "Planar joint (3 degrees-of-freedom, 6 potential states)"
 
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
       parameter Boolean animation=true "= true, if animation shall be enabled";
       parameter Modelica_Mechanics_MultiBody.Types.Axis n={0,0,1}
         "Axis orthogonal to unconstrained plane, resolved in frame_a (= same as in frame_b)"
@@ -9356,7 +8544,7 @@ s_y.start = 0.5, phi.start = 45<sup>o</sup>).
 
       import Modelica_Mechanics_MultiBody.Frames;
 
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
       parameter Boolean animation=true
         "= true, if animation shall be enabled (show sphere)";
       parameter Modelica_SIunits.Distance sphereDiameter=world.defaultJointLength
@@ -9663,7 +8851,7 @@ frame_b of the joint.
     model FreeMotion
       "Free motion joint (6 degrees-of-freedom, 12 potential states)"
 
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
 
       parameter Boolean animation=true
         "= true, if animation shall be enabled (show arrow from frame_a to frame_b)";
@@ -10028,7 +9216,7 @@ frame_b of the joint.
     model FreeMotionScalarInit
       "Free motion joint with scalar initialization and state selection (6 degrees-of-freedom, 12 potential states)"
 
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
 
       parameter Boolean animation=true
         "= true, if animation shall be enabled (show arrow from frame_a to frame_b)"
@@ -10036,13 +9224,13 @@ frame_b of the joint.
 
       parameter Boolean use_r = false "= true, if r_rel_a shall be used"
           annotation(Evaluate=true, HideResult=true,Dialog(tab="Translational Initialization", group="Position vector r_rel_a from origin of frame_a to origin of frame_b, resolved in frame_a"));
-      Modelica_Blocks.Interfaces.RealOutput r_rel_a_1(final quantity="Length", final unit="m", start=0, final stateSelect=r_rel_a_1_stateSelect) if use_r
+      Modelica_Blocks_Interfaces.RealOutput r_rel_a_1(final quantity="Length", final unit="m", start=0, final stateSelect=r_rel_a_1_stateSelect) if use_r
         "Relative distance r_rel_a[1]"
         annotation(Dialog(enable=use_r, tab="Translational Initialization", group="Position vector r_rel_a from origin of frame_a to origin of frame_b, resolved in frame_a",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput r_rel_a_2(final quantity="Length", final unit="m", start=0, final stateSelect=r_rel_a_2_stateSelect) if use_r
+      Modelica_Blocks_Interfaces.RealOutput r_rel_a_2(final quantity="Length", final unit="m", start=0, final stateSelect=r_rel_a_2_stateSelect) if use_r
         "Relative distance r_rel_a[2]"
         annotation(Dialog(enable=use_r, tab="Translational Initialization", group="Position vector r_rel_a from origin of frame_a to origin of frame_b, resolved in frame_a",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput r_rel_a_3(final quantity="Length", final unit="m", start=0, final stateSelect=r_rel_a_3_stateSelect) if use_r
+      Modelica_Blocks_Interfaces.RealOutput r_rel_a_3(final quantity="Length", final unit="m", start=0, final stateSelect=r_rel_a_3_stateSelect) if use_r
         "Relative distance r_rel_a[3]"
         annotation(Dialog(enable=use_r, tab="Translational Initialization", group="Position vector r_rel_a from origin of frame_a to origin of frame_b, resolved in frame_a",showStartAttribute=true));
 
@@ -10058,13 +9246,13 @@ frame_b of the joint.
 
       parameter Boolean use_v = false "= true, if v_rel_a shall be used"
           annotation(Evaluate=true, HideResult=true,Dialog(enable=use_r, tab="Translational Initialization", group="Velocity vector v_rel_a = der(r_rel_a)"));
-      Modelica_Blocks.Interfaces.RealOutput v_rel_a_1(final quantity="Velocity", final unit="m/s", start=0, final stateSelect=v_rel_a_1_stateSelect) if use_r and use_v
+      Modelica_Blocks_Interfaces.RealOutput v_rel_a_1(final quantity="Velocity", final unit="m/s", start=0, final stateSelect=v_rel_a_1_stateSelect) if use_r and use_v
         "Relative velocity v_rel_a[1]"
         annotation(Dialog(enable=use_r and use_v, tab="Translational Initialization", group="Velocity vector v_rel_a = der(r_rel_a)",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput v_rel_a_2(final quantity="Velocity", final unit="m/s", start=0, final stateSelect=v_rel_a_2_stateSelect) if use_r and use_v
+      Modelica_Blocks_Interfaces.RealOutput v_rel_a_2(final quantity="Velocity", final unit="m/s", start=0, final stateSelect=v_rel_a_2_stateSelect) if use_r and use_v
         "Relative velocity v_rel_a[2]"
         annotation(Dialog(enable=use_r and use_v, tab="Translational Initialization", group="Velocity vector v_rel_a = der(r_rel_a)",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput v_rel_a_3(final quantity="Velocity", final unit="m/s", start=0, final stateSelect=v_rel_a_3_stateSelect) if use_r and use_v
+      Modelica_Blocks_Interfaces.RealOutput v_rel_a_3(final quantity="Velocity", final unit="m/s", start=0, final stateSelect=v_rel_a_3_stateSelect) if use_r and use_v
         "Relative velocity v_rel_a[3]"
         annotation(Dialog(enable=use_r and use_v, tab="Translational Initialization", group="Velocity vector v_rel_a = der(r_rel_a)",showStartAttribute=true));
 
@@ -10080,13 +9268,13 @@ frame_b of the joint.
 
       parameter Boolean use_a = false "= true, if a_rel_a shall be used"
           annotation(Evaluate=true, HideResult=true,Dialog(enable=use_r and use_v, tab="Translational Initialization", group="Acceleration vector a_rel_a = der(v_rel_a)"));
-      Modelica_Blocks.Interfaces.RealOutput a_rel_a_1(final quantity="Acceleration", final unit="m/s2", start=0) if use_r and use_v and use_a
+      Modelica_Blocks_Interfaces.RealOutput a_rel_a_1(final quantity="Acceleration", final unit="m/s2", start=0) if use_r and use_v and use_a
         "Relative acceleration a_rel_a[1]"
         annotation(Dialog(enable=use_r and use_v and use_a, tab="Translational Initialization", group="Acceleration vector a_rel_a = der(v_rel_a)",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput a_rel_a_2(final quantity="Acceleration", final unit="m/s2", start=0) if use_r and use_v and use_a
+      Modelica_Blocks_Interfaces.RealOutput a_rel_a_2(final quantity="Acceleration", final unit="m/s2", start=0) if use_r and use_v and use_a
         "Relative acceleration a_rel_a[2]"
         annotation(Dialog(enable=use_r and use_v and use_a, tab="Translational Initialization", group="Acceleration vector a_rel_a = der(v_rel_a)",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput a_rel_a_3(final quantity="Acceleration", final unit="m/s2", start=0) if use_r and use_v and use_a
+      Modelica_Blocks_Interfaces.RealOutput a_rel_a_3(final quantity="Acceleration", final unit="m/s2", start=0) if use_r and use_v and use_a
         "Relative acceleration a_rel_a[3]"
         annotation(Dialog(enable=use_r and use_v and use_a, tab="Translational Initialization", group="Acceleration vector a_rel_a = der(v_rel_a)",showStartAttribute=true));
 
@@ -10097,13 +9285,13 @@ frame_b of the joint.
         "Sequence of angle rotations"
         annotation(Evaluate=true,Dialog(enable=use_angle, tab="Angle Initialization", group="Angles to rotate frame_a to frame_b along sequence_start"));
 
-      Modelica_Blocks.Interfaces.RealOutput angle_1(final quantity="Angle", final unit="rad", start=0, stateSelect=angle_1_stateSelect) if use_angle
+      Modelica_Blocks_Interfaces.RealOutput angle_1(final quantity="Angle", final unit="rad", start=0, stateSelect=angle_1_stateSelect) if use_angle
         "First rotation angle or dummy"
         annotation(Dialog(enable=use_angle, tab="Angle Initialization", group="Angles to rotate frame_a to frame_b along sequence_start",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput angle_2(final quantity="Angle", final unit="rad", start=0, stateSelect=angle_2_stateSelect) if use_angle
+      Modelica_Blocks_Interfaces.RealOutput angle_2(final quantity="Angle", final unit="rad", start=0, stateSelect=angle_2_stateSelect) if use_angle
         "Second rotation angle or dummy"
         annotation(Dialog(enable=use_angle, tab="Angle Initialization", group="Angles to rotate frame_a to frame_b along sequence_start",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput angle_3(final quantity="Angle", final unit="rad", start=0, stateSelect=angle_3_stateSelect) if use_angle
+      Modelica_Blocks_Interfaces.RealOutput angle_3(final quantity="Angle", final unit="rad", start=0, stateSelect=angle_3_stateSelect) if use_angle
         "Third rotation angle or dummy"
         annotation(Dialog(enable=use_angle, tab="Angle Initialization", group="Angles to rotate frame_a to frame_b along sequence_start",showStartAttribute=true));
 
@@ -10120,13 +9308,13 @@ frame_b of the joint.
       parameter Boolean use_angle_d= false "= true, if angle_d shall be used"
         annotation(Evaluate=true, HideResult=true,Dialog(enable=use_angle, tab="Angle Initialization", group="angle_d = der(angle)"));
 
-      Modelica_Blocks.Interfaces.RealOutput angle_d_1(final quantity="AngularVelocity", final unit="rad/s", start=0, final stateSelect=angle_d_1_stateSelect) if use_angle and use_angle_d
+      Modelica_Blocks_Interfaces.RealOutput angle_d_1(final quantity="AngularVelocity", final unit="rad/s", start=0, final stateSelect=angle_d_1_stateSelect) if use_angle and use_angle_d
         "= der(angle_1)"
         annotation(Dialog(enable=use_angle and use_angle_d, tab="Angle Initialization", group="angle_d = der(angle)",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput angle_d_2(final quantity="AngularVelocity", final unit="rad/s", start=0, final stateSelect=angle_d_2_stateSelect) if use_angle and use_angle_d
+      Modelica_Blocks_Interfaces.RealOutput angle_d_2(final quantity="AngularVelocity", final unit="rad/s", start=0, final stateSelect=angle_d_2_stateSelect) if use_angle and use_angle_d
         "= der(angle_2)"
         annotation(Dialog(enable=use_angle and use_angle_d, tab="Angle Initialization", group="angle_d = der(angle)",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput angle_d_3(final quantity="AngularVelocity", final unit="rad/s", start=0, final stateSelect=angle_d_3_stateSelect) if use_angle and use_angle_d
+      Modelica_Blocks_Interfaces.RealOutput angle_d_3(final quantity="AngularVelocity", final unit="rad/s", start=0, final stateSelect=angle_d_3_stateSelect) if use_angle and use_angle_d
         "= der(angle_3)"
         annotation(Dialog(enable=use_angle and use_angle_d, tab="Angle Initialization", group="angle_d = der(angle)",showStartAttribute=true));
 
@@ -10143,26 +9331,26 @@ frame_b of the joint.
       parameter Boolean use_angle_dd = false
         "= true, if angle_dd shall be used"
           annotation(Evaluate=true, HideResult=true,Dialog(enable=use_angle and use_angle_d, tab="Angle Initialization", group="angle_dd = der(angle_d)"));
-      Modelica_Blocks.Interfaces.RealOutput angle_dd_1(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_angle and use_angle_d and use_angle_dd
+      Modelica_Blocks_Interfaces.RealOutput angle_dd_1(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_angle and use_angle_d and use_angle_dd
         "= der(angle_d_1)"
         annotation(Dialog(enable=use_angle and use_angle_d and use_angle_dd, tab="Angle Initialization", group="angle_dd = der(angle_d)",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput angle_dd_2(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_angle and use_angle_d and use_angle_dd
+      Modelica_Blocks_Interfaces.RealOutput angle_dd_2(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_angle and use_angle_d and use_angle_dd
         "= der(angle_d_2)"
         annotation(Dialog(enable=use_angle and use_angle_d and use_angle_dd, tab="Angle Initialization", group="angle_dd = der(angle_d)",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput angle_dd_3(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_angle and use_angle_d and use_angle_dd
+      Modelica_Blocks_Interfaces.RealOutput angle_dd_3(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_angle and use_angle_d and use_angle_dd
         "= der(angle_d_3)"
         annotation(Dialog(enable=use_angle and use_angle_d and use_angle_dd, tab="Angle Initialization", group="angle_dd = der(angle_d)",showStartAttribute=true));
 
       parameter Boolean use_w = false "= true, if w_rel_b shall be used"
         annotation(Evaluate=true, HideResult=true,Dialog(tab="Angular Velocity Initialization", group="Angular velocity w_rel_b of frame_b with respect to frame_a, resolved in frame_b"));
 
-      Modelica_Blocks.Interfaces.RealOutput w_rel_b_1(final quantity="AngularVelocity", final unit="rad/s", start=0, stateSelect=w_rel_b_1_stateSelect) if use_w
+      Modelica_Blocks_Interfaces.RealOutput w_rel_b_1(final quantity="AngularVelocity", final unit="rad/s", start=0, stateSelect=w_rel_b_1_stateSelect) if use_w
         "Relative angular velocity w_rel_b[1]"
         annotation(Dialog(enable=use_w, tab="Angular Velocity Initialization", group="Angular velocity w_rel_b of frame_b with respect to frame_a, resolved in frame_b",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput w_rel_b_2(final quantity="AngularVelocity", final unit="rad/s", start=0, stateSelect=w_rel_b_2_stateSelect) if use_w
+      Modelica_Blocks_Interfaces.RealOutput w_rel_b_2(final quantity="AngularVelocity", final unit="rad/s", start=0, stateSelect=w_rel_b_2_stateSelect) if use_w
         "Relative angular velocity w_rel_b[2]"
         annotation(Dialog(enable=use_w, tab="Angular Velocity Initialization", group="Angular velocity w_rel_b of frame_b with respect to frame_a, resolved in frame_b",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput w_rel_b_3(final quantity="AngularVelocity", final unit="rad/s", start=0, stateSelect=w_rel_b_3_stateSelect) if use_w
+      Modelica_Blocks_Interfaces.RealOutput w_rel_b_3(final quantity="AngularVelocity", final unit="rad/s", start=0, stateSelect=w_rel_b_3_stateSelect) if use_w
         "Relative angular velocity w_rel_b[3]"
         annotation(Dialog(enable=use_w, tab="Angular Velocity Initialization", group="Angular velocity w_rel_b of frame_b with respect to frame_a, resolved in frame_b",showStartAttribute=true));
 
@@ -10178,13 +9366,13 @@ frame_b of the joint.
 
       parameter Boolean use_z = false "= true, if z_rel_b shall be used"
         annotation(Evaluate=true, HideResult=true,Dialog(enable=use_w, tab="Angular Velocity Initialization", group="Angular acceleration z_rel_b = der(w_rel_b)"));
-      Modelica_Blocks.Interfaces.RealOutput z_rel_b_1(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_w and use_z
+      Modelica_Blocks_Interfaces.RealOutput z_rel_b_1(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_w and use_z
         "Relative angular acceleration z_rel_b[1]"
         annotation(Dialog(enable=use_w and use_z, tab="Angular Velocity Initialization", group="Angular acceleration z_rel_b = der(w_rel_b)",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput z_rel_b_2(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_w and use_z
+      Modelica_Blocks_Interfaces.RealOutput z_rel_b_2(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_w and use_z
         "Relative angular acceleration z_rel_b[2]"
         annotation(Dialog(enable=use_w and use_z, tab="Angular Velocity Initialization", group="Angular acceleration z_rel_b = der(w_rel_b)",showStartAttribute=true));
-      Modelica_Blocks.Interfaces.RealOutput z_rel_b_3(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_w and use_z
+      Modelica_Blocks_Interfaces.RealOutput z_rel_b_3(final quantity="AngularAcceleration", final unit="rad/s2", start=0) if use_w and use_z
         "Relative angular acceleration z_rel_b[3]"
         annotation(Dialog(enable=use_w and use_z, tab="Angular Velocity Initialization", group="Angular acceleration z_rel_b = der(w_rel_b)",showStartAttribute=true));
 
@@ -10403,7 +9591,7 @@ its tip position, is shown in
       "Spherical - spherical joint aggregation (1 constraint, no potential states) with an optional point mass in the middle"
 
       import Modelica_Mechanics_MultiBody.Types;
-      extends Interfaces.PartialTwoFrames;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
 
       parameter Boolean animation=true "= true, if animation shall be enabled";
       parameter Boolean showMass=true
@@ -10759,8 +9947,8 @@ that has this property.
 
       import Modelica_Mechanics_MultiBody.Types;
 
-      extends Interfaces.PartialTwoFrames;
-      Interfaces.Frame_a frame_ia
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_ia
         "Coordinate system at the origin of frame_a, fixed at the rod connecting the universal with the spherical joint"
         annotation (Placement(transformation(
             origin={-40,100},
@@ -11378,9 +10566,10 @@ the origin of frame_a to the middle of the rod, this might be defined as:
     end UniversalSpherical;
 
     model GearConstraint "Ideal 3-dim. gearbox (arbitrary shaft directions)"
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
-      Interfaces.Frame_a bearing "Coordinate system fixed in the bearing"
-       annotation (Placement(transformation(
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a bearing
+        "Coordinate system fixed in the bearing" annotation (Placement(
+            transformation(
             origin={0,-100},
             extent={{-16,-16},{16,16}},
             rotation=90)));
@@ -11619,7 +10808,7 @@ November 3-4, 2003, pp. 149-158</p>
 
       import Modelica_Mechanics_MultiBody.Frames;
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Frame fixed in wheel center point. x-Axis: upwards, y-axis: along wheel axis"
         annotation (Placement(transformation(extent={{-16,-16},{16,16}})));
 
@@ -11756,7 +10945,7 @@ November 3-4, 2003, pp. 149-158</p>
 
       model RollingWheelSet
       "Joint (no mass, no inertia) that describes an ideal rolling wheel set (two ideal rolling wheels connected together by an axis)"
-       Modelica_Mechanics_MultiBody.Interfaces.Frame_a frameMiddle
+       Modelica_Mechanics_MultiBody_Interfaces.Frame_a frameMiddle
         "Frame fixed in middle of axis connecting both wheels (y-axis: along wheel axis, z-Axis: upwards)"
         annotation (Placement(transformation(extent={{-16,16},{16,-16}}),
             iconTransformation(extent={{-16,-16},{16,16}})));
@@ -11786,11 +10975,11 @@ November 3-4, 2003, pp. 149-158</p>
         Modelica_SIunits.AngularVelocity der_theta2(start=0, stateSelect=stateSelect)
         "Derivative of theta 2";
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame1
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame1
         "Frame fixed in center point of left wheel (y-axis: along wheel axis, z-Axis: upwards)"
         annotation (Placement(transformation(extent={{-96,16},{-64,-16}}),
             iconTransformation(extent={{-96,16},{-64,-16}})));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame2
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame2
         "Frame fixed in center point of right wheel (y-axis: along wheel axis, z-Axis: upwards)"
         annotation (Placement(transformation(extent={{64,16},{96,-16}})));
         Modelica_Mechanics_MultiBody.Parts.Fixed fixed(r={0,0,wheelRadius},
@@ -11835,15 +11024,15 @@ November 3-4, 2003, pp. 149-158</p>
         Modelica_Mechanics_MultiBody.Joints.Internal.RollingConstraintVerticalWheel
         rolling2(radius=wheelRadius, lateralSlidingConstraint=false)
         annotation (Placement(transformation(extent={{54,-60},{74,-40}})));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a axis1
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a axis1
         "1-dim. rotational flange that drives the joint"
           annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a axis2
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a axis2
         "1-dim. rotational flange that drives the joint"
           annotation (Placement(transformation(extent={{90,90},{110,110}})));
         Modelica_Mechanics_MultiBody.Parts.Mounting1D mounting1D
         annotation (Placement(transformation(extent={{-10,38},{10,58}})));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_b support
+        Modelica_Mechanics_Rotational_Interfaces.Flange_b support
         "Support of 1D axes"   annotation (Placement(transformation(extent={{-10,70},
                 {10,90}}),       iconTransformation(extent={{-10,70},{10,90}})));
       equation
@@ -12022,24 +11211,25 @@ November 3-4, 2003, pp. 149-158</p>
         "Universal - prismatic - spherical joint aggregation (no constraints, no potential states)"
 
         import Modelica_Mechanics_MultiBody.Types;
-        extends Interfaces.PartialTwoFramesDoubleSize;
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_ia
+        extends
+          Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFramesDoubleSize;
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_ia
           "Coordinate system at origin of frame_a fixed at prismatic joint"
           annotation (Placement(transformation(
               origin={-80,100},
               extent={{-8,-8},{8,8}},
               rotation=270)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_ib
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_ib
           "Coordinate system at origin of frame_b fixed at prismatic joint"
           annotation (Placement(transformation(
               origin={80,100},
               extent={{-8,8},{8,-8}},
               rotation=270)));
-        Modelica_Mechanics_Translational.Interfaces.Flange_a axis
+        Modelica_Mechanics_Translational_Interfaces.Flange_a axis
           "1-dim. translational flange that drives the prismatic joint"
           annotation (Placement(transformation(extent={{45,95},{35,105}},
                 rotation=0)));
-        Modelica_Mechanics_Translational.Interfaces.Flange_b bearing
+        Modelica_Mechanics_Translational_Interfaces.Flange_b bearing
           "1-dim. translational flange of the drive bearing of the prismatic joint"
           annotation (Placement(transformation(extent={{-35,95},{-45,105}},
                 rotation=0)));
@@ -12720,30 +11910,31 @@ component).
 
         import Modelica_Mechanics_MultiBody.Types;
 
-        extends Interfaces.PartialTwoFramesDoubleSize;
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_ia
+        extends
+          Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFramesDoubleSize;
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_ia
           "Coordinate system at origin of frame_a fixed at connecting rod of universal and spherical joint"
           annotation (Placement(transformation(
               origin={-80,100},
               extent={{-8,-8},{8,8}},
               rotation=90)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_ib
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_ib
           "Coordinate system at origin of frame_b fixed at connecting rod of spherical and revolute joint"
           annotation (Placement(transformation(
               origin={80,100},
               extent={{-8,8},{8,-8}},
               rotation=270)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_im
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_im
           "Coordinate system at origin of spherical joint fixed at connecting rod of spherical and revolute joint"
           annotation (Placement(transformation(
               origin={0,100},
               extent={{8,-8},{-8,8}},
               rotation=270)));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a axis
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a axis
           "1-dim. rotational flange that drives the revolute joint"
           annotation (Placement(transformation(extent={{105,85},{95,75}},
                 rotation=0)));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_b bearing
+        Modelica_Mechanics_Rotational_Interfaces.Flange_b bearing
           "1-dim. rotational flange of the drive bearing of the revolute joint"
           annotation (Placement(transformation(extent={{95,45},{105,35}},
                 rotation=0)));
@@ -13244,30 +12435,31 @@ the origin of frame_a to the middle of rod 1, this might be defined as:
 
         import Modelica_Mechanics_MultiBody.Types;
 
-        extends Interfaces.PartialTwoFramesDoubleSize;
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_ia
+        extends
+          Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFramesDoubleSize;
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_ia
           "Coordinate system at origin of frame_a fixed at connecting rod of universal and spherical joint"
           annotation (Placement(transformation(
               origin={-80,100},
               extent={{-8,-8},{8,8}},
               rotation=90)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_ib
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_ib
           "Coordinate system at origin of frame_b fixed at connecting rod of spherical and prismatic joint"
           annotation (Placement(transformation(
               origin={80,100},
               extent={{-8,8},{8,-8}},
               rotation=270)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_im
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_im
           "Coordinate system at origin of spherical joint fixed at connecting rod of spherical and prismatic joint"
           annotation (Placement(transformation(
               origin={0,100},
               extent={{8,-8},{-8,8}},
               rotation=270)));
-        Modelica_Mechanics_Translational.Interfaces.Flange_a axis
+        Modelica_Mechanics_Translational_Interfaces.Flange_a axis
           "1-dim. translational flange that drives the prismatic joint"
           annotation (Placement(transformation(extent={{95,75},{105,85}},
                 rotation=0)));
-        Modelica_Mechanics_Translational.Interfaces.Flange_b bearing
+        Modelica_Mechanics_Translational_Interfaces.Flange_b bearing
           "1-dim. translational flange of the drive bearing of the prismatic joint"
           annotation (Placement(transformation(extent={{105,35},{95,45}},
                 rotation=0)));
@@ -13795,24 +12987,25 @@ the origin of frame_a to the middle of rod 1, this might be defined as:
 
         import Modelica_Mechanics_MultiBody.Types;
 
-        extends Interfaces.PartialTwoFramesDoubleSize;
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_ib
+        extends
+          Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFramesDoubleSize;
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_ib
           "Coordinate system at origin of frame_b fixed at connecting rod of spherical and revolute joint"
           annotation (Placement(transformation(
               origin={80,100},
               extent={{-8,8},{8,-8}},
               rotation=270)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_im
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_im
           "Coordinate system at origin of spherical joint in the middle fixed at connecting rod of spherical and revolute joint"
           annotation (Placement(transformation(
               origin={0,100},
               extent={{8,-8},{-8,8}},
               rotation=270)));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a axis
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a axis
           "1-dim. rotational flange that drives the revolute joint"
           annotation (Placement(transformation(extent={{105,85},{95,75}},
                 rotation=0)));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_b bearing
+        Modelica_Mechanics_Rotational_Interfaces.Flange_b bearing
           "1-dim. rotational flange of the drive bearing of the revolute joint"
           annotation (Placement(transformation(extent={{95,45},{105,35}},
                 rotation=0)));
@@ -14170,24 +13363,25 @@ component).
 
         import Modelica_Mechanics_MultiBody.Types;
 
-        extends Interfaces.PartialTwoFramesDoubleSize;
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_ib
+        extends
+          Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFramesDoubleSize;
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_ib
           "Coordinate system at origin of frame_b fixed at connecting rod of spherical and prismatic joint"
           annotation (Placement(transformation(
               origin={80,100},
               extent={{-8,8},{8,-8}},
               rotation=270)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_im
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_im
           "Coordinate system at origin of spherical joint in the middle fixed at connecting rod of spherical and prismatic joint"
           annotation (Placement(transformation(
               origin={0,100},
               extent={{8,-8},{-8,8}},
               rotation=270)));
-        Modelica_Mechanics_Translational.Interfaces.Flange_a axis
+        Modelica_Mechanics_Translational_Interfaces.Flange_a axis
           "1-dim. translational flange that drives the prismatic joint"
           annotation (Placement(transformation(extent={{95,75},{105,85}},
                 rotation=0)));
-        Modelica_Mechanics_Translational.Interfaces.Flange_b bearing
+        Modelica_Mechanics_Translational_Interfaces.Flange_b bearing
           "1-dim. translational flange of the drive bearing of the prismatic joint"
           annotation (Placement(transformation(extent={{105,35},{95,45}},
                 rotation=0)));
@@ -14548,31 +13742,32 @@ component).
         import Modelica_Mechanics_MultiBody.Types;
         import Modelica_SIunits.Conversions.to_unit1;
 
-        extends Interfaces.PartialTwoFramesDoubleSize;
+        extends
+          Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFramesDoubleSize;
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_ia
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_ia
           "Coordinate system at origin of frame_a fixed at connecting rod of left and middle revolute joint"
           annotation (Placement(transformation(
               origin={-80,100},
               extent={{-8,-8},{8,8}},
               rotation=90)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_ib
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_ib
           "Coordinate system at origin of frame_b fixed at connecting rod of middle and right revolute joint"
           annotation (Placement(transformation(
               origin={80,100},
               extent={{-8,8},{8,-8}},
               rotation=270)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_im
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_im
           "Coordinate system at origin of revolute joint in the middle fixed at connecting rod of middle and right revolute joint"
           annotation (Placement(transformation(
               origin={0,100},
               extent={{8,-8},{-8,8}},
               rotation=270)));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a axis
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a axis
           "1-dim. rotational flange that drives the right revolute joint at frame_b"
           annotation (Placement(transformation(extent={{105,85},{95,75}},
                 rotation=0)));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_b bearing
+        Modelica_Mechanics_Rotational_Interfaces.Flange_b bearing
           "1-dim. rotational flange of the drive bearing of the right revolute joint at frame_b"
           annotation (Placement(transformation(extent={{95,45},{105,35}},
                 rotation=0)));
@@ -14885,30 +14080,31 @@ are connected by rigid rods.
         import Modelica_Mechanics_MultiBody.Types;
         import Modelica_SIunits.Conversions.to_unit1;
 
-        extends Interfaces.PartialTwoFramesDoubleSize;
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_ia
+        extends
+          Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFramesDoubleSize;
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_ia
           "Coordinate system at origin of frame_a fixed at connecting rod of revolute joints"
           annotation (Placement(transformation(
               origin={-80,100},
               extent={{-8,-8},{8,8}},
               rotation=90)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_ib
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_ib
           "Coordinate system at origin of frame_b fixed at connecting rod of revolute and prismatic joint"
           annotation (Placement(transformation(
               origin={80,100},
               extent={{-8,8},{8,-8}},
               rotation=270)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_im
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_im
           "Coordinate system at origin of revolute joint in the middle fixed at connecting rod of revolute and prismatic joint"
           annotation (Placement(transformation(
               origin={0,100},
               extent={{8,-8},{-8,8}},
               rotation=270)));
-        Modelica_Mechanics_Translational.Interfaces.Flange_a axis
+        Modelica_Mechanics_Translational_Interfaces.Flange_a axis
           "1-dim. translational flange that drives the prismatic joint"
           annotation (Placement(transformation(extent={{95,75},{105,85}},
                 rotation=0)));
-        Modelica_Mechanics_Translational.Interfaces.Flange_b bearing
+        Modelica_Mechanics_Translational_Interfaces.Flange_b bearing
           "1-dim. translational flange of the drive bearing of the prismatic joint"
           annotation (Placement(transformation(extent={{105,35},{95,45}},
                 rotation=0)));
@@ -15355,7 +14551,7 @@ pair of joints\" from Woernle and Hiller is described in:
 
       model Prismatic
         "Prismatic cut-joint and translational directions may be constrained or released"
-        extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
         import Cv = Modelica_SIunits.Conversions;
 
         parameter Boolean x_locked=true
@@ -15532,7 +14728,7 @@ pair of joints\" from Woernle and Hiller is described in:
 
       model Revolute
         "Revolute cut-joint and translational directions may be constrained or released"
-        extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
 
         parameter Boolean x_locked=true
           "= true: constraint force in x-direction, resolved in frame_a"
@@ -15704,7 +14900,7 @@ pair of joints\" from Woernle and Hiller is described in:
 
       model Spherical
         "Spherical cut joint and translational directions may be constrained or released"
-        extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
         import MBS = Modelica_Mechanics_MultiBody;
 
         parameter Boolean x_locked=true
@@ -15880,7 +15076,7 @@ pair of joints\" from Woernle and Hiller is described in:
 
       model Universal
         "Universal cut-joint and translational directions may be constrained or released"
-        extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
         import MBS = Modelica_Mechanics_MultiBody;
 
         parameter MBS.Types.Axis n_a={1,0,0}
@@ -16097,21 +15293,21 @@ of this subpackage.
       model RevoluteWithLengthConstraint
         "Revolute joint where the rotation angle is computed from a length constraint (1 degree-of-freedom, no potential state)"
 
-        extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a axis
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a axis
           "1-dim. rotational flange that drives the joint"
           annotation (Placement(transformation(extent={{10,90},{-10,110}},
                 rotation=0)));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_b bearing
+        Modelica_Mechanics_Rotational_Interfaces.Flange_b bearing
           "1-dim. rotational flange of the drive bearing"
           annotation (Placement(transformation(extent={{-50,90},{-70,110}},
                 rotation=0)));
 
-        Modelica_Blocks.Interfaces.RealInput position_a[3](each final quantity="Length", each final unit="m")
+        Modelica_Blocks_Interfaces.RealInput position_a[3](each final quantity="Length", each final unit="m")
           "Position vector from frame_a to frame_a side of length constraint, resolved in frame_a of revolute joint"
           annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
                 rotation=0)));
-        Modelica_Blocks.Interfaces.RealInput position_b[3](each final quantity="Length", each final unit="m")
+        Modelica_Blocks_Interfaces.RealInput position_b[3](each final quantity="Length", each final unit="m")
           "Position vector from frame_b to frame_b side of length constraint, resolved in frame_b of revolute joint"
           annotation (Placement(transformation(extent={{140,-80},{100,-40}},
                 rotation=0)));
@@ -16491,20 +15687,20 @@ menu of \"Joints.SphericalSpherical\" or \"Joints.UniversalSpherical\".
       model PrismaticWithLengthConstraint
         "Prismatic joint where the translational distance is computed from a length constraint (1 degree-of-freedom, no potential state)"
 
-        extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
-        Modelica_Mechanics_Translational.Interfaces.Flange_a axis
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
+        Modelica_Mechanics_Translational_Interfaces.Flange_a axis
           "1-dim. translational flange that drives the joint"
           annotation (Placement(transformation(extent={{70,80},{90,60}}, rotation=
                  0)));
-        Modelica_Mechanics_Translational.Interfaces.Flange_b bearing
+        Modelica_Mechanics_Translational_Interfaces.Flange_b bearing
           "1-dim. translational flange of the drive bearing"
           annotation (Placement(transformation(extent={{-30,80},{-50,60}},
                 rotation=0)));
-        Modelica_Blocks.Interfaces.RealInput position_a[3](each final quantity="Length", each final unit="m")
+        Modelica_Blocks_Interfaces.RealInput position_a[3](each final quantity="Length", each final unit="m")
           "Position vector from frame_a to frame_a side of length constraint, resolved in frame_a of prismatic joint"
           annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
                 rotation=0)));
-        Modelica_Blocks.Interfaces.RealInput position_b[3](each final quantity="Length", each final unit="m")
+        Modelica_Blocks_Interfaces.RealInput position_b[3](each final quantity="Length", each final unit="m")
           "Position vector from frame_b to frame_b side of length constraint, resolved in frame_b of prismatic joint"
           annotation (Placement(transformation(extent={{140,-80},{100,-40}},
                 rotation=0)));
@@ -16869,7 +16065,7 @@ menu of \"Joints.SphericalSpherical\" or \"Joints.UniversalSpherical\".
         "Rolling constraint for wheel that is always perpendicular to x-y plane"
         import Modelica_Mechanics_MultiBody.Frames;
 
-          Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+          Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
           "Frame fixed in wheel center point. x-Axis: upwards, y-axis: along wheel axis"
           annotation (Placement(transformation(extent={{-16,4},{16,36}}),
               iconTransformation(extent={{-16,4},{16,36}})));
@@ -16983,7 +16179,7 @@ menu of \"Joints.SphericalSpherical\" or \"Joints.UniversalSpherical\".
           annotation (HideResult=true, Dialog);
          input Frames.Orientation R_a annotation(HideResult=true,Dialog);
 
-         Modelica_Blocks.Interfaces.RealOutput r_rel_a[3](each final quantity="Length", each final unit="m") annotation (Placement(transformation(extent={{100,-10},
+         Modelica_Blocks_Interfaces.RealOutput r_rel_a[3](each final quantity="Length", each final unit="m") annotation (Placement(transformation(extent={{100,-10},
                    {120,10}})));
 
        equation
@@ -17008,17 +16204,17 @@ menu of \"Joints.SphericalSpherical\" or \"Joints.UniversalSpherical\".
          parameter Modelica_Mechanics_MultiBody.Types.RotationSequence sequence_start={1,2,3}
           "Sequence of angle rotations";
 
-         Interfaces.Frame_a frame_a
-           annotation (Placement(transformation(extent={{-116,-16},{-84,16}})));
-         Interfaces.Frame_b frame_b
-           annotation (Placement(transformation(extent={{84,-16},{116,16}})));
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
+          annotation (Placement(transformation(extent={{-116,-16},{-84,16}})));
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
+          annotation (Placement(transformation(extent={{84,-16},{116,16}})));
 
          Frames.Orientation R_rel
           "Relative orientation object to rotate from frame_a to frame_b"      annotation(HideResult=true);
          Frames.Orientation R_rel_inv
           "Relative orientation object to rotate from frame_b to frame_a"      annotation(HideResult=true);
 
-         Modelica_Blocks.Interfaces.RealOutput angle[3](each final quantity=
+         Modelica_Blocks_Interfaces.RealOutput angle[3](each final quantity=
               "Angle", each final unit="rad") annotation (Placement(
               transformation(
               extent={{-10,-10},{10,10}},
@@ -17059,7 +16255,7 @@ menu of \"Joints.SphericalSpherical\" or \"Joints.UniversalSpherical\".
          input Frames.Orientation R_a annotation(HideResult=true, Dialog);
          input Frames.Orientation R_b annotation(HideResult=true, Dialog);
 
-         Modelica_Blocks.Interfaces.RealOutput w_rel_b[3](each final quantity="AngularVelocity", each final unit="rad/s") annotation (Placement(transformation(extent={{100,-10},
+         Modelica_Blocks_Interfaces.RealOutput w_rel_b[3](each final quantity="AngularVelocity", each final unit="rad/s") annotation (Placement(transformation(extent={{100,-10},
                    {120,10}})));
        equation
         Frames.angularVelocity2(R_b) = Frames.resolve2(R_b,Frames.angularVelocity1(R_a)) + w_rel_b;
@@ -17185,9 +16381,9 @@ solved, i.e., robustly and efficiently).
       import Modelica_Mechanics_MultiBody.Types;
       import Modelica_SIunits.Conversions.to_unit1;
 
-      Interfaces.Frame_b frame_b "Coordinate system fixed in the world frame"
-        annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
-               0)));
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
+        "Coordinate system fixed in the world frame" annotation (Placement(
+            transformation(extent={{84,-16},{116,16}}, rotation=0)));
 
       parameter Boolean animation=true "= true, if animation shall be enabled";
       parameter Modelica_SIunits.Position r[3]={0,0,0}
@@ -17327,14 +16523,14 @@ animation = <b>false</b>.
       import Modelica_Mechanics_MultiBody.Types;
       import Modelica_SIunits.Conversions.to_unit1;
 
-      Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system fixed to the component with one cut-force and cut-torque"
         annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
               rotation=0)));
-      Interfaces.Frame_b frame_b
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
         "Coordinate system fixed to the component with one cut-force and cut-torque"
-        annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
-               0)));
+        annotation (Placement(transformation(extent={{84,-16},{116,16}},
+              rotation=0)));
 
       parameter Boolean animation=true "= true, if animation shall be enabled";
       parameter Modelica_SIunits.Position r[3](start={0,0,0})
@@ -17524,14 +16720,14 @@ the animation may be switched off via parameter animation = <b>false</b>.
       import Modelica_Mechanics_MultiBody.Frames;
       import Modelica_SIunits.Conversions.to_unit1;
 
-      Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system fixed to the component with one cut-force and cut-torque"
         annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
               rotation=0)));
-      Interfaces.Frame_b frame_b
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
         "Coordinate system fixed to the component with one cut-force and cut-torque"
-        annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
-               0)));
+        annotation (Placement(transformation(extent={{84,-16},{116,16}},
+              rotation=0)));
 
       parameter Boolean animation=true "= true, if animation shall be enabled";
       parameter Modelica_SIunits.Position r[3]={0,0,0}
@@ -17831,7 +17027,7 @@ the animation may be switched off via parameter animation = <b>false</b>.
       import Modelica_Mechanics_MultiBody.Frames;
       import Modelica_SIunits.Conversions.to_unit1;
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system fixed at body" annotation (Placement(transformation(
               extent={{-116,-16},{-84,16}}, rotation=0)));
       parameter Boolean animation=true
@@ -18210,14 +17406,14 @@ to the setting of parameters \"useQuaternions\" and
       import Modelica_Mechanics_MultiBody.Types;
       import Modelica_SIunits.Conversions.to_unit1;
 
-      Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system fixed to the component with one cut-force and cut-torque"
         annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
               rotation=0)));
-      Interfaces.Frame_b frame_b
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
         "Coordinate system fixed to the component with one cut-force and cut-torque"
-        annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
-               0)));
+        annotation (Placement(transformation(extent={{84,-16},{116,16}},
+              rotation=0)));
 
       parameter Boolean animation=true
         "= true, if animation shall be enabled (show shape between frame_a and frame_b and optionally a sphere at the center of mass)";
@@ -18540,14 +17736,14 @@ states and of the \"Advanced\" menu parameters, see model
       import Modelica_Math.Vectors.normalizeWithAssert;
       import Modelica_SIunits.Conversions.to_unit1;
 
-      Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system fixed to the component with one cut-force and cut-torque"
         annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
               rotation=0)));
-      Interfaces.Frame_b frame_b
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
         "Coordinate system fixed to the component with one cut-force and cut-torque"
-        annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
-               0)));
+        annotation (Placement(transformation(extent={{84,-16},{116,16}},
+              rotation=0)));
       parameter Boolean animation=true
         "= true, if animation shall be enabled (show box between frame_a and frame_b)";
       parameter Modelica_SIunits.Position r[3](start={0.1,0,0})
@@ -18775,14 +17971,14 @@ states and of the \"Advanced\" menu parameters, see model
       import Modelica_Math.Vectors.normalizeWithAssert;
       import Modelica_SIunits.Conversions.to_unit1;
 
-      Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system fixed to the component with one cut-force and cut-torque"
         annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
               rotation=0)));
-      Interfaces.Frame_b frame_b
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
         "Coordinate system fixed to the component with one cut-force and cut-torque"
-        annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
-               0)));
+        annotation (Placement(transformation(extent={{84,-16},{116,16}},
+              rotation=0)));
       parameter Boolean animation=true
         "= true, if animation shall be enabled (show cylinder between frame_a and frame_b)";
       parameter Modelica_SIunits.Position r[3](start={0.1,0,0})
@@ -18996,7 +18192,7 @@ states and of the \"Advanced\" menu parameters, see model
       "Rigid body where body rotation and inertia tensor is neglected (6 potential states)"
 
       import Modelica_Mechanics_MultiBody.Types;
-      Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system fixed at center of mass point" annotation (Placement(
             transformation(extent={{-16,-16},{16,16}}, rotation=0)));
       parameter Boolean animation=true
@@ -19133,10 +18329,10 @@ are forced to be used as states.
       parameter Modelica_Mechanics_MultiBody.Types.Axis n={1,0,0}
         "Axis of rotation = axis of support torque (resolved in frame_a)";
 
-      Modelica_Mechanics_Rotational.Interfaces.Flange_b flange_b
+      Modelica_Mechanics_Rotational_Interfaces.Flange_b flange_b
         "(right) flange fixed in housing" annotation (Placement(transformation(
               extent={{110,10},{90,-10}}, rotation=0)));
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a if world.driveTrainMechanics3D
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a if world.driveTrainMechanics3D
         "Frame in which housing is fixed (connector is removed, if world.driveTrainMechanics3D=false)"
         annotation (Placement(transformation(
             origin={0,-100},
@@ -19148,8 +18344,9 @@ are forced to be used as states.
       encapsulated model Housing
         import Modelica_SIunits;
         import Modelica_Mechanics_MultiBody;
+        import Modelica_Mechanics_MultiBody_Interfaces;
         input Modelica_SIunits.Torque t[3];
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a annotation (
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a annotation (
             Placement(transformation(extent={{-116,-16},{-84,16}}, rotation=0)));
       equation
         frame_a.f = zeros(3);
@@ -19265,14 +18462,14 @@ November 3-4, 2003, pp. 149-158</p>
       Modelica_SIunits.AngularAcceleration a(start=0)
         "Angular acceleration of rotor with respect to frame_a";
 
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a flange_a
+      Modelica_Mechanics_Rotational_Interfaces.Flange_a flange_a
         "(left) driving flange (flange axis directed INTO cut plane)" annotation (
          Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_b flange_b
+      Modelica_Mechanics_Rotational_Interfaces.Flange_b flange_b
         "(right) driven flange (flange axis directed OUT OF cut plane)"
         annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
                0)));
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a if world.driveTrainMechanics3D
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a if world.driveTrainMechanics3D
         "Frame in which rotor housing is fixed (connector is removed, if world.driveTrainMechanics3D=false)"
         annotation (Placement(transformation(
             origin={0,-100},
@@ -19288,6 +18485,8 @@ November 3-4, 2003, pp. 149-158</p>
         import Modelica_SIunits.Conversions;
         import Modelica_Mechanics_Rotational;
         import Modelica_Math;
+        import Modelica_Mechanics_MultiBody_Interfaces;
+        import Modelica_Mechanics_Rotational_Interfaces;
 
         parameter Boolean animation=true
           "= true, if animation shall be enabled (show rotor as cylinder)";
@@ -19342,15 +18541,15 @@ November 3-4, 2003, pp. 149-158</p>
           "Angular acceleration of rotor with respect to frame_a"
           annotation (Dialog(showStartAttribute=true));
 
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a flange_a
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a flange_a
           "(left) driving flange (flange axis directed INTO cut plane)"
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
                 rotation=0)));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_b flange_b
+        Modelica_Mechanics_Rotational_Interfaces.Flange_b flange_b
           "(right) driven flange (flange axis directed OUT OF cut plane)"
           annotation (Placement(transformation(extent={{90,-10},{110,10}},
                 rotation=0)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
           "Frame in which rotor housing is fixed" annotation (Placement(
               transformation(
               origin={0,-100},
@@ -19615,7 +18814,7 @@ November 3-4, 2003, pp. 149-158</p>
 
     model BevelGear1D
       "1D gearbox with arbitrary shaft directions and 3-dim. bearing frame (3D dynamic effects are taken into account provided world.driveTrainMechanics3D=true)"
-      extends Modelica_Mechanics_Rotational.Interfaces.PartialTwoFlanges;
+      extends Modelica_Mechanics_Rotational_Interfaces.PartialTwoFlanges;
 
       parameter Real ratio(start=1) "Gear speed ratio";
       parameter Modelica_Mechanics_MultiBody.Types.Axis n_a={1,0,0}
@@ -19623,7 +18822,7 @@ November 3-4, 2003, pp. 149-158</p>
       parameter Modelica_Mechanics_MultiBody.Types.Axis n_b={1,0,0}
         "Axis of rotation of flange_b, resolved in frame_a";
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a if world.driveTrainMechanics3D
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a if world.driveTrainMechanics3D
         "Bearing frame" annotation (Placement(transformation(
             origin={0,-100},
             extent={{-20,-20},{20,20}},
@@ -19638,8 +18837,9 @@ November 3-4, 2003, pp. 149-158</p>
         Modelica_Math.Vectors.normalizeWithAssert(n_b)
         "Unit vector in direction of flange_b rotation axis";
       encapsulated model Housing
+        import Modelica_Mechanics_MultiBody_Interfaces;
         input Modelica_SIunits.Torque t[3];
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a annotation (
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a annotation (
             Placement(transformation(extent={{-116,-16},{-84,16}}, rotation=0)));
       equation
         frame_a.f = zeros(3);
@@ -19890,7 +19090,7 @@ November 3-4, 2003, pp. 149-158</p>
         animation=false)
         annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Frame fixed in wheel center point (y-axis: along wheel axis, z-axis: upwards)"
         annotation (Placement(transformation(extent={{-16,-16},{16,16}})));
       Modelica_Mechanics_MultiBody.Joints.RollingWheel rollingWheel(wheelRadius=
@@ -19951,7 +19151,7 @@ November 3-4, 2003, pp. 149-158</p>
 
     model RollingWheelSet
       "Ideal rolling wheel set consisting of two ideal rolling wheels connected together by an axis"
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frameMiddle
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frameMiddle
         "Frame fixed in middle of axis connecting both wheels (y-axis: along wheel axis, z-axis: upwards)"
         annotation (Placement(transformation(extent={{-16,16},{16,-16}}),
             iconTransformation(extent={{-16,-16},{16,16}})));
@@ -20016,11 +19216,11 @@ November 3-4, 2003, pp. 149-158</p>
           group="if animation = true",
           enable=animation));
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame1
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame1
         "Frame fixed in center point of left wheel (y-axis: along wheel axis, z-axis: upwards)"
         annotation (Placement(transformation(extent={{-96,16},{-64,-16}}),
             iconTransformation(extent={{-96,16},{-64,-16}})));
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame2
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame2
         "Frame fixed in center point of right wheel (y-axis: along wheel axis, z-axis: upwards)"
         annotation (Placement(transformation(extent={{64,16},{96,-16}})));
       Modelica_Mechanics_MultiBody.Parts.Body body2(
@@ -20079,10 +19279,10 @@ November 3-4, 2003, pp. 149-158</p>
             extent={{-10,-10},{10,10}},
             rotation=-90,
             origin={-60,-40})));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a axis1
+      Modelica_Mechanics_Rotational_Interfaces.Flange_a axis1
         "1-dim. rotational flange that drives the left wheel"
         annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a axis2
+      Modelica_Mechanics_Rotational_Interfaces.Flange_a axis2
         "1-dim. rotational flange that drives the right wheel"
         annotation (Placement(transformation(extent={{90,90},{110,110}})));
       Modelica_Mechanics_MultiBody.Joints.RollingWheelSet wheelSetJoint(
@@ -20098,7 +19298,7 @@ November 3-4, 2003, pp. 149-158</p>
         der_theta1(fixed=false),
         der_theta2(fixed=false))
         annotation (Placement(transformation(extent={{-10,-42},{10,-22}})));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_b support
+      Modelica_Mechanics_Rotational_Interfaces.Flange_b support
         "Support of 1D axes" annotation (Placement(transformation(extent={{-10,70},
                 {10,90}}), iconTransformation(extent={{-10,72},{10,92}})));
     equation
@@ -20358,26 +19558,26 @@ definition of the colors used in the MultiBody library
     model AbsoluteSensor
       "Measure absolute kinematic quantities of frame connector"
 
-      Modelica_Blocks.Interfaces.RealOutput r[3](each final quantity="Length",
+      Modelica_Blocks_Interfaces.RealOutput r[3](each final quantity="Length",
           each final unit="m") if get_r
         "Absolute position vector frame_a.r_0 resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
             origin={-100,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput v[3](each final quantity="Velocity",
+      Modelica_Blocks_Interfaces.RealOutput v[3](each final quantity="Velocity",
           each final unit="m/s") if get_v "Absolute velocity vector"
         annotation (Placement(transformation(
             origin={-60,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput a[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealOutput a[3](each final quantity=
             "Acceleration", each final unit="m/s2") if get_a
         "Absolute acceleration vector" annotation (Placement(transformation(
             origin={-20,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput angles[3](
+      Modelica_Blocks_Interfaces.RealOutput angles[3](
         each final quantity="Angle",
         each final unit="rad",
         each displayUnit="deg") if get_angles
@@ -20386,13 +19586,13 @@ definition of the colors used in the MultiBody library
             origin={20,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput w[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealOutput w[3](each final quantity=
             "AngularVelocity", each final unit="1/s") if get_w
         "Absolute angular velocity vector" annotation (Placement(transformation(
             origin={60,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput z[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealOutput z[3](each final quantity=
             "AngularAcceleration", each final unit="1/s2") if get_z
         "Absolute angular acceleration vector" annotation (Placement(
             transformation(
@@ -20403,12 +19603,12 @@ definition of the colors used in the MultiBody library
       extends
         Modelica_Mechanics_MultiBody.Sensors.Internal.PartialAbsoluteSensor;
 
-      Interfaces.Frame_resolve frame_resolve if resolveInFrame ==
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
+                                                resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve
         "If resolveInFrame = Types.ResolveInFrameA.frame_resolve, the output signals are resolved in this frame"
-         annotation (Placement(transformation(
-              extent={{84,-16},{116,16}}),iconTransformation(extent={{84,-16},{116,
-                16}})));
+        annotation (Placement(transformation(extent={{84,-16},{116,16}}),
+            iconTransformation(extent={{84,-16},{116,16}})));
 
       parameter Boolean animation=true
         "= true, if animation shall be enabled (show arrow)";
@@ -20837,13 +20037,13 @@ and sequence[2] &ne; sequence[3]. Often used values are:
       extends
         Modelica_Mechanics_MultiBody.Sensors.Internal.PartialRelativeSensor;
 
-      Interfaces.Frame_resolve frame_resolve if resolveInFrame ==
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
+                                                resolveInFrame ==
         Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve or
         resolveInFrameAfterDifferentiation == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve
         "If resolveInFrame = Types.ResolveInFrameAB.frame_resolve, the output signals are resolved in this frame"
-         annotation (Placement(transformation(
-              extent={{84,64},{116,96}}), iconTransformation(extent={{84,64},{116,
-                96}})));
+        annotation (Placement(transformation(extent={{84,64},{116,96}}),
+            iconTransformation(extent={{84,64},{116,96}})));
 
       parameter Boolean animation=true
         "= true, if animation shall be enabled (show arrow)";
@@ -20898,26 +20098,26 @@ and sequence[2] &ne; sequence[3]. Often used values are:
           group="if get_v_rel or get_a_rel or get_z_rel",
           enable=get_v_rel or get_a_rel or get_z_rel));
 
-      Modelica_Blocks.Interfaces.RealOutput r_rel[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealOutput r_rel[3](each final quantity=
             "Length", each final unit="m") if get_r_rel
         "Relative position vector frame_b.r_0 - frame_a.r_0 resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
             origin={-100,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput v_rel[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealOutput v_rel[3](each final quantity=
             "Velocity", each final unit="m/s") if get_v_rel
         "Relative velocity vector" annotation (Placement(transformation(
             origin={-60,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput a_rel[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealOutput a_rel[3](each final quantity=
             "Acceleration", each final unit="m/s2") if get_a_rel
         "Relative acceleration vector" annotation (Placement(transformation(
             origin={-20,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput angles[3](
+      Modelica_Blocks_Interfaces.RealOutput angles[3](
         each final quantity="Angle",
         each final unit="rad",
         each displayUnit="deg") if get_angles
@@ -20926,13 +20126,13 @@ and sequence[2] &ne; sequence[3]. Often used values are:
             origin={20,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput w_rel[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealOutput w_rel[3](each final quantity=
             "AngularVelocity", each final unit="1/s") if get_w_rel
         "Relative angular velocity vector" annotation (Placement(transformation(
             origin={60,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput z_rel[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealOutput z_rel[3](each final quantity=
             "AngularAcceleration", each final unit="1/s2") if get_z_rel
         "Relative angular acceleration vector" annotation (Placement(
             transformation(
@@ -21354,7 +20554,7 @@ and sequence[2] &ne; sequence[3]. Often used values are:
     model AbsolutePosition
       "Measure absolute position vector of the origin of a frame connector"
       extends Internal.PartialAbsoluteSensor;
-      Modelica_Blocks.Interfaces.RealOutput r[3](each final quantity="Length",
+      Modelica_Blocks_Interfaces.RealOutput r[3](each final quantity="Length",
           each final unit="m")
         "Absolute position vector resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
@@ -21362,7 +20562,7 @@ and sequence[2] &ne; sequence[3]. Often used values are:
             rotation=0,
             origin={110,0})));
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve if
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve
         "Coordinate system in which output vector r is optionally resolved"
         annotation (Placement(transformation(
@@ -21380,7 +20580,7 @@ and sequence[2] &ne; sequence[3]. Often used values are:
       Internal.BasicAbsolutePosition position(resolveInFrame=resolveInFrame)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if not (
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve)
         annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
@@ -21472,7 +20672,7 @@ computed as:
     model AbsoluteVelocity
       "Measure absolute velocity vector of origin of frame connector"
       extends Internal.PartialAbsoluteSensor;
-      Modelica_Blocks.Interfaces.RealOutput v[3](each final quantity="Velocity",
+      Modelica_Blocks_Interfaces.RealOutput v[3](each final quantity="Velocity",
           each final unit="m/s")
         "Absolute velocity vector resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
@@ -21480,7 +20680,7 @@ computed as:
             rotation=0,
             origin={110,0})));
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve if
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve
         "Coordinate system in which output vector v is optionally resolved"
         annotation (Placement(transformation(
@@ -21508,9 +20708,9 @@ computed as:
             extent={{10,-10},{-10,10}},
             rotation=90,
             origin={50,0})));
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition
         annotation (Placement(transformation(extent={{-60,-60},{-80,-40}})));
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition1 if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition1 if not (
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve)
         annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
     equation
@@ -21621,12 +20821,12 @@ computed as:
     model AbsoluteAngles
       "Measure absolute angles between frame connector and the world frame"
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system a from which the angles shall be determined"
         annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
               rotation=0)));
 
-      Modelica_Blocks.Interfaces.RealOutput angles[3](
+      Modelica_Blocks_Interfaces.RealOutput angles[3](
         each final quantity="Angle",
         each final unit="rad",
         each displayUnit="deg")
@@ -21711,7 +20911,7 @@ and sequence[2] &ne; sequence[3]. Often used values are:
     model AbsoluteAngularVelocity
       "Measure absolute angular velocity of frame connector"
       extends Internal.PartialAbsoluteSensor;
-      Modelica_Blocks.Interfaces.RealOutput w[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealOutput w[3](each final quantity=
             "AngularVelocity", each final unit="rad/s")
         "Absolute angular velocity vector of frame_a with respect to world frame, resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
@@ -21719,7 +20919,7 @@ and sequence[2] &ne; sequence[3]. Often used values are:
             rotation=0,
             origin={110,0})));
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve if
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve
         "Coordinate system in which w is optionally resolved" annotation (
           Placement(transformation(
@@ -21737,7 +20937,7 @@ and sequence[2] &ne; sequence[3]. Often used values are:
       Internal.BasicAbsoluteAngularVelocity angularVelocity(resolveInFrame=
             resolveInFrame)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if not (
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve)
         annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
@@ -21831,14 +21031,14 @@ computed as:
     model RelativePosition
       "Measure relative position vector between the origins of two frame connectors"
       extends Internal.PartialRelativeSensor;
-      Modelica_Blocks.Interfaces.RealOutput r_rel[3]
+      Modelica_Blocks_Interfaces.RealOutput r_rel[3]
         "Relative position vector resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=-90,
             origin={0,-110})));
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve if
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve
         "Coordinate system in which r_rel is optionally resolved" annotation (
           Placement(transformation(extent={{84,64},{116,96}}),
@@ -21851,7 +21051,7 @@ computed as:
       Internal.BasicRelativePosition relativePosition(resolveInFrame=resolveInFrame)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if not (
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve)
         annotation (Placement(transformation(extent={{52,20},{72,40}})));
 
@@ -21942,7 +21142,7 @@ computed as:
     model RelativeVelocity
       "Measure relative velocity vector between the origins of two frame connectors"
       extends Internal.PartialRelativeSensor;
-      Modelica_Blocks.Interfaces.RealOutput v_rel[3](each final quantity="Velocity", each final
+      Modelica_Blocks_Interfaces.RealOutput v_rel[3](each final quantity="Velocity", each final
                 unit =                                                                        "m/s")
         "Relative velocity vector resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
@@ -21950,7 +21150,7 @@ computed as:
             rotation=-90,
             origin={0,-110})));
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve if
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve
         "Coordinate system in which v_rel is optionally resolved" annotation (
           Placement(transformation(extent={{84,64},{116,96}}),
@@ -21962,7 +21162,7 @@ computed as:
     protected
       RelativePosition relativePosition(resolveInFrame=Types.ResolveInFrameAB.frame_a)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if not (
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve)
         annotation (Placement(transformation(extent={{50,-60},{70,-40}})));
       Modelica_Blocks.Continuous.Der der_r_rel[3]                      annotation (Placement(transformation(
@@ -22086,14 +21286,14 @@ computed as:
 
     model RelativeAngles "Measure relative angles between two frame connectors"
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system a" annotation (Placement(transformation(extent={{-116,
                 -16},{-84,16}}, rotation=0)));
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_b
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
         "Coordinate system b" annotation (Placement(transformation(extent={{84,
                 -16},{116,16}}, rotation=0)));
 
-      Modelica_Blocks.Interfaces.RealOutput angles[3](
+      Modelica_Blocks_Interfaces.RealOutput angles[3](
         each final quantity="Angle",
         each final unit="rad",
         each displayUnit="deg")
@@ -22192,7 +21392,7 @@ and sequence[2] &ne; sequence[3]. Often used values are:
     model RelativeAngularVelocity
       "Measure relative angular velocity between two frame connectors"
       extends Internal.PartialRelativeSensor;
-      Modelica_Blocks.Interfaces.RealOutput w_rel[3](each final quantity=
+      Modelica_Blocks_Interfaces.RealOutput w_rel[3](each final quantity=
             "AngularVelocity", each final unit="rad/s")
         "Relative angular velocity vector between frame_a and frame_b resolved in frame defined by resolveInFrame"
         annotation (Placement(transformation(
@@ -22200,7 +21400,7 @@ and sequence[2] &ne; sequence[3]. Often used values are:
             rotation=-90,
             origin={0,-110})));
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve if
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve
         "Coordinate system in which w_rel is optionally resolved" annotation (
           Placement(transformation(extent={{84,64},{116,96}}),
@@ -22213,7 +21413,7 @@ and sequence[2] &ne; sequence[3]. Often used values are:
       Internal.BasicRelativeAngularVelocity relativeAngularVelocity(resolveInFrame=
             resolveInFrame)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if not (
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve)
         annotation (Placement(transformation(extent={{52,20},{72,40}})));
 
@@ -22316,9 +21516,9 @@ computed as:
       import Modelica_Mechanics_MultiBody.Frames;
       import Modelica_Mechanics_MultiBody.Types;
 
-      extends Interfaces.PartialTwoFrames;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
       extends Modelica_Icons.TranslationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput distance
+      Modelica_Blocks_Interfaces.RealOutput distance
         "Distance between the origin of frame_a and the origin of frame_b"
         annotation (Placement(transformation(
             origin={0,-110},
@@ -22427,7 +21627,7 @@ differentiable everywhere. The derivative at zero distance is 3/(2*s_small).
 
     model CutForce "Measure cut force vector"
 
-      Modelica_Blocks.Interfaces.RealOutput force[3](each final quantity="Force", each final unit="N")
+      Modelica_Blocks_Interfaces.RealOutput force[3](each final quantity="Force", each final unit="N")
         "Cut force resolved in frame defined by resolveInFrame"
            annotation (Placement(transformation(
             origin={-80,-110},
@@ -22470,7 +21670,7 @@ differentiable everywhere. The derivative at zero distance is 3/(2*s_small).
       Internal.BasicCutForce cutForce(resolveInFrame=resolveInFrame, positiveSign=
             positiveSign)
         annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if not (
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve)
         annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     equation
@@ -22555,7 +21755,7 @@ with negative sign at frame_a.
 
     model CutTorque "Measure cut torque vector"
 
-      Modelica_Blocks.Interfaces.RealOutput torque[3]
+      Modelica_Blocks_Interfaces.RealOutput torque[3]
         "Cut torque resolved in frame defined by resolveInFrame"
            annotation (Placement(transformation(
             origin={-80,-110},
@@ -22596,7 +21796,7 @@ with negative sign at frame_a.
       Internal.BasicCutTorque cutTorque(resolveInFrame=resolveInFrame, positiveSign=
            positiveSign)
         annotation (Placement(transformation(extent={{-62,-10},{-42,10}})));
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if not (
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve)
         annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
     equation
@@ -22683,13 +21883,13 @@ with negative sign at frame_a.
 
       import Modelica_Mechanics_MultiBody.Types;
 
-      Modelica_Blocks.Interfaces.RealOutput force[3](each final quantity="Force", each final unit="N")
+      Modelica_Blocks_Interfaces.RealOutput force[3](each final quantity="Force", each final unit="N")
         "Cut force resolved in frame defined by resolveInFrame"
            annotation (Placement(transformation(
             origin={-80,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Blocks.Interfaces.RealOutput torque[3]
+      Modelica_Blocks_Interfaces.RealOutput torque[3]
         "Cut torque resolved in frame defined by resolveInFrame"
            annotation (Placement(transformation(
             origin={0,-110},
@@ -22753,7 +21953,7 @@ with negative sign at frame_a.
       Internal.BasicCutTorque cutTorque(resolveInFrame=resolveInFrame, positiveSign=
            positiveSign)
         annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if not (
         resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve)
         annotation (Placement(transformation(extent={{60,30},{80,50}})));
     equation
@@ -22866,8 +22066,8 @@ with negative sign at frame_a.
     model Power "Measure power flowing from frame_a to frame_b"
       extends Modelica_Icons.RotationalSensor;
 
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialTwoFrames;
-      Modelica_Blocks.Interfaces.RealOutput power(quantity="Power",unit="W")
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialTwoFrames;
+      Modelica_Blocks_Interfaces.RealOutput power(quantity="Power",unit="W")
         "Power at frame_a as output signal"
         annotation (Placement(transformation(
             origin={-80,-110},
@@ -22908,25 +22108,25 @@ as output signal <b>power</b>.
       "Transform absolute vector in to another frame"
       extends Modelica_Icons.RotationalSensor;
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system from which absolute kinematic quantities are measured"
         annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
               rotation=0)));
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve if (
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if (
         frame_r_in == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve)
          or (frame_r_out == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve)
         "Coordinate system in which r_in or r_out is optionally resolved"
         annotation (Placement(transformation(extent={{84,-16},{116,16}}),
             iconTransformation(extent={{84,-15},{116,17}})));
 
-      Modelica_Blocks.Interfaces.RealInput r_in[3]
+      Modelica_Blocks_Interfaces.RealInput r_in[3]
         "Input vector resolved in frame defined by frame_r_in" annotation (
           Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=-90,
             origin={0,120})));
-      Modelica_Blocks.Interfaces.RealOutput r_out[3]
+      Modelica_Blocks_Interfaces.RealOutput r_out[3]
         "Input vector r_in resolved in frame defined by frame_r_out"
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
@@ -22943,7 +22143,7 @@ as output signal <b>power</b>.
       Internal.BasicTransformAbsoluteVector basicTransformVector(frame_r_in=
             frame_r_in, frame_r_out=frame_r_out)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if not (
         frame_r_in == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve
          or frame_r_out == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve)
         annotation (Placement(transformation(extent={{40,18},{60,38}})));
@@ -23024,20 +22224,20 @@ transformed output vector as \"Real r_out[3]\";
       "Transform relative vector in to another frame"
       extends Internal.PartialRelativeSensor;
 
-      Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve if (
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if (
         frame_r_in == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve)
          or (frame_r_out == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve)
         "Coordinate system in which r_in or r_out is optionally resolved"
         annotation (Placement(transformation(extent={{84,64},{116,96}}),
             iconTransformation(extent={{84,65},{116,97}})));
 
-      Modelica_Blocks.Interfaces.RealInput r_in[3]
+      Modelica_Blocks_Interfaces.RealInput r_in[3]
         "Input vector resolved in frame defined by frame_r_in" annotation (
           Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=-90,
             origin={0,120})));
-      Modelica_Blocks.Interfaces.RealOutput r_out[3]
+      Modelica_Blocks_Interfaces.RealOutput r_out[3]
         "Input vector r_in resolved in frame defined by frame_r_out"
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
@@ -23054,7 +22254,7 @@ transformed output vector as \"Real r_out[3]\";
       Modelica_Mechanics_MultiBody.Sensors.Internal.BasicTransformRelativeVector
         basicTransformVector(frame_r_in=frame_r_in, frame_r_out=frame_r_out)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-      Modelica_Mechanics_MultiBody.Interfaces.ZeroPosition zeroPosition if not (
+      Modelica_Mechanics_MultiBody_Interfaces.ZeroPosition zeroPosition if not (
         frame_r_in == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve
          or frame_r_out == Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve)
         annotation (Placement(transformation(extent={{48,10},{68,30}})));
@@ -23125,7 +22325,7 @@ transformed output vector as \"Real r_out[3]\";
         "Partial absolute sensor model for sensors defined by components"
         extends Modelica_Icons.RotationalSensor;
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
           "Coordinate system at which the kinematic quantities are measured"
           annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
                 rotation=0)));
@@ -23146,12 +22346,12 @@ transformed output vector as \"Real r_out[3]\";
         "Partial absolute sensor models for sensors defined by equations (frame_resolve must be connected exactly once)"
         extends Modelica_Icons.RotationalSensor;
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
           "Coordinate system from which kinematic quantities are measured"
           annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
                 rotation=0)));
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve
           "Coordinate system in which vector is optionally resolved"
           annotation (Placement(transformation(
               extent={{-16,-16},{16,16}},
@@ -23199,10 +22399,10 @@ transformed output vector as \"Real r_out[3]\";
         "Partial relative sensor model for sensors defined by components"
         extends Modelica_Icons.RotationalSensor;
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
           "Coordinate system a" annotation (Placement(transformation(extent={{-116,
                   -16},{-84,16}}, rotation=0)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_b
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
           "Coordinate system b" annotation (Placement(transformation(extent={{
                   84,-16},{116,16}}, rotation=0)));
 
@@ -23238,16 +22438,16 @@ transformed output vector as \"Real r_out[3]\";
         "Partial relative sensor models for sensors defined by equations (frame_resolve must be connected exactly once)"
         extends Modelica_Icons.RotationalSensor;
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
           "Coordinate system a (measurement is between frame_a and frame_b)"
           annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
                 rotation=0)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_b
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
           "Coordinate system b (measurement is between frame_a and frame_b)"
           annotation (Placement(transformation(extent={{84,-16},{116,16}},
                 rotation=0)));
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve
           "Coordinate system in which vector is optionally resolved"
           annotation (Placement(transformation(extent={{84,64},{116,96}}),
               iconTransformation(extent={{84,65},{116,97}})));
@@ -23296,7 +22496,7 @@ transformed output vector as \"Real r_out[3]\";
         import Modelica_Mechanics_MultiBody.Types.ResolveInFrameA;
         extends
           Modelica_Mechanics_MultiBody.Sensors.Internal.PartialAbsoluteBaseSensor;
-        Modelica_Blocks.Interfaces.RealOutput r[3](each final quantity="Length", each final
+        Modelica_Blocks_Interfaces.RealOutput r[3](each final quantity="Length", each final
                   unit = "m")
           "Absolute position vector frame_a.r_0 resolved in frame defined by resolveInFrame"
           annotation (Placement(transformation(
@@ -23335,7 +22535,7 @@ transformed output vector as \"Real r_out[3]\";
 
         extends
           Modelica_Mechanics_MultiBody.Sensors.Internal.PartialAbsoluteBaseSensor;
-        Modelica_Blocks.Interfaces.RealOutput w[3](each final quantity="AngularVelocity",each final unit = "rad/s")
+        Modelica_Blocks_Interfaces.RealOutput w[3](each final quantity="AngularVelocity",each final unit = "rad/s")
           "Absolute angular velocity vector"
           annotation (Placement(transformation(
               origin={110,0},
@@ -23371,7 +22571,7 @@ transformed output vector as \"Real r_out[3]\";
         import Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB;
         extends
           Modelica_Mechanics_MultiBody.Sensors.Internal.PartialRelativeBaseSensor;
-        Modelica_Blocks.Interfaces.RealOutput r_rel[3](each final quantity="Length", each final
+        Modelica_Blocks_Interfaces.RealOutput r_rel[3](each final quantity="Length", each final
                   unit = "m")
           "Relative position vector frame_b.r_0 - frame_a.r_0 resolved in frame defined by resolveInFrame"
           annotation (Placement(transformation(
@@ -23412,7 +22612,7 @@ transformed output vector as \"Real r_out[3]\";
 
         extends
           Modelica_Mechanics_MultiBody.Sensors.Internal.PartialRelativeBaseSensor;
-        Modelica_Blocks.Interfaces.RealOutput w_rel[3](each final quantity="AngularVelocity",each final unit = "rad/s")
+        Modelica_Blocks_Interfaces.RealOutput w_rel[3](each final quantity="AngularVelocity",each final unit = "rad/s")
           "Relative angular velocity vector"
           annotation (Placement(transformation(
               origin={0,-110},
@@ -23463,12 +22663,12 @@ transformed output vector as \"Real r_out[3]\";
             frame_r_in
           "Frame in which vector r_out (= r_in in other frame) is resolved (world, frame_a, or frame_resolve)";
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
           "Coordinate system from which absolute kinematic quantities are measured"
           annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
                 rotation=0)));
 
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve
           "Coordinate system in which vector is optionally resolved"
           annotation (Placement(transformation(
               extent={{-16,-16},{16,16}},
@@ -23478,13 +22678,13 @@ transformed output vector as \"Real r_out[3]\";
               rotation=0,
               origin={100,0})));
 
-        Modelica_Blocks.Interfaces.RealInput r_in[3]
+        Modelica_Blocks_Interfaces.RealInput r_in[3]
           "Input vector resolved in frame defined by frame_r_in" annotation (
             Placement(transformation(
               extent={{-20,-20},{20,20}},
               rotation=-90,
               origin={0,120})));
-        Modelica_Blocks.Interfaces.RealOutput r_out[3]
+        Modelica_Blocks_Interfaces.RealOutput r_out[3]
           "Input vector r_in resolved in frame defined by frame_r_out"
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
@@ -23578,13 +22778,13 @@ transformed output vector as \"Real r_out[3]\";
             frame_r_in
           "Frame in which vector r_out (= r_in in other frame) is resolved (world, frame_a, frame_b, or frame_resolve)";
 
-        Modelica_Blocks.Interfaces.RealInput r_in[3]
+        Modelica_Blocks_Interfaces.RealInput r_in[3]
           "Input vector resolved in frame defined by frame_r_in" annotation (
             Placement(transformation(
               extent={{-20,-20},{20,20}},
               rotation=-90,
               origin={0,120})));
-        Modelica_Blocks.Interfaces.RealOutput r_out[3]
+        Modelica_Blocks_Interfaces.RealOutput r_out[3]
           "Input vector r_in resolved in frame defined by frame_r_out"
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
@@ -23637,7 +22837,7 @@ transformed output vector as \"Real r_out[3]\";
 
       model ZeroForceAndTorque "Set force and torque to zero"
          extends Modelica_Blocks.Icons.Block;
-        Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
           annotation (Placement(transformation(extent={{-116,-16},{-84,16}})));
       equation
         frame_a.f = zeros(3);
@@ -23653,13 +22853,13 @@ transformed output vector as \"Real r_out[3]\";
         "Base model to measure the cut force and/or torque between two frames, defined by components"
 
         extends Modelica_Icons.RotationalSensor;
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
           "Coordinate system a" annotation (Placement(transformation(extent={{-116,
                   -16},{-84,16}}, rotation=0)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_b
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
           "Coordinate system b" annotation (Placement(transformation(extent={{
                   84,-16},{116,16}}, rotation=0)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve if
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve if
           resolveInFrame == Modelica_Mechanics_MultiBody.Types.ResolveInFrameA.frame_resolve
           "Output vectors are optionally resolved in this frame (cut-force/-torque are set to zero)"
           annotation (Placement(transformation(
@@ -23718,13 +22918,13 @@ with the blocks of package Modelica.Blocks.
         "Base model to measure the cut force and/or torque between two frames, defined by equations (frame_resolve must be connected exactly once)"
 
         extends Modelica_Icons.RotationalSensor;
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_a frame_a
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
           "Coordinate system a" annotation (Placement(transformation(extent={{-116,
                   -16},{-84,16}}, rotation=0)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_b frame_b
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
           "Coordinate system b" annotation (Placement(transformation(extent={{
                   84,-16},{116,16}}, rotation=0)));
-        Modelica_Mechanics_MultiBody.Interfaces.Frame_resolve frame_resolve
+        Modelica_Mechanics_MultiBody_Interfaces.Frame_resolve frame_resolve
           "The output vector is optionally resolved in this frame (cut-force/-torque are set to zero)"
           annotation (Placement(transformation(
               origin={80,-100},
@@ -23796,7 +22996,7 @@ with the blocks of package Modelica.Blocks.
 
         extends
           Modelica_Mechanics_MultiBody.Sensors.Internal.PartialCutForceBaseSensor;
-        Modelica_Blocks.Interfaces.RealOutput force[3](each final quantity="Force", each final unit="N")
+        Modelica_Blocks_Interfaces.RealOutput force[3](each final quantity="Force", each final unit="N")
           "Cut force resolved in frame defined by resolveInFrame"
              annotation (Placement(transformation(
               origin={-80,-110},
@@ -23837,7 +23037,7 @@ with the blocks of package Modelica.Blocks.
 
         extends
           Modelica_Mechanics_MultiBody.Sensors.Internal.PartialCutForceBaseSensor;
-        Modelica_Blocks.Interfaces.RealOutput torque[3](each final quantity="Torque", each final unit=
+        Modelica_Blocks_Interfaces.RealOutput torque[3](each final quantity="Torque", each final unit=
               "N.m") "Cut torque resolved in frame defined by resolveInFrame"
              annotation (Placement(transformation(
               origin={-80,-110},
@@ -23899,7 +23099,7 @@ coordinate system.
     model FixedShape
       "Visualizing an elementary shape with dynamically varying shape attributes (has one frame connector)"
       import Modelica_Mechanics_MultiBody.Types;
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialVisualizer;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialVisualizer;
 
       parameter Boolean animation=true "= true, if animation shall be enabled";
       parameter Types.ShapeType shapeType="box" "Type of shape"
@@ -24092,13 +23292,13 @@ definition of the colors used in the MultiBody library together with a color edi
       import Modelica_Mechanics_MultiBody.Types;
       import Modelica_SIunits.Conversions.to_unit1;
 
-      Interfaces.Frame_a frame_a
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a
         "Coordinate system a (all shape definition vectors are resolved in this frame)"
-         annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
+        annotation (Placement(transformation(extent={{-116,-16},{-84,16}},
               rotation=0)));
-      Interfaces.Frame_b frame_b "Coordinate system b"
-         annotation (Placement(transformation(extent={{84,-16},{116,16}},
-              rotation=0)));
+      Modelica_Mechanics_MultiBody_Interfaces.Frame_b frame_b
+        "Coordinate system b" annotation (Placement(transformation(extent={{84,
+                -16},{116,16}}, rotation=0)));
 
       parameter Boolean animation=true "= true, if animation shall be enabled";
       parameter Types.ShapeType shapeType="box" "Type of shape"
@@ -24320,7 +23520,7 @@ vector <b>r</b>.
       "Visualizing a coordinate system including axes labels (visualization data may vary dynamically)"
 
       import Modelica_Mechanics_MultiBody.Types;
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialVisualizer;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialVisualizer;
       parameter Boolean animation=true "= true, if animation shall be enabled";
       parameter Boolean showLabels=true "= true, if labels shall be shown"
         annotation (Dialog(group="if animation = true", enable=animation));
@@ -24532,7 +23732,7 @@ parameter menu.
       "Visualizing an arrow with dynamically varying size in frame_a"
 
       import Modelica_Mechanics_MultiBody.Types;
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialVisualizer;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialVisualizer;
       parameter Boolean animation=true "= true, if animation shall be enabled";
       input Modelica_SIunits.Position r_tail[3]={0,0,0}
         "Vector from frame_a to arrow tail, resolved in frame_a"
@@ -24632,7 +23832,7 @@ parameter menu.
 
       import Modelica_Mechanics_MultiBody.Types;
 
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialVisualizer;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialVisualizer;
       parameter Boolean animation=true "= true, if animation shall be enabled";
       input Modelica_SIunits.Position r_tail[3]={0,0,0}
         "Vector from frame_a to arrow tail, resolved in frame_a"
@@ -24649,7 +23849,7 @@ parameter menu.
         "Reflection of ambient light (= 0: light is completely absorbed)"
         annotation (Dialog(group="if animation = true", enable=animation));
 
-      Modelica_Blocks.Interfaces.RealInput r_head[3](each final quantity="Length", each final unit="m")
+      Modelica_Blocks_Interfaces.RealInput r_head[3](each final quantity="Length", each final unit="m")
         "Position vector from origin of frame_a to head of arrow, resolved in frame_a"
         annotation (Placement(transformation(
             origin={0,-120},
@@ -24790,7 +23990,7 @@ This shape visualizes the x-y plane by a box
      end Ground;
 
     model Torus "Visualizing a torus"
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialVisualizer;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialVisualizer;
 
       parameter Boolean animation=true "= true, if animation shall be enabled";
 
@@ -24878,7 +24078,7 @@ the last point of the parametrization coincide in this case.
     end Torus;
 
     model VoluminousWheel "Visualizing a voluminous wheel"
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialVisualizer;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialVisualizer;
 
       parameter Boolean animation=true "= true, if animation shall be enabled";
 
@@ -24978,7 +24178,7 @@ connector frame_a (visualized by the red coordinate system in the figure below).
 
     model PipeWithScalarField
       "Visualizing a pipe with scalar field quantities along the pipe axis"
-      extends Modelica_Mechanics_MultiBody.Interfaces.PartialVisualizer;
+      extends Modelica_Mechanics_MultiBody_Interfaces.PartialVisualizer;
 
       parameter Boolean animation=true "= true, if animation shall be enabled";
 
@@ -24997,7 +24197,7 @@ connector frame_a (visualized by the red coordinate system in the figure below).
         "Maximum value of T that corresponds to colorMap[end,:]"                       annotation(Dialog(enable=animation));
       replaceable function colorMap =
           Modelica_Mechanics_MultiBody.Visualizers.Colors.ColorMaps.jet
-        constrainedby Modelica_Mechanics_MultiBody.Interfaces.partialColorMap
+        constrainedby Modelica_Mechanics_MultiBody_Interfaces.partialColorMap
         "Function defining the color map"
               annotation(choicesAllMatching=true, Dialog(enable=animation,group="Color coding"));
 
@@ -25094,7 +24294,7 @@ colorMapToSvg(Modelica.Mechanics.MultiBody.Visualizers.Colors.ColorMaps.jet(),
         extends Modelica_Icons.Package;
 
         function jet "Returns the \"jet\" color map"
-        extends Modelica_Mechanics_MultiBody.Interfaces.partialColorMap;
+        extends Modelica_Mechanics_MultiBody_Interfaces.partialColorMap;
         protected
            Real a=ceil(n_colors/4);
            Real d=1/a;
@@ -25141,7 +24341,7 @@ Image of the \"jet\" color map:
         end jet;
 
         function hot "Returns the \"hot\" color map"
-        extends Modelica_Mechanics_MultiBody.Interfaces.partialColorMap;
+        extends Modelica_Mechanics_MultiBody_Interfaces.partialColorMap;
         protected
            Real a=ceil(n_colors/3);
            Real d=1/a;
@@ -25181,7 +24381,7 @@ Image of the \"hot\" color map:
         end hot;
 
         function gray "Returns the \"gray\" color map"
-        extends Modelica_Mechanics_MultiBody.Interfaces.partialColorMap;
+        extends Modelica_Mechanics_MultiBody_Interfaces.partialColorMap;
         algorithm
           if n_colors > 1 then
             colorMap := 255*[linspace(0,1.,n_colors),linspace(0,1.,n_colors),linspace(0,1.,n_colors)];
@@ -25217,7 +24417,7 @@ Image of the \"gray\" color map:
         end gray;
 
         function spring "Returns the \"spring\" color map"
-        extends Modelica_Mechanics_MultiBody.Interfaces.partialColorMap;
+        extends Modelica_Mechanics_MultiBody_Interfaces.partialColorMap;
         algorithm
           if n_colors > 1 then
              colorMap := 255*[fill(1,n_colors),linspace(0,1.,n_colors),linspace(1,0,n_colors)];
@@ -25253,7 +24453,7 @@ Image of the \"spring\" color map:
         end spring;
 
         function summer "Returns the \"summer\" color map"
-        extends Modelica_Mechanics_MultiBody.Interfaces.partialColorMap;
+        extends Modelica_Mechanics_MultiBody_Interfaces.partialColorMap;
         algorithm
           if n_colors > 1 then
              colorMap := 255*[linspace(0,1.,n_colors),linspace(0.5,1.,n_colors),fill(0.4,n_colors)];
@@ -25289,7 +24489,7 @@ Image of the \"summer\" color map:
         end summer;
 
         function autumn "Returns the \"autumn\" color map"
-        extends Modelica_Mechanics_MultiBody.Interfaces.partialColorMap;
+        extends Modelica_Mechanics_MultiBody_Interfaces.partialColorMap;
         algorithm
           if n_colors > 1 then
              colorMap := 255*[fill(1,n_colors),linspace(0,1.,n_colors),zeros(n_colors)];
@@ -25325,7 +24525,7 @@ Image of the \"autumn\" color map:
         end autumn;
 
         function winter "Returns the \"winter\" color map"
-        extends Modelica_Mechanics_MultiBody.Interfaces.partialColorMap;
+        extends Modelica_Mechanics_MultiBody_Interfaces.partialColorMap;
         algorithm
           if n_colors > 1 then
              colorMap := 255*[zeros(n_colors),linspace(0,1,n_colors),linspace(1,0.5,n_colors)];
@@ -26142,7 +25342,7 @@ The direct usage of the Surface model, as well as of the Torus and the Voluminou
         parameter Integer n_colors=64 "Number of colors in the colorMap" annotation(Dialog(group="Color coding"));
         replaceable function colorMap =
             Modelica_Mechanics_MultiBody.Visualizers.Colors.ColorMaps.jet
-          constrainedby Modelica_Mechanics_MultiBody.Interfaces.partialColorMap
+          constrainedby Modelica_Mechanics_MultiBody_Interfaces.partialColorMap
           "Function defining the color map"
                 annotation(choicesAllMatching=true, Dialog(group="Color coding"));
       protected
@@ -26220,7 +25420,7 @@ colorMapToSvg(Modelica.Mechanics.MultiBody.Visualizers.Colors.ColorMaps.jet(),
         function torus
           "Function defining the surface characteristic of a torus"
           extends
-            Modelica_Mechanics_MultiBody.Interfaces.partialSurfaceCharacteristic(
+            Modelica_Mechanics_MultiBody_Interfaces.partialSurfaceCharacteristic(
               final multiColoredSurface=false);
           input Modelica_SIunits.Radius ri=1 "Inner radius of torus" annotation(Dialog);
           input Modelica_SIunits.Radius ro=0.2
@@ -26270,7 +25470,7 @@ settings:
         function pipeWithScalarField
           "Function defining the surface characteristic of a pipe where a scalar field value is displayed with color along the pipe axis"
           extends
-            Modelica_Mechanics_MultiBody.Interfaces.partialSurfaceCharacteristic(
+            Modelica_Mechanics_MultiBody_Interfaces.partialSurfaceCharacteristic(
               final multiColoredSurface=true);
           input Modelica_SIunits.Radius rOuter "Outer radius of cylinder" annotation(Dialog);
           input Modelica_SIunits.Length length "Length of cylinder"  annotation(Dialog);
@@ -26419,7 +25619,7 @@ since they all have frame connectors).
 
         import MultiBody = Modelica_Mechanics_MultiBody;
         import Modelica_Mechanics_MultiBody.Types;
-        extends Modelica_Mechanics_MultiBody.Interfaces.PartialVisualizer;
+        extends Modelica_Mechanics_MultiBody_Interfaces.PartialVisualizer;
 
         parameter Boolean animation=true
           "= true, if animation shall be enabled";

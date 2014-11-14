@@ -5,11 +5,11 @@ import SI = Modelica_SIunits;
 
 extends Modelica_Icons.Package;
 
-
   package Continuous
     "Library of continuous control blocks with internal states"
 
-    import Modelica_Blocks.Interfaces;
+    import Interfaces =
+           Modelica_Blocks_Interfaces;
     import SIunits = Modelica_SIunits;
     extends Modelica_Icons.Package;
 
@@ -25,7 +25,8 @@ extends Modelica_Icons.Package;
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real y_start=0 "Initial or guess value of output (= state)"
         annotation (Dialog(group="Initialization"));
-      extends Interfaces.SISO(y(start=y_start));
+      extends Modelica_Blocks_Interfaces.SISO(
+                              y(start=y_start));
 
     initial equation
       if initType == Init.SteadyState then
@@ -127,7 +128,8 @@ This is discussed in the description of package
       parameter Boolean strict=false
         "= true, if strict limits with noEvent(..)"
         annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
-      extends Interfaces.SISO(y(start=y_start));
+      extends Modelica_Blocks_Interfaces.SISO(
+                              y(start=y_start));
 
     initial equation
       if initType == Init.SteadyState then
@@ -237,7 +239,7 @@ to use <b>limitAtInit</b> = <b>false</b>.
       parameter Real y_start=0 "Initial value of output (= state)"
         annotation(Dialog(enable=initType == Init.InitialOutput, group=
               "Initialization"));
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
       output Real x(start=x_start) "State of block";
 
@@ -341,7 +343,8 @@ If k=0, the block reduces to y=0.
       parameter Real y_start=0 "Initial or guess value of output (= state)"
         annotation (Dialog(group="Initialization"));
 
-      extends Interfaces.SISO(y(start=y_start));
+      extends Modelica_Blocks_Interfaces.SISO(
+                              y(start=y_start));
 
     initial equation
       if initType == Init.SteadyState then
@@ -442,7 +445,8 @@ Example:
         "Initial or guess value of derivative of output (= state)"
         annotation (Dialog(group="Initialization"));
 
-      extends Interfaces.SISO(y(start=y_start));
+      extends Modelica_Blocks_Interfaces.SISO(
+                              y(start=y_start));
       output Real yd(start=yd_start) "Derivative of y";
 
     initial equation
@@ -578,7 +582,7 @@ Example:
         annotation(Dialog(enable=initType == Init.SteadyState or initType == Init.InitialOutput, group=
               "Initialization"));
 
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       output Real x(start=x_start) "State of block";
 
     initial equation
@@ -679,7 +683,7 @@ This is discussed in the description of package
     block PID "PID-controller in additive description form"
       import Modelica_Blocks.Types.InitPID;
       import Modelica_Blocks.Types.Init;
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
       parameter Real k(unit="1")=1 "Gain";
       parameter Modelica_SIunits.Time Ti(min=Modelica_Constants.small, start=
@@ -863,7 +867,7 @@ to compute u by an algebraic equation.
       import Modelica_Blocks.Types.InitPID;
       import Modelica_Blocks.Types.Init;
       import Modelica_Blocks.Types.SimpleController;
-      extends Interfaces.SVcontrol;
+      extends Modelica_Blocks_Interfaces.SVcontrol;
       output Real controlError = u_s - u_m
         "Control error (set point - measurement)";
 
@@ -1217,7 +1221,7 @@ to use <b>limitAtInit</b> = <b>false</b>.
 
     block TransferFunction "Linear transfer function"
       import Modelica_Blocks.Types.Init;
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
       parameter Real b[:]={1}
         "Numerator coefficients of transfer function (e.g., 2*s+3 is specified as {2,3})";
@@ -1353,7 +1357,8 @@ results in the following transfer function:
         annotation(Dialog(enable=initType == Init.InitialOutput, group=
               "Initialization"));
 
-      extends Interfaces.MIMO(final nin=size(B, 2), final nout=size(C, 1));
+      extends Modelica_Blocks_Interfaces.MIMO(
+                              final nin=size(B, 2), final nout=size(C, 1));
       output Real x[size(A, 1)](start=x_start) "State vector";
 
     protected
@@ -1445,7 +1450,7 @@ results in the following equations:
     end StateSpace;
 
     block Der "Derivative of input (= analytic differentiations)"
-        extends Interfaces.SISO;
+        extends Modelica_Blocks_Interfaces.SISO;
 
     equation
       y = der(u);
@@ -1472,7 +1477,7 @@ the model.
 
       import Modelica_Blocks.Types.Init;
 
-      extends Modelica_Blocks.Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
       parameter Integer n(min=1) = 2 "Order of filter";
       parameter Modelica_SIunits.Frequency f(start=1) "Cut-off frequency";
@@ -1651,7 +1656,7 @@ initType=Modelica.Blocks.Types.Init.SteadyState).
       "Output the input signal filtered with an n-th order filter with critical damping"
 
       import Modelica_Blocks.Types.Init;
-      extends Modelica_Blocks.Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
       parameter Integer n=2 "Order of filter";
       parameter Modelica_SIunits.Frequency f(start=1) "Cut-off frequency";
@@ -1801,7 +1806,7 @@ The critical damping filter is defined as
       "Continuous low pass, high pass, band pass or band stop IIR-filter of type CriticalDamping, Bessel, Butterworth or ChebyshevI"
       import Modelica_Blocks.Continuous.Internal;
 
-      extends Modelica_Blocks.Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
       parameter Modelica_Blocks.Types.AnalogFilter analogFilter=Types.AnalogFilter.CriticalDamping
         "Analog filter characteristics (CriticalDamping/Bessel/Butterworth/ChebyshevI)";
@@ -1834,7 +1839,7 @@ The critical damping filter is defined as
       parameter Real u_nominal = 1.0
         "Nominal value of input (used for scaling the states)"
       annotation(Dialog(tab="Advanced"));
-      Modelica_Blocks.Interfaces.RealOutput x[nx] "Filter states";
+      Modelica_Blocks_Interfaces.RealOutput x[nx] "Filter states";
 
     protected
       parameter Integer ncr = if analogFilter ==Types.AnalogFilter.CriticalDamping                  then
@@ -4741,7 +4746,7 @@ for a 1-dim. rotational inertia controlled by a PI controller are that
     extends Modelica_Icons.Package;
 
     block Sampler "Ideal sampling of continuous signals"
-      extends Interfaces.DiscreteSISO;
+      extends Modelica_Blocks_Interfaces.DiscreteSISO;
 
     equation
       when {sampleTrigger, initial()} then
@@ -4796,7 +4801,7 @@ via parameter <b>samplePeriod</b>.
     end Sampler;
 
     block ZeroOrderHold "Zero order hold of a sampled-data system"
-      extends Interfaces.DiscreteSISO;
+      extends Modelica_Blocks_Interfaces.DiscreteSISO;
       output Real ySample(start=0, fixed=true);
 
     equation
@@ -4827,7 +4832,7 @@ sample instant during the sample points.
     end ZeroOrderHold;
 
     block FirstOrderHold "First order hold of a sampled-data system"
-      extends Modelica_Blocks.Interfaces.DiscreteSISO;
+      extends Modelica_Blocks_Interfaces.DiscreteSISO;
     protected
       Modelica_SIunits.Time tSample;
       Real uSample;
@@ -4872,7 +4877,7 @@ values of the last two sampled input signals.
 
     block UnitDelay "Unit Delay Block"
       parameter Real y_start=0 "Initial value of output signal";
-      extends Interfaces.DiscreteSISO;
+      extends Modelica_Blocks_Interfaces.DiscreteSISO;
 
     equation
       when sampleTrigger then
@@ -4941,7 +4946,7 @@ the output y is identical to parameter yStart.
     block TransferFunction "Discrete Transfer Function block"
       parameter Real b[:]={1} "Numerator coefficients of transfer function.";
       parameter Real a[:]={1} "Denominator coefficients of transfer function.";
-      extends Interfaces.DiscreteSISO;
+      extends Modelica_Blocks_Interfaces.DiscreteSISO;
       output Real x[size(a, 1) - 1](each start=0, each fixed=true)
         "State of transfer function from controller canonical form";
     protected
@@ -5053,7 +5058,8 @@ states can be set as start values of <b>x</b>.</p>
       parameter Real D[size(C, 1), size(B, 2)]=zeros(size(C, 1), size(B, 2))
         "Matrix D of state space model";
 
-      extends Interfaces.DiscreteMIMO(final nin=size(B, 2), final nout=size(C, 1));
+      extends Modelica_Blocks_Interfaces.DiscreteMIMO(
+                                      final nin=size(B, 2), final nout=size(C, 1));
       output Real x[size(A, 1)] "State vector";
 
     equation
@@ -5144,13 +5150,13 @@ results in the following equations:
       extends Modelica_Blocks.Icons.DiscreteBlock;
       parameter Real y_start=0 "initial value of output signal";
 
-      Modelica_Blocks.Interfaces.RealInput u
+      Modelica_Blocks_Interfaces.RealInput u
         "Connector with a Real input signal" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y
+      Modelica_Blocks_Interfaces.RealOutput y
         "Connector with a Real output signal" annotation (Placement(
             transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      Modelica_Blocks.Interfaces.BooleanInput trigger annotation (Placement(
+      Modelica_Blocks_Interfaces.BooleanInput trigger annotation (Placement(
             transformation(
             origin={0,-118},
             extent={{-20,-20},{20,20}},
@@ -5220,13 +5226,13 @@ the initial value defined via parameter <b>y0</b>.
       "Compute maximum, absolute value of continuous signal at trigger instants"
 
       extends Modelica_Blocks.Icons.DiscreteBlock;
-      Modelica_Blocks.Interfaces.RealInput u
+      Modelica_Blocks_Interfaces.RealInput u
         "Connector with a Real input signal" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y
+      Modelica_Blocks_Interfaces.RealOutput y
         "Connector with a Real output signal" annotation (Placement(
             transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      Modelica_Blocks.Interfaces.BooleanInput trigger annotation (Placement(
+      Modelica_Blocks_Interfaces.BooleanInput trigger annotation (Placement(
             transformation(
             origin={0,-118},
             extent={{-20,-20},{20,20}},
@@ -5357,11 +5363,11 @@ as the components of packages <b>Modelica.Blocks.Math</b>,
         parameter Integer significantDigits(min=1) = 2
           "Number of significant digits to be shown";
 
-        Modelica_Blocks.Interfaces.RealInput numberPort if use_numberPort
+        Modelica_Blocks_Interfaces.RealInput numberPort if use_numberPort
           "Number to be shown in diagram layer if use_numberPort = true"
           annotation (HideResult=true, Placement(transformation(extent={{-130,-15},
                   {-100,15}})));
-         Modelica_Blocks.Interfaces.RealOutput showNumber;
+         Modelica_Blocks_Interfaces.RealOutput showNumber;
       equation
         if use_numberPort then
            connect(numberPort, showNumber);
@@ -5425,11 +5431,11 @@ The usage is demonstrated, e.g., in example
         input Integer number=0
           "Number to visualize if use_numberPort=false (time varying)"
           annotation(Dialog(enable=not use_numberPort), HideResult=true);
-        Modelica_Blocks.Interfaces.IntegerInput numberPort if use_numberPort
+        Modelica_Blocks_Interfaces.IntegerInput numberPort if use_numberPort
           "Number to be shown in diagram layer if use_numberPort = true"
           annotation (HideResult=true, Placement(transformation(extent={{-130,-15},
                   {-100,15}})));
-         Modelica_Blocks.Interfaces.IntegerOutput showNumber;
+         Modelica_Blocks_Interfaces.IntegerOutput showNumber;
       equation
         if use_numberPort then
            connect(numberPort, showNumber);
@@ -5493,12 +5499,12 @@ The usage is demonstrated, e.g., in example
         input Boolean active=false
           "Boolean variable to visualize if use_activePort=false (time varying)"
           annotation(Dialog(enable=not use_activePort),HideResult=true);
-        Modelica_Blocks.Interfaces.BooleanInput activePort if use_activePort
+        Modelica_Blocks_Interfaces.BooleanInput activePort if use_activePort
           "Boolean variable to be shown in diagram layer if use_activePort = true"
           annotation (HideResult=true, Placement(transformation(extent={{-130,-15},
                   {-100,15}})));
 
-         Modelica_Blocks.Interfaces.BooleanOutput showActive;
+         Modelica_Blocks_Interfaces.BooleanOutput showActive;
       equation
         if use_activePort then
            connect(activePort, showActive);
@@ -5558,1724 +5564,12 @@ The usage is demonstrated, e.g., in example
             lineColor={0,0,0})}));
   end Interaction;
 
-  package Interfaces
-    "Library of connectors and partial models for input/output blocks"
-    import SIunits = Modelica_SIunits;
-    extends Modelica_Icons.InterfacesPackage;
-
-    connector RealInput = input Real "'input Real' as connector" annotation (
-      defaultComponentName="u",
-      Icon(graphics={
-        Polygon(
-          lineColor={0,0,127},
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid,
-          points={{-100.0,100.0},{100.0,0.0},{-100.0,-100.0}})},
-        coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}},
-          preserveAspectRatio=true,
-          initialScale=0.2)),
-      Diagram(
-        coordinateSystem(preserveAspectRatio=true,
-          initialScale=0.2,
-          extent={{-100.0,-100.0},{100.0,100.0}}),
-          graphics={
-        Polygon(
-          lineColor={0,0,127},
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid,
-          points={{0.0,50.0},{100.0,0.0},{0.0,-50.0},{0.0,50.0}}),
-        Text(
-          lineColor={0,0,127},
-          extent={{-10.0,60.0},{-10.0,85.0}},
-          textString="%name")}),
-      Documentation(info="<html>
-<p>
-Connector with one input signal of type Real.
-</p>
-</html>"));
-
-    connector RealOutput = output Real "'output Real' as connector" annotation (
-      defaultComponentName="y",
-      Icon(
-        coordinateSystem(preserveAspectRatio=true,
-          extent={{-100.0,-100.0},{100.0,100.0}},
-          initialScale=0.1),
-          graphics={
-        Polygon(
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          points={{-100.0,100.0},{100.0,0.0},{-100.0,-100.0}})}),
-      Diagram(
-        coordinateSystem(preserveAspectRatio=true,
-          extent={{-100.0,-100.0},{100.0,100.0}},
-          initialScale=0.1),
-          graphics={
-        Polygon(
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          points={{-100.0,50.0},{0.0,0.0},{-100.0,-50.0}}),
-        Text(
-          lineColor={0,0,127},
-          extent={{30.0,60.0},{30.0,110.0}},
-          textString="%name")}),
-      Documentation(info="<html>
-<p>
-Connector with one output signal of type Real.
-</p>
-</html>"));
-
-    connector BooleanInput = input Boolean "'input Boolean' as connector"
-      annotation (
-      defaultComponentName="u",
-      Icon(graphics={Polygon(
-            points={{-100,100},{100,0},{-100,-100},{-100,100}},
-            lineColor={255,0,255},
-            fillColor={255,0,255},
-            fillPattern=FillPattern.Solid)}, coordinateSystem(
-          extent={{-100,-100},{100,100}},
-          preserveAspectRatio=true,
-          initialScale=0.2)),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=true,
-          initialScale=0.2,
-          extent={{-100,-100},{100,100}}), graphics={Polygon(
-            points={{0,50},{100,0},{0,-50},{0,50}},
-            lineColor={255,0,255},
-            fillColor={255,0,255},
-            fillPattern=FillPattern.Solid), Text(
-            extent={{-10,85},{-10,60}},
-            lineColor={255,0,255},
-            textString="%name")}),
-      Documentation(info="<html>
-<p>
-Connector with one input signal of type Boolean.
-</p>
-</html>"));
-
-    connector BooleanOutput = output Boolean "'output Boolean' as connector"
-      annotation (
-      defaultComponentName="y",
-      Icon(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}), graphics={Polygon(
-            points={{-100,100},{100,0},{-100,-100},{-100,100}},
-            lineColor={255,0,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}), graphics={Polygon(
-            points={{-100,50},{0,0},{-100,-50},{-100,50}},
-            lineColor={255,0,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid), Text(
-            extent={{30,110},{30,60}},
-            lineColor={255,0,255},
-            textString="%name")}),
-      Documentation(info="<html>
-<p>
-Connector with one output signal of type Boolean.
-</p>
-</html>"));
-
-    connector IntegerInput = input Integer "'input Integer' as connector"
-      annotation (
-      defaultComponentName="u",
-      Icon(graphics={Polygon(
-            points={{-100,100},{100,0},{-100,-100},{-100,100}},
-            lineColor={255,127,0},
-            fillColor={255,127,0},
-            fillPattern=FillPattern.Solid)}, coordinateSystem(
-          extent={{-100,-100},{100,100}},
-          preserveAspectRatio=true,
-          initialScale=0.2)),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=true,
-          initialScale=0.2,
-          extent={{-100,-100},{100,100}}), graphics={Polygon(
-            points={{0,50},{100,0},{0,-50},{0,50}},
-            lineColor={255,127,0},
-            fillColor={255,127,0},
-            fillPattern=FillPattern.Solid), Text(
-            extent={{-10,85},{-10,60}},
-            lineColor={255,127,0},
-            textString="%name")}),
-      Documentation(info="<html>
-<p>
-Connector with one input signal of type Integer.
-</p>
-</html>"));
-
-    connector IntegerOutput = output Integer "'output Integer' as connector"
-      annotation (
-      defaultComponentName="y",
-      Icon(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}), graphics={Polygon(
-            points={{-100,100},{100,0},{-100,-100},{-100,100}},
-            lineColor={255,127,0},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}), graphics={Polygon(
-            points={{-100,50},{0,0},{-100,-50},{-100,50}},
-            lineColor={255,127,0},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid), Text(
-            extent={{30,110},{30,60}},
-            lineColor={255,127,0},
-            textString="%name")}),
-      Documentation(info="<html>
-<p>
-Connector with one output signal of type Integer.
-</p>
-</html>"));
-    connector RealVectorInput = input Real
-      "Real input connector used for vector of connectors" annotation (
-      defaultComponentName="u",
-      Icon(graphics={Ellipse(
-            extent={{-100,100},{100,-100}},
-            lineColor={0,0,127},
-            fillColor={0,0,127},
-            fillPattern=FillPattern.Solid)}, coordinateSystem(
-          extent={{-100,-100},{100,100}},
-          preserveAspectRatio=true,
-          initialScale=0.2)),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          initialScale=0.2,
-          extent={{-100,-100},{100,100}}), graphics={Text(
-            extent={{-10,85},{-10,60}},
-            lineColor={0,0,127},
-            textString="%name"), Ellipse(
-            extent={{-50,50},{50,-50}},
-            lineColor={0,0,127},
-            fillColor={0,0,127},
-            fillPattern=FillPattern.Solid)}),
-      Documentation(info="<html>
-<p>
-Real input connector that is used for a vector of connectors,
-for example <a href=\"modelica://Modelica.Blocks.Interfaces.PartialRealMISO\">PartialRealMISO</a>,
-and has therefore a different icon as RealInput connector.
-</p>
-</html>"));
-
-    connector IntegerVectorInput = input Integer
-      "Integer input connector used for vector of connectors" annotation (
-      defaultComponentName="u",
-      Icon(graphics={Ellipse(
-            extent={{-100,100},{100,-100}},
-            lineColor={255,128,0},
-            fillColor={255,128,0},
-            fillPattern=FillPattern.Solid)}, coordinateSystem(
-          extent={{-100,-100},{100,100}},
-          preserveAspectRatio=true,
-          initialScale=0.2)),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          initialScale=0.2,
-          extent={{-100,-100},{100,100}}), graphics={Text(
-            extent={{-10,85},{-10,60}},
-            lineColor={255,128,0},
-            textString="%name"), Ellipse(
-            extent={{-50,50},{50,-50}},
-            lineColor={255,128,0},
-            fillColor={255,128,0},
-            fillPattern=FillPattern.Solid)}),
-      Documentation(info="<html>
-
-<p>
-Integer input connector that is used for a vector of connectors,
-for example <a href=\"modelica://Modelica.Blocks.Interfaces.PartialIntegerMISO\">PartialIntegerMISO</a>,
-and has therefore a different icon as IntegerInput connector.
-</p>
-
-</html>"));
-    connector BooleanVectorInput = input Boolean
-      "Boolean input connector used for vector of connectors" annotation (
-      defaultComponentName="u",
-      Icon(graphics={Ellipse(
-            extent={{-100,-100},{100,100}},
-            lineColor={255,0,255},
-            fillColor={255,0,255},
-            fillPattern=FillPattern.Solid)}, coordinateSystem(
-          extent={{-100,-100},{100,100}},
-          preserveAspectRatio=false,
-          initialScale=0.2)),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          initialScale=0.2,
-          extent={{-100,-100},{100,100}}), graphics={Text(
-            extent={{-10,85},{-10,60}},
-            lineColor={255,0,255},
-            textString="%name"), Ellipse(
-            extent={{-50,50},{50,-50}},
-            lineColor={255,0,255},
-            fillColor={255,0,255},
-            fillPattern=FillPattern.Solid)}),
-      Documentation(info="<html>
-<p>
-Boolean input connector that is used for a vector of connectors,
-for example <a href=\"modelica://Modelica.Blocks.Interfaces.PartialBooleanMISO\">PartialBooleanMISO</a>,
-and has therefore a different icon as BooleanInput connector.
-</p>
-</html>"));
-
-    partial block SO "Single Output continuous control block"
-      extends Modelica_Blocks.Icons.Block;
-
-      RealOutput y "Connector of Real output signal" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<html>
-<p>
-Block has one continuous Real output signal.
-</p>
-</html>"));
-
-    end SO;
-
-    partial block MO "Multiple Output continuous control block"
-      extends Modelica_Blocks.Icons.Block;
-
-      parameter Integer nout(min=1) = 1 "Number of outputs";
-      RealOutput y[nout] "Connector of Real output signals" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<html>
-<p>
-Block has one continuous Real output signal vector.
-</p>
-</html>"));
-
-    end MO;
-
-    partial block SISO "Single Input Single Output continuous control block"
-      extends Modelica_Blocks.Icons.Block;
-
-      RealInput u "Connector of Real input signal" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      RealOutput y "Connector of Real output signal" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<html>
-<p>
-Block has one continuous Real input and one continuous Real output signal.
-</p>
-</html>"));
-    end SISO;
-
-    partial block SI2SO
-      "2 Single Input / 1 Single Output continuous control block"
-      extends Modelica_Blocks.Icons.Block;
-
-      RealInput u1 "Connector of Real input signal 1" annotation (Placement(
-            transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-      RealInput u2 "Connector of Real input signal 2" annotation (Placement(
-            transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
-      RealOutput y "Connector of Real output signal" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-      annotation (Documentation(info="<html>
-<p>
-Block has two continuous Real input signals u1 and u2 and one
-continuous Real output signal y.
-</p>
-</html>"));
-
-    end SI2SO;
-
-    partial block SIMO "Single Input Multiple Output continuous control block"
-      extends Modelica_Blocks.Icons.Block;
-      parameter Integer nout=1 "Number of outputs";
-      RealInput u "Connector of Real input signal" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      RealOutput y[nout] "Connector of Real output signals" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-      annotation (Documentation(info="<HTML>
-<p> Block has one continuous Real input signal and a
-    vector of continuous Real output signals.</p>
-
-</html>"));
-    end SIMO;
-
-    partial block MISO "Multiple Input Single Output continuous control block"
-
-      extends Modelica_Blocks.Icons.Block;
-      parameter Integer nin=1 "Number of inputs";
-      RealInput u[nin] "Connector of Real input signals" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      RealOutput y "Connector of Real output signal" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<HTML>
-<p>
-Block has a vector of continuous Real input signals and
-one continuous Real output signal.
-</p>
-</html>"));
-    end MISO;
-
-    partial block PartialRealMISO
-      "Partial block with a RealVectorInput and a RealOutput signal"
-
-      parameter Integer significantDigits(min=1) = 3
-        "Number of significant digits to be shown in dynamic diagram layer for y"
-        annotation (Dialog(tab="Advanced"));
-      parameter Integer nu(min=0) = 0 "Number of input connections"
-        annotation (Dialog(connectorSizing=true), HideResult=true);
-      Modelica_Blocks.Interfaces.RealVectorInput u[nu]
-        annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
-      Modelica_Blocks.Interfaces.RealOutput y
-        annotation (Placement(transformation(extent={{100,-17},{134,17}})));
-      annotation (Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.06), graphics={
-            Text(
-              extent={{110,-50},{300,-70}},
-              lineColor={0,0,0},
-              textString=DynamicSelect(" ", String(y, significantDigits=
-                  significantDigits))),
-            Text(
-              extent={{-250,170},{250,110}},
-              textString="%name",
-              lineColor={0,0,255}),
-            Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={255,137,0},
-              lineThickness=5.0,
-              fillColor={255,255,255},
-              borderPattern=BorderPattern.Raised,
-              fillPattern=FillPattern.Solid)}));
-    end PartialRealMISO;
-
-    partial block MIMO
-      "Multiple Input Multiple Output continuous control block"
-
-      extends Modelica_Blocks.Icons.Block;
-      parameter Integer nin=1 "Number of inputs";
-      parameter Integer nout=1 "Number of outputs";
-      RealInput u[nin] "Connector of Real input signals" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      RealOutput y[nout] "Connector of Real output signals" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<HTML>
-<p>
-Block has a continuous Real input and a continuous Real output signal vector.
-The signal sizes of the input and output vector may be different.
-</p>
-</html>"));
-    end MIMO;
-
-    partial block MIMOs
-      "Multiple Input Multiple Output continuous control block with same number of inputs and outputs"
-
-      extends Modelica_Blocks.Icons.Block;
-      parameter Integer n=1 "Number of inputs (= number of outputs)";
-      RealInput u[n] "Connector of Real input signals" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      RealOutput y[n] "Connector of Real output signals" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<HTML>
-<p>
-Block has a continuous Real input and a continuous Real output signal vector
-where the signal sizes of the input and output vector are identical.
-</p>
-</html>"));
-    end MIMOs;
-
-    partial block MI2MO
-      "2 Multiple Input / Multiple Output continuous control block"
-      extends Modelica_Blocks.Icons.Block;
-
-      parameter Integer n=1 "Dimension of input and output vectors.";
-
-      RealInput u1[n] "Connector 1 of Real input signals" annotation (Placement(
-            transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-      RealInput u2[n] "Connector 2 of Real input signals" annotation (Placement(
-            transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
-      RealOutput y[n] "Connector of Real output signals" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<html>
-<p>
-Block has two continuous Real input vectors u1 and u2 and one
-continuous Real output vector y.
-All vectors have the same number of elements.
-</p>
-</html>"));
-
-    end MI2MO;
-
-    partial block SignalSource "Base class for continuous signal source"
-      extends SO;
-      parameter Real offset=0 "Offset of output signal y";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output y = offset for time < startTime";
-      annotation (Documentation(info="<html>
-<p>
-Basic block for Real sources of package Blocks.Sources.
-This component has one continuous Real output signal y
-and two parameters (offset, startTime) to shift the
-generated signal.
-</p>
-</html>"));
-    end SignalSource;
-
-    partial block SVcontrol "Single-Variable continuous controller"
-      extends Modelica_Blocks.Icons.Block;
-
-      RealInput u_s "Connector of setpoint input signal" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      RealInput u_m "Connector of measurement input signal" annotation (Placement(
-            transformation(
-            origin={0,-120},
-            extent={{20,-20},{-20,20}},
-            rotation=270)));
-      RealOutput y "Connector of actuator output signal" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Text(
-                extent={{-102,34},{-142,24}},
-                textString="(setpoint)",
-                lineColor={0,0,255}),Text(
-                extent={{100,24},{140,14}},
-                textString="(actuator)",
-                lineColor={0,0,255}),Text(
-                extent={{-83,-112},{-33,-102}},
-                textString=" (measurement)",
-                lineColor={0,0,255})}), Documentation(info="<html>
-<p>
-Block has two continuous Real input signals and one
-continuous Real output signal. The block is designed
-to be used as base class for a corresponding controller.
-</p>
-</html>"));
-    end SVcontrol;
-
-    partial block MVcontrol "Multi-Variable continuous controller"
-      extends Modelica_Blocks.Icons.Block;
-
-      parameter Integer nu_s=1 "Number of setpoint inputs";
-      parameter Integer nu_m=1 "Number of measurement inputs";
-      parameter Integer ny=1 "Number of actuator outputs";
-      RealInput u_s[nu_s] "Connector of setpoint input signals" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      RealInput u_m[nu_m] "Connector of measurement input signals" annotation (
-          Placement(transformation(
-            origin={0,-120},
-            extent={{20,-20},{-20,20}},
-            rotation=270)));
-      RealOutput y[ny] "Connector of actuator output signals" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Text(
-                extent={{-100,36},{-140,26}},
-                textString="(setpoint)",
-                lineColor={0,0,255}),Text(
-                extent={{102,24},{142,14}},
-                textString="(actuator)",
-                lineColor={0,0,255}),Text(
-                extent={{-75,-108},{-25,-98}},
-                textString=" (measurement)",
-                lineColor={0,0,255})}), Documentation(info="<html>
-<p>
-Block has two continuous Real input signal vectors and one
-continuous Real output signal vector. The block is designed
-to be used as base class for a corresponding controller.
-</p>
-</html>"));
-    end MVcontrol;
-
-    partial block DiscreteBlock "Base class of discrete control blocks"
-      extends Modelica_Blocks.Icons.DiscreteBlock;
-
-      parameter Modelica_SIunits.Time samplePeriod(min=100*Modelica_Constants.eps,
-          start=0.1) "Sample period of component";
-      parameter Modelica_SIunits.Time startTime=0 "First sample time instant";
-    protected
-      output Boolean sampleTrigger "True, if sample time instant";
-      output Boolean firstTrigger "Rising edge signals first sample instant";
-    equation
-      sampleTrigger = sample(startTime, samplePeriod);
-      when sampleTrigger then
-        firstTrigger = time <= startTime + samplePeriod/2;
-      end when;
-      annotation (Documentation(info="<html>
-<p>
-Basic definitions of a discrete block of library
-Blocks.Discrete.
-</p>
-</html>"));
-    end DiscreteBlock;
-
-    partial block DiscreteSISO
-      "Single Input Single Output discrete control block"
-
-      extends DiscreteBlock;
-
-      Modelica_Blocks.Interfaces.RealInput u "Continuous input signal"
-        annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-              rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y "Continuous output signal"
-        annotation (Placement(transformation(extent={{100,-10},{120,10}},
-              rotation=0)));
-      annotation (Documentation(info="<html>
-<p>
-Block has one continuous input and one continuous output signal
-which are sampled due to the defined <b>samplePeriod</b> parameter.
-</p>
-</html>"));
-    end DiscreteSISO;
-
-    partial block DiscreteMIMO
-      "Multiple Input Multiple Output discrete control block"
-
-      extends DiscreteBlock;
-      parameter Integer nin=1 "Number of inputs";
-      parameter Integer nout=1 "Number of outputs";
-
-      Modelica_Blocks.Interfaces.RealInput u[nin] "Continuous input signals"
-        annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-              rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y[nout] "Continuous output signals"
-        annotation (Placement(transformation(extent={{100,-10},{120,10}},
-              rotation=0)));
-
-      annotation (Documentation(info="<html>
-<p>
-Block has a continuous input and a continuous output signal vector
-which are sampled due to the defined <b>samplePeriod</b> parameter.
-</p>
-</html>"));
-    end DiscreteMIMO;
-
-    partial block DiscreteMIMOs
-      "Multiple Input Multiple Output discrete control block"
-      parameter Integer n=1 "Number of inputs (= number of outputs)";
-      extends DiscreteBlock;
-
-      Modelica_Blocks.Interfaces.RealInput u[n] "Continuous input signals"
-        annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-              rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y[n] "Continuous output signals"
-        annotation (Placement(transformation(extent={{100,-10},{120,10}},
-              rotation=0)));
-
-      annotation (Documentation(info="<html>
-<p>
-Block has a continuous input and a continuous output signal vector
-where the signal sizes of the input and output vector are identical.
-These signals are sampled due to the defined <b>samplePeriod</b> parameter.
-</p>
-</html>"));
-
-    end DiscreteMIMOs;
-
-    partial block SVdiscrete "Discrete Single-Variable controller"
-      extends DiscreteBlock;
-
-      Discrete.Sampler sampler_s(final samplePeriod=samplePeriod, final startTime=
-           startTime) annotation (Placement(transformation(extent={{-100,-10},{-80,
-                10}}, rotation=0)));
-      Discrete.Sampler sampler_m(final samplePeriod=samplePeriod, final startTime=
-           startTime) annotation (Placement(transformation(
-            origin={0,-90},
-            extent={{-10,-10},{10,10}},
-            rotation=90)));
-      Modelica_Blocks.Interfaces.RealInput u_s
-        "Continuous scalar setpoint input signal" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u_m
-        "Continuous scalar measurement input signal" annotation (Placement(
-            transformation(
-            origin={0,-120},
-            extent={{20,-20},{-20,20}},
-            rotation=270)));
-      Modelica_Blocks.Interfaces.RealOutput y
-        "Continuous scalar actuator output signal" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-    equation
-      connect(u_s, sampler_s.u) annotation (Line(points={{-120,0},{-102,0}}));
-      connect(u_m, sampler_m.u)
-        annotation (Line(points={{0,-120},{0,-111},{0,-102}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Text(
-                extent={{-100,34},{-140,24}},
-                lineColor={0,0,0},
-                textString="(setpoint)"),Text(
-                extent={{100,22},{130,14}},
-                lineColor={0,0,0},
-                textString="(actuator)"),Text(
-                extent={{-70,-112},{-20,-102}},
-                lineColor={0,0,0},
-                textString=" (measurement)")}), Documentation(info="<html>
-<p>
-Block has two continuous Real input signals and one
-continuous Real output signal
-that are sampled due to the defined <b>samplePeriod</b> parameter.
-The block is designed
-to be used as base class for a corresponding controller.
-</p>
-</html>"));
-    end SVdiscrete;
-
-    partial block MVdiscrete "Discrete Multi-Variable controller"
-      extends DiscreteBlock;
-      parameter Integer nu_s=1 "Number of setpoint inputs";
-      parameter Integer nu_m=1 "Number of measurement inputs";
-      parameter Integer ny=1 "Number of actuator outputs";
-      Discrete.Sampler sampler_s[nu_s](each final samplePeriod=samplePeriod,
-          each final startTime=startTime) annotation (Placement(transformation(
-              extent={{-90,-10},{-70,10}}, rotation=0)));
-      Discrete.Sampler sampler_m[nu_m](each final samplePeriod=samplePeriod,
-          each final startTime=startTime) annotation (Placement(transformation(
-            origin={0,-80},
-            extent={{-10,-10},{10,10}},
-            rotation=90)));
-      Modelica_Blocks.Interfaces.RealInput u_s[nu_s]
-        "Continuous setpoint input signals" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u_m[nu_m]
-        "Continuous measurement input signals" annotation (Placement(
-            transformation(
-            origin={0,-120},
-            extent={{20,-20},{-20,20}},
-            rotation=270)));
-      Modelica_Blocks.Interfaces.RealOutput y[ny]
-        "Continuous actuator output signals" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-    equation
-      connect(u_s, sampler_s.u) annotation (Line(points={{-120,0},{-92,0}}));
-      connect(u_m, sampler_m.u)
-        annotation (Line(points={{0,-120},{0,-106},{0,-92}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Text(
-                extent={{-100,-10},{-80,-30}},
-                textString="u_s",
-                lineColor={0,0,255}),Text(
-                extent={{-98,34},{-138,24}},
-                lineColor={0,0,0},
-                textString="(setpoint)"),Text(
-                extent={{98,24},{138,14}},
-                lineColor={0,0,0},
-                textString="(actuator)"),Text(
-                extent={{-62,-110},{-12,-100}},
-                lineColor={0,0,0},
-                textString=" (measurement)")}), Documentation(info="<html>
-<p>
-Block has two continuous Real input signal vectors and one
-continuous Real output signal vector. The vector signals
-are sampled due to the defined <b>samplePeriod</b> parameter.
-The block is designed
-to be used as base class for a corresponding controller.
-</p>
-</html>"));
-    end MVdiscrete;
-
-    partial block BooleanSISO
-      "Single Input Single Output control block with signals of type Boolean"
-
-      extends Modelica_Blocks.Icons.BooleanBlock;
-
-    public
-      BooleanInput u "Connector of Boolean input signal" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      BooleanOutput y "Connector of Boolean output signal" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-      annotation (Documentation(info="<html>
-<p>
-Block has one continuous Boolean input and one continuous Boolean output signal.
-</p>
-</html>"));
-    end BooleanSISO;
-
-    partial block BooleanMIMOs
-      "Multiple Input Multiple Output continuous control block with same number of inputs and outputs of Boolean type"
-
-      extends Modelica_Blocks.Icons.BooleanBlock;
-      parameter Integer n=1 "Number of inputs (= number of outputs)";
-      BooleanInput u[n] "Connector of Boolean input signals" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      BooleanOutput y[n] "Connector of Boolean output signals" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<HTML>
-<p>
-Block has a continuous Boolean input and a continuous Boolean output signal vector
-where the signal sizes of the input and output vector are identical.
-</p>
-</html>"));
-    end BooleanMIMOs;
-
-    partial block MI2BooleanMOs
-      "2 Multiple Input / Boolean Multiple Output block with same signal lengths"
-
-      extends Modelica_Blocks.Icons.BooleanBlock;
-      parameter Integer n=1 "Dimension of input and output vectors.";
-      RealInput u1[n] "Connector 1 of Boolean input signals" annotation (
-          Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-      RealInput u2[n] "Connector 2 of Boolean input signals" annotation (
-          Placement(transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
-      BooleanOutput y[n] "Connector of Boolean output signals" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<html>
-<p>Block has two Boolean input vectors u1 and u2 and one Boolean output
-vector y. All vectors have the same number of elements.</p>
-</html>"));
-    end MI2BooleanMOs;
-
-    partial block SI2BooleanSO "2 Single Input / Boolean Single Output block"
-
-      extends Modelica_Blocks.Icons.BooleanBlock;
-      BooleanInput u1 "Connector 1 of Boolean input signals" annotation (
-          Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-      BooleanInput u2 "Connector 2 of Boolean input signals" annotation (
-          Placement(transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
-      BooleanOutput y "Connector of Boolean output signals" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<html>
-<p>
-Block has two Boolean input signals u1 and u2 and one Boolean output signal y.
-</p>
-</html>"));
-
-    end SI2BooleanSO;
-
-    partial block BooleanSignalSource "Base class for Boolean signal sources"
-
-      extends Modelica_Blocks.Icons.BooleanBlock;
-      BooleanOutput y "Connector of Boolean output signal" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={
-            Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
-            Polygon(
-              points={{-80,90},{-88,68},{-72,68},{-80,90}},
-              lineColor={192,192,192},
-              fillColor={192,192,192},
-              fillPattern=FillPattern.Solid),
-            Line(points={{-90,-70},{68,-70}}, color={192,192,192}),
-            Polygon(
-              points={{90,-70},{68,-62},{68,-78},{90,-70}},
-              lineColor={192,192,192},
-              fillColor={192,192,192},
-              fillPattern=FillPattern.Solid)}), Documentation(info="<html>
-<p>
-Basic block for Boolean sources of package Blocks.Sources.
-This component has one continuous Boolean output signal y.
-</p>
-</html>"));
-
-    end BooleanSignalSource;
-
-    partial block IntegerSO "Single Integer Output continuous control block"
-      extends Modelica_Blocks.Icons.IntegerBlock;
-
-      IntegerOutput y "Connector of Integer output signal" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<html>
-<p>
-Block has one continuous Integer output signal.
-</p>
-</html>"));
-    end IntegerSO;
-
-    partial block IntegerMO "Multiple Integer Output continuous control block"
-      extends Modelica_Blocks.Icons.IntegerBlock;
-
-      parameter Integer nout(min=1) = 1 "Number of outputs";
-      IntegerOutput y[nout] "Connector of Integer output signals" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<html>
-<p>
-Block has one continuous Integer output signal vector.
-</p>
-</html>"));
-    end IntegerMO;
-
-    partial block IntegerSignalSource
-      "Base class for continuous Integer signal source"
-      extends IntegerSO;
-      parameter Integer offset=0 "Offset of output signal y";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output y = offset for time < startTime";
-      annotation (Documentation(info="<html>
-<p>
-Basic block for Integer sources of package Blocks.Sources.
-This component has one continuous Integer output signal y
-and two parameters (offset, startTime) to shift the
-generated signal.
-</p>
-</html>"));
-    end IntegerSignalSource;
-
-    partial block IntegerSIBooleanSO
-      "Integer Input Boolean Output continuous control block"
-
-      extends Modelica_Blocks.Icons.BooleanBlock;
-      IntegerInput u "Connector of Integer input signal" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      BooleanOutput y "Connector of Boolean output signal" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<HTML>
-<p>
-Block has a continuous Integer input and a continuous Boolean output signal.
-</p>
-</html>"));
-    end IntegerSIBooleanSO;
-
-    partial block IntegerMIBooleanMOs
-      "Multiple Integer Input Multiple Boolean Output continuous control block with same number of inputs and outputs"
-
-      extends Modelica_Blocks.Icons.BooleanBlock;
-      parameter Integer n=1 "Number of inputs (= number of outputs)";
-      IntegerInput u[n] "Connector of Integer input signals" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      BooleanOutput y[n] "Connector of Boolean output signals" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      annotation (Documentation(info="<HTML>
-<p>
-Block has a continuous Integer input and a continuous Boolean output signal vector
-where the signal sizes of the input and output vector are identical.
-</p>
-</html>"));
-    end IntegerMIBooleanMOs;
-
-    partial block PartialIntegerSISO
-      "Partial block with a IntegerInput and an IntegerOutput signal"
-
-      Modelica_Blocks.Interfaces.IntegerInput u "Integer input signal"
-        annotation (Placement(transformation(extent={{-180,-40},{-100,40}})));
-      Modelica_Blocks.Interfaces.IntegerOutput y "Integer output signal"
-        annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-      annotation (Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.06), graphics={
-            Text(
-              extent={{110,-50},{250,-70}},
-              lineColor={0,0,0},
-              textString=DynamicSelect(" ", String(
-                    y,
-                    minimumLength=1,
-                    significantDigits=0))),
-            Text(
-              extent={{-250,170},{250,110}},
-              textString="%name",
-              lineColor={0,0,255}),
-            Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              lineThickness=5.0,
-              fillColor={255,213,170},
-              fillPattern=FillPattern.Solid,
-              borderPattern=BorderPattern.Raised)}));
-    end PartialIntegerSISO;
-
-    partial block PartialIntegerMISO
-      "Partial block with an IntegerVectorInput and an IntegerOutput signal"
-
-      parameter Integer nu(min=0) = 0 "Number of input connections"
-        annotation (Dialog(connectorSizing=true), HideResult=true);
-      Modelica_Blocks.Interfaces.IntegerVectorInput u[nu]
-        "Vector of Integer input signals"
-        annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
-      Modelica_Blocks.Interfaces.IntegerOutput y "Integer output signal"
-        annotation (Placement(transformation(extent={{100,-15},{130,15}})));
-      annotation (Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.06), graphics={
-            Text(
-              extent={{110,-50},{250,-70}},
-              lineColor={0,0,0},
-              textString=DynamicSelect(" ", String(
-                    y,
-                    minimumLength=1,
-                    significantDigits=0))),
-            Text(
-              extent={{-250,170},{250,110}},
-              textString="%name",
-              lineColor={0,0,255}),
-            Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={255,137,0},
-              lineThickness=5.0,
-              fillColor={255,213,170},
-              borderPattern=BorderPattern.Raised,
-              fillPattern=FillPattern.Solid)}));
-    end PartialIntegerMISO;
-
-    partial block partialBooleanSISO
-      "Partial block with 1 input and 1 output Boolean signal"
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
-      BooleanInput u "Connector of Boolean input signal" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      BooleanOutput y "Connector of Boolean output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Ellipse(
-              extent={{-71,7},{-85,-7}},
-              lineColor=DynamicSelect({235,235,235}, if u > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if u > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid), Ellipse(
-              extent={{71,7},{85,-7}},
-              lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid)}), Documentation(info="<html>
-<p>
-Block has one continuous Boolean input and one continuous Boolean output signal
-with a 3D icon (e.g., used in Blocks.Logical library).
-</p>
-</html>"));
-
-    end partialBooleanSISO;
-
-    partial block partialBooleanSI2SO
-      "Partial block with 2 input and 1 output Boolean signal"
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
-      BooleanInput u1 "Connector of first Boolean input signal" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      BooleanInput u2 "Connector of second Boolean input signal" annotation (
-          Placement(transformation(extent={{-140,-100},{-100,-60}}, rotation=0)));
-      BooleanOutput y "Connector of Boolean output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-      annotation (Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={
-            Ellipse(
-              extent={{-71,7},{-85,-7}},
-              lineColor=DynamicSelect({235,235,235}, if u1 > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if u1 > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-71,-74},{-85,-88}},
-              lineColor=DynamicSelect({235,235,235}, if u2 > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if u2 > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{71,7},{85,-7}},
-              lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid)}), Documentation(info="<html>
-<p>
-Block has two continuous Boolean input and one continuous Boolean output signal
-with a 3D icon (e.g., used in Blocks.Logical library).
-</p>
-</html>"));
-
-    end partialBooleanSI2SO;
-
-    partial block partialBooleanSI3SO
-      "Partial block with 3 input and 1 output Boolean signal"
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
-      BooleanInput u1 "Connector of first Boolean input signal" annotation (
-          Placement(transformation(extent={{-140,60},{-100,100}}, rotation=0)));
-      BooleanInput u2 "Connector of second Boolean input signal" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      BooleanInput u3 "Connector of third Boolean input signal" annotation (
-          Placement(transformation(extent={{-140,-100},{-100,-60}}, rotation=0)));
-      BooleanOutput y "Connector of Boolean output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-      annotation (Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={
-            Ellipse(
-              extent={{-71,74},{-85,88}},
-              lineColor=DynamicSelect({235,235,235}, if u1 > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if u1 > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-71,7},{-85,-7}},
-              lineColor=DynamicSelect({235,235,235}, if u2 > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if u2 > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-71,-74},{-85,-88}},
-              lineColor=DynamicSelect({235,235,235}, if u3 > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if u3 > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{71,7},{85,-7}},
-              lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid)}), Documentation(info="<html><p>
-Block has three continuous Boolean input and one continuous Boolean output signal
-with a 3D icon (e.g., used in Blocks.Logical library).
-</p>
-</html>"));
-
-    end partialBooleanSI3SO;
-
-    partial block partialBooleanSI "Partial block with 1 input Boolean signal"
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
-
-      BooleanInput u "Connector of Boolean input signal" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Ellipse(
-              extent={{-71,7},{-85,-7}},
-              lineColor=DynamicSelect({235,235,235}, if u > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if u > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid)}), Documentation(info="<html>
-<p>
-Block has one continuous Boolean input signal
-with a 3D icon (e.g., used in Blocks.Logical library).
-</p>
-</html>"));
-
-    end partialBooleanSI;
-
-    partial block partialBooleanSO "Partial block with 1 output Boolean signal"
-
-      BooleanOutput y "Connector of Boolean output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
-
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Ellipse(
-              extent={{71,7},{85,-7}},
-              lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid)}), Documentation(info="<html>
-<p>
-Block has one continuous Boolean output signal
-with a 3D icon (e.g., used in Blocks.Logical library).
-</p>
-</html>"));
-
-    end partialBooleanSO;
-
-    partial block partialBooleanSource
-      "Partial source block (has 1 output Boolean signal and an appropriate default icon)"
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
-
-      BooleanOutput y "Connector of Boolean output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-      annotation (
-        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-                100}}), graphics={
-            Polygon(
-              points={{-80,88},{-88,66},{-72,66},{-80,88}},
-              lineColor={255,0,255},
-              fillColor={255,0,255},
-              fillPattern=FillPattern.Solid),
-            Line(points={{-80,66},{-80,-82}}, color={255,0,255}),
-            Line(points={{-90,-70},{72,-70}}, color={255,0,255}),
-            Polygon(
-              points={{90,-70},{68,-62},{68,-78},{90,-70}},
-              lineColor={255,0,255},
-              fillColor={255,0,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{71,7},{85,-7}},
-              lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-                100,100}}), graphics={Polygon(
-                points={{-70,92},{-76,70},{-64,70},{-70,92}},
-                lineColor={95,95,95},
-                fillColor={95,95,95},
-                fillPattern=FillPattern.Solid),Line(points={{-70,70},{-70,-88}},
-              color={95,95,95}),Line(points={{-90,-70},{68,-70}}, color={95,95,95}),
-              Polygon(
-                points={{90,-70},{68,-64},{68,-76},{90,-70}},
-                lineColor={95,95,95},
-                fillColor={95,95,95},
-                fillPattern=FillPattern.Solid),Text(
-                extent={{54,-80},{106,-92}},
-                lineColor={0,0,0},
-                textString="time"),Text(
-                extent={{-64,92},{-46,74}},
-                lineColor={0,0,0},
-                textString="y")}),
-        Documentation(info="<html>
-<p>
-Basic block for Boolean sources of package Blocks.Sources.
-This component has one continuous Boolean output signal y
-and a 3D icon (e.g., used in Blocks.Logical library).
-</p>
-</html>"));
-
-    end partialBooleanSource;
-
-    partial block partialBooleanThresholdComparison
-      "Partial block to compare the Real input u with a threshold and provide the result as 1 Boolean output signal"
-
-      parameter Real threshold=0 "Comparison with respect to threshold";
-
-      RealInput u "Connector of Boolean input signal" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      BooleanOutput y "Connector of Boolean output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={
-            Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              lineThickness=5.0,
-              fillColor={210,210,210},
-              fillPattern=FillPattern.Solid,
-              borderPattern=BorderPattern.Raised),
-            Text(
-              extent={{-150,-140},{150,-110}},
-              lineColor={0,0,0},
-              textString="%threshold"),
-            Ellipse(
-              extent={{71,7},{85,-7}},
-              lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid)}), Documentation(info="<html>
-<p>
-Block has one continuous Real input and one continuous Boolean output signal
-as well as a 3D icon (e.g., used in Blocks.Logical library).
-</p>
-</html>"));
-
-    end partialBooleanThresholdComparison;
-
-    partial block partialBooleanComparison
-      "Partial block with 2 Real input and 1 Boolean output signal (the result of a comparison of the two Real inputs)"
-
-      RealInput u1 "Connector of first Boolean input signal" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      RealInput u2 "Connector of second Boolean input signal" annotation (
-          Placement(transformation(extent={{-140,-100},{-100,-60}}, rotation=0)));
-      BooleanOutput y "Connector of Boolean output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={
-            Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              lineThickness=5.0,
-              fillColor={210,210,210},
-              fillPattern=FillPattern.Solid,
-              borderPattern=BorderPattern.Raised),
-            Ellipse(
-              extent={{73,7},{87,-7}},
-              lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid),
-            Ellipse(extent={{32,10},{52,-10}}, lineColor={0,0,127}),
-            Line(points={{-100,-80},{42,-80},{42,0}}, color={0,0,127})}),
-          Documentation(info="<html>
-<p>
-Block has two continuous Real input and one continuous Boolean output signal
-as a result of the comparison of the two input signals. The block
-has a 3D icon (e.g., used in Blocks.Logical library).
-</p>
-</html>"));
-
-    end partialBooleanComparison;
-
-    partial block PartialBooleanSISO_small
-      "Partial block with a BooleanInput and a BooleanOutput signal and a small block icon"
-
-      Modelica_Blocks.Interfaces.BooleanInput u "Boolean input signal"
-        annotation (Placement(transformation(extent={{-180,-40},{-100,40}})));
-      Modelica_Blocks.Interfaces.BooleanOutput y "Boolean output signal"
-        annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-      annotation (Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.04), graphics={
-            Text(
-              extent={{-250,170},{250,110}},
-              textString="%name",
-              lineColor={0,0,255}),
-            Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              lineThickness=5.0,
-              fillColor={215,215,215},
-              fillPattern=FillPattern.Solid,
-              borderPattern=BorderPattern.Raised),
-            Ellipse(
-              extent={{60,10},{80,-10}},
-              lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid)}));
-    end PartialBooleanSISO_small;
-
-    partial block PartialBooleanMISO
-      "Partial block with a BooleanVectorInput and a BooleanOutput signal"
-
-      parameter Integer nu(min=0) = 0 "Number of input connections"
-        annotation (Dialog(connectorSizing=true), HideResult=true);
-      Modelica_Blocks.Interfaces.BooleanVectorInput u[nu]
-        "Vector of Boolean input signals"
-        annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
-      Modelica_Blocks.Interfaces.BooleanOutput y "Boolean output signal"
-        annotation (Placement(transformation(extent={{100,-15},{130,15}})));
-      annotation (Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            initialScale=0.06), graphics={
-            Text(
-              extent={{-250,170},{250,110}},
-              textString="%name",
-              lineColor={0,0,255}),
-            Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              lineThickness=5.0,
-              fillColor={215,215,215},
-              fillPattern=FillPattern.Solid,
-              borderPattern=BorderPattern.Raised),
-            Ellipse(
-              extent={{60,10},{80,-10}},
-              lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                   else {235,235,235}),
-              fillPattern=FillPattern.Solid)}));
-    end PartialBooleanMISO;
-
-    package Adaptors
-      "Obsolete package with components to send signals to a bus or receive signals from a bus (only for backward compatibility)"
-      extends Modelica_Icons.Package;
-      // extends Modelica.Icons.ObsoleteModel;
-
-      block SendReal "Obsolete block to send Real signal to bus"
-        // extends Modelica.Icons.ObsoleteModel;
-        RealOutput toBus "Output signal to be connected to bus" annotation (
-            Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-        RealInput u "Input signal to be send to bus" annotation (Placement(
-              transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      equation
-        toBus = u;
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics={Rectangle(
-                    extent={{-100,40},{100,-40}},
-                    lineColor={0,0,127},
-                    fillColor={255,255,255},
-                    fillPattern=FillPattern.Solid),Text(
-                    extent={{-144,96},{144,46}},
-                    lineColor={0,0,0},
-                    textString="%name"),Text(
-                    extent={{-100,30},{100,-30}},
-                    lineColor={0,0,127},
-                    textString="send")}), Documentation(info="<html>
-<p>
-Obsolete block that was previously used to connect a Real signal
-to a signal in a connector. This block is only provided for
-backward compatibility.
-</p>
-
-<p>
-It is much more convenient and more powerful to use \"expandable connectors\"
-for signal buses, see example
-<a href=\"modelica://Modelica.Blocks.Examples.BusUsage\">BusUsage</a>.
-</p>
-</html>"));
-      end SendReal;
-
-      block SendBoolean "Obsolete block to send Boolean signal to bus"
-        // extends Modelica.Icons.ObsoleteModel;
-        BooleanOutput toBus "Output signal to be connected to bus" annotation (
-            Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-        BooleanInput u "Input signal to be send to bus" annotation (Placement(
-              transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      equation
-        toBus = u;
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics={Rectangle(
-                    extent={{-100,40},{100,-40}},
-                    lineColor={255,0,255},
-                    fillColor={255,255,255},
-                    fillPattern=FillPattern.Solid),Text(
-                    extent={{-144,96},{144,46}},
-                    lineColor={0,0,0},
-                    textString="%name"),Text(
-                    extent={{-100,30},{100,-30}},
-                    lineColor={255,0,255},
-                    textString="send")}), Documentation(info="<html>
-<p>
-Obsolete block that was previously used to connect a Boolean signal
-to a signal in a connector. This block is only provided for
-backward compatibility.
-</p>
-
-<p>
-It is much more convenient and more powerful to use \"expandable connectors\"
-for signal buses, see example
-<a href=\"modelica://Modelica.Blocks.Examples.BusUsage\">BusUsage</a>.
-</p>
-</html>"));
-      end SendBoolean;
-
-      block SendInteger "Obsolete block to send Integer signal to bus"
-        // extends Modelica.Icons.ObsoleteModel;
-        IntegerOutput toBus "Output signal to be connected to bus" annotation (
-            Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-        IntegerInput u "Input signal to be send to bus" annotation (Placement(
-              transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      equation
-        toBus = u;
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics={Rectangle(
-                    extent={{-100,40},{100,-40}},
-                    lineColor={255,127,0},
-                    fillColor={255,255,255},
-                    fillPattern=FillPattern.Solid),Text(
-                    extent={{-144,96},{144,46}},
-                    lineColor={0,0,0},
-                    textString="%name"),Text(
-                    extent={{-100,30},{100,-30}},
-                    lineColor={255,127,0},
-                    textString="send")}), Documentation(info="<html>
-<p>
-Obsolete block that was previously used to connect an Integer signal
-to a signal in a connector. This block is only provided for
-backward compatibility.
-</p>
-
-<p>
-It is much more convenient and more powerful to use \"expandable connectors\"
-for signal buses, see example
-<a href=\"modelica://Modelica.Blocks.Examples.BusUsage\">BusUsage</a>.
-</p>
-</html>"));
-      end SendInteger;
-
-      block ReceiveReal "Obsolete block to receive Real signal from bus"
-        // extends Modelica.Icons.ObsoleteModel;
-        RealInput fromBus "To be connected with signal on bus" annotation (
-            Placement(transformation(extent={{-120,-10},{-100,10}}, rotation=0)));
-        RealOutput y "Output signal to be received from bus" annotation (
-            Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      equation
-        y = fromBus;
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics={Rectangle(
-                    extent={{-100,40},{100,-40}},
-                    lineColor={0,0,127},
-                    fillColor={255,255,255},
-                    fillPattern=FillPattern.Solid),Text(
-                    extent={{-100,30},{100,-30}},
-                    lineColor={0,0,127},
-                    textString="receive"),Text(
-                    extent={{-144,96},{144,46}},
-                    lineColor={0,0,0},
-                    textString="%name")}), Documentation(info="<html>
-<p>
-Obsolete block that was previously used to connect a Real signal
-in a connector to an input of a block. This block is only provided for
-backward compatibility.
-</p>
-
-<p>
-It is much more convenient and more powerful to use \"expandable connectors\"
-for signal buses, see example
-<a href=\"modelica://Modelica.Blocks.Examples.BusUsage\">BusUsage</a>.
-</p>
-</html>"));
-      end ReceiveReal;
-
-      block ReceiveBoolean "Obsolete block to receive Boolean signal from bus"
-        // extends Modelica.Icons.ObsoleteModel;
-        BooleanInput fromBus "To be connected with signal on bus" annotation (
-            Placement(transformation(extent={{-120,-10},{-100,10}}, rotation=0)));
-        BooleanOutput y "Output signal to be received from bus" annotation (
-            Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      equation
-        y = fromBus;
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics={Rectangle(
-                    extent={{-100,40},{100,-40}},
-                    lineColor={255,0,255},
-                    fillColor={255,255,255},
-                    fillPattern=FillPattern.Solid),Text(
-                    extent={{-100,30},{100,-30}},
-                    lineColor={255,0,255},
-                    textString="receive"),Text(
-                    extent={{-144,96},{144,46}},
-                    lineColor={0,0,0},
-                    textString="%name")}), Documentation(info="<html>
-<p>
-Obsolete block that was previously used to connect a Boolean signal
-in a connector to an input of a block. This block is only provided for
-backward compatibility.
-</p>
-
-<p>
-It is much more convenient and more powerful to use \"expandable connectors\"
-for signal buses, see example
-<a href=\"modelica://Modelica.Blocks.Examples.BusUsage\">BusUsage</a>.
-</p>
-</html>"));
-      end ReceiveBoolean;
-
-      block ReceiveInteger "Obsolete block to receive Integer signal from bus"
-        // extends Modelica.Icons.ObsoleteModel;
-        IntegerInput fromBus "To be connected with signal on bus" annotation (
-            Placement(transformation(extent={{-120,-10},{-100,10}}, rotation=0)));
-        IntegerOutput y "Output signal to be received from bus" annotation (
-            Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      equation
-        y = fromBus;
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics={Rectangle(
-                    extent={{-100,40},{100,-40}},
-                    lineColor={255,127,0},
-                    fillColor={255,255,255},
-                    fillPattern=FillPattern.Solid),Text(
-                    extent={{-100,30},{100,-30}},
-                    lineColor={255,127,0},
-                    textString="receive"),Text(
-                    extent={{-144,96},{144,46}},
-                    lineColor={0,0,0},
-                    textString="%name")}), Documentation(info="<html>
-<p>
-Obsolete block that was previously used to connect an Integer signal
-in a connector to an input of a block. This block is only provided for
-backward compatibility.
-</p>
-
-<p>
-It is much more convenient and more powerful to use \"expandable connectors\"
-for signal buses, see example
-<a href=\"modelica://Modelica.Blocks.Examples.BusUsage\">BusUsage</a>.
-</p>
-</html>"));
-      end ReceiveInteger;
-
-      annotation (Documentation(info="<html>
-<p>
-The components of this package should no longer be used.
-They are only provided for backward compatibility.
-It is much more convenient and more powerful to use \"expandable connectors\"
-for signal buses, see example
-<a href=\"modelica://Modelica.Blocks.Examples.BusUsage\">BusUsage</a>.
-</p>
-</html>"));
-    end Adaptors;
-
-    partial block PartialConversionBlock
-      "Partial block defining the interface for conversion blocks"
-
-      RealInput u "Connector of Real input signal to be converted" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      RealOutput y
-        "Connector of Real output signal containing input signal u in another unit"
-        annotation (Placement(transformation(extent={{100,-10},{120,10}},
-              rotation=0)));
-      annotation (
-        Icon(
-          coordinateSystem(preserveAspectRatio=true,
-            extent={{-100.0,-100.0},{100.0,100.0}},
-            initialScale=0.1),
-            graphics={
-          Rectangle(
-            lineColor={0,0,127},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
-            extent={{-100.0,-100.0},{100.0,100.0}}),
-          Line(
-            points={{-90.0,0.0},{30.0,0.0}},
-            color={191,0,0}),
-          Polygon(
-            lineColor={191,0,0},
-            fillColor={191,0,0},
-            fillPattern=FillPattern.Solid,
-            points={{90.0,0.0},{30.0,20.0},{30.0,-20.0},{90.0,0.0}}),
-          Text(
-            lineColor={0,0,255},
-            extent={{-115.0,105.0},{115.0,155.0}},
-            textString="%name")}), Documentation(info="<html>
-<p>
-This block defines the interface of a conversion block that
-converts from one unit into another one.
-</p>
-
-</html>"));
-
-    end PartialConversionBlock;
-
-    partial block BlockIcon
-      "This icon will be removed in future Modelica versions, use Modelica.Blocks.Icons.Block instead."
-      // extends Modelica.Icons.ObsoleteModel;
-
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Rectangle(
-              extent={{-100,-100},{100,100}},
-              lineColor={0,0,127},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid), Text(
-              extent={{-150,150},{150,110}},
-              textString="%name",
-              lineColor={0,0,255})}), Documentation(info="<html>
-<p>
-This icon will be removed in future versions of the Modelica Standard Library.
-Instead the icon <a href=\"modelica://Modelica.Blocks.Icons.Block\">Modelica.Blocks.Icons.Block</a> shall be used.
-</p>
-</html>"));
-
-    end BlockIcon;
-
-    partial block BooleanBlockIcon
-      "This icon will be removed in future Modelica versions, use Modelica.Blocks.Icons.BooleanBlock instead."
-      // extends Modelica.Icons.ObsoleteModel;
-
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Rectangle(
-              extent={{-100,-100},{100,100}},
-              lineColor={255,0,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid), Text(
-              extent={{-150,150},{150,110}},
-              textString="%name",
-              lineColor={0,0,255})}), Documentation(info="<html>
-<p>
-This icon will be removed in future versions of the Modelica Standard Library.
-Instead the icon <a href=\"modelica://Modelica.Blocks.Icons.BooleanBlock\">Modelica.Blocks.Icons.BooleanBlock</a> shall be used.
-</p>
-</html>"));
-
-    end BooleanBlockIcon;
-
-    partial block DiscreteBlockIcon
-      "This icon will be removed in future Modelica versions, use Modelica.Blocks.Icons.DiscreteBlock instead."
-      // extends Modelica.Icons.ObsoleteModel;
-
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Rectangle(
-              extent={{-100,-100},{100,100}},
-              lineColor={0,0,127},
-              lineThickness=5.0,
-              fillColor={223,211,169},
-              fillPattern=FillPattern.Solid,
-              borderPattern=BorderPattern.Raised), Text(
-              extent={{-150,150},{150,110}},
-              textString="%name",
-              lineColor={0,0,255})}), Documentation(info="<html>
-<p>
-This icon will be removed in future versions of the Modelica Standard Library.
-Instead the icon <a href=\"modelica://Modelica.Blocks.Icons.DiscreteBlock\">Modelica.Blocks.Icons.DiscreteBlock</a> shall be used.
-</p>
-</html>"));
-    end DiscreteBlockIcon;
-
-    partial block IntegerBlockIcon
-      "This icon will be removed in future Modelica versions, use Modelica.Blocks.Icons.IntegerBlock instead."
-      // extends Modelica.Icons.ObsoleteModel;
-
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Rectangle(
-              extent={{-100,-100},{100,100}},
-              lineColor={255,127,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid), Text(
-              extent={{-150,150},{150,110}},
-              textString="%name",
-              lineColor={0,0,255})}), Documentation(info="<html>
-<p>
-This icon will be removed in future versions of the Modelica Standard Library.
-Instead the icon <a href=\"modelica://Modelica.Blocks.Icons.IntegerBlock\">Modelica.Blocks.Icons.IntegerBlock</a> shall be used.
-</p>
-</html>"));
-    end IntegerBlockIcon;
-
-    partial block partialBooleanBlockIcon
-      "This icon will be removed in future Modelica versions, use Modelica.Blocks.Icons.PartialBooleanBlock instead."
-      // extends Modelica.Icons.ObsoleteModel;
-
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              lineThickness=5.0,
-              fillColor={210,210,210},
-              fillPattern=FillPattern.Solid,
-              borderPattern=BorderPattern.Raised), Text(
-              extent={{-150,150},{150,110}},
-              textString="%name",
-              lineColor={0,0,255})}), Documentation(info="<html>
-<p>
-This icon will be removed in future versions of the Modelica Standard Library.
-Instead the icon <a href=\"modelica://Modelica.Blocks.Icons.PartialBooleanBlock\">Modelica.Blocks.Icons.PartialBooleanBlock</a> shall be used.
-</p>
-</html>"));
-    end partialBooleanBlockIcon;
-    annotation (Documentation(info="<HTML>
-<p>
-This package contains interface definitions for
-<b>continuous</b> input/output blocks with Real,
-Integer and Boolean signals. Furthermore, it contains
-partial models for continuous and discrete blocks.
-</p>
-
-</html>",   revisions="<html>
-<ul>
-<li><i>Oct. 21, 2002</i>
-       by <a href=\"http://www.robotic.dlr.de/Martin.Otter/\">Martin Otter</a>
-       and <a href=\"http://www.robotic.dlr.de/Christian.Schweiger/\">Christian Schweiger</a>:<br>
-       Added several new interfaces.
-<li><i>Oct. 24, 1999</i>
-       by <a href=\"http://www.robotic.dlr.de/Martin.Otter/\">Martin Otter</a>:<br>
-       RealInputSignal renamed to RealInput. RealOutputSignal renamed to
-       output RealOutput. GraphBlock renamed to BlockIcon. SISOreal renamed to
-       SISO. SOreal renamed to SO. I2SOreal renamed to M2SO.
-       SignalGenerator renamed to SignalSource. Introduced the following
-       new models: MIMO, MIMOs, SVcontrol, MVcontrol, DiscreteBlockIcon,
-       DiscreteBlock, DiscreteSISO, DiscreteMIMO, DiscreteMIMOs,
-       BooleanBlockIcon, BooleanSISO, BooleanSignalSource, MI2BooleanMOs.</li>
-<li><i>June 30, 1999</i>
-       by <a href=\"http://www.robotic.dlr.de/Martin.Otter/\">Martin Otter</a>:<br>
-       Realized a first version, based on an existing Dymola library
-       of Dieter Moormann and Hilding Elmqvist.</li>
-</ul>
-</html>"));
-  end Interfaces;
 
   package Logical "Library of components with Boolean input and output signals"
     extends Modelica_Icons.Package;
 
     block And "Logical 'and': y = u1 and u2"
-      extends Interfaces.partialBooleanSI2SO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSI2SO;
     equation
       y = u1 and u2;
       annotation (
@@ -7294,7 +5588,7 @@ the output is <b>false</b>.
     end And;
 
     block Or "Logical 'or': y = u1 or u2"
-      extends Interfaces.partialBooleanSI2SO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSI2SO;
     equation
       y = u1 or u2;
       annotation (
@@ -7313,7 +5607,7 @@ the output is <b>false</b>.
     end Or;
 
     block Xor "Logical 'xor': y = u1 xor u2"
-      extends Interfaces.partialBooleanSI2SO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSI2SO;
     equation
       y = not ((u1 and u2) or (not u1 and not u2));
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -7329,7 +5623,7 @@ the output is <b>false</b>.
     end Xor;
 
     block Nor "Logical 'nor': y = not (u1 or u2)"
-      extends Interfaces.partialBooleanSI2SO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSI2SO;
     equation
       y = not (u1 or u2);
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -7345,7 +5639,7 @@ the output is <b>false</b>.
     end Nor;
 
     block Nand "Logical 'nand': y = not (u1 and u2)"
-      extends Interfaces.partialBooleanSI2SO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSI2SO;
     equation
       y = not (u1 and u2);
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -7361,7 +5655,7 @@ the output is <b>false</b>.
     end Nand;
 
     block Not "Logical 'not': y = not u"
-      extends Interfaces.partialBooleanSISO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSISO;
 
     equation
       y = not u;
@@ -7385,7 +5679,7 @@ the output is <b>false</b>.
 
       parameter Boolean pre_u_start=false
         "Start value of pre(u) at initial time";
-      extends Interfaces.partialBooleanSISO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSISO;
 
     initial equation
       pre(u) = pre_u_start;
@@ -7419,7 +5713,7 @@ values are identical (u = pre(u)).
 
       parameter Boolean pre_u_start=false
         "Start value of pre(u) at initial time";
-      extends Interfaces.partialBooleanSISO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSISO;
 
     initial equation
       pre(u) = pre_u_start;
@@ -7446,7 +5740,7 @@ the output is <b>false</b>.
 
       parameter Boolean pre_u_start=false
         "Start value of pre(u) at initial time";
-      extends Interfaces.partialBooleanSISO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSISO;
 
     protected
       Boolean not_u=not u;
@@ -7472,7 +5766,7 @@ the output is <b>false</b>.
 
       parameter Boolean pre_u_start=false
         "Start value of pre(u) at initial time";
-      extends Interfaces.partialBooleanSISO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSISO;
 
     initial equation
       pre(u) = pre_u_start;
@@ -7497,7 +5791,7 @@ the output is <b>false</b>.
 
     block GreaterThreshold
       "Output y is true, if input u is greater than threshold"
-      extends Interfaces.partialBooleanThresholdComparison;
+      extends Modelica_Blocks_Interfaces.partialBooleanThresholdComparison;
     equation
       y = u > threshold;
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -7516,7 +5810,7 @@ the output is <b>false</b>.
     block GreaterEqualThreshold
       "Output y is true, if input u is greater or equal than threshold"
 
-      extends Interfaces.partialBooleanThresholdComparison;
+      extends Modelica_Blocks_Interfaces.partialBooleanThresholdComparison;
     equation
       y = u >= threshold;
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -7534,7 +5828,7 @@ the output is <b>false</b>.
 
     block LessThreshold "Output y is true, if input u is less than threshold"
 
-      extends Interfaces.partialBooleanThresholdComparison;
+      extends Modelica_Blocks_Interfaces.partialBooleanThresholdComparison;
     equation
       y = u < threshold;
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -7552,7 +5846,7 @@ the output is <b>false</b>.
 
     block LessEqualThreshold
       "Output y is true, if input u is less or equal than threshold"
-      extends Interfaces.partialBooleanThresholdComparison;
+      extends Modelica_Blocks_Interfaces.partialBooleanThresholdComparison;
     equation
       y = u <= threshold;
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -7569,7 +5863,7 @@ the output is <b>false</b>.
     end LessEqualThreshold;
 
     block Greater "Output y is true, if input u1 is greater than input u2"
-      extends Interfaces.partialBooleanComparison;
+      extends Modelica_Blocks_Interfaces.partialBooleanComparison;
 
     equation
       y = u1 > u2;
@@ -7591,7 +5885,7 @@ Real input u2, otherwise the output is <b>false</b>.
 
     block GreaterEqual
       "Output y is true, if input u1 is greater or equal than input u2"
-      extends Interfaces.partialBooleanComparison;
+      extends Modelica_Blocks_Interfaces.partialBooleanComparison;
 
     equation
       y = u1 >= u2;
@@ -7617,7 +5911,7 @@ Real input u2, otherwise the output is <b>false</b>.
     end GreaterEqual;
 
     block Less "Output y is true, if input u1 is less than input u2"
-      extends Interfaces.partialBooleanComparison;
+      extends Modelica_Blocks_Interfaces.partialBooleanComparison;
 
     equation
       y = u1 < u2;
@@ -7639,7 +5933,7 @@ Real input u2, otherwise the output is <b>false</b>.
 
     block LessEqual
       "Output y is true, if input u1 is less or equal than input u2"
-      extends Interfaces.partialBooleanComparison;
+      extends Modelica_Blocks_Interfaces.partialBooleanComparison;
 
     equation
       y = u1 <= u2;
@@ -7665,10 +5959,10 @@ Real input u2, otherwise the output is <b>false</b>.
     end LessEqual;
 
     block ZeroCrossing "Trigger zero crossing of input u"
-      extends Interfaces.partialBooleanSO;
-      Interfaces.RealInput u annotation (Placement(transformation(extent={{-140,
-                -20},{-100,20}}, rotation=0)));
-      Interfaces.BooleanInput enable
+      extends Modelica_Blocks_Interfaces.partialBooleanSO;
+      Modelica_Blocks_Interfaces.RealInput u annotation (Placement(
+            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+      Modelica_Blocks_Interfaces.BooleanInput enable
         "Zero input crossing is triggered if the enable input signal is true"
         annotation (Placement(transformation(
             origin={0,-120},
@@ -7730,7 +6024,7 @@ component <i>ModelicaAdditions.Blocks.Discrete.TriggeredSampler</i>.
     end ZeroCrossing;
 
     block LogicalSwitch "Logical Switch"
-      extends Interfaces.partialBooleanSI3SO;
+      extends Modelica_Blocks_Interfaces.partialBooleanSI3SO;
 
     equation
       y = if u2 then u1 else u3;
@@ -7770,17 +6064,18 @@ u1, else it is set equal to u3.</p>
 
     block Switch "Switch between two Real signals"
       extends Modelica_Blocks.Icons.PartialBooleanBlock;
-      Interfaces.RealInput u1 "Connector of first Real input signal"
-        annotation (Placement(transformation(extent={{-140,60},{-100,100}},
+      Modelica_Blocks_Interfaces.RealInput u1
+        "Connector of first Real input signal" annotation (Placement(
+            transformation(extent={{-140,60},{-100,100}}, rotation=0)));
+      Modelica_Blocks_Interfaces.BooleanInput u2
+        "Connector of Boolean input signal" annotation (Placement(
+            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput u3
+        "Connector of second Real input signal" annotation (Placement(
+            transformation(extent={{-140,-100},{-100,-60}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y "Connector of Real output signal"
+        annotation (Placement(transformation(extent={{100,-10},{120,10}},
               rotation=0)));
-      Interfaces.BooleanInput u2 "Connector of Boolean input signal"
-        annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-              rotation=0)));
-      Interfaces.RealInput u3 "Connector of second Real input signal"
-        annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
-              rotation=0)));
-      Interfaces.RealOutput y "Connector of Real output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
     equation
       y = if u2 then u1 else u3;
@@ -7824,10 +6119,10 @@ u1, else it is set equal to u3.</p>
       parameter Real uHigh(start=1) "if y=false and u>=uHigh, switch to y=true";
       parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
-      Interfaces.RealInput u annotation (Placement(transformation(extent={{-140,
-                -20},{-100,20}}, rotation=0)));
-      Interfaces.BooleanOutput y annotation (Placement(transformation(extent={{
-                100,-10},{120,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput u annotation (Placement(
+            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+      Modelica_Blocks_Interfaces.BooleanOutput y annotation (Placement(
+            transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
     initial equation
       pre(y) = pre_y_start;
@@ -7946,13 +6241,13 @@ The default value of this parameter is <b>false</b>.
 
     block OnOffController "On-off controller"
       extends Modelica_Blocks.Icons.PartialBooleanBlock;
-      Interfaces.RealInput reference
+      Modelica_Blocks_Interfaces.RealInput reference
         "Connector of Real input signal used as reference signal" annotation (
           Placement(transformation(extent={{-140,80},{-100,40}}, rotation=0)));
-      Interfaces.RealInput u
-        "Connector of Real input signal used as measurement signal" annotation (
-         Placement(transformation(extent={{-140,-40},{-100,-80}}, rotation=0)));
-      Interfaces.BooleanOutput y
+      Modelica_Blocks_Interfaces.RealInput u
+        "Connector of Real input signal used as measurement signal" annotation
+        (Placement(transformation(extent={{-140,-40},{-100,-80}}, rotation=0)));
+      Modelica_Blocks_Interfaces.BooleanOutput y
         "Connector of Real output signal used as actuator signal" annotation (
           Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
@@ -7998,10 +6293,12 @@ signal <b>u</b> exceeds the <b>reference</b> signal plus half of the bandwidth.<
         "Falling duration of trapezoid";
       parameter Real offset=0 "Offset of output signal";
 
-      Interfaces.BooleanInput u "Connector of Boolean input signal" annotation (
-         Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Interfaces.RealOutput y "Connector of Real output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.BooleanInput u
+        "Connector of Boolean input signal" annotation (Placement(
+            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y "Connector of Real output signal"
+        annotation (Placement(transformation(extent={{100,-10},{120,10}},
+              rotation=0)));
 
     protected
       discrete Real endValue "Value of y at time of recent edge";
@@ -8154,10 +6451,12 @@ handled properly.</p>
       "Timer measuring the time from the time instant where the Boolean input became true"
 
       extends Modelica_Blocks.Icons.PartialBooleanBlock;
-      Interfaces.BooleanInput u "Connector of Boolean input signal" annotation (
-         Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Interfaces.RealOutput y "Connector of Real output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.BooleanInput u
+        "Connector of Boolean input signal" annotation (Placement(
+            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y "Connector of Real output signal"
+        annotation (Placement(transformation(extent={{100,-10},{120,10}},
+              rotation=0)));
 
     protected
       discrete Modelica_SIunits.Time entryTime
@@ -8232,9 +6531,9 @@ input becomes false.
     block RSFlipFlop "A basic RS Flip Flop"
       extends Modelica_Blocks.Icons.PartialBooleanBlock;
       parameter Boolean Qini=false "Start value of Q at initial time";
-      Modelica_Blocks.Interfaces.BooleanOutput Q annotation (Placement(
+      Modelica_Blocks_Interfaces.BooleanOutput Q annotation (Placement(
             transformation(extent={{100,50},{120,70}}, rotation=0)));
-      Modelica_Blocks.Interfaces.BooleanOutput QI annotation (Placement(
+      Modelica_Blocks_Interfaces.BooleanOutput QI annotation (Placement(
             transformation(extent={{100,-70},{120,-50}}, rotation=0)));
       Modelica_Blocks.Logical.Nor nor annotation (Placement(transformation(
               extent={{-20,20},{0,40}}, rotation=0)));
@@ -8242,9 +6541,9 @@ input becomes false.
               extent={{-20,-20},{0,0}}, rotation=0)));
       Modelica_Blocks.Logical.Pre pre(pre_u_start=not (Qini)) annotation (
           Placement(transformation(extent={{10,20},{30,40}}, rotation=0)));
-      Modelica_Blocks.Interfaces.BooleanInput S
+      Modelica_Blocks_Interfaces.BooleanInput S
         annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-      Modelica_Blocks.Interfaces.BooleanInput R
+      Modelica_Blocks_Interfaces.BooleanInput R
         annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
     equation
       connect(nor1.y, nor.u2) annotation (Line(points={{1,-10},{40,-10},{40,-40},
@@ -8320,7 +6619,7 @@ The output <code>Q</code> is set by the input <code>S</code> and reset by the in
 
     block TerminateSimulation "Terminate simulation if condition is fulfilled"
 
-      Modelica_Blocks.Interfaces.BooleanOutput condition=false
+      Modelica_Blocks_Interfaces.BooleanOutput condition=false
         "Terminate simulation when condition becomes true" annotation (Dialog,
           Placement(transformation(extent={{200,-10},{220,10}}, rotation=0)));
       parameter String terminationText="... End condition reached"
@@ -8392,7 +6691,8 @@ values are visualized in a diagram animation.
 
   package Math "Library of Real mathematical functions as input/output blocks"
     import SIunits = Modelica_SIunits;
-    import Modelica_Blocks.Interfaces;
+    import Interfaces =
+           Modelica_Blocks_Interfaces;
     extends Modelica_Icons.Package;
 
     encapsulated package UnitConversions
@@ -8401,10 +6701,11 @@ values are visualized in a diagram animation.
       import NonSI = Modelica_SIunits.Conversions.NonSIunits;
       import Modelica_Icons;
       import Modelica_SIunits;
+      import Modelica_Blocks_Interfaces;
       extends Modelica_Icons.Package;
 
       block To_degC "Convert from Kelvin to degCelsius"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="K"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="K"), y(
               unit="degC"));
 
       equation
@@ -8425,7 +6726,7 @@ the result as output signal.
       end To_degC;
 
       block From_degC "Convert from degCelsius to Kelvin"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="degC"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="degC"),
             y(unit="K"));
       equation
         y =Modelica_SIunits.Conversions.from_degC(u);
@@ -8445,7 +6746,7 @@ the result as output signal.
       end From_degC;
 
       block To_degF "Convert from Kelvin to degFahrenheit"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="K"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="K"), y(
               unit="degF"));
       equation
         y =Modelica_SIunits.Conversions.to_degF(u);
@@ -8465,7 +6766,7 @@ the result as output signal.
       end To_degF;
 
       block From_degF "Convert from degFahrenheit to Kelvin"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="degF"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="degF"),
             y(unit="K"));
       equation
         y =Modelica_SIunits.Conversions.from_degF(u);
@@ -8485,7 +6786,7 @@ the result as output signal.
       end From_degF;
 
       block To_degRk "Convert from Kelvin to degRankine"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="K"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="K"), y(
               unit="degRk"));
       equation
         y =Modelica_SIunits.Conversions.to_degRk(u);
@@ -8505,7 +6806,7 @@ the result as output signal.
       end To_degRk;
 
       block From_degRk "Convert from degRankine to Kelvin"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="degRk"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="degRk"),
             y(unit="K"));
       equation
         y =Modelica_SIunits.Conversions.from_degRk(u);
@@ -8525,7 +6826,7 @@ the result as output signal.
       end From_degRk;
 
       block To_deg "Convert from radian to degree"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="rad"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="rad"),
             y(unit="deg"));
       equation
         y =Modelica_SIunits.Conversions.to_deg(u);
@@ -8545,7 +6846,7 @@ the result as output signal.
       end To_deg;
 
       block From_deg "Convert from degree to radian"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="deg"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="deg"),
             y(unit="rad"));
       equation
         y =Modelica_SIunits.Conversions.from_deg(u);
@@ -8565,7 +6866,7 @@ the result as output signal.
       end From_deg;
 
       block To_rpm "Convert from radian per second to revolutions per minute"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="rad/s"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="rad/s"),
             y(unit="1/min"));
       equation
         y =Modelica_SIunits.Conversions.to_rpm(u);
@@ -8585,7 +6886,7 @@ the result as output signal.
       end To_rpm;
 
       block From_rpm "Convert from revolutions per minute to radian per second"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="1/min"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="1/min"),
             y(unit="rad/s"));
       equation
         y =Modelica_SIunits.Conversions.from_rpm(u);
@@ -8605,7 +6906,7 @@ the result as output signal.
       end From_rpm;
 
       block To_kmh "Convert from metre per second to kilometre per hour"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="m/s"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="m/s"),
             y(unit="km/h"));
       equation
         y =Modelica_SIunits.Conversions.to_kmh(u);
@@ -8625,7 +6926,7 @@ the result as output signal.
       end To_kmh;
 
       block From_kmh "Convert from kilometre per hour to metre per second"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="km/h"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="km/h"),
             y(unit="m/s"));
       equation
         y =Modelica_SIunits.Conversions.from_kmh(u);
@@ -8645,7 +6946,7 @@ the result as output signal.
       end From_kmh;
 
       block To_day "Convert from second to day"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="s"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="s"), y(
               unit="d"));
       equation
         y =Modelica_SIunits.Conversions.to_day(u);
@@ -8665,7 +6966,7 @@ the result as output signal.
       end To_day;
 
       block From_day "Convert from day to second"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="d"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="d"), y(
               unit="s"));
       equation
         y =Modelica_SIunits.Conversions.from_day(u);
@@ -8685,7 +6986,7 @@ the result as output signal.
       end From_day;
 
       block To_hour "Convert from second to hour"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="s"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="s"), y(
               unit="h"));
       equation
         y =Modelica_SIunits.Conversions.to_hour(u);
@@ -8705,7 +7006,7 @@ the result as output signal.
       end To_hour;
 
       block From_hour "Convert from hour to second"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="h"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="h"), y(
               unit="s"));
       equation
         y =Modelica_SIunits.Conversions.from_hour(u);
@@ -8725,7 +7026,7 @@ the result as output signal.
       end From_hour;
 
       block To_minute "Convert from second to minute"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="s"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="s"), y(
               unit="min"));
       equation
         y =Modelica_SIunits.Conversions.to_minute(u);
@@ -8745,7 +7046,7 @@ the result as output signal.
       end To_minute;
 
       block From_minute "Convert from minute to second"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="min"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="min"),
             y(unit="s"));
       equation
         y =Modelica_SIunits.Conversions.from_minute(u);
@@ -8765,7 +7066,7 @@ the result as output signal.
       end From_minute;
 
       block To_litre "Convert from cubic metre to litre"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="m3"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="m3"), y(
               unit="l"));
       equation
         y =Modelica_SIunits.Conversions.to_litre(u);
@@ -8785,7 +7086,7 @@ the result as output signal.
       end To_litre;
 
       block From_litre "Convert from litre to cubic metre"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="l"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="l"), y(
               unit="m3"));
       equation
         y =Modelica_SIunits.Conversions.from_litre(u);
@@ -8805,7 +7106,7 @@ the result as output signal.
       end From_litre;
 
       block To_kWh "Convert from Joule to kilo Watt hour"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="J"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="J"), y(
               unit="kW.h"));
       equation
         y =Modelica_SIunits.Conversions.to_kWh(u);
@@ -8825,7 +7126,7 @@ the result as output signal.
       end To_kWh;
 
       block From_kWh "Convert from kilo Watt hour to Joule"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="kW.h"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="kW.h"),
             y(unit="J"));
       equation
         y =Modelica_SIunits.Conversions.from_kWh(u);
@@ -8845,7 +7146,7 @@ the result as output signal.
       end From_kWh;
 
       block To_bar "Convert from Pascal to bar"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="Pa"), y(
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="Pa"), y(
               unit="bar"));
       equation
         y =Modelica_SIunits.Conversions.to_bar(u);
@@ -8865,7 +7166,7 @@ the result as output signal.
       end To_bar;
 
       block From_bar "Convert from bar to Pascal"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="bar"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="bar"),
             y(unit="Pa"));
       equation
         y =Modelica_SIunits.Conversions.from_bar(u);
@@ -8885,7 +7186,7 @@ the result as output signal.
       end From_bar;
 
       block To_gps "Convert from kilogram per second to gram per second"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="kg/s"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="kg/s"),
             y(unit="g/s"));
       equation
         y =Modelica_SIunits.Conversions.to_gps(u);
@@ -8905,7 +7206,7 @@ the result as output signal.
       end To_gps;
 
       block From_gps "Convert from gram per second to kilogram per second"
-        extends .Modelica_Blocks.Interfaces.PartialConversionBlock(   u(unit="g/s"),
+        extends Modelica_Blocks_Interfaces.PartialConversionBlock(    u(unit="g/s"),
             y(unit="kg/s"));
       equation
         y =Modelica_SIunits.Conversions.from_gps(u);
@@ -8936,16 +7237,16 @@ with a specific unit to an output signal in another unit
     block InverseBlockConstraints
       "Construct inverse model by requiring that two inputs and two outputs are identical (replaces the previously, unbalanced, TwoInputs and TwoOutputs blocks)"
 
-      Modelica_Blocks.Interfaces.RealInput u1 "Input signal 1 (u1 = u2)"
+      Modelica_Blocks_Interfaces.RealInput u1 "Input signal 1 (u1 = u2)"
         annotation (Placement(transformation(extent={{-240,-20},{-200,20}},
               rotation=0), iconTransformation(extent={{-240,-20},{-200,20}})));
-      Modelica_Blocks.Interfaces.RealInput u2 "Input signal 2 (u1 = u2)"
+      Modelica_Blocks_Interfaces.RealInput u2 "Input signal 2 (u1 = u2)"
         annotation (Placement(transformation(extent={{-140,-20},{-180,20}},
               rotation=0), iconTransformation(extent={{-140,-20},{-180,20}})));
-      Modelica_Blocks.Interfaces.RealOutput y1 "Output signal 1 (y1 = y2)"
+      Modelica_Blocks_Interfaces.RealOutput y1 "Output signal 1 (y1 = y2)"
         annotation (Placement(transformation(extent={{200,-10},{220,10}},
               rotation=0), iconTransformation(extent={{200,-10},{220,10}})));
-      Modelica_Blocks.Interfaces.RealOutput y2 "Output signal 2 (y2 = y2)"
+      Modelica_Blocks_Interfaces.RealOutput y2 "Output signal 2 (y2 = y2)"
         annotation (Placement(transformation(
             extent={{10,-10},{-10,10}},
             rotation=0,
@@ -8994,10 +7295,12 @@ instances:
       parameter Real k(start=1, unit="1")
         "Gain value multiplied with input signal";
     public
-      Interfaces.RealInput u "Input signal connector" annotation (Placement(
-            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Interfaces.RealOutput y "Output signal connector" annotation (Placement(
-            transformation(extent={{100,-10},{120,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput u "Input signal connector"
+        annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
+              rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y "Output signal connector"
+        annotation (Placement(transformation(extent={{100,-10},{120,10}},
+              rotation=0)));
 
     equation
       y = k*u;
@@ -9044,7 +7347,8 @@ input <i>u</i>:
 
       parameter Real K[:, :]=[1, 0; 0, 1]
         "Gain matrix which is multiplied with the input";
-      extends Interfaces.MIMO(final nin=size(K, 2), final nout=size(K, 1));
+      extends Modelica_Blocks_Interfaces.MIMO(
+                              final nin=size(K, 2), final nout=size(K, 1));
     equation
       y = K*u;
       annotation (
@@ -9090,7 +7394,7 @@ Example:
     end MatrixGain;
 
     block MultiSum "Sum of Reals: y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
-      extends Modelica_Blocks.Interfaces.PartialRealMISO;
+      extends Modelica_Blocks_Interfaces.PartialRealMISO;
       parameter Real k[nu]=fill(1, nu) "Input gains";
     equation
       if size(u, 1) > 0 then
@@ -9140,7 +7444,7 @@ the output is set to zero: y=0.
     end MultiSum;
 
     block MultiProduct "Product of Reals: y = u[1]*u[2]* ... *u[n]"
-      extends Modelica_Blocks.Interfaces.PartialRealMISO;
+      extends Modelica_Blocks_Interfaces.PartialRealMISO;
     equation
       if size(u, 1) > 0 then
         y = product(u);
@@ -9197,10 +7501,10 @@ the output is set to zero: y=0.
         "Number of significant digits to be shown in dynamic diagram layer for y"
         annotation (Dialog(tab="Advanced"));
 
-      Modelica_Blocks.Interfaces.BooleanVectorInput u[nu]
+      Modelica_Blocks_Interfaces.BooleanVectorInput u[nu]
         "Set y = expr[i], if u[i] = true"
         annotation (Placement(transformation(extent={{-110,30},{-90,-30}})));
-      Modelica_Blocks.Interfaces.RealOutput y "Output depending on expression"
+      Modelica_Blocks_Interfaces.RealOutput y "Output depending on expression"
         annotation (Placement(transformation(extent={{300,-10},{320,10}})));
 
     protected
@@ -9273,7 +7577,7 @@ The usage is demonstrated, e.g., in example
     end MultiSwitch;
 
     block Sum "Output the sum of the elements of the input vector"
-      extends Interfaces.MISO;
+      extends Modelica_Blocks_Interfaces.MISO;
       parameter Real k[nin]=ones(nin) "Optional: sum coefficients";
     equation
       y = k*u;
@@ -9321,14 +7625,15 @@ Example:
 
     block Feedback "Output difference between commanded and feedback input"
 
-      Interfaces.RealInput u1 annotation (Placement(transformation(extent={{-100,
-                -20},{-60,20}}, rotation=0)));
-      Interfaces.RealInput u2 annotation (Placement(transformation(
+      Modelica_Blocks_Interfaces.RealInput u1 annotation (Placement(
+            transformation(extent={{-100,-20},{-60,20}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput u2 annotation (Placement(
+            transformation(
             origin={0,-80},
             extent={{-20,-20},{20,20}},
             rotation=90)));
-      Interfaces.RealOutput y annotation (Placement(transformation(extent={{80,-10},
-                {100,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y annotation (Placement(
+            transformation(extent={{80,-10},{100,10}}, rotation=0)));
 
     equation
       y = u1 - u2;
@@ -9387,7 +7692,7 @@ Example:
     end Feedback;
 
     block Add "Output the sum of the two inputs"
-      extends Interfaces.SI2SO;
+      extends Modelica_Blocks_Interfaces.SI2SO;
 
       parameter Real k1=+1 "Gain of upper input";
       parameter Real k2=+1 "Gain of lower input";
@@ -9457,14 +7762,18 @@ Example:
       parameter Real k1=+1 "Gain of upper input";
       parameter Real k2=+1 "Gain of middle input";
       parameter Real k3=+1 "Gain of lower input";
-      Interfaces.RealInput u1 "Connector 1 of Real input signals" annotation (
-          Placement(transformation(extent={{-140,60},{-100,100}}, rotation=0)));
-      Interfaces.RealInput u2 "Connector 2 of Real input signals" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Interfaces.RealInput u3 "Connector 3 of Real input signals" annotation (
-          Placement(transformation(extent={{-140,-100},{-100,-60}}, rotation=0)));
-      Interfaces.RealOutput y "Connector of Real output signals" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput u1
+        "Connector 1 of Real input signals" annotation (Placement(
+            transformation(extent={{-140,60},{-100,100}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput u2
+        "Connector 2 of Real input signals" annotation (Placement(
+            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput u3
+        "Connector 3 of Real input signals" annotation (Placement(
+            transformation(extent={{-140,-100},{-100,-60}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y
+        "Connector of Real output signals" annotation (Placement(transformation(
+              extent={{100,-10},{120,10}}, rotation=0)));
 
     equation
       y = k1*u1 + k2*u2 + k3*u3;
@@ -9528,7 +7837,7 @@ Example:
     end Add3;
 
     block Product "Output product of the two inputs"
-      extends Interfaces.SI2SO;
+      extends Modelica_Blocks_Interfaces.SI2SO;
 
     equation
       y = u1*u2;
@@ -9570,7 +7879,7 @@ the two inputs <b>u1</b> and <b>u2</b>:
     end Product;
 
     block Division "Output first input divided by second input"
-      extends Interfaces.SI2SO;
+      extends Modelica_Blocks_Interfaces.SI2SO;
 
     equation
       y = u1/u2;
@@ -9623,7 +7932,7 @@ the two inputs <b>u1</b> and <b>u2</b>:
     end Division;
 
     block Abs "Output the absolute value of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       parameter Boolean generateEvent=false
         "Choose whether events shall be generated" annotation (Evaluate=true);
     equation
@@ -9699,7 +8008,7 @@ The Boolean parameter generateEvent decides whether Events are generated at zero
     end Abs;
 
     block Sign "Output the sign of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       parameter Boolean generateEvent=false
         "Choose whether events shall be generated" annotation (Evaluate=true);
     equation
@@ -9780,7 +8089,7 @@ The Boolean parameter generateEvent decides whether Events are generated at zero
     end Sign;
 
     block Sqrt "Output the square root of the input (input >= 0 required)"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
     equation
       y = sqrt(u);
@@ -9848,7 +8157,7 @@ Otherwise an error occurs.
     end Sqrt;
 
     block Sin "Output the sine of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
     equation
       y = Modelica_Math.sin(u);
       annotation (
@@ -9929,7 +8238,7 @@ as <b>sine</b> of the input <b>u</b>:
     end Sin;
 
     block Cos "Output the cosine of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
     equation
       y = Modelica_Math.cos(u);
@@ -10011,7 +8320,7 @@ as <b>cos</b> of the input <b>u</b>:
     end Cos;
 
     block Tan "Output the tangent of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
     equation
       y = Modelica_Math.tan(u);
@@ -10091,7 +8400,7 @@ as <b>tan</b> of the input <b>u</b>:
     end Tan;
 
     block Asin "Output the arc sine of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
     equation
       y = Modelica_Math.asin(u);
@@ -10177,7 +8486,7 @@ Otherwise an error occurs.
     end Asin;
 
     block Acos "Output the arc cosine of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
     equation
       y = Modelica_Math.acos(u);
       annotation (
@@ -10259,7 +8568,7 @@ Otherwise an error occurs.
     end Acos;
 
     block Atan "Output the arc tangent of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
     equation
       y = Modelica_Math.atan(u);
       annotation (
@@ -10341,7 +8650,7 @@ This blocks computes the output <b>y</b> as the
     end Atan;
 
     block Atan2 "Output atan(u1/u2) of the inputs u1 and u2"
-      extends Interfaces.SI2SO;
+      extends Modelica_Blocks_Interfaces.SI2SO;
     equation
       y = Modelica_Math.atan2(u1, u2);
       annotation (
@@ -10447,7 +8756,7 @@ block <b>Atan</b> gives a solution in the range
     end Atan2;
 
     block Sinh "Output the hyperbolic sine of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
     equation
       y = Modelica_Math.sinh(u);
@@ -10530,7 +8839,7 @@ This blocks computes the output <b>y</b> as the
     end Sinh;
 
     block Cosh "Output the hyperbolic cosine of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
     equation
       y = Modelica_Math.cosh(u);
       annotation (
@@ -10612,7 +8921,7 @@ This blocks computes the output <b>y</b> as the
     end Cosh;
 
     block Tanh "Output the hyperbolic tangent of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
     equation
       y = Modelica_Math.tanh(u);
       annotation (
@@ -10694,7 +9003,7 @@ This blocks computes the output <b>y</b> as the
     end Tanh;
 
     block Exp "Output the exponential (base e) of the input"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
 
     equation
       y = Modelica_Math.exp(u);
@@ -10777,7 +9086,7 @@ This blocks computes the output <b>y</b> as the
     block Log
       "Output the natural (base e) logarithm of the input (input > 0 required)"
 
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
     equation
       y = Modelica_Math.log(u);
       annotation (
@@ -10863,7 +9172,7 @@ zero or negative.
     block Log10
       "Output the base 10 logarithm of the input (input > 0 required)"
 
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
     equation
       y = Modelica_Math.log10(u);
       annotation (
@@ -10949,10 +9258,12 @@ zero or negative.
     block RealToInteger "Convert Real to Integer signal"
       extends Modelica_Blocks.Icons.IntegerBlock;
     public
-      Interfaces.RealInput u "Connector of Real input signal" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Interfaces.IntegerOutput y "Connector of Integer output signal" annotation (
-         Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput u "Connector of Real input signal"
+        annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
+              rotation=0)));
+      Modelica_Blocks_Interfaces.IntegerOutput y
+        "Connector of Integer output signal" annotation (Placement(
+            transformation(extent={{100,-10},{120,10}}, rotation=0)));
     equation
       y = if (u > 0) then integer(floor(u + 0.5)) else integer(ceil(u - 0.5));
       annotation (Icon(coordinateSystem(
@@ -10985,10 +9296,12 @@ as <i>nearest integer value</i> of the input <b>u</b>:
 
     block IntegerToReal "Convert Integer to Real signals"
       extends Modelica_Blocks.Icons.Block;
-      Interfaces.IntegerInput u "Connector of Integer input signal" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Interfaces.RealOutput y "Connector of Real output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.IntegerInput u
+        "Connector of Integer input signal" annotation (Placement(
+            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y "Connector of Real output signal"
+        annotation (Placement(transformation(extent={{100,-10},{120,10}},
+              rotation=0)));
     equation
       y = u;
       annotation (Icon(coordinateSystem(
@@ -11021,12 +9334,13 @@ as <i>Real equivalent</i> of the Integer input <b>u</b>:
     end IntegerToReal;
 
     block BooleanToReal "Convert Boolean to Real signal"
-      extends Interfaces.partialBooleanSI;
+      extends Modelica_Blocks_Interfaces.partialBooleanSI;
       parameter Real realTrue=1.0 "Output signal for true Boolean input";
       parameter Real realFalse=0.0 "Output signal for false Boolean input";
 
-      Interfaces.RealOutput y "Connector of Real output signal" annotation (
-          Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y "Connector of Real output signal"
+        annotation (Placement(transformation(extent={{100,-10},{120,10}},
+              rotation=0)));
 
     equation
       y = if u then realTrue else realFalse;
@@ -11059,13 +9373,13 @@ and <b>realTrue</b> and <b>realFalse</b> are parameters.
     end BooleanToReal;
 
     block BooleanToInteger "Convert Boolean to Integer signal"
-      extends Interfaces.partialBooleanSI;
+      extends Modelica_Blocks_Interfaces.partialBooleanSI;
       parameter Integer integerTrue=1 "Output signal for true Boolean input";
       parameter Integer integerFalse=0 "Output signal for false Boolean input";
 
-      Interfaces.IntegerOutput y "Connector of Integer output signal"
-        annotation (Placement(transformation(extent={{100,-10},{120,10}},
-              rotation=0)));
+      Modelica_Blocks_Interfaces.IntegerOutput y
+        "Connector of Integer output signal" annotation (Placement(
+            transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
     equation
       y = if u then integerTrue else integerFalse;
@@ -11099,9 +9413,10 @@ and <b>integerTrue</b> and <b>integerFalse</b> are parameters.
 
     block RealToBoolean "Convert Real to Boolean signal"
 
-      Interfaces.RealInput u "Connector of Real input signal" annotation (
-          Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      extends Interfaces.partialBooleanSO;
+      Modelica_Blocks_Interfaces.RealInput u "Connector of Real input signal"
+        annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
+              rotation=0)));
+      extends Modelica_Blocks_Interfaces.partialBooleanSO;
       parameter Real threshold=0.5
         "Output signal y is true, if input u >= threshold";
 
@@ -11139,9 +9454,10 @@ where <b>threshold</b> is a parameter.
 
     block IntegerToBoolean "Convert Integer to Boolean signal"
 
-      Interfaces.IntegerInput u "Connector of Integer input signal" annotation (
-         Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      extends Interfaces.partialBooleanSO;
+      Modelica_Blocks_Interfaces.IntegerInput u
+        "Connector of Integer input signal" annotation (Placement(
+            transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+      extends Modelica_Blocks_Interfaces.partialBooleanSO;
       parameter Integer threshold=1
         "Output signal y is true, if input u >= threshold";
 
@@ -11180,16 +9496,16 @@ where <b>threshold</b> is a parameter.
     block RectangularToPolar
       "Convert rectangular coordinates to polar coordinates"
       extends Modelica_Blocks.Icons.Block;
-      Modelica_Blocks.Interfaces.RealInput u_re
+      Modelica_Blocks_Interfaces.RealInput u_re
         "Real part of rectangular representation" annotation (Placement(
             transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u_im
+      Modelica_Blocks_Interfaces.RealInput u_im
         "Imaginary part of rectangular representation" annotation (Placement(
             transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y_abs
+      Modelica_Blocks_Interfaces.RealOutput y_abs
         "Length of polar representation" annotation (Placement(transformation(
               extent={{100,50},{120,70}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y_arg
+      Modelica_Blocks_Interfaces.RealOutput y_arg
         "Angle of polar representation" annotation (Placement(transformation(
               extent={{100,-70},{120,-50}}, rotation=0)));
 
@@ -11230,16 +9546,16 @@ the angle <code>y_arg</code> of the polar representation of this phasor.
     block PolarToRectangular
       "Convert polar coordinates to rectangular coordinates"
       extends Modelica_Blocks.Icons.Block;
-      Modelica_Blocks.Interfaces.RealInput u_abs
+      Modelica_Blocks_Interfaces.RealInput u_abs
         "Length of polar representation" annotation (Placement(transformation(
               extent={{-140,40},{-100,80}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u_arg
+      Modelica_Blocks_Interfaces.RealInput u_arg
         "Angle of polar representation" annotation (Placement(transformation(
               extent={{-140,-80},{-100,-40}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y_re
+      Modelica_Blocks_Interfaces.RealOutput y_re
         "Real part of rectangular representation" annotation (Placement(
             transformation(extent={{100,50},{120,70}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y_im
+      Modelica_Blocks_Interfaces.RealOutput y_im
         "Imaginary part of rectangular representation" annotation (Placement(
             transformation(extent={{100,-70},{120,-50}}, rotation=0)));
 
@@ -11275,7 +9591,7 @@ This block calculates the components <code>y_re</code> and <code>y_im</code> of 
     end PolarToRectangular;
 
     block Mean "Calculate mean over period 1/f"
-      extends Modelica_Blocks.Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       parameter Modelica_SIunits.Frequency f(start=50) "Base frequency";
       parameter Real x0=0 "Start value of integrator state";
       parameter Boolean yGreaterOrEqualZero=false
@@ -11325,7 +9641,7 @@ explicitly set to 0.0, if the mean value results in a negative value.
     end Mean;
 
     block RectifiedMean "Calculate rectified mean over period 1/f"
-      extends Modelica_Blocks.Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       parameter Modelica_SIunits.Frequency f(start=50) "Base frequency";
       parameter Real x0=0 "Start value of integrator state";
       Mean mean(final f=f, final x0=x0)
@@ -11363,7 +9679,7 @@ Note: The output is updated after each period defined by 1/f.
     end RectifiedMean;
 
     block RootMeanSquare "Calculate root mean square over period 1/f"
-      extends Modelica_Blocks.Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       parameter Modelica_SIunits.Frequency f(start=50) "Base frequency";
       parameter Real x0=0 "Start value of integrator state";
       MultiProduct product(nu=2)
@@ -11442,13 +9758,14 @@ Note: The output is updated after each period defined by 1/f.
         annotation (Placement(transformation(extent={{-20,30},{0,50}})));
       Mean mean2(final f=f, final x0=x0Sin)
         annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-      Interfaces.RealInput u
+      Modelica_Blocks_Interfaces.RealInput u
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-      Interfaces.RealOutput y_rms "Root mean square of polar representation"
-        annotation (Placement(transformation(extent={{100,50},{120,70}},
-              rotation=0)));
-      Interfaces.RealOutput y_arg "Angle of polar representation" annotation (
-          Placement(transformation(extent={{100,-70},{120,-50}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y_rms
+        "Root mean square of polar representation" annotation (Placement(
+            transformation(extent={{100,50},{120,70}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y_arg
+        "Angle of polar representation" annotation (Placement(transformation(
+              extent={{100,-70},{120,-50}}, rotation=0)));
       RectangularToPolar rectangularToPolar
         annotation (Placement(transformation(extent={{40,-12},{60,8}})));
     equation
@@ -11524,7 +9841,7 @@ Note: The harmonic is defined by <code>&radic;2 rms cos(k 2 &pi; f t - arg)</cod
     end Harmonic;
 
     block Max "Pass through the largest signal"
-      extends Interfaces.SI2SO;
+      extends Modelica_Blocks_Interfaces.SI2SO;
     equation
       y = max(u1, u2);
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -11542,7 +9859,7 @@ of the two Real inputs <b>u1</b> and <b>u2</b>:
     end Max;
 
     block Min "Pass through the smallest signal"
-      extends Interfaces.SI2SO;
+      extends Modelica_Blocks_Interfaces.SI2SO;
     equation
       y = min(u1, u2);
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -11564,11 +9881,11 @@ the two Real inputs <b>u1</b> and <b>u2</b>:
       extends Modelica_Blocks.Icons.Block;
       parameter Integer nu(min=0) = 0 "Number of input connections"
         annotation (Dialog(connectorSizing=true), HideResult=true);
-      Modelica_Blocks.Interfaces.RealVectorInput u[nu]
+      Modelica_Blocks_Interfaces.RealVectorInput u[nu]
         annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
-      Modelica_Blocks.Interfaces.RealOutput yMax annotation (Placement(
+      Modelica_Blocks_Interfaces.RealOutput yMax annotation (Placement(
             transformation(extent={{100,50},{120,70}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput yMin annotation (Placement(
+      Modelica_Blocks_Interfaces.RealOutput yMin annotation (Placement(
             transformation(extent={{100,-70},{120,-50}}, rotation=0)));
     equation
       yMax = max(u);
@@ -11591,7 +9908,7 @@ provide both values as output.
     end MinMax;
 
     block LinearDependency "Output a linear combination of the two inputs"
-      extends Modelica_Blocks.Interfaces.SI2SO;
+      extends Modelica_Blocks_Interfaces.SI2SO;
       parameter Real y0=0 "Initial value";
       parameter Real k1=0 "u1 dependency";
       parameter Real k2=0 "u2 dependency";
@@ -11623,7 +9940,7 @@ Determine the linear combination of the two inputs:
     end LinearDependency;
 
     block Edge "Indicates rising edge of Boolean signal"
-      extends Interfaces.BooleanSISO;
+      extends Modelica_Blocks_Interfaces.BooleanSISO;
     equation
       y = edge(u);
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -11641,7 +9958,7 @@ when the Boolean input <b>u</b> shows a <i>rising edge</i>:
     end Edge;
 
     block BooleanChange "Indicates Boolean signal changing"
-      extends Interfaces.BooleanSISO;
+      extends Modelica_Blocks_Interfaces.BooleanSISO;
     equation
       y = change(u);
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -11660,7 +9977,7 @@ i.e., when the signal changes:
     end BooleanChange;
 
     block IntegerChange "Indicates integer signal changing"
-      extends Interfaces.IntegerSIBooleanSO;
+      extends Modelica_Blocks_Interfaces.IntegerSIBooleanSO;
     equation
       y = change(u);
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -11725,10 +10042,10 @@ connected with continuous blocks or with sampled-data blocks.
     parameter Integer nu(min=0) = 0 "Number of input connections"
             annotation(Dialog(connectorSizing=true), HideResult=true);
 
-    Modelica_Blocks.Interfaces.BooleanVectorInput u[nu]
+    Modelica_Blocks_Interfaces.BooleanVectorInput u[nu]
         "Set y = expr[i], if u[i] = true"
         annotation (Placement(transformation(extent={{-110,30},{-90,-30}})));
-    Modelica_Blocks.Interfaces.IntegerOutput y "Output depending on expression"
+    Modelica_Blocks_Interfaces.IntegerOutput y "Output depending on expression"
         annotation (Placement(transformation(extent={{300,-10},{320,10}})));
 
     protected
@@ -11809,7 +10126,7 @@ The usage is demonstrated, e.g., in example
   end MultiSwitch;
 
     block Sum "Sum of Integers: y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
-       extends Modelica_Blocks.Interfaces.PartialIntegerMISO;
+       extends Modelica_Blocks_Interfaces.PartialIntegerMISO;
        parameter Integer k[nu] = fill(1,nu) "Input gains";
     equation
       if size(u,1) > 0 then
@@ -11857,7 +10174,7 @@ the output is set to zero: y=0.
     end Sum;
 
     block Product "Product of Integer: y = u[1]*u[2]* ... *u[n]"
-       extends Modelica_Blocks.Interfaces.PartialIntegerMISO;
+       extends Modelica_Blocks_Interfaces.PartialIntegerMISO;
     equation
       if size(u,1) > 0 then
          y = product(u);
@@ -11901,7 +10218,7 @@ the output is set to zero: y=0.
 
     block TriggeredAdd
       "Add input to previous value of output, if rising edge of trigger port"
-      extends Modelica_Blocks.Interfaces.PartialIntegerSISO;
+      extends Modelica_Blocks_Interfaces.PartialIntegerSISO;
 
       parameter Boolean use_reset = false "=true, if reset port enabled"
             annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
@@ -11911,17 +10228,17 @@ the output is set to zero: y=0.
       parameter Integer y_start = 0
         "Initial and reset value of y if set port is not used";
 
-      Modelica_Blocks.Interfaces.BooleanInput trigger annotation (Placement(
+      Modelica_Blocks_Interfaces.BooleanInput trigger annotation (Placement(
             transformation(
             extent={{-20,-20},{20,20}},
             rotation=90,
             origin={-60,-120})));
-      Modelica_Blocks.Interfaces.BooleanInput reset if use_reset annotation (
+      Modelica_Blocks_Interfaces.BooleanInput reset if use_reset annotation (
           Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=90,
             origin={60,-120})));
-      Modelica_Blocks.Interfaces.IntegerInput set if use_set annotation (
+      Modelica_Blocks_Interfaces.IntegerInput set if use_set annotation (
           Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=270,
@@ -11930,9 +10247,9 @@ the output is set to zero: y=0.
             rotation=270,
             origin={28,98})));
     protected
-      Modelica_Blocks.Interfaces.BooleanOutput local_reset
+      Modelica_Blocks_Interfaces.BooleanOutput local_reset
         annotation (HideResult=true);
-      Modelica_Blocks.Interfaces.IntegerOutput local_set;
+      Modelica_Blocks_Interfaces.IntegerOutput local_set;
     initial equation
       pre(y) = y_start;
     equation
@@ -12041,10 +10358,10 @@ on <b>Integer</b> signals.
     parameter Integer nu(min=0) = 0 "Number of input connections"
             annotation(Dialog(connectorSizing=true), HideResult=true);
 
-    Modelica_Blocks.Interfaces.BooleanVectorInput u[nu]
+    Modelica_Blocks_Interfaces.BooleanVectorInput u[nu]
         "Set y = expr[i], if u[i] = true"
         annotation (Placement(transformation(extent={{-110,30},{-90,-30}})));
-    Modelica_Blocks.Interfaces.BooleanOutput y "Output depending on expression"
+    Modelica_Blocks_Interfaces.BooleanOutput y "Output depending on expression"
         annotation (Placement(transformation(extent={{300,-10},{320,10}})));
 
     protected
@@ -12122,7 +10439,7 @@ The usage is demonstrated, e.g., in example
   end MultiSwitch;
 
     block And "Logical 'and': y = u[1] and u[2] and ... and u[nu]"
-      extends Modelica_Blocks.Interfaces.PartialBooleanMISO;
+      extends Modelica_Blocks_Interfaces.PartialBooleanMISO;
 
     equation
       y = Modelica_Math.BooleanVectors.allTrue(
@@ -12158,7 +10475,7 @@ the output is set to <b>false</b>: y=false.
     end And;
 
     block Or "Logical 'or': y = u[1] or u[2] or ... or u[nu]"
-      extends Modelica_Blocks.Interfaces.PartialBooleanMISO;
+      extends Modelica_Blocks_Interfaces.PartialBooleanMISO;
 
     equation
       y = Modelica_Math.BooleanVectors.anyTrue(
@@ -12196,7 +10513,7 @@ the output is set to <b>false</b>: y=false.
 
     block Xor
       "Logical 'xor': y = oneTrue(u)  (y is true, if exactly one element of u is true, otherwise it is false)"
-      extends Modelica_Blocks.Interfaces.PartialBooleanMISO;
+      extends Modelica_Blocks_Interfaces.PartialBooleanMISO;
 
     equation
       y = Modelica_Math.BooleanVectors.oneTrue(
@@ -12233,7 +10550,7 @@ the output is set to <b>false</b>: y=false.
     end Xor;
 
     block Nand "Logical 'nand': y = not ( u[1] and u[2] and ... and u[nu] )"
-      extends Modelica_Blocks.Interfaces.PartialBooleanMISO;
+      extends Modelica_Blocks_Interfaces.PartialBooleanMISO;
 
     equation
       y = not Modelica_Math.BooleanVectors.allTrue(
@@ -12270,7 +10587,7 @@ the output is set to <b>false</b>: y=false.
     end Nand;
 
     block Nor "Logical 'nor': y = not ( u[1] or u[2] or ... or u[nu] )"
-      extends Modelica_Blocks.Interfaces.PartialBooleanMISO;
+      extends Modelica_Blocks_Interfaces.PartialBooleanMISO;
 
     equation
       y = not Modelica_Math.BooleanVectors.anyTrue(
@@ -12306,7 +10623,7 @@ the output is set to <b>false</b>: y=false.
     end Nor;
 
     block Not "Logical 'not': y = not u"
-      extends Modelica_Blocks.Interfaces.PartialBooleanSISO_small;
+      extends Modelica_Blocks_Interfaces.PartialBooleanSISO_small;
 
     equation
       y = not u;
@@ -12338,7 +10655,7 @@ The usage is demonstrated, e.g., in example
     block RisingEdge
       "Output y is true, if the input u has a rising edge, otherwise it is false (y = edge(u))"
        parameter Boolean pre_u_start = false "Value of pre(u) at initial time";
-       extends Modelica_Blocks.Interfaces.PartialBooleanSISO_small;
+       extends Modelica_Blocks_Interfaces.PartialBooleanSISO_small;
     initial equation
       pre(u) = pre_u_start;
     equation
@@ -12364,7 +10681,7 @@ The usage is demonstrated, e.g., in example
     block FallingEdge
       "Output y is true, if the input u has a falling edge, otherwise it is false (y = edge(not u))"
        parameter Boolean pre_u_start = false "Value of pre(u) at initial time";
-       extends Modelica_Blocks.Interfaces.PartialBooleanSISO_small;
+       extends Modelica_Blocks_Interfaces.PartialBooleanSISO_small;
     protected
       Boolean not_u = not u annotation(HideResult=true);
     initial equation
@@ -12392,7 +10709,7 @@ The usage is demonstrated, e.g., in example
     block ChangingEdge
       "Output y is true, if the input u has either a rising or a falling edge and otherwise it is false (y=change(u))"
        parameter Boolean pre_u_start = false "Value of pre(u) at initial time";
-       extends Modelica_Blocks.Interfaces.PartialBooleanSISO_small;
+       extends Modelica_Blocks_Interfaces.PartialBooleanSISO_small;
     initial equation
       pre(u) = pre_u_start;
     equation
@@ -12423,7 +10740,7 @@ The usage is demonstrated, e.g., in example
 
     block OnDelay
       "Delay a rising edge of the input, but do not delay a falling edge."
-          extends Modelica_Blocks.Interfaces.PartialBooleanSISO_small;
+          extends Modelica_Blocks_Interfaces.PartialBooleanSISO_small;
           parameter Modelica_SIunits.Time delayTime "Delay time";
 
     protected
@@ -12513,7 +10830,8 @@ The new features are:
 
   package Nonlinear
     "Library of discontinuous or non-differentiable algebraic control blocks"
-    import Modelica_Blocks.Interfaces;
+    import Interfaces =
+           Modelica_Blocks_Interfaces;
     extends Modelica_Icons.Package;
 
         block Limiter "Limit the range of a signal"
@@ -12525,7 +10843,7 @@ The new features are:
           parameter Boolean limitsAtInit=true
         "= false, if limits are ignored during initialization (i.e., y=u)"
             annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
-          extends Interfaces.SISO;
+          extends Modelica_Blocks_Interfaces.SISO;
 
         equation
           assert(uMax >= uMin, "Limiter: Limits must be consistent. However, uMax (=" + String(uMax) +
@@ -12619,21 +10937,19 @@ as output.
         end Limiter;
 
     block VariableLimiter "Limit the range of a signal with variable limits"
-      extends Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       parameter Boolean strict=false
         "= true, if strict limits with noEvent(..)"
         annotation (Evaluate=true, choices(checkBox=true));
       parameter Boolean limitsAtInit=true
         "= false, if limits are ignored during initialization (i.e., y=u)"
         annotation (Evaluate=true, choices(checkBox=true));
-      Interfaces.RealInput limit1
-        "Connector of Real input signal used as maximum of input u"
-                                  annotation (Placement(transformation(extent={{
-                -140,60},{-100,100}}, rotation=0)));
-      Interfaces.RealInput limit2
-        "Connector of Real input signal used as minimum of input u"
-                                  annotation (Placement(transformation(extent={{
-                -140,-100},{-100,-60}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput limit1
+        "Connector of Real input signal used as maximum of input u" annotation
+        (Placement(transformation(extent={{-140,60},{-100,100}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput limit2
+        "Connector of Real input signal used as minimum of input u" annotation
+        (Placement(transformation(extent={{-140,-100},{-100,-60}}, rotation=0)));
     protected
       Real uMax;
       Real uMin;
@@ -12741,7 +11057,7 @@ is passed as output.
     end VariableLimiter;
 
     block SlewRateLimiter "Limits the slew rate of a signal"
-      extends Modelica_Blocks.Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       import Modelica_Constants.small;
       parameter Modelica_SIunits.DampingCoefficient Rising( min= small) = 1
         "Maximum rising slew rate [+small..+inf)";
@@ -12810,7 +11126,7 @@ with derivative time constant <code>Td</code>. Smaller time constant <code>Td</c
           parameter Real uMin=-uMax "Lower limits of dead zones";
           parameter Boolean deadZoneAtInit = true
         "= false, if dead zone is ignored during initialization (i.e., y=u)";
-          extends Interfaces.SISO;
+          extends Modelica_Blocks_Interfaces.SISO;
 
         equation
           assert(uMax >= uMin, "DeadZone: Limits must be consistent. However, uMax (=" + String(uMax) +
@@ -12890,7 +11206,7 @@ function of the input with a slope of 1.
         end DeadZone;
 
     block FixedDelay "Delay block with fixed DelayTime"
-      extends Modelica_Blocks.Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       parameter Modelica_SIunits.Time delayTime(start=1)
         "Delay time of output with respect to input signal";
 
@@ -12982,7 +11298,7 @@ The Input signal is delayed by a given time instant, or more precisely:
     end FixedDelay;
 
     block PadeDelay "Pade approximation of delay block with fixed DelayTime"
-      extends Modelica_Blocks.Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       parameter Modelica_SIunits.Time delayTime(start=1)
         "Delay time of output with respect to input signal";
       parameter Integer n(min=1) = 1 "Order of Pade approximation";
@@ -13154,10 +11470,10 @@ chapter 11.9, page 412-414, Huethig Verlag Heidelberg, 1994
     end PadeDelay;
 
     block VariableDelay "Delay block with variable DelayTime"
-      extends Modelica_Blocks.Interfaces.SISO;
+      extends Modelica_Blocks_Interfaces.SISO;
       parameter Real delayMax(min=0, start=1) "maximum delay time";
 
-      Modelica_Blocks.Interfaces.RealInput delayTime annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput delayTime annotation (Placement(
             transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
     equation
       y = delay(u, delayTime, delayMax);
@@ -13281,7 +11597,7 @@ This package contains <b>discontinuous</b> and
     extends Modelica_Icons.Package;
 
     block Replicator "Signal replicator"
-      extends Modelica_Blocks.Interfaces.SIMO;
+      extends Modelica_Blocks_Interfaces.SIMO;
     equation
       y = fill(u, nout);
       annotation (
@@ -13307,10 +11623,10 @@ This block replicates the input signal to an array of <code>nout</code> identica
     block IntegerReplicator "Integer signal replicator"
       extends Modelica_Blocks.Icons.IntegerBlock;
       parameter Integer nout=1 "Number of outputs";
-      Modelica_Blocks.Interfaces.IntegerInput u
+      Modelica_Blocks_Interfaces.IntegerInput u
         "Connector of Integer input signal" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.IntegerOutput y[nout]
+      Modelica_Blocks_Interfaces.IntegerOutput y[nout]
         "Connector of Integer output signals" annotation (Placement(
             transformation(extent={{100,-10},{120,10}}, rotation=0)));
     equation
@@ -13339,10 +11655,10 @@ This block replicates the Integer input signal to an array of <code>nout</code> 
     block BooleanReplicator "Boolean signal replicator"
       extends Modelica_Blocks.Icons.BooleanBlock;
       parameter Integer nout=1 "Number of outputs";
-      Modelica_Blocks.Interfaces.BooleanInput u
+      Modelica_Blocks_Interfaces.BooleanInput u
         "Connector of Boolean input signal" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.BooleanOutput y[nout]
+      Modelica_Blocks_Interfaces.BooleanOutput y[nout]
         "Connector of Boolean output signals" annotation (Placement(
             transformation(extent={{100,-10},{120,10}}, rotation=0)));
     equation
@@ -13369,7 +11685,7 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
     end BooleanReplicator;
 
   block ExtractSignal "Extract signals from an input signal vector"
-    extends Modelica_Blocks.Interfaces.MIMO;
+    extends Modelica_Blocks_Interfaces.MIMO;
     parameter Integer extract[nout]=1:nout "Extracting vector";
 
   equation
@@ -13577,13 +11893,13 @@ input vector (nin=7):</p>
   block Extractor
       "Extract scalar signal out of signal vector dependent on IntegerRealInput index"
 
-    extends Modelica_Blocks.Interfaces.MISO;
+    extends Modelica_Blocks_Interfaces.MISO;
 
     parameter Boolean allowOutOfRange=false "Index may be out of range";
     parameter Real outOfRangeValue=1e10
         "Output signal if index is out of range";
 
-    Modelica_Blocks.Interfaces.IntegerInput index annotation (Placement(
+    Modelica_Blocks_Interfaces.IntegerInput index annotation (Placement(
             transformation(
             origin={0,-120},
             extent={{-20,-20},{20,20}},
@@ -13683,13 +11999,13 @@ value of the additional u index:</p>
       extends Modelica_Blocks.Icons.Block;
       parameter Integer n1=1 "dimension of input signal connector 1";
       parameter Integer n2=1 "dimension of input signal connector 2";
-      Modelica_Blocks.Interfaces.RealInput u1[n1]
+      Modelica_Blocks_Interfaces.RealInput u1[n1]
         "Connector of Real input signals 1" annotation (Placement(
             transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u2[n2]
+      Modelica_Blocks_Interfaces.RealInput u2[n2]
         "Connector of Real input signals 2" annotation (Placement(
             transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y[n1 + n2]
+      Modelica_Blocks_Interfaces.RealOutput y[n1 + n2]
         "Connector of Real output signals" annotation (Placement(transformation(
               extent={{100,-10},{120,10}}, rotation=0)));
 
@@ -13731,16 +12047,16 @@ explicitly defined via parameters n1 and n2.
       parameter Integer n1=1 "dimension of input signal connector 1";
       parameter Integer n2=1 "dimension of input signal connector 2";
       parameter Integer n3=1 "dimension of input signal connector 3";
-      Modelica_Blocks.Interfaces.RealInput u1[n1]
+      Modelica_Blocks_Interfaces.RealInput u1[n1]
         "Connector of Real input signals 1" annotation (Placement(
             transformation(extent={{-140,50},{-100,90}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u2[n2]
+      Modelica_Blocks_Interfaces.RealInput u2[n2]
         "Connector of Real input signals 2" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u3[n3]
+      Modelica_Blocks_Interfaces.RealInput u3[n3]
         "Connector of Real input signals 3" annotation (Placement(
             transformation(extent={{-140,-90},{-100,-50}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y[n1 + n2 + n3]
+      Modelica_Blocks_Interfaces.RealOutput y[n1 + n2 + n3]
         "Connector of Real output signals" annotation (Placement(transformation(
               extent={{100,-10},{120,10}}, rotation=0)));
 
@@ -13784,19 +12100,19 @@ explicitly defined via parameters n1, n2 and n3.
       parameter Integer n2=1 "dimension of input signal connector 2";
       parameter Integer n3=1 "dimension of input signal connector 3";
       parameter Integer n4=1 "dimension of input signal connector 4";
-      Modelica_Blocks.Interfaces.RealInput u1[n1]
+      Modelica_Blocks_Interfaces.RealInput u1[n1]
         "Connector of Real input signals 1" annotation (Placement(
             transformation(extent={{-140,70},{-100,110}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u2[n2]
+      Modelica_Blocks_Interfaces.RealInput u2[n2]
         "Connector of Real input signals 2" annotation (Placement(
             transformation(extent={{-140,10},{-100,50}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u3[n3]
+      Modelica_Blocks_Interfaces.RealInput u3[n3]
         "Connector of Real input signals 3" annotation (Placement(
             transformation(extent={{-140,-50},{-100,-10}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u4[n4]
+      Modelica_Blocks_Interfaces.RealInput u4[n4]
         "Connector of Real input signals 4" annotation (Placement(
             transformation(extent={{-140,-110},{-100,-70}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y[n1 + n2 + n3 + n4]
+      Modelica_Blocks_Interfaces.RealOutput y[n1 + n2 + n3 + n4]
         "Connector of Real output signals" annotation (Placement(transformation(
               extent={{100,-10},{120,10}}, rotation=0)));
 
@@ -13844,22 +12160,22 @@ explicitly defined via parameters n1, n2, n3 and n4.
       parameter Integer n3=1 "dimension of input signal connector 3";
       parameter Integer n4=1 "dimension of input signal connector 4";
       parameter Integer n5=1 "dimension of input signal connector 5";
-      Modelica_Blocks.Interfaces.RealInput u1[n1]
+      Modelica_Blocks_Interfaces.RealInput u1[n1]
         "Connector of Real input signals 1" annotation (Placement(
             transformation(extent={{-140,80},{-100,120}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u2[n2]
+      Modelica_Blocks_Interfaces.RealInput u2[n2]
         "Connector of Real input signals 2" annotation (Placement(
             transformation(extent={{-140,30},{-100,70}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u3[n3]
+      Modelica_Blocks_Interfaces.RealInput u3[n3]
         "Connector of Real input signals 3" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u4[n4]
+      Modelica_Blocks_Interfaces.RealInput u4[n4]
         "Connector of Real input signals 4" annotation (Placement(
             transformation(extent={{-140,-70},{-100,-30}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u5[n5]
+      Modelica_Blocks_Interfaces.RealInput u5[n5]
         "Connector of Real input signals 5" annotation (Placement(
             transformation(extent={{-140,-120},{-100,-80}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y[n1 + n2 + n3 + n4 + n5]
+      Modelica_Blocks_Interfaces.RealOutput y[n1 + n2 + n3 + n4 + n5]
         "Connector of Real output signals" annotation (Placement(transformation(
               extent={{100,-10},{120,10}}, rotation=0)));
 
@@ -13910,26 +12226,26 @@ explicitly defined via parameters n1, n2, n3, n4 and n5.
       parameter Integer n4=1 "dimension of input signal connector 4";
       parameter Integer n5=1 "dimension of input signal connector 5";
       parameter Integer n6=1 "dimension of input signal connector 6";
-      Modelica_Blocks.Interfaces.RealInput u1[n1]
+      Modelica_Blocks_Interfaces.RealInput u1[n1]
         "Connector of Real input signals 1" annotation (Placement(
             transformation(extent={{-124,73},{-100,97}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u2[n2]
+      Modelica_Blocks_Interfaces.RealInput u2[n2]
         "Connector of Real input signals 2" annotation (Placement(
             transformation(extent={{-124,39},{-100,63}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u3[n3]
+      Modelica_Blocks_Interfaces.RealInput u3[n3]
         "Connector of Real input signals 3" annotation (Placement(
             transformation(extent={{-124,5},{-100,29}}, rotation=0)));
 
-      Modelica_Blocks.Interfaces.RealInput u4[n4]
+      Modelica_Blocks_Interfaces.RealInput u4[n4]
         "Connector of Real input signals 4" annotation (Placement(
             transformation(extent={{-124,-29},{-100,-5}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u5[n5]
+      Modelica_Blocks_Interfaces.RealInput u5[n5]
         "Connector of Real input signals 5" annotation (Placement(
             transformation(extent={{-124,-63},{-100,-39}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput u6[n6]
+      Modelica_Blocks_Interfaces.RealInput u6[n6]
         "Connector of Real input signals 6" annotation (Placement(
             transformation(extent={{-124,-97},{-100,-73}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y[n1 + n2 + n3 + n4 + n5 + n6]
+      Modelica_Blocks_Interfaces.RealOutput y[n1 + n2 + n3 + n4 + n5 + n6]
         "Connector of Real output signals" annotation (Placement(transformation(
               extent={{100,-10},{120,10}}, rotation=0)));
 
@@ -13978,13 +12294,13 @@ explicitly defined via parameters n1, n2, n3, n4, n5 and n6.
       extends Modelica_Blocks.Icons.Block;
       parameter Integer n1=1 "dimension of output signal connector 1";
       parameter Integer n2=1 "dimension of output signal connector 2";
-      Modelica_Blocks.Interfaces.RealInput u[n1 + n2]
+      Modelica_Blocks_Interfaces.RealInput u[n1 + n2]
         "Connector of Real input signals" annotation (Placement(transformation(
               extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y1[n1]
+      Modelica_Blocks_Interfaces.RealOutput y1[n1]
         "Connector of Real output signals 1" annotation (Placement(
             transformation(extent={{100,50},{120,70}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y2[n2]
+      Modelica_Blocks_Interfaces.RealOutput y2[n2]
         "Connector of Real output signals 2" annotation (Placement(
             transformation(extent={{100,-70},{120,-50}}, rotation=0)));
 
@@ -14027,16 +12343,16 @@ explicitly defined via parameters n1 and n2.
       parameter Integer n1=1 "dimension of output signal connector 1";
       parameter Integer n2=1 "dimension of output signal connector 2";
       parameter Integer n3=1 "dimension of output signal connector 3";
-      Modelica_Blocks.Interfaces.RealInput u[n1 + n2 + n3]
+      Modelica_Blocks_Interfaces.RealInput u[n1 + n2 + n3]
         "Connector of Real input signals" annotation (Placement(transformation(
               extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y1[n1]
+      Modelica_Blocks_Interfaces.RealOutput y1[n1]
         "Connector of Real output signals 1" annotation (Placement(
             transformation(extent={{100,60},{120,80}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y2[n2]
+      Modelica_Blocks_Interfaces.RealOutput y2[n2]
         "Connector of Real output signals 2" annotation (Placement(
             transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y3[n3]
+      Modelica_Blocks_Interfaces.RealOutput y3[n3]
         "Connector of Real output signals 3" annotation (Placement(
             transformation(extent={{100,-80},{120,-60}}, rotation=0)));
 
@@ -14082,19 +12398,19 @@ explicitly defined via parameters n1, n2 and n3.
       parameter Integer n2=1 "dimension of output signal connector 2";
       parameter Integer n3=1 "dimension of output signal connector 3";
       parameter Integer n4=1 "dimension of output signal connector 4";
-      Modelica_Blocks.Interfaces.RealInput u[n1 + n2 + n3 + n4]
+      Modelica_Blocks_Interfaces.RealInput u[n1 + n2 + n3 + n4]
         "Connector of Real input signals" annotation (Placement(transformation(
               extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y1[n1]
+      Modelica_Blocks_Interfaces.RealOutput y1[n1]
         "Connector of Real output signals 1" annotation (Placement(
             transformation(extent={{100,80},{120,100}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y2[n2]
+      Modelica_Blocks_Interfaces.RealOutput y2[n2]
         "Connector of Real output signals 2" annotation (Placement(
             transformation(extent={{100,20},{120,40}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y3[n3]
+      Modelica_Blocks_Interfaces.RealOutput y3[n3]
         "Connector of Real output signals 3" annotation (Placement(
             transformation(extent={{100,-40},{120,-20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y4[n4]
+      Modelica_Blocks_Interfaces.RealOutput y4[n4]
         "Connector of Real output signals 4" annotation (Placement(
             transformation(extent={{100,-100},{120,-80}}, rotation=0)));
 
@@ -14142,22 +12458,22 @@ explicitly defined via parameters n1, n2, n3 and n4.
       parameter Integer n3=1 "dimension of output signal connector 3";
       parameter Integer n4=1 "dimension of output signal connector 4";
       parameter Integer n5=1 "dimension of output signal connector 5";
-      Modelica_Blocks.Interfaces.RealInput u[n1 + n2 + n3 + n4 + n5]
+      Modelica_Blocks_Interfaces.RealInput u[n1 + n2 + n3 + n4 + n5]
         "Connector of Real input signals" annotation (Placement(transformation(
               extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y1[n1]
+      Modelica_Blocks_Interfaces.RealOutput y1[n1]
         "Connector of Real output signals 1" annotation (Placement(
             transformation(extent={{100,70},{120,90}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y2[n2]
+      Modelica_Blocks_Interfaces.RealOutput y2[n2]
         "Connector of Real output signals 2" annotation (Placement(
             transformation(extent={{100,30},{120,50}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y3[n3]
+      Modelica_Blocks_Interfaces.RealOutput y3[n3]
         "Connector of Real output signals 3" annotation (Placement(
             transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y4[n4]
+      Modelica_Blocks_Interfaces.RealOutput y4[n4]
         "Connector of Real output signals 4" annotation (Placement(
             transformation(extent={{100,-50},{120,-30}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y5[n5]
+      Modelica_Blocks_Interfaces.RealOutput y5[n5]
         "Connector of Real output signals 5" annotation (Placement(
             transformation(extent={{100,-90},{120,-70}}, rotation=0)));
 
@@ -14207,25 +12523,25 @@ explicitly defined via parameters n1, n2, n3, n4 and n5.
       parameter Integer n4=1 "dimension of output signal connector 4";
       parameter Integer n5=1 "dimension of output signal connector 5";
       parameter Integer n6=1 "dimension of output signal connector 6";
-      Modelica_Blocks.Interfaces.RealInput u[n1 + n2 + n3 + n4 + n5 + n6]
+      Modelica_Blocks_Interfaces.RealInput u[n1 + n2 + n3 + n4 + n5 + n6]
         "Connector of Real input signals" annotation (Placement(transformation(
               extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y1[n1]
+      Modelica_Blocks_Interfaces.RealOutput y1[n1]
         "Connector of Real output signals 1" annotation (Placement(
             transformation(extent={{100,80},{120,100}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y2[n2]
+      Modelica_Blocks_Interfaces.RealOutput y2[n2]
         "Connector of Real output signals 2" annotation (Placement(
             transformation(extent={{100,44},{120,64}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y3[n3]
+      Modelica_Blocks_Interfaces.RealOutput y3[n3]
         "Connector of Real output signals 3" annotation (Placement(
             transformation(extent={{100,8},{120,28}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y4[n4]
+      Modelica_Blocks_Interfaces.RealOutput y4[n4]
         "Connector of Real output signals 4" annotation (Placement(
             transformation(extent={{100,-28},{120,-8}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y5[n5]
+      Modelica_Blocks_Interfaces.RealOutput y5[n5]
         "Connector of Real output signals 5" annotation (Placement(
             transformation(extent={{100,-64},{120,-44}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y6[n6]
+      Modelica_Blocks_Interfaces.RealOutput y6[n6]
         "Connector of Real output signals 6" annotation (Placement(
             transformation(extent={{100,-100},{120,-80}}, rotation=0)));
 
@@ -14273,10 +12589,10 @@ explicitly defined via parameters n1, n2, n3, n4, n5 and n6.
 
       extends Modelica_Blocks.Icons.Block;
 
-      Modelica_Blocks.Interfaces.RealInput u "Input signal" annotation (
+      Modelica_Blocks_Interfaces.RealInput u "Input signal" annotation (
           HideResult=true, Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput y "Output signal" annotation (
+      Modelica_Blocks_Interfaces.RealOutput y "Output signal" annotation (
           HideResult=true, Placement(transformation(extent={{100,-10},{120,10}},
               rotation=0)));
     equation
@@ -14295,9 +12611,9 @@ Passes a Real signal through without modification.  Enables signals to be read o
       "Pass a Integer signal through without modification"
       extends Modelica_Blocks.Icons.IntegerBlock;
 
-      Modelica_Blocks.Interfaces.IntegerInput u "Input signal" annotation (
+      Modelica_Blocks_Interfaces.IntegerInput u "Input signal" annotation (
           Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.IntegerOutput y "Output signal" annotation (
+      Modelica_Blocks_Interfaces.IntegerOutput y "Output signal" annotation (
           Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
     equation
       y = u;
@@ -14314,9 +12630,9 @@ Passes a Real signal through without modification.  Enables signals to be read o
       "Pass a Boolean signal through without modification"
       extends Modelica_Blocks.Icons.BooleanBlock;
 
-      Modelica_Blocks.Interfaces.BooleanInput u "Input signal" annotation (
+      Modelica_Blocks_Interfaces.BooleanInput u "Input signal" annotation (
           Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.BooleanOutput y "Output signal" annotation (
+      Modelica_Blocks_Interfaces.BooleanOutput y "Output signal" annotation (
           Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
     equation
       y = u;
@@ -14345,13 +12661,14 @@ This package contains blocks to combine and extract signals.
 
   package Sources
     "Library of signal source blocks generating Real and Boolean signals"
-    import Modelica_Blocks.Interfaces;
+    import Interfaces =
+           Modelica_Blocks_Interfaces;
     import SIunits = Modelica_SIunits;
     extends Modelica_Icons.SourcesPackage;
 
     block RealExpression "Set output signal to a time varying Real expression"
 
-      Modelica_Blocks.Interfaces.RealOutput y=0.0 "Value of Real output"
+      Modelica_Blocks_Interfaces.RealOutput y=0.0 "Value of Real output"
         annotation (Dialog(group="Time varying output signal"), Placement(
             transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
@@ -14390,7 +12707,7 @@ Variable <b>y</b> is both a variable and a connector.
     block IntegerExpression
       "Set output signal to a time varying Integer expression"
 
-      Modelica_Blocks.Interfaces.IntegerOutput y=0 "Value of Integer output"
+      Modelica_Blocks_Interfaces.IntegerOutput y=0 "Value of Integer output"
         annotation (Dialog(group="Time varying output signal"), Placement(
             transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
@@ -14429,7 +12746,7 @@ Variable <b>y</b> is both a variable and a connector.
     block BooleanExpression
       "Set output signal to a time varying Boolean expression"
 
-      Modelica_Blocks.Interfaces.BooleanOutput y=false
+      Modelica_Blocks_Interfaces.BooleanOutput y=false
         "Value of Boolean output" annotation (Dialog(group=
               "Time varying output signal"), Placement(transformation(extent={{
                 100,-10},{120,10}}, rotation=0)));
@@ -14478,7 +12795,7 @@ Variable <b>y</b> is both a variable and a connector.
       parameter Modelica_SIunits.Time offset=0 "Offset of output signal";
       parameter Modelica_SIunits.Time startTime=0
         "Output = offset for time < startTime";
-      extends Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
 
     equation
       y = offset + (if time < startTime then 0 else time - startTime);
@@ -14582,7 +12899,7 @@ The Real output y is a clock signal:
 
     block Constant "Generate constant signal of type Real"
       parameter Real k(start=1) "Constant output value";
-      extends Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
 
     equation
       y = k;
@@ -14653,7 +12970,7 @@ The Real output y is a constant signal:
 
     block Step "Generate step signal of type Real"
       parameter Real height=1 "Height of step";
-      extends Interfaces.SignalSource;
+      extends Modelica_Blocks_Interfaces.SignalSource;
 
     equation
       y = offset + (if time < startTime then 0 else height);
@@ -14765,7 +13082,7 @@ The Real output y is a step signal:
       parameter Real offset=0 "Offset of output signal";
       parameter Modelica_SIunits.Time startTime=0
         "Output = offset for time < startTime";
-      extends Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
 
     equation
       y = offset + (if time < startTime then 0 else if time < (startTime +
@@ -14909,7 +13226,7 @@ If parameter duration is set to 0.0, the limiting case of a Step signal is achie
       parameter Real offset=0 "Offset of output signal";
       parameter Modelica_SIunits.Time startTime=0
         "Output = offset for time < startTime";
-      extends Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
     protected
       constant Real pi=Modelica_Constants.pi;
 
@@ -15023,7 +13340,7 @@ The Real output y is a sine signal:
       parameter Real offset=0 "Offset of output signal";
       parameter Modelica_SIunits.Time startTime=0
         "Output = offset for time < startTime";
-      extends Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
     protected
       constant Real pi=Modelica_Constants.pi;
 
@@ -15131,7 +13448,7 @@ The Real output y is a cosine signal:
       parameter Real offset=0 "Offset of output signal";
       parameter Modelica_SIunits.Time startTime=0
         "Output = offset for time < startTime";
-      extends Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
     protected
       constant Real pi=Modelica_Constants.pi;
 
@@ -15271,7 +13588,7 @@ The Real output y is a sine signal with exponentially changing amplitude:
       parameter Real offset=0 "Offset of output signal";
       parameter Modelica_SIunits.Time startTime=0
         "Output = offset for time < startTime";
-      extends Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
     protected
       Real y_riseTime;
 
@@ -15405,7 +13722,7 @@ by a falling exponential signal:
       parameter Real offset=0 "Offset of output signals";
       parameter Modelica_SIunits.Time startTime=0
         "Output = offset for time < startTime";
-      extends Modelica_Blocks.Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
     protected
       Modelica_SIunits.Time T_width=period*width/100;
       Modelica_SIunits.Time T_start "Start time of current period";
@@ -15565,7 +13882,7 @@ The Real output y is a pulse signal:
       parameter Real offset=0 "Offset of output signals";
       parameter Modelica_SIunits.Time startTime=0
         "Output = offset for time < startTime";
-      extends Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
     protected
       Modelica_SIunits.Time T_start(final start=startTime)
         "Start time of current period";
@@ -15709,7 +14026,7 @@ The Real output y is a saw tooth signal:
       parameter Real offset=0 "Offset of output signal";
       parameter Modelica_SIunits.Time startTime=0
         "Output = offset for time < startTime";
-      extends Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
     protected
       parameter Modelica_SIunits.Time T_rising=rising
         "End time of rising phase within one period";
@@ -15929,7 +14246,8 @@ The Real output y is a trapezoid signal:
       parameter Modelica_SIunits.Time startTime=0
         "Time instant at which movement starts";
 
-      extends Interfaces.MO(final nout=max([size(deltaq, 1); size(qd_max, 1);
+      extends Modelica_Blocks_Interfaces.MO(
+                            final nout=max([size(deltaq, 1); size(qd_max, 1);
             size(qdd_max, 1)]));
 
     protected
@@ -16101,16 +14419,16 @@ a flange according to a given acceleration.
       output Modelica_SIunits.Time endTime
         "Time instant at which movement stops";
 
-      Modelica_Blocks.Interfaces.RealOutput q[nout]
+      Modelica_Blocks_Interfaces.RealOutput q[nout]
         "Reference position of path planning" annotation (Placement(
             transformation(extent={{100,70},{120,90}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput qd[nout]
+      Modelica_Blocks_Interfaces.RealOutput qd[nout]
         "Reference speed of path planning" annotation (Placement(transformation(
               extent={{100,20},{120,40}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput qdd[nout]
+      Modelica_Blocks_Interfaces.RealOutput qdd[nout]
         "Reference acceleration of path planning" annotation (Placement(
             transformation(extent={{100,-40},{120,-20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.BooleanOutput moving[nout]
+      Modelica_Blocks_Interfaces.BooleanOutput moving[nout]
         "= true, if end position not yet reached; = false, if end position reached or axis is completely at rest"
         annotation (Placement(transformation(extent={{100,-90},{120,-70}},
               rotation=0)));
@@ -16357,7 +14675,7 @@ a flange according to a given acceleration.
       parameter Modelica_SIunits.Time timeScale(
         min=Modelica_Constants.eps)=1 "Time scale of first table column"
         annotation (Evaluate=true);
-      extends Interfaces.SO;
+      extends Modelica_Blocks_Interfaces.SO;
     protected
       Real a "Interpolation coefficients a of actual interval (y=a*x+b)";
       Real b "Interpolation coefficients b of actual interval (y=a*x+b)";
@@ -16608,7 +14926,7 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
 
     block CombiTimeTable
       "Table look-up with respect to time and linear/periodic extrapolation methods (data from matrix/file)"
-      extends Modelica_Blocks.Interfaces.MO(final nout=max([size(columns, 1);
+      extends Modelica_Blocks_Interfaces.MO(final nout=max([size(columns, 1);
             size(offset, 1)]));
       parameter Boolean tableOnFile=false
         "= true, if table is defined on file or in function usertab"
@@ -17088,7 +15406,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
 
     block BooleanConstant "Generate constant signal of type Boolean"
       parameter Boolean k=true "Constant output value";
-      extends Interfaces.partialBooleanSource;
+      extends Modelica_Blocks_Interfaces.partialBooleanSource;
 
     equation
       y = k;
@@ -17135,7 +15453,7 @@ The Boolean output y is a constant signal:
       parameter Modelica_SIunits.Time startTime=0 "Time instant of step start";
       parameter Boolean startValue=false "Output before startTime";
 
-      extends Interfaces.partialBooleanSource;
+      extends Modelica_Blocks_Interfaces.partialBooleanSource;
     equation
       y = if time >= startTime then not startValue else startValue;
       annotation (
@@ -17191,7 +15509,7 @@ The Boolean output y is a step signal:
       parameter Modelica_SIunits.Time period(final min=Modelica_Constants.small,
           start=1) "Time for one period";
       parameter Modelica_SIunits.Time startTime=0 "Time instant of first pulse";
-      extends Modelica_Blocks.Interfaces.partialBooleanSource;
+      extends Modelica_Blocks_Interfaces.partialBooleanSource;
 
     protected
       parameter Modelica_SIunits.Time Twidth=period*width/100
@@ -17284,7 +15602,7 @@ The Boolean output y is a pulse signal:
           start=0.01) "Sample period";
       parameter Modelica_SIunits.Time startTime=0
         "Time instant of first sample trigger";
-      extends Interfaces.partialBooleanSource;
+      extends Modelica_Blocks_Interfaces.partialBooleanSource;
 
     equation
       y = sample(startTime, period);
@@ -17370,7 +15688,7 @@ at sample times (defined by parameter <b>period</b>) and is otherwise
         "Start value of y. At time = table[1], y changes to 'not startValue'";
       parameter Modelica_SIunits.Time table[:]={0,1}
         "Vector of time points. At every time point, the output y gets its opposite value (e.g., table={0,1})";
-      extends Interfaces.partialBooleanSource;
+      extends Modelica_Blocks_Interfaces.partialBooleanSource;
 
     protected
       function getFirstIndex "Get first index of table and check table"
@@ -17493,7 +15811,7 @@ changes its value to the negated value of the previous one.
         "Reset button to false, if an element of reset becomes true"
         annotation (Dialog(group="Time varying expressions"));
 
-      Modelica_Blocks.Interfaces.BooleanOutput on(start=false, fixed=true)
+      Modelica_Blocks_Interfaces.BooleanOutput on(start=false, fixed=true)
         annotation (Placement(transformation(extent={{100,-15},{130,15}},
               rotation=0)));
     protected
@@ -17562,7 +15880,7 @@ This example is also available in
 
     block IntegerConstant "Generate constant signal of type Integer"
       parameter Integer k(start=1) "Constant output value";
-      extends Interfaces.IntegerSO;
+      extends Modelica_Blocks_Interfaces.IntegerSO;
 
     equation
       y = k;
@@ -17624,7 +15942,7 @@ The Integer output y is a constant signal:
 
     block IntegerStep "Generate step signal of type Integer"
       parameter Integer height=1 "Height of step";
-      extends Interfaces.IntegerSignalSource;
+      extends Modelica_Blocks_Interfaces.IntegerSignalSource;
     equation
       y = offset + (if time < startTime then 0 else height);
       annotation (
@@ -17720,7 +16038,7 @@ The Integer output y is a step signal:
             0,
             2) "Table matrix (first column: time; second column: y)";
 
-      extends Interfaces.IntegerSO;
+      extends Modelica_Blocks_Interfaces.IntegerSO;
 
     protected
       function getFirstIndex "Get first index of table and check table"
@@ -17947,7 +16265,7 @@ usually requires a trimming calculation.
     extends Modelica_Icons.Package;
     block CombiTable1D
       "Table look-up in one dimension (matrix/file) with n inputs and n outputs"
-      extends Modelica_Blocks.Interfaces.MIMOs(final n=size(columns, 1));
+      extends Modelica_Blocks_Interfaces.MIMOs(final n=size(columns, 1));
       parameter Boolean tableOnFile=false
         "= true, if table is defined on file or in function usertab"
         annotation (Dialog(group="Table data definition"));
@@ -18252,7 +16570,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
 
     block CombiTable1Ds
       "Table look-up in one dimension (matrix/file) with one input and n outputs"
-      extends Modelica_Blocks.Interfaces.SIMO(final nout=size(columns, 1));
+      extends Modelica_Blocks_Interfaces.SIMO(final nout=size(columns, 1));
       parameter Boolean tableOnFile=false
         "= true, if table is defined on file or in function usertab"
         annotation (Dialog(group="Table data definition"));
@@ -18556,7 +16874,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
     end CombiTable1Ds;
 
     block CombiTable2D "Table look-up in two dimensions (matrix/file)"
-      extends Modelica_Blocks.Interfaces.SI2SO;
+      extends Modelica_Blocks_Interfaces.SI2SO;
       parameter Boolean tableOnFile=false
         "= true, if table is defined on file or in function usertab"
         annotation (Dialog(group="Table data definition"));

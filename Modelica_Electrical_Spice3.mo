@@ -284,14 +284,13 @@ Zeunerstrasse 38<br />
 </html>"));
   end UsersGuide;
 
-
   package Basic "Basic electrical components"
 
     extends Modelica_Icons.Package;
 
     model Ground "Ground node"
 
-      Modelica_Electrical_Analog.Interfaces.Pin p "Ground pin" annotation (Placement(transformation(
+      Modelica_Electrical_Analog_Interfaces.Pin p "Ground pin" annotation (Placement(transformation(
             origin={0,100},
             extent={{10,-10},{-10,10}},
             rotation=270)));
@@ -337,7 +336,7 @@ by this ground element.
     end Ground;
 
     model R_Resistor "Ideal linear electrical resistor"
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Modelica_SIunits.Resistance R(start=1000) "Resistance";
     equation
       R*i = v;
@@ -367,7 +366,7 @@ The Resistance <i>R</i> is allowed to be positive, zero, or negative.
     end R_Resistor;
 
     model C_Capacitor "Ideal linear electrical capacitor"
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Modelica_SIunits.Capacitance C(start=0) "Capacitance";
       parameter Modelica_SIunits.Voltage IC=0 "Initial value";
       parameter Boolean UIC=false
@@ -406,14 +405,14 @@ The Capacitance <i>C</i> is allowed to be positive, zero, or negative.
     end C_Capacitor;
 
     model L_Inductor "Ideal linear electrical inductor"
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Modelica_SIunits.Inductance L(start=0) "Inductance";
       parameter Modelica_SIunits.Current IC=0
         "Initial value; used, if UIC is true";
       parameter Boolean UIC=false "Use initial conditions";
       Modelica_SIunits.Current iinternal;
 
-      Modelica_Electrical_Spice3.Interfaces.InductiveCouplePinOut ICP
+      Modelica_Electrical_Spice3_Interfaces.InductiveCouplePinOut ICP
         "Pin to couple inductances via K" annotation (Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=-90,
@@ -461,10 +460,10 @@ The Capacitance <i>C</i> is allowed to be positive, zero, or negative.
 
     model K_CoupledInductors "Inductive coupling via coupling factor K"
       parameter Real k( start=0) "Coupling Factor";
-      Modelica_Electrical_Spice3.Interfaces.InductiveCouplePinIn inductiveCouplePin1
+      Modelica_Electrical_Spice3_Interfaces.InductiveCouplePinIn inductiveCouplePin1
         "Couple pin for inductances"
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-      Modelica_Electrical_Spice3.Interfaces.InductiveCouplePinIn inductiveCouplePin2
+      Modelica_Electrical_Spice3_Interfaces.InductiveCouplePinIn inductiveCouplePin2
         "Couple pin for inductances" annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
@@ -516,7 +515,7 @@ The usage is demonstrated in the example <a href=\"modelica://Modelica.Electrica
     end K_CoupledInductors;
 
     model E_VCV "Linear voltage-controlled voltage source"
-      extends Interfaces.TwoPortControlledSources;
+      extends Modelica_Electrical_Spice3_Interfaces.TwoPortControlledSources;
       parameter Real gain(start=0) "Voltage gain";
     equation
       v2 = v1*gain;
@@ -570,7 +569,7 @@ The corresponding SPICE description
     end E_VCV;
 
     model G_VCC "Linear voltage-controlled current source"
-      extends Interfaces.TwoPortControlledSources;
+      extends Modelica_Electrical_Spice3_Interfaces.TwoPortControlledSources;
       parameter Modelica_SIunits.Conductance transConductance(start=0)
         "Transconductance";
     equation
@@ -628,7 +627,7 @@ The corresponding SPICE description
     end G_VCC;
 
     model H_CCV "Linear current-controlled voltage source"
-      extends Interfaces.TwoPortControlledSources;
+      extends Modelica_Electrical_Spice3_Interfaces.TwoPortControlledSources;
 
       parameter Modelica_SIunits.Resistance transResistance(start=0)
         "Transresistance";
@@ -677,7 +676,7 @@ The corresponding SPICE description
     end H_CCV;
 
     model F_CCC "Linear current-controlled current source"
-      extends Interfaces.TwoPortControlledSources;
+      extends Modelica_Electrical_Spice3_Interfaces.TwoPortControlledSources;
       parameter Real gain(start=0) "Current gain";
     equation
       i2 = i1*gain;
@@ -1039,7 +1038,7 @@ The corresponding SPICE description
 
     model V_constant "Constant independent voltage sources"
       parameter Modelica_SIunits.Voltage V=1 "Value of constant voltage";
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
     equation
       v = V;
       annotation (
@@ -1057,7 +1056,7 @@ The corresponding SPICE description
     end V_constant;
 
     model V_sin "Sinusoidal voltage source"
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Modelica_SIunits.Voltage VO=0.0 "Offset";
       parameter Modelica_SIunits.Voltage VA=0.0 "Amplitude";
       parameter Modelica_SIunits.Frequency FREQ(start=1) "Frequency";
@@ -1109,7 +1108,7 @@ The corresponding SPICE description
     end V_sin;
 
     model V_exp "Exponential voltage source"
-     extends Modelica_Electrical_Analog.Interfaces.OnePort;
+     extends Modelica_Electrical_Analog_Interfaces.OnePort;
 
       parameter Modelica_SIunits.Voltage V1=0 "Initial value";
       parameter Modelica_SIunits.Voltage V2=0 "Pulsed value";
@@ -1165,7 +1164,7 @@ The corresponding SPICE description
     end V_exp;
 
     model V_pulse "Pulse voltage source"
-    extends Modelica_Electrical_Analog.Interfaces.OnePort;
+    extends Modelica_Electrical_Analog_Interfaces.OnePort;
 
       parameter Modelica_SIunits.Voltage V1=0 "Initial value";
       parameter Modelica_SIunits.Voltage V2=0 "Pulsed value";
@@ -1298,7 +1297,7 @@ The corresponding SPICE description
     end V_pulse;
 
     model V_pwl "Piece-wise linear voltage source"
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Real table[:, :]=[0, 0; 1, 1; 2, 4]
         "Table matrix (time = first column, voltage = second column)";
     protected
@@ -1363,7 +1362,7 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end V_pwl;
 
     model V_sffm "Single-frequency FM voltage source"
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Modelica_SIunits.Voltage VO=0 "Offset";
       parameter Modelica_SIunits.Voltage VA=0 "Amplitude";
       parameter Modelica_SIunits.Frequency FC(start=0) "Carrier frequency";
@@ -1412,7 +1411,7 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
 
    model I_constant "Constant independent current sources"
       parameter Modelica_SIunits.Current I=1 "Value of constant voltage";
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
    equation
       i = I;
       annotation (
@@ -1436,7 +1435,7 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
 
     model I_sin "Sinusoidal current source"
 
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Modelica_SIunits.Current IO=0 "Offset";
       parameter Modelica_SIunits.Current IA=0 "Amplitude";
       parameter Modelica_SIunits.Frequency FREQ(start=1) "Frequency";
@@ -1489,7 +1488,7 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end I_sin;
 
     model I_exp "Exponential current source"
-    extends Modelica_Electrical_Analog.Interfaces.OnePort;
+    extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Modelica_SIunits.Current I1=0 "Initial value";
       parameter Modelica_SIunits.Current I2=0 "Pulsed value";
       parameter Modelica_SIunits.Time TD1=0.0 "Rise delay time";
@@ -1539,7 +1538,7 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end I_exp;
 
     model I_pulse "Pulse current source"
-     extends Modelica_Electrical_Analog.Interfaces.OnePort;
+     extends Modelica_Electrical_Analog_Interfaces.OnePort;
 
       parameter Modelica_SIunits.Current I1=0 "Initial value";
       parameter Modelica_SIunits.Current I2=0 "Pulsed value";
@@ -1669,7 +1668,7 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end I_pulse;
 
     model I_pwl "Piece-wise linear current source"
-       extends Modelica_Electrical_Analog.Interfaces.OnePort;
+       extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Real table[:, :]=[0, 0; 1, 1; 2, 4]
         "Table matrix (time = first column, voltage = second column)";
     protected
@@ -1736,7 +1735,7 @@ If, e.g., time = 1.0, the current i =  0.0 (before event), 1.0 (after event)
     end I_pwl;
 
     model I_sffm "Single-frequency FM current source"
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Modelica_SIunits.Current IO=0 "Offset";
       parameter Modelica_SIunits.Current IA=0 "Amplitude";
       parameter Modelica_SIunits.Frequency FC(start=0) "Carrier frequency";
@@ -1904,18 +1903,18 @@ If, e.g., time = 1.0, the current i =  0.0 (before event), 1.0 (after event)
 
       parameter Integer N(final min=1) = 1 "Number of controlling voltages";
       parameter Real coeff[:] = {1} "Coefficients of polynomial";
-      Modelica_Electrical_Analog.Interfaces.PositivePin p
+      Modelica_Electrical_Analog_Interfaces.PositivePin p
         "Positive pin of the controlled (normally right) port (potential p2.v > n2.v for positive voltage drop v2)"
                                                                                                            annotation (Placement(
             transformation(extent={{110,40},{90,60}}, rotation=0),
             iconTransformation(extent={{110,40},{90,60}})));
-      Modelica_Electrical_Analog.Interfaces.NegativePin n
+      Modelica_Electrical_Analog_Interfaces.NegativePin n
         "Negative pin of the controlled (normally right) port"
                                                       annotation (Placement(
             transformation(extent={{90,-60},{110,-40}}, rotation=0),
             iconTransformation(extent={{90,-60},{110,-40}})));
 
-      Modelica_Electrical_Analog.Interfaces.PositivePin pc[2*N]
+      Modelica_Electrical_Analog_Interfaces.PositivePin pc[2*N]
         "Pin vector of controlling pins (normally left)"
             annotation (Placement(transformation(
               extent={{-90,-80},{-70,80}}, rotation=0), iconTransformation(extent={
@@ -2001,17 +2000,17 @@ P0, P1 -&gt; polynomial coefficients name.coeff(coeff={P0,P1,...})</pre>
 
       parameter Integer N(final min=1) = 1 "Number of controlling voltages";
       parameter Real coeff[:] = {1} "Coefficients of polynomial";
-      Modelica_Electrical_Analog.Interfaces.PositivePin p
+      Modelica_Electrical_Analog_Interfaces.PositivePin p
         "Positive pin of the right port (potential p2.v > n2.v for positive voltage drop v2)"
                                                                                                            annotation (Placement(
             transformation(extent={{110,40},{90,60}}, rotation=0),
             iconTransformation(extent={{110,40},{90,60}})));
-      Modelica_Electrical_Analog.Interfaces.NegativePin n
+      Modelica_Electrical_Analog_Interfaces.NegativePin n
         "Negative pin of the right port"              annotation (Placement(
             transformation(extent={{90,-60},{110,-40}}, rotation=0),
             iconTransformation(extent={{90,-60},{110,-40}})));
 
-      Modelica_Electrical_Analog.Interfaces.PositivePin pc[2*N]
+      Modelica_Electrical_Analog_Interfaces.PositivePin pc[2*N]
         "Pin vector of controlling pins"
             annotation (Placement(transformation(
               extent={{-90,-80},{-70,80}}, rotation=0), iconTransformation(extent={
@@ -2097,17 +2096,17 @@ P0, P1 -&gt; polynomial coefficients name.coeff(coeff={P0,P1,...}) </pre>
 
       parameter Integer N(final min=1) = 1 "Number of controlling voltages";
       parameter Real coeff[:] = {1} "Coefficients of polynomial";
-      Modelica_Electrical_Analog.Interfaces.PositivePin p
+      Modelica_Electrical_Analog_Interfaces.PositivePin p
         "Positive pin of the right port (potential p2.v > n2.v for positive voltage drop v2)"
                                                                                                            annotation (Placement(
             transformation(extent={{110,40},{90,60}}, rotation=0),
             iconTransformation(extent={{110,40},{90,60}})));
-      Modelica_Electrical_Analog.Interfaces.NegativePin n
+      Modelica_Electrical_Analog_Interfaces.NegativePin n
         "Negative pin of the right port"              annotation (Placement(
             transformation(extent={{90,-60},{110,-40}}, rotation=0),
             iconTransformation(extent={{90,-60},{110,-40}})));
 
-      Modelica_Electrical_Analog.Interfaces.PositivePin pc[2*N]
+      Modelica_Electrical_Analog_Interfaces.PositivePin pc[2*N]
         "Pin vector of controlling pins"
             annotation (Placement(transformation(
               extent={{-90,-80},{-70,80}}, rotation=0), iconTransformation(extent={
@@ -2200,17 +2199,17 @@ P0, P1 -&gt; polynomial coefficients name.coeff(coeff={P0,P1,...})
 
       parameter Integer N(final min=1) = 1 "Number of controlling voltages";
       parameter Real coeff[:] = {1} "Coefficients of polynomial";
-      Modelica_Electrical_Analog.Interfaces.PositivePin p
+      Modelica_Electrical_Analog_Interfaces.PositivePin p
         "Positive pin of the right port (potential p2.v > n2.v for positive voltage drop v2)"
                                                                                                            annotation (Placement(
             transformation(extent={{110,40},{90,60}}, rotation=0),
             iconTransformation(extent={{110,40},{90,60}})));
-      Modelica_Electrical_Analog.Interfaces.NegativePin n
+      Modelica_Electrical_Analog_Interfaces.NegativePin n
         "Negative pin of the right port"              annotation (Placement(
             transformation(extent={{90,-60},{110,-40}}, rotation=0),
             iconTransformation(extent={{90,-60},{110,-40}})));
 
-      Modelica_Electrical_Analog.Interfaces.PositivePin pc[2*N]
+      Modelica_Electrical_Analog_Interfaces.PositivePin pc[2*N]
         "Pin vector of controlling pins"
             annotation (Placement(transformation(
               extent={{-90,-80},{-70,80}}, rotation=0), iconTransformation(extent={
@@ -2300,115 +2299,6 @@ P0, P1 -&gt; polynomial coefficients name.coeff(coeff={P0,P1,...})
 </html>"));
   end Additionals;
 
-  package Interfaces "Connectors, Interfaces, and partial models"
-
-    extends Modelica_Icons.InterfacesPackage;
-
-    partial model TwoPortControlledSources
-      "Component with two electrical ports, including current"
-      Modelica_SIunits.Voltage v1 "Voltage drop over the controlling port";
-      Modelica_SIunits.Voltage v2 "Voltage drop over the controlled port";
-      Modelica_SIunits.Current i1
-        "Current flowing from pos. to neg. pin of the controlling port";
-      Modelica_SIunits.Current i2
-        "Current flowing from pos. to neg. pin of the controlled port";
-      Modelica_Electrical_Analog.Interfaces.PositivePin p1
-        "Positive pin of the controlling port"       annotation (Placement(
-            transformation(extent={{-110,40},{-90,60}}, rotation=0)));
-      Modelica_Electrical_Analog.Interfaces.NegativePin n1
-        "Negative pin of the controlling port"       annotation (Placement(
-            transformation(extent={{-90,-60},{-110,-40}}, rotation=0)));
-      Modelica_Electrical_Analog.Interfaces.PositivePin p2
-        "Positive pin of the controlled port"         annotation (Placement(
-            transformation(extent={{110,40},{90,60}}, rotation=0)));
-      Modelica_Electrical_Analog.Interfaces.NegativePin n2
-        "Negative pin of the controlled port"         annotation (Placement(
-            transformation(extent={{90,-60},{110,-40}}, rotation=0)));
-    equation
-      v1 = p1.v - n1.v;
-      v2 = p2.v - n2.v;
-      0 = p1.i + n1.i;
-      0 = p2.i + n2.i;
-      i1 = p1.i;
-      i2 = p2.i;
-      annotation (
-        Documentation(info="<html>
-<p>TwoPort is a partial model that consists of two ports. It is assumed that the current flowing into the positive pin is identical to the current flowing out of pin n. This currents of each port are provided explicitly as currents i1 and i2, the voltages respectively as v1 and v2.</p>
-</html>"));
-    end TwoPortControlledSources;
-
-    connector InductiveCouplePinIn
-      "Pin to couple inductances via K, which gets the value of inductance"
-      input Modelica_SIunits.Inductance L;
-      Modelica_SIunits.CurrentSlope di "di/dt";
-      flow Modelica_SIunits.Voltage v;
-      annotation (Icon(graphics={Polygon(
-              points={{0,0},{0,100},{100,0},{0,-100},{0,-100},{0,0}},
-              lineColor={170,85,255},
-              smooth=Smooth.None,
-              fillColor={170,85,255},
-              fillPattern=FillPattern.Solid)}));
-    end InductiveCouplePinIn;
-
-    connector InductiveCouplePinOut
-      "Pin to couple inductances via K, which sets the value of inductance"
-      output Modelica_SIunits.Inductance L;
-      Modelica_SIunits.CurrentSlope di "di/dt";
-      flow Modelica_SIunits.Voltage v;
-      annotation (Icon(graphics={Polygon(
-              points={{-100,0},{0,100},{0,0},{0,-100},{-2,-98},{-100,0}},
-              lineColor={170,85,255},
-              smooth=Smooth.None,
-              fillColor={170,85,255},
-              fillPattern=FillPattern.Solid)}));
-    end InductiveCouplePinOut;
-
-    partial model ConditionalSubstrate
-      "Partial model to include a conditional substrate node"
-
-      parameter Boolean useSubstrateNode = false
-        "=true, if SubstrateNode is enabled"
-      annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
-      Modelica_Electrical_Analog.Interfaces.PositivePin S(v = substrateVoltage, i = -substrateCurrent) if useSubstrateNode annotation (Placement(
-            transformation(extent={{90,0},{110,20}}),    iconTransformation(extent={{90,-10},
-                {110,10}})));
-      Modelica_SIunits.Voltage substrateVoltage;
-      Modelica_SIunits.Current substrateCurrent;
-
-    equation
-      if not useSubstrateNode then
-        substrateVoltage = 0;
-      end if;
-      annotation (        Documentation(revisions="<html>
-<ul>
-<li><i> February 17, 2009   </i>
-       by Christoph Clauss<br> initially implemented<br>
-       </li>
-</ul>
-</html>",     info="<html>
-<p>
-This partial model provides a conditional heating port for the connection to a thermal network.
-</p>
-<ul>
-<li> If <b>useHeatPort</b> is set to <b>false</b> (default), no heat port is available, and the thermal
-     loss power flows internally to the ground. In this case, the parameter <b>T</b> specifies
-     the fixed device temperature (the default for T = 20<sup>o</sup>C).</li>
-<li> If <b>useHeatPort</b> is set to <b>true</b>, a heat port is available.</li>
-</ul>
-
-<p>
-If this model is used, the loss power has to be provided by an equation in the model which inherits from
-ConditionalHeatingPort model (<b>lossPower = ...</b>). As device temperature
-<b>T_heatPort</b> can be used to describe the influence of the device temperature
-on the model behaviour.
-</p>
-</html>"));
-    end ConditionalSubstrate;
-    annotation(preferredView="info",
-        Documentation(info="<html>
-<p>The SPICE3 package uses the Modelica.Electrical.Analog interfaces. Only special partial models used in the SPICE3 package are located in this Interfaces package.</p>
-</html>"));
-  end Interfaces;
 
   package Types "Additional Spice3 type definitions"
     extends Modelica_Icons.TypesPackage;
@@ -2431,13 +2321,13 @@ on the model behaviour.
 
   model MOS "Metal-Oxide Semiconductor Field-Effect Transistor"
 
-    Modelica_Electrical_Analog.Interfaces.PositivePin G "gate node" annotation (Placement(transformation(
+    Modelica_Electrical_Analog_Interfaces.PositivePin G "gate node" annotation (Placement(transformation(
               extent={{-110,-12},{-90,10}}, rotation=0)));
-    Modelica_Electrical_Analog.Interfaces.PositivePin D "drain node" annotation (Placement(transformation(
+    Modelica_Electrical_Analog_Interfaces.PositivePin D "drain node" annotation (Placement(transformation(
               extent={{-10,90},{10,110}}, rotation=0)));
-    Modelica_Electrical_Analog.Interfaces.NegativePin S "source node" annotation (Placement(
+    Modelica_Electrical_Analog_Interfaces.NegativePin S "source node" annotation (Placement(
             transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
-    Modelica_Electrical_Analog.Interfaces.PositivePin B "bulk node" annotation (Placement(transformation(
+    Modelica_Electrical_Analog_Interfaces.PositivePin B "bulk node" annotation (Placement(transformation(
               extent={{90,-10},{110,10}}, rotation=0)));
 
     parameter Integer mtype(start = 0)
@@ -2644,16 +2534,16 @@ on the model behaviour.
 
   model MOS2 "Metal-Oxide Semiconductor Field-Effect Transistor"
 
-    Modelica_Electrical_Analog.Interfaces.PositivePin G "gate node"
+    Modelica_Electrical_Analog_Interfaces.PositivePin G "gate node"
                                           annotation (Placement(transformation(
               extent={{-110,-12},{-90,10}}, rotation=0)));
-    Modelica_Electrical_Analog.Interfaces.PositivePin D "drain node"
+    Modelica_Electrical_Analog_Interfaces.PositivePin D "drain node"
                                            annotation (Placement(transformation(
               extent={{-10,90},{10,110}}, rotation=0)));
-    Modelica_Electrical_Analog.Interfaces.NegativePin S "source node"
+    Modelica_Electrical_Analog_Interfaces.NegativePin S "source node"
                                             annotation (Placement(
             transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
-    Modelica_Electrical_Analog.Interfaces.PositivePin B "bulk node"
+    Modelica_Electrical_Analog_Interfaces.PositivePin B "bulk node"
                                           annotation (Placement(transformation(
               extent={{90,-10},{110,10}}, rotation=0)));
 
@@ -2892,16 +2782,16 @@ on the model behaviour.
 
     model BJT2 "Bipolar junction transistor"
 
-      Modelica_Electrical_Analog.Interfaces.PositivePin B "Base node"
+      Modelica_Electrical_Analog_Interfaces.PositivePin B "Base node"
         annotation (Placement(transformation(extent={{-108,-10},{-88,10}}),
             iconTransformation(extent={{-106,-10},{-86,10}})));
-      Modelica_Electrical_Analog.Interfaces.PositivePin C "Collector node"
+      Modelica_Electrical_Analog_Interfaces.PositivePin C "Collector node"
         annotation (Placement(transformation(extent={{10,88},{30,108}}),
             iconTransformation(extent={{20,90},{40,110}})));
-      Modelica_Electrical_Analog.Interfaces.NegativePin E "Emitter node"
+      Modelica_Electrical_Analog_Interfaces.NegativePin E "Emitter node"
         annotation (Placement(transformation(extent={{10,-108},{30,-88}}),
             iconTransformation(extent={{20,-110},{40,-90}})));
-      extends Interfaces.ConditionalSubstrate;
+      extends Modelica_Electrical_Spice3_Interfaces.ConditionalSubstrate;
       parameter Real TBJT( start = 1) "Type of transistor (NPN=1, PNP=-1)";
       parameter Real AREA = 1.0 "Area factor";
       parameter Boolean OFF = false
@@ -3100,13 +2990,13 @@ on the model behaviour.
 
     model BJT "Bipolar junction transistor, obsolete, use model BJT2"
      extends Modelica_Icons.ObsoleteModel;
-      Modelica_Electrical_Analog.Interfaces.PositivePin B "Base node"
+      Modelica_Electrical_Analog_Interfaces.PositivePin B "Base node"
         annotation (Placement(transformation(extent={{-108,-10},{-88,10}}),
             iconTransformation(extent={{-106,-10},{-86,10}})));
-      Modelica_Electrical_Analog.Interfaces.PositivePin C "Collector node"
+      Modelica_Electrical_Analog_Interfaces.PositivePin C "Collector node"
         annotation (Placement(transformation(extent={{10,88},{30,108}}),
             iconTransformation(extent={{20,90},{40,110}})));
-      Modelica_Electrical_Analog.Interfaces.NegativePin E "Emitter node"
+      Modelica_Electrical_Analog_Interfaces.NegativePin E "Emitter node"
         annotation (Placement(transformation(extent={{10,-108},{30,-88}}),
             iconTransformation(extent={{20,-110},{40,-90}})));
 
@@ -3311,11 +3201,11 @@ on the model behaviour.
 
   model JFET "Junction Field-Effect Transistor"
 
-    Modelica_Electrical_Analog.Interfaces.PositivePin G "gate node" annotation (Placement(transformation(
+    Modelica_Electrical_Analog_Interfaces.PositivePin G "gate node" annotation (Placement(transformation(
               extent={{-110,-12},{-90,10}}, rotation=0)));
-    Modelica_Electrical_Analog.Interfaces.PositivePin D "drain node" annotation (Placement(transformation(
+    Modelica_Electrical_Analog_Interfaces.PositivePin D "drain node" annotation (Placement(transformation(
               extent={{-10,90},{10,110}}, rotation=0)));
-    Modelica_Electrical_Analog.Interfaces.NegativePin S "source node" annotation (Placement(
+    Modelica_Electrical_Analog_Interfaces.NegativePin S "source node" annotation (Placement(
             transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
 
     parameter Integer mtype( start = 0)
@@ -3469,7 +3359,7 @@ on the model behaviour.
 
    model DIODE "Diode model"
 
-     extends Modelica_Electrical_Analog.Interfaces.TwoPin;
+     extends Modelica_Electrical_Analog_Interfaces.TwoPin;
 
      parameter Real AREA = 1 "Area factor";
      parameter Boolean OFF = false
@@ -3589,7 +3479,7 @@ on the model behaviour.
 
     model R_SEMI "Semiconductor resistor"
 
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Modelica_SIunits.Resistance R=-1e40
         "Resistance, if specified, geometrical information is overwritten";
       parameter Modelica_SIunits.Temp_C TEMP=-1e40 "Temperature of resistor";
@@ -3678,7 +3568,7 @@ on the model behaviour.
 
     model C_SEMI "Semiconductor capacitor"
 
-      extends Modelica_Electrical_Analog.Interfaces.OnePort;
+      extends Modelica_Electrical_Analog_Interfaces.OnePort;
       parameter Modelica_SIunits.Capacitance C=-1e40
         "Capacitance, if specified, geometrical information is overwritten";
       parameter Modelica_SIunits.Temp_C TEMP=27 "Temperature of capacitor";

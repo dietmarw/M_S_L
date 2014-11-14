@@ -795,361 +795,12 @@ the library and has the following content:
 end UsersGuide;
 
 
-package Interfaces "Connectors and partial models"
-  extends Modelica_Icons.InterfacesPackage;
-
-  connector Step_in "Input port of a step"
-    output Boolean occupied "true, if step is active" annotation (HideResult=true);
-    input Boolean set "true, if transition fires and step is activated" annotation (HideResult=true);
-    annotation (
-   Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Polygon(
-              points={{-100,100},{100,0},{-100,-100},{-100,100}},
-              lineColor={0,0,0},
-              fillColor={0,0,0},
-              fillPattern=FillPattern.Solid)}),
-   Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Polygon(
-              points={{0,50},{100,0},{0,-50},{0,50}},
-              lineColor={0,0,0},
-              fillColor={0,0,0},
-              fillPattern=FillPattern.Solid), Text(
-              extent={{-141,100},{100,60}},
-              lineColor={0,0,0},
-              textString="%name")}));
-  end Step_in;
-
-  connector Step_out "Output port of a step"
-    output Boolean available "true, if step is active" annotation (HideResult=true);
-
-    input Boolean reset "true, if transition fires and step is deactivated"
-      annotation (HideResult=true);
-
-    annotation (Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}),
-                              Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Rectangle(
-              extent={{-100,50},{0,-50}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid), Text(
-              extent={{-100,100},{186,58}},
-              lineColor={0,0,0},
-              textString="%name")}));
-  end Step_out;
-
-  connector Transition_in "Input port of a transition"
-    input Boolean available
-        "true, if step connected to the transition input is active"
-      annotation (HideResult=true);
-    output Boolean reset
-        "true, if transition fires and the step connected to the transition input is deactivated"
-      annotation (HideResult=true);
-
-    annotation (Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Polygon(
-              points={{-100,100},{100,0},{-100,-100},{-100,100}},
-              lineColor={0,0,0},
-              fillColor={0,0,0},
-              fillPattern=FillPattern.Solid)}),
-                                            Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Polygon(
-              points={{0,50},{100,0},{0,-50},{0,50}},
-              lineColor={0,0,0},
-              fillColor={0,0,0},
-              fillPattern=FillPattern.Solid), Text(
-              extent={{-141,100},{100,60}},
-              lineColor={0,0,0},
-              textString="%name")}));
-  end Transition_in;
-
-  connector Transition_out "Output port of a transition"
-    input Boolean occupied
-        "true, if step connected to the transition output is active"
-      annotation (HideResult=true);
-    output Boolean set
-        "true, if transition fires and step connected to the transition output becomes active"
-      annotation (HideResult=true);
-
-    annotation (Icon(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}),
-            Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}}), graphics={Text(
-              extent={{-100,100},{146,60}},
-              lineColor={0,0,0},
-              textString="%name"), Rectangle(
-              extent={{-100,50},{0,-50}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}));
-  end Transition_out;
-
-  connector CompositeStep_resume
-      "Input port of a step (used for resume connector of a CompositeStep)"
-    output Boolean occupied "true, if step is active" annotation (HideResult=true);
-    input Boolean set "true, if transition fires and step is activated"
-      annotation (HideResult=true);
-    annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Polygon(
-              points={{-100,100},{100,0},{-100,-100},{-100,100}},
-              lineColor={0,0,0},
-              fillColor={0,0,0},
-              fillPattern=FillPattern.Solid)}),
-                                            Diagram(coordinateSystem(
-              preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-            graphics={Rectangle(
-              extent={{0,0},{0,0}},
-              lineColor={255,255,255},
-              pattern=LinePattern.None)}));
-  end CompositeStep_resume;
-
-  connector CompositeStep_suspend
-      "Output port of a step (used for suspend connector of a CompositeStep)"
-
-    output Boolean available "true, if step is active" annotation (HideResult=true);
-
-    input Boolean reset "true, if transition fires and step is deactivated"
-      annotation (HideResult=true);
-
-    annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}),
-                              Diagram(coordinateSystem(preserveAspectRatio=true,
-                       extent={{-100,-100},{100,100}}), graphics={Rectangle(
-              extent={{0,0},{0,0}},
-              lineColor={255,255,255},
-              pattern=LinePattern.None)}));
-  end CompositeStep_suspend;
-
-  connector CompositeStepStatePort_in
-      "Communication port between a CompositeStep and the ordinary steps within the CompositeStep (suspend/resume are inputs)"
-
-    input Boolean suspend
-        "= true, if suspend transition of CompositeStep fires";
-    input Boolean resume "= true, if resume transition of CompositeStep fires";
-    Real activeStepsDummy
-        "Dummy variable in order that connector fulfills restriction of connector"
-                                                                                annotation(HideResult=true);
-    flow Real activeSteps "Number of active steps in the CompositeStep";
-  end CompositeStepStatePort_in;
-
-  connector CompositeStepStatePort_out
-      "Communication port between a CompositeStep and the ordinary steps within the CompositeStep (suspend/resume are outputs)"
-
-    output Boolean suspend
-        "= true, if suspend transition of CompositeStep fires";
-    output Boolean resume "= true, if resume transition of CompositeStep fires";
-    Real activeStepsDummy
-        "Dummy variable in order that connector fulfills restriction of connector"
-                                                                                 annotation(HideResult=true);
-    flow Real activeSteps "Number of active steps in the CompositeStep";
-  end CompositeStepStatePort_out;
-
-  partial block PartialStep
-      "Partial step with one input and one output transition port"
-
-    parameter Integer nIn(min=0) = 1 "Number of input connections";
-    parameter Integer nOut(min=0) = 1 "Number of output connections";
-
-    /* localActive is introduced since component 'Step' has Boolean variable 'active'
-     and component 'StepWithSignal' has connector instance 'active' defined
-     and both components inherit from PartialStep
-  */
-    output Boolean localActive
-        "= true if step is active, otherwise the step is not active"
-      annotation (HideResult=true);
-    Interfaces.Step_in inPort[nIn] "Vector of step input connectors"
-      annotation (Placement(transformation(extent={{-120,10},{-100,-10}},
-              rotation=0)));
-    Interfaces.Step_out outPort[nOut] "Vector of step output connectors"
-      annotation (Placement(transformation(extent={{100,5},{110,-5}}, rotation=
-                0)));
-    protected
-    outer Interfaces.CompositeStepState stateGraphRoot;
-    model OuterStatePort
-      CompositeStepStatePort_in subgraphStatePort;
-    end OuterStatePort;
-    OuterStatePort outerStatePort;
-
-    Boolean newActive "Value of active in the next iteration"
-      annotation (HideResult=true);
-    Boolean oldActive "Value of active when CompositeStep was aborted";
-  initial equation
-    pre(newActive) = pre(localActive);
-    pre(oldActive) = pre(localActive);
-  equation
-    connect(outerStatePort.subgraphStatePort, stateGraphRoot.subgraphStatePort);
-
-    // Check that connections to the connector are correct
-    for i in 1:nIn loop
-
-    assert(cardinality(inPort[i]) <= 1,
-           "Connector is connected to more than one transition (this is not allowed)");
-    end for;
-
-    for i in 1:nOut loop
-
-    assert(cardinality(outPort[i]) <= 1,
-           "Connector is connected to more than one transition (this is not allowed)");
-    end for;
-
-    // set active state
-    localActive = pre(newActive);
-      newActive = if outerStatePort.subgraphStatePort.resume then oldActive
-         else (Temporary.anyTrue(inPort.set) or localActive and not
-        Temporary.anyTrue(outPort.reset)) and not outerStatePort.subgraphStatePort.suspend;
-
-    // Remember state for suspend action
-    when outerStatePort.subgraphStatePort.suspend then
-      oldActive = localActive;
-    end when;
-
-    // Report state to CompositeStep
-    outerStatePort.subgraphStatePort.activeSteps = if localActive then 1.0 else 0.0;
-
-    // Report state to input and output transitions
-    for i in 1:nIn loop
-      inPort[i].occupied = if i == 1 then localActive else
-                                          inPort[i-1].occupied or
-                                          inPort[i-1].set;
-    end for;
-
-    for i in 1:nOut loop
-       outPort[i].available = if i == 1 then localActive else
-                                             outPort[i-1].available and not
-                                             outPort[i-1].reset;
-    end for;
-
-    // Default setting, if an inPort or an outPort is not connected
-    for i in 1:nIn loop
-      if cardinality(inPort[i]) == 0 then
-        inPort[i].set = false;
-      end if;
-    end for;
-
-    for i in 1:nOut loop
-      if cardinality(outPort[i]) == 0 then
-        outPort[i].reset = false;
-      end if;
-    end for;
-  end PartialStep;
-
-  partial block PartialTransition
-      "Partial transition with input and output connections"
-    input Boolean localCondition "= true, if transition may fire"
-      annotation (HideResult=true);
-    parameter Boolean enableTimer=false "= true, if timer is enabled"
-      annotation (Evaluate=true, Dialog(group="Timer"));
-    parameter Modelica_SIunits.Time waitTime(min=0) = 0
-        "Wait time before transition fires"
-      annotation (Dialog(group="Timer", enable=enableTimer));
-    output Modelica_SIunits.Time t
-        "= actual waiting time (transition will fire when t > waitTime)";
-    output Boolean enableFire "= true, if all firing conditions are true";
-    output Boolean fire "= true, if transition fires" annotation (HideResult=true);
-
-    Transition_in inPort "Vector of transition input connectors" annotation (
-          Placement(transformation(extent={{-50,-10},{-30,10}}, rotation=0)));
-    Transition_out outPort "Vector of transition output connectors" annotation (
-         Placement(transformation(extent={{10,-5},{20,5}}, rotation=0)));
-    protected
-    Modelica_SIunits.Time t_start
-        "Time instant at which the transition would fire, if waitTime would be zero";
-    Real t_dummy;
-  initial equation
-    if enableTimer then
-       pre(t_start) = time;
-    end if;
-    pre(enableFire) = false;
-  equation
-    assert(cardinality(inPort) == 1,
-      "Connector inPort is not connected to exactly one other connector");
-    assert(cardinality(outPort) == 1,
-      "Connector outPort is not connected to exactly one other connector");
-
-    // Handling of Timer
-    if enableTimer then
-      when enableFire then
-        t_start = time;
-      end when;
-      t_dummy = time - t_start;
-      t = if enableFire then t_dummy else 0;
-      fire = enableFire and time >= t_start + waitTime;
-    else
-      t_start = 0;
-      t_dummy = 0;
-      t = 0;
-      fire = enableFire;
-    end if;
-
-    // Determine fire setting and report it to the connected step
-    enableFire = localCondition and inPort.available and not outPort.occupied;
-    inPort.reset = fire;
-    outPort.set = fire;
-  end PartialTransition;
-
-  partial block PartialStateGraphIcon "Icon for a StateGraph object"
-
-    annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid), Text(
-              extent={{160,110},{-160,150}},
-              textString="%name",
-              lineColor={0,0,255})}));
-  end PartialStateGraphIcon;
-
-  model CompositeStepState
-      "Communication channel between CompositeSteps and steps in the CompositeStep"
-
-    output Boolean suspend = false;
-    output Boolean resume =  false;
-    CompositeStepStatePort_out subgraphStatePort;
-
-  /*
-    missingInnerMessage="No \"stateGraphRoot\" component is defined on highest level
-of the StateGraph. A stateGraphRoot component is automatically introduced.
-In order to get rid of this message, drag StateGraph.StateGraphRoot into the
-top level your model.");
-*/
-  equation
-    suspend = subgraphStatePort.suspend;
-    resume  = subgraphStatePort.resume;
-    subgraphStatePort.activeStepsDummy = 0;
-    annotation (
-      defaultComponentName="stateGraphRoot",
-      defaultComponentPrefixes="inner",
-      missingInnerMessage="A \"stateGraphRoot\" component was automatically introduced.");
-  end CompositeStepState;
-end Interfaces;
-
 block InitialStep "Initial step (= step that is active when simulation starts)"
 
   output Boolean active
       "= true if step is active, otherwise the step is not active";
 
-  extends Interfaces.PartialStep;
+  extends Modelica_StateGraph_Interfaces.PartialStep;
 
 initial equation
   active = true;
@@ -1180,9 +831,9 @@ end InitialStep;
 block InitialStepWithSignal
     "Initial step (= step that is active when simulation starts). Connector 'active' is true when the step is active"
 
-  extends Interfaces.PartialStep;
+  extends Modelica_StateGraph_Interfaces.PartialStep;
 
-  Modelica_Blocks.Interfaces.BooleanOutput active
+  Modelica_Blocks_Interfaces.BooleanOutput active
     annotation (Placement(transformation(
           origin={0,-110},
           extent={{-10,-10},{10,10}},
@@ -1219,7 +870,7 @@ block Step "Ordinary step (= step that is not active when simulation starts)"
   output Boolean active
       "= true if step is active, otherwise the step is not active";
 
-  extends Interfaces.PartialStep;
+  extends Modelica_StateGraph_Interfaces.PartialStep;
 
 initial equation
   active = false;
@@ -1246,9 +897,9 @@ end Step;
 block StepWithSignal
     "Ordinary step (= step that is not active when simulation starts). Connector 'active' is true when the step is active"
 
-  extends Interfaces.PartialStep;
+  extends Modelica_StateGraph_Interfaces.PartialStep;
 
-  Modelica_Blocks.Interfaces.BooleanOutput active
+  Modelica_Blocks_Interfaces.BooleanOutput active
     annotation (Placement(transformation(
           origin={0,-110},
           extent={{-10,-10},{10,10}},
@@ -1285,7 +936,8 @@ block Transition
       "= true, if transition may fire (time varying expression)"
     annotation (Dialog(group="Fire condition"));
 
-  extends Interfaces.PartialTransition(final localCondition=condition);
+  extends Modelica_StateGraph_Interfaces.PartialTransition(
+                                       final localCondition=condition);
 
   annotation (
     Icon(coordinateSystem(
@@ -1326,13 +978,14 @@ end Transition;
 block TransitionWithSignal
     "Transition where the fire condition is set by a Boolean input signal"
 
-  Modelica_Blocks.Interfaces.BooleanInput condition
+  Modelica_Blocks_Interfaces.BooleanInput condition
     annotation (Placement(transformation(
           origin={0,-120},
           extent={{-20,-20},{20,20}},
           rotation=90)));
 
-  extends Interfaces.PartialTransition(final localCondition=condition);
+  extends Modelica_StateGraph_Interfaces.PartialTransition(
+                                       final localCondition=condition);
 
   annotation (
     Icon(coordinateSystem(
@@ -1375,12 +1028,10 @@ block Alternative
     "Alternative splitting of execution path (use component between two steps)"
 
   parameter Integer nBranches(min=1)=2 "Number of alternative branches";
-  Interfaces.Transition_in inPort
-                            annotation (Placement(transformation(extent={{-106,
-              -3},{-100,3}}, rotation=0)));
-  Interfaces.Transition_out outPort
-                              annotation (Placement(transformation(extent={{100,
-              -2},{104,2}}, rotation=0)));
+    Modelica_StateGraph_Interfaces.Transition_in inPort annotation (Placement(
+          transformation(extent={{-106,-3},{-100,3}}, rotation=0)));
+    Modelica_StateGraph_Interfaces.Transition_out outPort annotation (Placement(
+          transformation(extent={{100,-2},{104,2}}, rotation=0)));
   Step_in_forAlternative join[nBranches]
                                     annotation (Placement(transformation(extent=
              {{78,100},{80,-100}}, rotation=0)));
@@ -1487,10 +1138,10 @@ block Parallel
 
   parameter Integer nBranches(min=1)=2
       "Number of parallel branches that are executed in parallel";
-  Interfaces.Step_in inPort annotation (Placement(transformation(extent={{-106,
-              -3},{-100,3}}, rotation=0)));
-  Interfaces.Step_out outPort annotation (Placement(transformation(extent={{100,
-              -2},{104,2}}, rotation=0)));
+    Modelica_StateGraph_Interfaces.Step_in inPort annotation (Placement(
+          transformation(extent={{-106,-3},{-100,3}}, rotation=0)));
+    Modelica_StateGraph_Interfaces.Step_out outPort annotation (Placement(
+          transformation(extent={{100,-2},{104,2}}, rotation=0)));
   Transition_in_forParallel join[nBranches]
                                     annotation (Placement(transformation(extent=
              {{75,100},{80,-100}}, rotation=0)));
@@ -1646,37 +1297,37 @@ partial model PartialCompositeStep
      definition, i.e., it is reported to all components that are
      within the CompositeStep
   */
-  inner outer Interfaces.CompositeStepState stateGraphRoot(suspend=
-          Temporary.anyTrue(suspend.reset) or outerState.subgraphStatePort.suspend,
+    inner outer Modelica_StateGraph_Interfaces.CompositeStepState
+      stateGraphRoot(suspend=Temporary.anyTrue(suspend.reset) or outerState.subgraphStatePort.suspend,
         resume=Temporary.anyTrue(resume.set) or outerState.subgraphStatePort.resume)
       "Communication port between the CompositeStep and the steps within the CompositeStep";
   output Boolean active
       "= true if step is active, otherwise the step is not active";
-  Interfaces.Step_in inPort annotation (Placement(transformation(extent={{-170,
-              10},{-150,-10}}, rotation=0)));
-  Interfaces.Step_out outPort annotation (Placement(transformation(extent={{150,
-              5},{160,-5}}, rotation=0)));
-  Interfaces.CompositeStep_suspend suspend[nSuspend] annotation (Placement(
-          transformation(
+    Modelica_StateGraph_Interfaces.Step_in inPort annotation (Placement(
+          transformation(extent={{-170,10},{-150,-10}}, rotation=0)));
+    Modelica_StateGraph_Interfaces.Step_out outPort annotation (Placement(
+          transformation(extent={{150,5},{160,-5}}, rotation=0)));
+    Modelica_StateGraph_Interfaces.CompositeStep_suspend suspend[nSuspend]
+      annotation (Placement(transformation(
           origin={-75,-155},
           extent={{-5,5},{5,-5}},
           rotation=270)));
-  Interfaces.CompositeStep_resume resume[nResume] annotation (Placement(
-          transformation(
+    Modelica_StateGraph_Interfaces.CompositeStep_resume resume[nResume]
+      annotation (Placement(transformation(
           origin={75,-160},
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
   model OuterState
       "Block containing the port that is connected to the outer stateGraphRoot"
-    Interfaces.CompositeStepStatePort_in subgraphStatePort
-        "Port connected to outer stateGraphRoot";
+      Modelica_StateGraph_Interfaces.CompositeStepStatePort_in
+        subgraphStatePort "Port connected to outer stateGraphRoot";
   end OuterState;
   OuterState outerState;
 
   protected
   model InnerState
-    outer Interfaces.CompositeStepState stateGraphRoot;
+      outer Modelica_StateGraph_Interfaces.CompositeStepState stateGraphRoot;
   end InnerState;
   InnerState innerState;
 
@@ -1817,7 +1468,7 @@ end PartialCompositeStep;
 model StateGraphRoot
     "Root of a StateGraph (has to be present on the highest level of a StateGraph)"
 
-  extends Interfaces.CompositeStepState;
+  extends Modelica_StateGraph_Interfaces.CompositeStepState;
   output Integer activeSteps "Number of active steps within the stategraph";
 
 equation
@@ -1958,7 +1609,7 @@ value, still requires to go in to the text layer.
         "Reset button to false, if an element of reset becomes true"
       annotation (Dialog(group="Time varying expressions"));
 
-    Modelica_Blocks.Interfaces.BooleanOutput on
+    Modelica_Blocks_Interfaces.BooleanOutput on
       annotation (                                            Placement(
             transformation(extent={{100,-10},{120,10}}, rotation=0)));
     protected
@@ -1993,7 +1644,7 @@ value, still requires to go in to the text layer.
     parameter Boolean hideConnector=false
         "= true, if connector is not shown in the dynamic object diagram";
 
-    Modelica_Blocks.Interfaces.RealInput Value "Real value to be shown in icon"
+    Modelica_Blocks_Interfaces.RealInput Value "Real value to be shown in icon"
       annotation (
       Dialog(enable=hideConnector),
       Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
@@ -2017,7 +1668,7 @@ value, still requires to go in to the text layer.
   model IndicatorLamp
       "Dynamically show Boolean input signal (false/true = white/green color)"
 
-    Modelica_Blocks.Interfaces.BooleanInput u
+    Modelica_Blocks_Interfaces.BooleanInput u
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
 

@@ -155,298 +155,68 @@ the library and has the following content:
     end UsersGuide;
 
 
-      package Interfaces "Basic definitions"
-        extends Modelica_Icons.InterfacesPackage;
-
-        type Logic = enumeration(
-        'U' "U  Uninitialized",
-        'X' "X  Forcing Unknown",
-        '0' "0  Forcing 0",
-        '1' "1  Forcing 1",
-        'Z' "Z  High Impedance",
-        'W' "W  Weak Unknown",
-        'L' "L  Weak 0",
-        'H' "H  Weak 1",
-        '-' "-  Do not care")
-      "Logic values and their coding according to IEEE 1164 STD_ULOGIC type"
-              annotation (Documentation(info="<html>
-<p><b>Code Table:</b></p>
-
-<table border=1 cellspacing=0 cellpadding=2>
-  <tr><td valign=\"top\"><b>Logic value</b></td>
-      <td valign=\"top\"><b>Meaning</b></td>
-  </tr>
-
-  <tr><td valign=\"top\">'U'</td> <td valign=\"top\">Uninitialized</td></tr>
-  <tr><td valign=\"top\">'X'</td> <td valign=\"top\">Forcing Unknown</td></tr>
-  <tr><td valign=\"top\">'0'</td> <td valign=\"top\">Forcing 0</td></tr>
-  <tr><td valign=\"top\">'1'</td> <td valign=\"top\">Forcing 1</td></tr>
-  <tr><td valign=\"top\">'Z'</td> <td valign=\"top\">High Impedance</td></tr>
-  <tr><td valign=\"top\">'W'</td> <td valign=\"top\">Weak Unknown</td></tr>
-  <tr><td valign=\"top\">'L'</td> <td valign=\"top\">Weak 0</td></tr>
-  <tr><td valign=\"top\">'H'</td> <td valign=\"top\">Weak 1</td></tr>
-  <tr><td valign=\"top\">'-'</td> <td valign=\"top\">Do not care</td></tr>
-</table>
-
-</html>"));
-
-        type UX01 = enumeration(
-        'U' "U  Uninitialized",
-        'X' "X  Forcing Unknown",
-        '0' "0  Forcing 0",
-        '1' "1  Forcing 1") "4-valued subtype of IEEE 1164 STD_ULOGIC type"
-          annotation (Documentation(info="<html>
-<p><b>Code Table:</b></p>
-
-<table border=1 cellspacing=0 cellpadding=2>
-  <tr><td valign=\"top\"><b>Logic value</b></td>
-      <td valign=\"top\"><b>Meaning</b></td>
-  </tr>
-
-  <tr><td valign=\"top\">'U'</td> <td valign=\"top\">Uninitialized</td></tr>
-  <tr><td valign=\"top\">'X'</td> <td valign=\"top\">Forcing Unknown</td></tr>
-  <tr><td valign=\"top\">'0'</td> <td valign=\"top\">Forcing 0</td></tr>
-  <tr><td valign=\"top\">'1'</td> <td valign=\"top\">Forcing 1</td></tr>
-
-</table>
-</html>"));
-        type Strength = enumeration(
-        'S_X01',
-        'S_X0H',
-        'S_XL1',
-        'S_X0Z',
-        'S_XZ1',
-        'S_WLH',
-        'S_WLZ',
-        'S_WZH',
-        'S_W0H',
-        'S_WL1') "Output strengths of registers"     annotation (Documentation(info="<html>
-
-<p><b>Strength Table:</b></p>
-
-<table border=1 cellspacing=0 cellpadding=2>
-  <tr><td valign=\"top\"><b>Strength</b></td>
-      <td valign=\"top\"><b>Output conversion to</b></td>
-  </tr>
-
-  <tr><td valign=\"top\">'S_X01'</td> <td valign=\"top\">Forcing X, 0, 1</td></tr>
-  <tr><td valign=\"top\">'S_X0H'</td> <td valign=\"top\">Forcing X, 0 and Weak 1</td></tr>
-  <tr><td valign=\"top\">'S_XL1'</td> <td valign=\"top\">Forcing X, 1 and Weak 0</td></tr>
-  <tr><td valign=\"top\">'S_X0Z'</td> <td valign=\"top\">Forcing X, 0 and High Impedance</td></tr>
-  <tr><td valign=\"top\">'S_XZ1'</td> <td valign=\"top\">Forcing X, 1 and High Impedance</td></tr>
-  <tr><td valign=\"top\">'S_WLH'</td> <td valign=\"top\">Weak X, 0, 1</td></tr>
-  <tr><td valign=\"top\">'S_WLZ'</td> <td valign=\"top\">Weak X, 0 and High Impedance</td></tr>
-  <tr><td valign=\"top\">'S_WZH'</td> <td valign=\"top\">Weak X, 1 and High Impedance</td></tr>
-  <tr><td valign=\"top\">'S_W0H'</td> <td valign=\"top\">Weak X, 1 and Forcing 0</td></tr>
-  <tr><td valign=\"top\">'S_WL1'</td> <td valign=\"top\">Weak X, 0 and Forcing 1</td></tr>
-</table>
-</html>"));
-
-        connector DigitalSignal = Logic
-      "Digital port (both input/output possible)"
-          annotation (          Documentation(info="<html>
-<p>DigitalSignal is the basic digital connector definition. A direction (input, output) is not yet defined. DigitalSignal is of type Logic. It can have the logic values (U, X, 0, 1, ...) which are internally coded by integer values by using the enumeration (c.f. the definition of type Logic).</p>
-</html>"));
-
-        connector DigitalInput = input DigitalSignal
-      "Input DigitalSignal as connector"
-          annotation (defaultComponentName="x",
-            Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-              {100,100}}), graphics={Rectangle(
-            extent={{-100,-100},{100,100}},
-            lineColor={127,0,127},
-            fillColor={127,0,127},
-            fillPattern=FillPattern.Solid)}),
-            Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics={Text(
-            extent={{-150,-100},{150,-160}},
-            lineColor={127,0,127},
-            textString="%name"), Rectangle(
-            extent={{-100,-100},{100,100}},
-            lineColor={127,0,127},
-            fillColor={127,0,127},
-            fillPattern=FillPattern.Solid)}),
-          Documentation(info="<html>
-<p>DigitalInput is the  digital input connector definition. DigitalInput is of type Logic. It can have the logic values (U, X, 0, 1, ...) which are internally coded by integer values by using the enumeration (c.f. the definition of type Logic).</p>
-</html>"));
-
-        connector DigitalOutput = output DigitalSignal
-      "Output DigitalSignal as connector"
-          annotation (defaultComponentName="y", Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-          graphics={Polygon(
-            points={{-100,100},{100,0},{-100,-100},{-100,100}},
-            lineColor={127,0,127},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-                                           Diagram(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-          graphics={Polygon(
-            points={{-100,100},{100,0},{-100,-100},{-100,100}},
-            lineColor={127,0,127},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid), Text(
-            extent={{-150,-100},{150,-160}},
-            lineColor={127,0,127},
-            textString="%name")}),
-          Documentation(info=
-                         "<html>
-<p>DigitalOutput is the  digital output connector definition. DigitalOutput  is of type Logic. It can have the logic values (U, X, 0, 1, ...) which are internally coded by integer values by using the enumeration (c.f. the definition of type Logic). The arrow shape symbolizes the signal flow direction.</p>
-</html>"));
-
-        partial block SISO "Single input, single output"
-      import D = Modelica_Electrical_Digital;
-          D.Interfaces.DigitalInput x "Connector of Digital input signal"
-                       annotation (Placement(transformation(extent={{-70,-10},{-50,
-                    10}}, rotation=0)));
-          D.Interfaces.DigitalOutput y "Connector of Digital output signal"
-                        annotation (Placement(transformation(extent={{90,-10},{110,
-                    10}}, rotation=0)));
-          annotation (                                        Icon(
-                coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Rectangle(
-              extent={{-50,100},{50,-100}},
-              lineColor={0,0,0},
-              lineThickness=0.5,
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid), Line(points={{50,0},{92,0}},
-                color={127,0,127})}),
-            Documentation(info="<html>
-<p>SISO is a partial model for the connection pattern with <b>s</b>ingle (scalar) digital <b>i</b>nput and <b>s</b>ingle (scalar) digital <b>o</b>utput. Besides the connectors it provides a rectangle for the icon which can be filled in by the component which inherits the SISO model.</p>
-</html>"));
-        end SISO;
-
-        partial block MISO "Multiple input - single output"
-      import D = Modelica_Electrical_Digital;
-
-          parameter Integer n(final min=2) = 2 "Number of inputs";
-          D.Interfaces.DigitalInput x[n]
-        "Connector of Digital input signal vector"
-                                         annotation (Placement(transformation(
-                  extent={{-70,-80},{-50,80}}, rotation=0)));
-          D.Interfaces.DigitalOutput y "Connector of Digital output signal"
-                        annotation (Placement(transformation(extent={{90,-10},{110,
-                    10}}, rotation=0)));
-          annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Rectangle(
-              extent={{-50,100},{50,-100}},
-              lineColor={0,0,0},
-              lineThickness=0.5,
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid), Line(points={{50,0},{90,0}},
-                color={127,0,127})}),
-            Documentation(info="<html>
-<p>MISO is a partial model for the connection pattern with <b>m</b>ultiple (vector) digital <b>i</b>nput and <b>s</b>ingle (scalar) digital <b>o</b>utput. Besides the connectors it provides a rectangle for the icon which can be filled in by the component which inherits the MISO model.</p>
-</html>"));
-        end MISO;
-
-        partial block MIMO "Multiple input - multiple output"
-      import D = Modelica_Electrical_Digital;
-
-          parameter Integer n(final min=1) = 1
-        "Number of inputs = Number of outputs";
-          D.Interfaces.DigitalInput x[n]
-        "Connector of Digital input signal vector"
-                                         annotation (Placement(transformation(
-                  extent={{-70,-80},{-50,80}}, rotation=0)));
-          D.Interfaces.DigitalOutput y[n]
-        "Connector of Digital output signal vector"
-                        annotation (Placement(transformation(extent={{90,-10},{110,
-                    10}}, rotation=0)));
-          annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={
-            Rectangle(
-              extent={{-50,100},{50,-100}},
-              lineColor={0,0,0},
-              lineThickness=0.5,
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Line(points={{50,0},{90,0}}, color={127,0,127}),
-            Rectangle(
-              extent={{50,80},{70,-80}},
-              lineColor={127,33,107},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}),
-            Documentation(info="<html>
-<p>MIMO is a partial model for the connection pattern with <b>m</b>ultiple (vector) digital <b>i</b>nput and <b>m</b>ultiple  (vector) digital <b>o</b>utput. Besides the connectors it provides a rectangle for the icon which can be filled in by the component which inherits the MISO model.</p>
-</html>"));
-        end MIMO;
-
-        annotation (                                Documentation(info="<html>
-<p>This package contains basic definitions: Type definitions of Logic and Strength,  interface definitions (connectors) for digital electrical components, and partial models for connection patterns which are often used.</p>
-</html>"));
-      end Interfaces;
-
   package Tables "Truth tables for all components of package Digital"
     extends Modelica_Icons.Package;
 
     import D = Modelica_Electrical_Digital;
-    import L = Modelica_Electrical_Digital.Interfaces.Logic;
-    import R = Modelica_Electrical_Digital.Interfaces.UX01;
-    import S = Modelica_Electrical_Digital.Interfaces.Strength;
+    import L = Modelica_Electrical_Digital_Interfaces.Logic;
+    import R = Modelica_Electrical_Digital_Interfaces.UX01;
+    import S = Modelica_Electrical_Digital_Interfaces.Strength;
 
-    constant D.Interfaces.Logic AndTable[L, L]=[
-        L.'U', L.'U', L.'0', L.'U', L.'U', L.'U', L.'0', L.'U', L.'U';
-        L.'U', L.'X', L.'0', L.'X', L.'X', L.'X', L.'0', L.'X', L.'X';
-        L.'0', L.'0', L.'0', L.'0', L.'0', L.'0', L.'0', L.'0', L.'0';
-        L.'U', L.'X', L.'0', L.'1', L.'X', L.'X', L.'0', L.'1', L.'X';
-        L.'U', L.'X', L.'0', L.'X', L.'X', L.'X', L.'0', L.'X', L.'X';
-        L.'U', L.'X', L.'0', L.'X', L.'X', L.'X', L.'0', L.'X', L.'X';
-        L.'0', L.'0', L.'0', L.'0', L.'0', L.'0', L.'0', L.'0', L.'0';
-        L.'U', L.'X', L.'0', L.'1', L.'X', L.'X', L.'0', L.'1', L.'X';
-        L.'U', L.'X', L.'0', L.'X', L.'X', L.'X', L.'0', L.'X', L.'X']
+    constant Modelica_Electrical_Digital_Interfaces.Logic AndTable[L,L]=[L.'U',
+        L.'U',L.'0',L.'U',L.'U',L.'U',L.'0',L.'U',L.'U'; L.'U',L.'X',L.'0',L.
+        'X',L.'X',L.'X',L.'0',L.'X',L.'X'; L.'0',L.'0',L.'0',L.'0',L.'0',L.'0',
+        L.'0',L.'0',L.'0'; L.'U',L.'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.
+        'X'; L.'U',L.'X',L.'0',L.'X',L.'X',L.'X',L.'0',L.'X',L.'X'; L.'U',L.'X',
+        L.'0',L.'X',L.'X',L.'X',L.'0',L.'X',L.'X'; L.'0',L.'0',L.'0',L.'0',L.
+        '0',L.'0',L.'0',L.'0',L.'0'; L.'U',L.'X',L.'0',L.'1',L.'X',L.'X',L.'0',
+        L.'1',L.'X'; L.'U',L.'X',L.'0',L.'X',L.'X',L.'X',L.'0',L.'X',L.'X']
       "9-value logic for 'and'";
 
-    constant D.Interfaces.Logic OrTable[L, L]=[
-        L.'U', L.'U', L.'U', L.'1', L.'U', L.'U', L.'U', L.'1', L.'U';
-        L.'U', L.'X', L.'X', L.'1', L.'X', L.'X', L.'X', L.'1', L.'X';
-        L.'U', L.'X', L.'0', L.'1', L.'X', L.'X', L.'0', L.'1', L.'X';
-        L.'1', L.'1', L.'1', L.'1', L.'1', L.'1', L.'1', L.'1', L.'1';
-        L.'U', L.'X', L.'X', L.'1', L.'X', L.'X', L.'X', L.'1', L.'X';
-        L.'U', L.'X', L.'X', L.'1', L.'X', L.'X', L.'X', L.'1', L.'X';
-        L.'U', L.'X', L.'0', L.'1', L.'X', L.'X', L.'0', L.'1', L.'X';
-        L.'1', L.'1', L.'1', L.'1', L.'1', L.'1', L.'1', L.'1', L.'1';
-        L.'U', L.'X', L.'X', L.'1', L.'X', L.'X', L.'X', L.'1', L.'X']
+    constant Modelica_Electrical_Digital_Interfaces.Logic OrTable[L,L]=[L.'U',L.
+        'U',L.'U',L.'1',L.'U',L.'U',L.'U',L.'1',L.'U'; L.'U',L.'X',L.'X',L.'1',
+        L.'X',L.'X',L.'X',L.'1',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'X',L.'X',L.
+        '0',L.'1',L.'X'; L.'1',L.'1',L.'1',L.'1',L.'1',L.'1',L.'1',L.'1',L.'1';
+        L.'U',L.'X',L.'X',L.'1',L.'X',L.'X',L.'X',L.'1',L.'X'; L.'U',L.'X',L.
+        'X',L.'1',L.'X',L.'X',L.'X',L.'1',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'X',
+        L.'X',L.'0',L.'1',L.'X'; L.'1',L.'1',L.'1',L.'1',L.'1',L.'1',L.'1',L.
+        '1',L.'1'; L.'U',L.'X',L.'X',L.'1',L.'X',L.'X',L.'X',L.'1',L.'X']
       "9-value logic for 'or'";
 
-    constant D.Interfaces.Logic NotTable[L]={
-        L.'U',L.'X',L.'1',L.'0',L.'X',L.'X',L.'1',L.'0',L.'X'}
+    constant Modelica_Electrical_Digital_Interfaces.Logic NotTable[L]={L.'U',L.
+        'X',L.'1',L.'0',L.'X',L.'X',L.'1',L.'0',L.'X'}
       "9-value logic for 'not'";
 
-    constant D.Interfaces.Logic XorTable[L, L]=[
-        L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X';
-        L.'U', L.'X', L.'0', L.'1', L.'X', L.'X', L.'0', L.'1', L.'X';
-        L.'U', L.'X', L.'1', L.'0', L.'X', L.'X', L.'1', L.'0', L.'X';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X';
-        L.'U', L.'X', L.'0', L.'1', L.'X', L.'X', L.'0', L.'1', L.'X';
-        L.'U', L.'X', L.'1', L.'0', L.'X', L.'X', L.'1', L.'0', L.'X';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X']
+    constant Modelica_Electrical_Digital_Interfaces.Logic XorTable[L,L]=[L.'U',
+        L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'X',L.'X',L.
+        'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'X',L.'X',
+        L.'0',L.'1',L.'X'; L.'U',L.'X',L.'1',L.'0',L.'X',L.'X',L.'1',L.'0',L.
+        'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',
+        L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',L.'0',L.'1',L.
+        'X',L.'X',L.'0',L.'1',L.'X'; L.'U',L.'X',L.'1',L.'0',L.'X',L.'X',L.'1',
+        L.'0',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X']
       "9-value logic for 'xor'";
 
-    constant D.Interfaces.Logic ResolutionTable[L, L]=[
-        L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X';
-        L.'U', L.'X', L.'0', L.'X', L.'0', L.'0', L.'0', L.'0', L.'X';
-        L.'U', L.'X', L.'X', L.'1', L.'1', L.'1', L.'1', L.'1', L.'X';
-        L.'U', L.'X', L.'0', L.'1', L.'Z', L.'W', L.'L', L.'H', L.'X';
-        L.'U', L.'X', L.'0', L.'1', L.'W', L.'W', L.'W', L.'W', L.'X';
-        L.'U', L.'X', L.'0', L.'1', L.'L', L.'W', L.'L', L.'W', L.'X';
-        L.'U', L.'X', L.'0', L.'1', L.'H', L.'W', L.'W', L.'H', L.'X';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X']
-      "9-value logic for 'wiredX'";
-    constant D.Interfaces.Logic X01Table[L]={
-        L.'X',L.'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'};
+    constant Modelica_Electrical_Digital_Interfaces.Logic ResolutionTable[L,L]=
+        [L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'X',L.
+        'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',L.'0',L.'X',L.'0',
+        L.'0',L.'0',L.'0',L.'X'; L.'U',L.'X',L.'X',L.'1',L.'1',L.'1',L.'1',L.
+        '1',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'Z',L.'W',L.'L',L.'H',L.'X'; L.'U',
+        L.'X',L.'0',L.'1',L.'W',L.'W',L.'W',L.'W',L.'X'; L.'U',L.'X',L.'0',L.
+        '1',L.'L',L.'W',L.'L',L.'W',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'H',L.'W',
+        L.'W',L.'H',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.
+        'X'] "9-value logic for 'wiredX'";
+    constant Modelica_Electrical_Digital_Interfaces.Logic X01Table[L]={L.'X',L.
+        'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'};
 
-    constant D.Interfaces.Logic X01ZTable[L]={
-        L.'X',L.'X',L.'0',L.'1',L.'Z',L.'X',L.'0',L.'1',L.'Z'};
+    constant Modelica_Electrical_Digital_Interfaces.Logic X01ZTable[L]={L.'X',L.
+        'X',L.'0',L.'1',L.'Z',L.'X',L.'0',L.'1',L.'Z'};
 
-    constant D.Interfaces.Logic UX01Table[L]={
-        L.'U',L.'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'};
+    constant Modelica_Electrical_Digital_Interfaces.Logic UX01Table[L]={L.'U',L.
+        'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'};
 
-    constant D.Interfaces.UX01 UX01Conv[L]={
-        R.'U',R.'X',R.'0',R.'1',R.'X',R.'X',R.'0',R.'1',R.'X'};
+    constant Modelica_Electrical_Digital_Interfaces.UX01 UX01Conv[L]={R.'U',R.
+        'X',R.'0',R.'1',R.'X',R.'X',R.'0',R.'1',R.'X'};
 
     constant Integer DelayTable[L, L]=[
          0,  0, -1,  1,  0,  0, -1,  1,  0;
@@ -476,97 +246,100 @@ the library and has the following content:
     1: rising edge  |
     2: X-Transition";
 
-    constant D.Interfaces.Logic StrengthMap[L, S]=
-        [L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U';
-         L.'X', L.'X', L.'X', L.'X', L.'X', L.'W', L.'W', L.'W', L.'W', L.'W';
-         L.'0', L.'0', L.'L', L.'0', L.'Z', L.'L', L.'L', L.'Z', L.'0', L.'L';
-         L.'1', L.'H', L.'1', L.'Z', L.'1', L.'H', L.'Z', L.'H', L.'H', L.'1';
-         L.'X', L.'X', L.'X', L.'X', L.'X', L.'W', L.'W', L.'W', L.'W', L.'W';
-         L.'X', L.'X', L.'X', L.'X', L.'X', L.'W', L.'W', L.'W', L.'W', L.'W';
-         L.'0', L.'0', L.'L', L.'0', L.'Z', L.'L', L.'L', L.'Z', L.'0', L.'L';
-         L.'1', L.'H', L.'1', L.'Z', L.'1', L.'H', L.'Z', L.'H', L.'H', L.'1';
-         L.'X', L.'X', L.'X', L.'X', L.'X', L.'W', L.'W', L.'W', L.'W', L.'W']
+    constant Modelica_Electrical_Digital_Interfaces.Logic StrengthMap[L,S]=[L.
+        'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'X',L.'X',
+        L.'X',L.'X',L.'X',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'0',L.'0',L.'L',L.
+        '0',L.'Z',L.'L',L.'L',L.'Z',L.'0',L.'L'; L.'1',L.'H',L.'1',L.'Z',L.'1',
+        L.'H',L.'Z',L.'H',L.'H',L.'1'; L.'X',L.'X',L.'X',L.'X',L.'X',L.'W',L.
+        'W',L.'W',L.'W',L.'W'; L.'X',L.'X',L.'X',L.'X',L.'X',L.'W',L.'W',L.'W',
+        L.'W',L.'W'; L.'0',L.'0',L.'L',L.'0',L.'Z',L.'L',L.'L',L.'Z',L.'0',L.
+        'L'; L.'1',L.'H',L.'1',L.'Z',L.'1',L.'H',L.'Z',L.'H',L.'H',L.'1'; L.'X',
+        L.'X',L.'X',L.'X',L.'X',L.'W',L.'W',L.'W',L.'W',L.'W']
       "Output strength conversion by [signal, strength] reading";
 
-    constant D.Interfaces.Logic NXferTable[L, L]=[
-        L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X';
-        L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z';
-        L.'U', L.'X', L.'0', L.'1', L.'Z', L.'W', L.'L', L.'H', L.'X';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X';
-        L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z';
-        L.'U', L.'X', L.'0', L.'1', L.'Z', L.'W', L.'L', L.'H', L.'X';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X']
+    constant Modelica_Electrical_Digital_Interfaces.Logic NXferTable[L,L]=[L.
+        'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'X',L.'X',
+        L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.
+        'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'X',L.'0',L.'1',L.'Z',L.'W',L.'L',L.'H',
+        L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.
+        'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'Z',L.'Z',L.'Z',L.'Z',
+        L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'X',L.'0',L.'1',L.'Z',L.'W',L.
+        'L',L.'H',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X']
       "NX Transfer by [enable, input] reading";
 
-    constant D.Interfaces.Logic NRXferTable[L, L]=[
-        L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U';
-        L.'U', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W';
-        L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z';
-        L.'U', L.'W', L.'L', L.'H', L.'Z', L.'W', L.'L', L.'H', L.'W';
-        L.'U', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W';
-        L.'U', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W';
-        L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z';
-        L.'U', L.'W', L.'L', L.'H', L.'Z', L.'W', L.'L', L.'H', L.'W';
-        L.'U', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W']
+    constant Modelica_Electrical_Digital_Interfaces.Logic NRXferTable[L,L]=[L.
+        'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'W',L.'W',
+        L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.
+        'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'W',L.'L',L.'H',L.'Z',L.'W',L.'L',L.'H',
+        L.'W'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'U',L.
+        'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'Z',L.'Z',L.'Z',L.'Z',
+        L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'W',L.'L',L.'H',L.'Z',L.'W',L.
+        'L',L.'H',L.'W'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W']
       "NRX Transfer by [enable, input] reading";
 
-    constant D.Interfaces.Logic PXferTable[L, L]=[
-        L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X';
-        L.'U', L.'X', L.'0', L.'1', L.'Z', L.'W', L.'L', L.'H', L.'X';
-        L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X';
-        L.'U', L.'X', L.'0', L.'1', L.'Z', L.'W', L.'L', L.'H', L.'X';
-        L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z';
-        L.'U', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X', L.'X']
+    constant Modelica_Electrical_Digital_Interfaces.Logic PXferTable[L,L]=[L.
+        'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'X',L.'X',
+        L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'Z',L.
+        'W',L.'L',L.'H',L.'X'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',
+        L.'Z'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.
+        'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',L.'0',L.'1',
+        L.'Z',L.'W',L.'L',L.'H',L.'X'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.
+        'Z',L.'Z',L.'Z'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X']
       "PX Transfer by [enable, input] reading";
 
-    constant D.Interfaces.Logic PRXferTable[L, L]=[
-        L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U', L.'U';
-        L.'U', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W';
-        L.'U', L.'W', L.'L', L.'H', L.'Z', L.'W', L.'L', L.'H', L.'W';
-        L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z';
-        L.'U', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W';
-        L.'U', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W';
-        L.'U', L.'W', L.'L', L.'H', L.'Z', L.'W', L.'L', L.'H', L.'W';
-        L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z', L.'Z';
-        L.'U', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W', L.'W']
+    constant Modelica_Electrical_Digital_Interfaces.Logic PRXferTable[L,L]=[L.
+        'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'W',L.'W',
+        L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'U',L.'W',L.'L',L.'H',L.'Z',L.
+        'W',L.'L',L.'H',L.'W'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',
+        L.'Z'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'U',L.
+        'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'U',L.'W',L.'L',L.'H',
+        L.'Z',L.'W',L.'L',L.'H',L.'W'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.
+        'Z',L.'Z',L.'Z'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W']
       "PRX Transfer by [enable, input] reading";
 
-    constant D.Interfaces.Logic Buf3sTable[S, R, R]=[
-        {{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'0',L.'1'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'0',L.'H'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'L',L.'1'}},
-         {{L.'U',L.'U',L.'U',L.'Z'},{L.'U',L.'X',L.'X',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'0',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'Z',L.'1'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'L',L.'H'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'L',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'Z',L.'H'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'0',L.'H'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'L',L.'1'}}}]
+    constant Modelica_Electrical_Digital_Interfaces.Logic Buf3sTable[S,R,R]=[{{
+        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',
+        L.'Z'},{L.'U',L.'X',L.'0',L.'1'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
+        'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'0',L.'H'}},{
+        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',
+        L.'Z'},{L.'U',L.'X',L.'L',L.'1'}},{{L.'U',L.'U',L.'U',L.'Z'},{L.'U',L.
+        'X',L.'X',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'0',L.'Z'}},{
+        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',
+        L.'Z'},{L.'U',L.'X',L.'Z',L.'1'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
+        'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'L',L.'H'}},{
+        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'Z'},{L.'Z',L.'Z',L.'Z',
+        L.'Z'},{L.'U',L.'W',L.'L',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
+        'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'Z',L.'H'}},{
+        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',
+        L.'Z'},{L.'U',L.'W',L.'0',L.'H'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
+        'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'L',L.'1'}}}]
       "Tristate Table by [strength, enable, input] reading, high-active enable";
 
-    constant D.Interfaces.Logic Buf3slTable[S, R, R]=[
-        {{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'L',L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'Z'},{L.'U',L.'X',L.'X',L.'Z'},{L.'U',L.'X',L.'0',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'Z',L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'U',L.'W',L.'L',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'Z'},{L.'U',L.'W',L.'L',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'U',L.'W',L.'Z',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'U',L.'W',L.'0',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},
-         {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'U',L.'W',L.'L',L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}}}]
+    constant Modelica_Electrical_Digital_Interfaces.Logic Buf3slTable[S,R,R]=[{
+        {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',
+        L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
+        'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{
+        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'L',
+        L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'Z'},{L.'U',L.
+        'X',L.'X',L.'Z'},{L.'U',L.'X',L.'0',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{
+        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'Z',
+        L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
+        'W',L.'W',L.'W'},{L.'U',L.'W',L.'L',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{
+        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'Z'},{L.'U',L.'W',L.'L',
+        L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
+        'W',L.'W',L.'W'},{L.'U',L.'W',L.'Z',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{
+        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'U',L.'W',L.'0',
+        L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
+        'W',L.'W',L.'W'},{L.'U',L.'W',L.'L',L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}}}]
       "Tristate Table by [strength, enable, input] reading, low-active enable";
 
-    constant D.Interfaces.Logic MUX2x1Table[R, R, R]=[
-        {{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'0',L.'1'},{L.'U',L.'U',L.'U',L.'U'}},
-         {{L.'U',L.'X',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',L.'1'},{L.'X',L.'X',L.'X',L.'X'}},
-         {{L.'U',L.'U',L.'0',L.'U'},{L.'U',L.'X',L.'0',L.'X'},{L.'U',L.'X',L.'0',L.'1'},{L.'0',L.'0',L.'0',L.'0'}},
-         {{L.'U',L.'U',L.'U',L.'1'},{L.'U',L.'X',L.'X',L.'1'},{L.'U',L.'X',L.'0',L.'1'},{L.'1',L.'1',L.'1',L.'1'}}}]
+    constant Modelica_Electrical_Digital_Interfaces.Logic MUX2x1Table[R,R,R]=[{
+        {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'0',
+        L.'1'},{L.'U',L.'U',L.'U',L.'U'}},{{L.'U',L.'X',L.'U',L.'U'},{L.'U',L.
+        'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',L.'1'},{L.'X',L.'X',L.'X',L.'X'}},{
+        {L.'U',L.'U',L.'0',L.'U'},{L.'U',L.'X',L.'0',L.'X'},{L.'U',L.'X',L.'0',
+        L.'1'},{L.'0',L.'0',L.'0',L.'0'}},{{L.'U',L.'U',L.'U',L.'1'},{L.'U',L.
+        'X',L.'X',L.'1'},{L.'U',L.'X',L.'0',L.'1'},{L.'1',L.'1',L.'1',L.'1'}}}]
       "Multiplexer Table by [select, input1, input0] reading";
 
     annotation (                            Documentation(info="<html>
@@ -578,7 +351,7 @@ the library and has the following content:
         extends Modelica_Icons.Package;
 
         partial block DelayParams "Definition of delay parameters"
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
           parameter Modelica_SIunits.Time tLH(start=0) "Rise inertial delay";
           parameter Modelica_SIunits.Time tHL(start=0) "Fall inertial delay";
           parameter L y0=L.'U' "Initial value of output";
@@ -589,13 +362,16 @@ the library and has the following content:
 
         model TransportDelay "Transport delay with initial parameter"
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          extends D.Interfaces.SISO(x(start=L.'U',fixed=true));
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          extends Modelica_Electrical_Digital_Interfaces.SISO(
+                                    x(start=L.'U',fixed=true));
           parameter Modelica_SIunits.Time delayTime(start=0) "delay time";
-          parameter D.Interfaces.Logic y0=L.'U' "initial value of output";
-          constant D.Interfaces.Logic LogicValues[:]=L.'U':L.'-';
+      parameter Modelica_Electrical_Digital_Interfaces.Logic y0=L.'U'
+        "initial value of output";
+      constant Modelica_Electrical_Digital_Interfaces.Logic LogicValues[:]=L.
+          'U':L.'-';
     protected
-          D.Interfaces.Logic x_delayed;
+      Modelica_Electrical_Digital_Interfaces.Logic x_delayed;
 
         equation
           x_delayed = LogicValues[integer(delay(Integer(pre(x)), delayTime))];
@@ -643,14 +419,16 @@ If time less than <i>Tdel</i> the initial value <i>initout</i> holds.
 
         block InertialDelay "Inertial delay with initial parameter"
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          extends D.Interfaces.SISO;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          extends Modelica_Electrical_Digital_Interfaces.SISO;
           parameter Modelica_SIunits.Time delayTime(start=0)
         "Minimum time to hold value";
-          parameter D.Interfaces.Logic y0=L.'U' "Initial value of output y";
+      parameter Modelica_Electrical_Digital_Interfaces.Logic y0=L.'U'
+        "Initial value of output y";
     protected
-          D.Interfaces.Logic y_auxiliary(start=y0, fixed=true);
-          D.Interfaces.Logic x_old(start=y0, fixed=true);
+      Modelica_Electrical_Digital_Interfaces.Logic y_auxiliary(start=y0, fixed=
+            true);
+      Modelica_Electrical_Digital_Interfaces.Logic x_old(start=y0, fixed=true);
           discrete Modelica_SIunits.Time t_next(start=delayTime, fixed=true);
 
         algorithm
@@ -706,17 +484,20 @@ If time is less than <i>Tdel</i> the initial value <i>initout</i> holds.
       "Provide the input as output if it holds its value for a specific amount of time"
 
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          extends D.Interfaces.SISO(x(start=L.'U',fixed=true),y(start=y0, fixed=true));
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          extends Modelica_Electrical_Digital_Interfaces.SISO(
+                                    x(start=L.'U',fixed=true),y(start=y0, fixed=true));
           parameter Modelica_SIunits.Time tLH(start=0) "rise inertial delay";
           parameter Modelica_SIunits.Time tHL(start=0) "fall inertial delay";
-          parameter D.Interfaces.Logic y0=L.'U' "initial value of output";
+      parameter Modelica_Electrical_Digital_Interfaces.Logic y0=L.'U'
+        "initial value of output";
     protected
           constant Integer delayTable[L,L]=D.Tables.DelayTable
         "specification of delay according to signal change";
           Modelica_SIunits.Time delayTime;
-          D.Interfaces.Logic y_auxiliary(start=y0, fixed=true);
-          D.Interfaces.Logic y_old(start=y0, fixed=true);
+      Modelica_Electrical_Digital_Interfaces.Logic y_auxiliary(start=y0, fixed=
+            true);
+      Modelica_Electrical_Digital_Interfaces.Logic y_old(start=y0, fixed=true);
           Integer lh;
           discrete Modelica_SIunits.Time t_next;
 
@@ -801,18 +582,18 @@ is used, if it is zero, the input is not delayed.
         model InertialDelaySensitiveVector
       "Delay of a vector of digital signals"
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
           parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
           parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
           parameter Integer n(min=1) = 1 "Data width";
-          D.Interfaces.DigitalInput x[n]
-            annotation (Placement(transformation(extent={{-100,-12},{-76,12}}),
-                iconTransformation(extent={{-100,-15},{-72,14}})));
-          D.Interfaces.DigitalOutput y[n] annotation (Placement(transformation(
-                  extent={{72,-14},{100,14}}), iconTransformation(extent={{72,-14},
-                    {100,14}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] annotation (
+          Placement(transformation(extent={{-100,-12},{-76,12}}),
+            iconTransformation(extent={{-100,-15},{-72,14}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] annotation (
+          Placement(transformation(extent={{72,-14},{100,14}}),
+            iconTransformation(extent={{72,-14},{100,14}})));
           D.Delay.InertialDelaySensitive inertialDelaySensitive[n](each tLH=tLH,
           each tHL=tHL);
         equation
@@ -872,10 +653,11 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
 
         model Not "Not logic component without delay"
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          extends D.Interfaces.SISO;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          extends Modelica_Electrical_Digital_Interfaces.SISO;
     protected
-          D.Interfaces.Logic auxiliary(start=L.'0', fixed=true);
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary(start=L.'0', fixed
+          =true);
         equation
       auxiliary = Modelica_Electrical_Digital.Tables.NotTable[x];
           y = pre(auxiliary);
@@ -911,11 +693,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
 
         model And "And logic component with multiple input and one output"
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          extends D.Interfaces.MISO;
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
     protected
-          D.Interfaces.Logic auxiliary[n](each start=L.'U');
-          D.Interfaces.Logic auxiliary_n( start=L.'U', fixed=true);
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary[n](each start=L.
+            'U');
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary_n(start=L.'U',
+          fixed=true);
         equation
           auxiliary[1] = x[1];
           for i in 1:n - 1 loop
@@ -952,11 +736,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
 
         model Nand "Nand logic component with multiple input and one output"
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          extends D.Interfaces.MISO;
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
     protected
-          D.Interfaces.Logic auxiliary[n](each start=L.'U');
-          D.Interfaces.Logic auxiliary_n( start=L.'U', fixed=true);
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary[n](each start=L.
+            'U');
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary_n(start=L.'U',
+          fixed=true);
         equation
           auxiliary[1] = x[1];
           for i in 1:n - 1 loop
@@ -1001,11 +787,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
 
         model Or "Or logic component with multiple input and one output"
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          extends D.Interfaces.MISO;
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
     protected
-          D.Interfaces.Logic auxiliary[n](each start=L.'U');
-          D.Interfaces.Logic auxiliary_n( start=L.'U', fixed=true);
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary[n](each start=L.
+            'U');
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary_n(start=L.'U',
+          fixed=true);
         equation
           auxiliary[1] = x[1];
           for i in 1:n - 1 loop
@@ -1042,12 +830,14 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
 
         model Nor "Nor logic component with multiple input and one output"
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          extends D.Interfaces.MISO;
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
         //  D.Interfaces.Logic auxiliary[n](each start=L.'U', each fixed=true);
     protected
-          D.Interfaces.Logic auxiliary[n](each start=L.'U');
-          D.Interfaces.Logic auxiliary_n( start=L.'U', fixed=true);
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary[n](each start=L.
+            'U');
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary_n(start=L.'U',
+          fixed=true);
         equation
           auxiliary[1] = x[1];
           for i in 1:n - 1 loop
@@ -1092,11 +882,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
 
         model Xor "Xor logic component with multiple input and one output"
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          extends D.Interfaces.MISO;
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
     protected
-          D.Interfaces.Logic auxiliary[n](each start=L.'U');
-          D.Interfaces.Logic auxiliary_n( start=L.'U', fixed=true);
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary[n](each start=L.
+            'U');
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary_n(start=L.'U',
+          fixed=true);
         equation
           auxiliary[1] = x[1];
           for i in 1:n - 1 loop
@@ -1133,11 +925,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
 
         model Xnor "Xnor logic component with multiple input and one output"
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          extends D.Interfaces.MISO;
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
     protected
-          D.Interfaces.Logic auxiliary[n](each start=L.'U');
-          D.Interfaces.Logic auxiliary_n( start=L.'U', fixed=true);
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary[n](each start=L.
+            'U');
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary_n(start=L.'U',
+          fixed=true);
         equation
           auxiliary[1] = x[1];
           for i in 1:n - 1 loop
@@ -1183,7 +977,7 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
       "InvGate with 1 input value, composed by Not and sensitive inertial delay"
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
-          extends D.Interfaces.SISO;
+          extends Modelica_Electrical_Digital_Interfaces.SISO;
           D.Basic.Not G1         annotation (Placement(transformation(extent={{-60,
                     -20},{-20,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(tLH=tLH, tHL=tHL)
@@ -1238,7 +1032,7 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
 
         model AndGate "AndGate with multiple input"
       import D = Modelica_Electrical_Digital;
-          extends D.Interfaces.MISO;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
           extends D.Delay.DelayParams;
           D.Basic.And G1(final n=n)     annotation (Placement(transformation(extent={
                     {-40,-20},{0,20}}, rotation=0)));
@@ -1294,7 +1088,7 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
         model NandGate "NandGate with multiple input"
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
-          extends D.Interfaces.MISO;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
           D.Basic.Nand G1(final n=n)      annotation (Placement(transformation(extent=
                    {{-40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
@@ -1354,7 +1148,7 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
         model OrGate "OrGate with multiple input"
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
-          extends D.Interfaces.MISO;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
           D.Basic.Or G1(final n=n)    annotation (Placement(transformation(extent={{
                     -40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
@@ -1409,7 +1203,7 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
         model NorGate "NorGate with multiple input"
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
-          extends D.Interfaces.MISO;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
           D.Basic.Nor G1(final n=n)     annotation (Placement(transformation(extent={
                     {-40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
@@ -1470,7 +1264,7 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
         model XorGate "XorGate with multiple input"
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
-          extends D.Interfaces.MISO;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
           D.Basic.Xor G1(final n=n)     annotation (Placement(transformation(extent={
                     {-40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
@@ -1525,7 +1319,7 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
         model XnorGate "XnorGate with multiple input"
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
-          extends D.Interfaces.MISO;
+          extends Modelica_Electrical_Digital_Interfaces.MISO;
           D.Basic.Xnor G1(final n=n)      annotation (Placement(transformation(extent=
                    {{-40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
@@ -1581,7 +1375,7 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
       "BufGate with 1 input value, composed by Not and sensitive inertial delay"
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
-          extends D.Interfaces.SISO;
+          extends Modelica_Electrical_Digital_Interfaces.SISO;
           D.Delay.InertialDelaySensitive G1(tLH=tLH, tHL=tHL)
             annotation (Placement(transformation(extent={{-30,-20},{10,20}},
                   rotation=0)));
@@ -1633,11 +1427,11 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
 
         block Set "Digital Set Source"
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          parameter D.Interfaces.Logic x(start=L.'1') "Logic value to be set";
-          D.Interfaces.DigitalOutput y
-                        annotation (Placement(transformation(extent={{90,-10},{110,
-                    10}}, rotation=0)));
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      parameter Modelica_Electrical_Digital_Interfaces.Logic x(start=L.'1')
+        "Logic value to be set";
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
         algorithm
           y := x;
           annotation (Documentation(info="<HTML>
@@ -1699,15 +1493,14 @@ they can be used to specify the parameter, e.g., <b>L.'0'</b> for forcing 0.
 
         block Step "Digital Step Source"
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          parameter D.Interfaces.Logic before(start=L.'0')
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      parameter Modelica_Electrical_Digital_Interfaces.Logic before(start=L.'0')
         "Logic value before step";
-          parameter D.Interfaces.Logic after(start=L.'1')
+      parameter Modelica_Electrical_Digital_Interfaces.Logic after(start=L.'1')
         "Logic value after step";
           parameter Real stepTime(start=1) "step time";
-          D.Interfaces.DigitalOutput y
-                        annotation (Placement(transformation(extent={{90,-10},{110,
-                    10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
         algorithm
           // assert(before >= L.min and before <= L.max, "Parameter is no logic value");
           // assert(after >= L.min and after <= L.max, "Parameter is no logic value");
@@ -1770,15 +1563,16 @@ they can be used to specify the parameter, e.g., <b>L.'0'</b> for forcing 0.
 
         block Table "Digital Tabular Source"
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          parameter D.Interfaces.Logic x[:]={L.'1'} "vector of values";
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      parameter Modelica_Electrical_Digital_Interfaces.Logic x[:]={L.'1'}
+        "vector of values";
           parameter Real t[size(x, 1)]={1}
         "vector of corresponding time points";
-          parameter D.Interfaces.Logic y0=L.'U' "initial output value";
+      parameter Modelica_Electrical_Digital_Interfaces.Logic y0=L.'U'
+        "initial output value";
           final parameter Integer n=size(x, 1) "table size";
-          D.Interfaces.DigitalOutput y
-                        annotation (Placement(transformation(extent={{90,-10},{110,
-                    10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
         algorithm
           if initial() then
             // assert(y0 >= L.min and y0 <= L.max, "Parameter y0 is not of type Logic");
@@ -1858,7 +1652,7 @@ they can be used to specify the parameter, e.g., <b>L.'0'</b> for forcing 0.
 
         model Pulse "Digital Pulse Source"
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
           parameter Real width(
             final min=Modelica_Constants.small,
             final max=100, start=50) "Widths of pulses in % of periods";
@@ -1866,16 +1660,17 @@ they can be used to specify the parameter, e.g., <b>L.'0'</b> for forcing 0.
         "Time for one period";
           parameter Modelica_SIunits.Time startTime(start=0)
         "Output = quiet for time < startTime";
-          parameter D.Interfaces.Logic pulse(start=L.'0') "pulsed value";
-          parameter D.Interfaces.Logic quiet(start=L.'1') "quiet value";
+      parameter Modelica_Electrical_Digital_Interfaces.Logic pulse(start=L.'0')
+        "pulsed value";
+      parameter Modelica_Electrical_Digital_Interfaces.Logic quiet(start=L.'1')
+        "quiet value";
           Modelica_SIunits.Time T0(final start=startTime)
         "Start time of current period";
           parameter Integer nperiod(start=-1)
         "Number of periods (< 0 means infinite number of periods)";
           Integer np(start=0, fixed=true);
-          D.Interfaces.DigitalOutput y
-                        annotation (Placement(transformation(extent={{90,-10},{110,
-                    10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     protected
           Boolean sampling;
 
@@ -1950,7 +1745,7 @@ they can be used to specify the parameter, e.g., <b>L.'0'</b> for forcing 0.
 
         model Clock "Digital Clock Source"
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
           parameter Modelica_SIunits.Time startTime(start=0)
         "Output = offset for time < startTime";
           parameter Modelica_SIunits.Time period(
@@ -1958,9 +1753,9 @@ they can be used to specify the parameter, e.g., <b>L.'0'</b> for forcing 0.
           parameter Real width(
             final min=Modelica_Constants.small,
             final max=100, start=50) "Width of pulses in % of period";
-          D.Interfaces.DigitalOutput y "Connector of Digital output signal"
-                        annotation (Placement(transformation(extent={{90,-10},{110,
-                    10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y
+        "Connector of Digital output signal" annotation (Placement(
+            transformation(extent={{90,-10},{110,10}}, rotation=0)));
     protected
           Modelica_SIunits.Time t_i(final start=startTime)
         "Start time of current period";
@@ -2012,12 +1807,10 @@ The number of periods is unlimited. The first pulse starts at startTime.
         block LogicToX01 "Conversion to X01"
       import D = Modelica_Electrical_Digital;
       import T = Modelica_Electrical_Digital.Tables;
-          D.Interfaces.DigitalInput x[n]
-                            annotation (Placement(transformation(extent={{-60,-10},
-                    {-40,10}}, rotation=0)));
-          D.Interfaces.DigitalOutput y[n]
-                             annotation (Placement(transformation(extent={{40,-10},
-                    {60,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] annotation (
+          Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] annotation (
+          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
           parameter Integer n(final min=1, start=1) "signal width";
         algorithm
           for i in 1:n loop
@@ -2085,12 +1878,10 @@ If the signal width is greater than 1 this conversion is done for each signal.
         block LogicToX01Z "Conversion to X01Z"
       import D = Modelica_Electrical_Digital;
       import T = Modelica_Electrical_Digital.Tables;
-          D.Interfaces.DigitalInput x[n]
-                            annotation (Placement(transformation(extent={{-60,-10},
-                    {-40,10}}, rotation=0)));
-          D.Interfaces.DigitalOutput y[n]
-                             annotation (Placement(transformation(extent={{40,-10},
-                    {60,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] annotation (
+          Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] annotation (
+          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
           parameter Integer n(final min=1, start=1) "signal width";
         algorithm
           for i in 1:n loop
@@ -2158,12 +1949,10 @@ If the signal width is greater than 1 this conversion is done for each signal.
         block LogicToUX01 "Conversion to UX01"
           import D = Modelica_Electrical_Digital;
           import T = Modelica_Electrical_Digital.Tables;
-          D.Interfaces.DigitalInput x[n]
-                            annotation (Placement(transformation(extent={{-60,-10},
-                    {-40,10}}, rotation=0)));
-          D.Interfaces.DigitalOutput y[n]
-                             annotation (Placement(transformation(extent={{40,-10},
-                    {60,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] annotation (
+          Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] annotation (
+          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
           parameter Integer n(final min=1, start=1) "signal width";
         algorithm
           for i in 1:n loop
@@ -2229,12 +2018,12 @@ If the signal width is greater than 1 this conversion is done for each signal.
         end LogicToUX01;
 
         block BooleanToLogic "Boolean to Logic converter"
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          Modelica_Blocks.Interfaces.BooleanInput x[n]
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          Modelica_Blocks_Interfaces.BooleanInput x[n]
             annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
                   rotation=0)));
           parameter Integer n(final min=1, start=1) "signal width";
-          Modelica_Electrical_Digital.Interfaces.DigitalOutput y[n] annotation (
+          Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] annotation (
          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
         equation
           for i in 1:n loop
@@ -2285,10 +2074,10 @@ If the signal width is greater than 1 this conversion is done for each signal.
         end BooleanToLogic;
 
         block LogicToBoolean "Logic to Boolean converter"
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          Modelica_Electrical_Digital.Interfaces.DigitalInput x[n] annotation (
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] annotation (
           Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=0)));
-          Modelica_Blocks.Interfaces.BooleanOutput y[n]
+          Modelica_Blocks_Interfaces.BooleanOutput y[n]
             annotation (Placement(transformation(extent={{40,-10},{60,10}},
                   rotation=0)));
           parameter Integer n(final min=1, start=2) "signal width";
@@ -2348,12 +2137,12 @@ If the signal width is greater than 1 this conversion is done for each signal.
         end LogicToBoolean;
 
         block RealToLogic "Real to Logic converter"
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          Modelica_Blocks.Interfaces.RealInput x[n]
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          Modelica_Blocks_Interfaces.RealInput x[n]
             annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
                   rotation=0)));
-          Interfaces.DigitalOutput y[n] annotation (Placement(transformation(
-              extent={{40,-10},{60,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] annotation (
+          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
           parameter Integer n(final min=1, start=1) "signal width";
           parameter Real upper_limit(start=1) "upper limit";
           parameter Real lower_limit(start=0) "lower limit";
@@ -2408,10 +2197,10 @@ If the signal width is greater than 1 this conversion is done for each signal.
         end RealToLogic;
 
         block LogicToReal "Logic to Real converter"
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          Modelica_Electrical_Digital.Interfaces.DigitalInput x[n] annotation (
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] annotation (
           Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=0)));
-          Modelica_Blocks.Interfaces.RealOutput y[n]
+          Modelica_Blocks_Interfaces.RealOutput y[n]
             annotation (Placement(transformation(extent={{40,-10},{60,10}},
                   rotation=0)));
           parameter Integer n(final min=1, start=1) "signal width";
@@ -2492,12 +2281,10 @@ The values val... are given by parameters.</P>
           // extends Modelica.Icons.ObsoleteModel;
           import D = Modelica_Electrical_Digital;
           import T = Modelica_Electrical_Digital.Tables;
-          D.Interfaces.DigitalInput x[n]
-                            annotation (Placement(transformation(extent={{-60,-10},
-                    {-40,10}}, rotation=0)));
-          D.Interfaces.DigitalOutput y[n]
-                             annotation (Placement(transformation(extent={{40,-10},
-                    {60,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] annotation (
+          Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] annotation (
+          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
           parameter Integer n(final min=1, start=1) "signal width";
         algorithm
           for i in 1:n loop
@@ -2570,12 +2357,10 @@ If the signal width is greater than 1 this conversion is done for each signal.
           // extends Modelica.Icons.ObsoleteModel;
           import D = Modelica_Electrical_Digital;
           import T = Modelica_Electrical_Digital.Tables;
-          D.Interfaces.DigitalInput x[n]
-                            annotation (Placement(transformation(extent={{-60,-10},
-                    {-40,10}}, rotation=0)));
-          D.Interfaces.DigitalOutput y[n]
-                             annotation (Placement(transformation(extent={{40,-10},
-                    {60,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] annotation (
+          Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=0)));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] annotation (
+          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
           parameter Integer n(final min=1, start=1) "signal width";
         algorithm
           for i in 1:n loop
@@ -2652,27 +2437,27 @@ If the signal width is greater than 1 this conversion is done for each signal.
 
         model DFFR "Edge triggered register bank with reset"
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
           parameter Integer ResetMap[L] = {1, 4, 3, 2, 4, 4, 3, 2, 4}
         "function selection, defaults for high active reset";
-          parameter D.Interfaces.Strength strength = S.'S_X01'
-        "output strength";
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
           parameter Integer n(min=1) = 1 "data width";
 
-          D.Interfaces.DigitalInput reset
-            annotation (Placement(transformation(extent={{-10,-100},{10,-80}}),
-                iconTransformation(extent={{-10,-100},{10,-80}})));
-          D.Interfaces.DigitalInput clock annotation (Placement(transformation(
-                  extent={{-90,-30},{-70,-10}}),iconTransformation(extent={{-90,-30},{
-                    -70,-10}})));
-          D.Interfaces.DigitalInput dataIn[n] annotation (Placement(transformation(
-                  extent={{-90,20},{-70,40}}), iconTransformation(extent={{-90,20},{-70,
-                    40}})));
-          D.Interfaces.DigitalOutput dataOut[n] annotation (Placement(
-                transformation(extent={{64,26},{84,46}}),  iconTransformation(
-                  extent={{69,20},{89,40}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput reset annotation (
+          Placement(transformation(extent={{-10,-100},{10,-80}}),
+            iconTransformation(extent={{-10,-100},{10,-80}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput clock annotation (
+          Placement(transformation(extent={{-90,-30},{-70,-10}}),
+            iconTransformation(extent={{-90,-30},{-70,-10}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput dataIn[n] annotation
+        (Placement(transformation(extent={{-90,20},{-70,40}}),
+            iconTransformation(extent={{-90,20},{-70,40}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n]
+        annotation (Placement(transformation(extent={{64,26},{84,46}}),
+            iconTransformation(extent={{69,20},{89,40}})));
     protected
                   Integer clock_flag(start=0);
                     // 0: 0-Transition
@@ -2685,8 +2470,10 @@ If the signal width is greater than 1 this conversion is done for each signal.
                     // 3: output := -dataInUX
                     // 4: output := U-0X
     protected
-                  D.Interfaces.Logic nextstate[n](start=fill(L.'U',n));
-                  D.Interfaces.Logic next_assign_val[n](start=fill(L.'U',n));
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate[n](start=fill(L.
+            'U', n));
+      Modelica_Electrical_Digital_Interfaces.Logic next_assign_val[n](start=
+            fill(L.'U', n));
 
         algorithm
         if change(clock) or change(reset) then
@@ -2842,13 +2629,13 @@ Clock transition definitions:
 
         model DFFREG "Edge triggered register bank with high active reset"
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
           parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
           parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-          parameter D.Interfaces.Strength strength = S.'S_X01'
-        "output strength";
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
           parameter Integer n(min=1) = 1 "data width";
     protected
           constant Integer ResetMap[L] = {1, 4, 3, 2, 4, 4, 3, 2, 4};
@@ -2863,16 +2650,16 @@ Clock transition definitions:
         tHL=tHL,
         tLH=tLH,
         n=n) annotation (Placement(transformation(extent={{22,11},{79,69}})));
-          D.Interfaces.DigitalInput reset
-            annotation (Placement(transformation(extent={{-100,-68},{-84,-52}}),
-                iconTransformation(extent={{-100,-68},{-84,-52}})));
-          D.Interfaces.DigitalInput clock
-            annotation (Placement(transformation(extent={{-100,-28},{-84,-12}})));
-          D.Interfaces.DigitalInput dataIn[n]
-            annotation (Placement(transformation(extent={{-100,32},{-84,48}})));
-          D.Interfaces.DigitalOutput dataOut[n]
-            annotation (Placement(transformation(extent={{84,32},{100,48}}),
-                iconTransformation(extent={{84,32},{100,48}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput reset annotation (
+          Placement(transformation(extent={{-100,-68},{-84,-52}}),
+            iconTransformation(extent={{-100,-68},{-84,-52}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput clock
+        annotation (Placement(transformation(extent={{-100,-28},{-84,-12}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput dataIn[n]
+        annotation (Placement(transformation(extent={{-100,32},{-84,48}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n]
+        annotation (Placement(transformation(extent={{84,32},{100,48}}),
+            iconTransformation(extent={{84,32},{100,48}})));
 
           D.Registers.DFFR dFFR(n=n,
             ResetMap=ResetMap,
@@ -3045,8 +2832,8 @@ Clock transition definitions:
 
         model DFFSR "Edge triggered register bank with set and reset"
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
           parameter Integer ResetSetMap[L, L]=[
                      1,  1,  1,  1,  1,  1,  1,  1,  1;
@@ -3060,24 +2847,24 @@ Clock transition definitions:
                      1,  4,  7,  2,  4,  4,  7,  2,  4]
         "function selection by [reset, set] reading";
             /* Defaults for set and reset are active high */
-          parameter D.Interfaces.Strength strength = S.'S_X01'
-        "output strength";
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
           parameter Integer n(min=1) = 1 "data width";
 
-          D.Interfaces.DigitalInput set
-            annotation (Placement(transformation(extent={{-10,100},{10,80}})));
-          D.Interfaces.DigitalInput reset
-            annotation (Placement(transformation(extent={{-10,-100},{10,-80}}),
-                iconTransformation(extent={{-10,-100},{10,-80}})));
-          D.Interfaces.DigitalInput clock annotation (Placement(transformation(
-                  extent={{-90,-20},{-70,0}}),  iconTransformation(extent={{-90,-30},
-                    {-70,-10}})));
-          D.Interfaces.DigitalInput dataIn[n] annotation (Placement(transformation(
-                  extent={{-90,20},{-70,40}}), iconTransformation(extent={{-90,20},
-                    {-70,40}})));
-          D.Interfaces.DigitalOutput dataOut[n] annotation (Placement(
-                transformation(extent={{68,20},{88,40}}),  iconTransformation(
-                  extent={{69,20},{89,40}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput set
+        annotation (Placement(transformation(extent={{-10,100},{10,80}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput reset annotation (
+          Placement(transformation(extent={{-10,-100},{10,-80}}),
+            iconTransformation(extent={{-10,-100},{10,-80}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput clock annotation (
+          Placement(transformation(extent={{-90,-20},{-70,0}}),
+            iconTransformation(extent={{-90,-30},{-70,-10}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput dataIn[n] annotation
+        (Placement(transformation(extent={{-90,20},{-70,40}}),
+            iconTransformation(extent={{-90,20},{-70,40}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n]
+        annotation (Placement(transformation(extent={{68,20},{88,40}}),
+            iconTransformation(extent={{69,20},{89,40}})));
 
     protected
                   Integer clock_flag(start=0);
@@ -3095,8 +2882,10 @@ Clock transition definitions:
                     // 7: output := -0UX
                     // 8: output := -dataInUX
 
-                  D.Interfaces.Logic nextstate[n](start=fill(L.'U',n));
-                  D.Interfaces.Logic next_assign_val[n](start=fill(L.'U',n));
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate[n](start=fill(L.
+            'U', n));
+      Modelica_Electrical_Digital_Interfaces.Logic next_assign_val[n](start=
+            fill(L.'U', n));
 
         algorithm
         if change(clock) or change(reset) or change(set) then
@@ -3298,13 +3087,13 @@ Clock transition definitions:
         model DFFREGSRH
       "Edge triggered register bank with high active set and reset"
           import D = Modelica_Electrical_Digital;
-          import L = Modelica_Electrical_Digital.Interfaces.Logic;
-          import S = Modelica_Electrical_Digital.Interfaces.Strength;
+          import L = Modelica_Electrical_Digital_Interfaces.Logic;
+          import S = Modelica_Electrical_Digital_Interfaces.Strength;
           import T = Modelica_Electrical_Digital.Tables;
           parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
           parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-          parameter D.Interfaces.Strength strength = S.'S_X01'
-        "output strength";
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
           parameter Integer n(min=1) = 1 "data width";
 
     protected
@@ -3333,16 +3122,16 @@ Clock transition definitions:
             ResetSetMap=ResetSetMap, clock( start=L.'U', fixed=true), reset( start=L.'U', fixed=true), set( start=L.'U', fixed=true))
             annotation (Placement(transformation(extent={{-80,-25},{20,75}})));
     public
-          D.Interfaces.DigitalInput set
-            annotation (Placement(transformation(extent={{-100,72},{-84,88}})));
-          D.Interfaces.DigitalInput reset
-            annotation (Placement(transformation(extent={{-100,-68},{-84,-52}})));
-          D.Interfaces.DigitalInput clock
-            annotation (Placement(transformation(extent={{-100,-28},{-84,-12}})));
-          D.Interfaces.DigitalInput dataIn[n]
-            annotation (Placement(transformation(extent={{-100,32},{-84,48}})));
-          D.Interfaces.DigitalOutput dataOut[n]
-            annotation (Placement(transformation(extent={{84,32},{100,48}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput set
+        annotation (Placement(transformation(extent={{-100,72},{-84,88}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput reset
+        annotation (Placement(transformation(extent={{-100,-68},{-84,-52}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput clock
+        annotation (Placement(transformation(extent={{-100,-28},{-84,-12}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput dataIn[n]
+        annotation (Placement(transformation(extent={{-100,32},{-84,48}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n]
+        annotation (Placement(transformation(extent={{84,32},{100,48}})));
         equation
           connect(dFFSR.dataOut, delay.x) annotation (Line(
               points={{9.5,40},{26.92,40},{26.92,39.86}},
@@ -3538,28 +3327,27 @@ Clock transition definitions:
         model DLATR "Level sensitive register bank with reset"
 
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
           parameter Integer ResetMap[L] = {1, 4, 3, 2, 4, 4, 3, 2, 4}
         "function selection, defaults for high active reset";
-          parameter D.Interfaces.Strength strength = S.'S_X01'
-        "output strength";
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
           parameter Integer n(min=1) = 1 "data width";
 
-          D.Interfaces.DigitalInput reset
-            annotation (Placement(transformation(extent={{-10,-100},{10,-80}}),
-                iconTransformation(extent={{-10,-100},{10,-80}})));
-          D.Interfaces.DigitalInput enable
-                                          annotation (Placement(transformation(
-                  extent={{-90,-20},{-70,0}}),  iconTransformation(extent={{-90,-30},
-                    {-70,-10}})));
-          D.Interfaces.DigitalInput dataIn[n] annotation (Placement(transformation(
-                  extent={{-90,20},{-70,40}}), iconTransformation(extent={{-90,20},
-                    {-70,40}})));
-          D.Interfaces.DigitalOutput dataOut[n] annotation (Placement(
-                transformation(extent={{66,24},{86,44}}),  iconTransformation(
-                  extent={{69,20},{89,40}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput reset annotation (
+          Placement(transformation(extent={{-10,-100},{10,-80}}),
+            iconTransformation(extent={{-10,-100},{10,-80}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable annotation (
+          Placement(transformation(extent={{-90,-20},{-70,0}}),
+            iconTransformation(extent={{-90,-30},{-70,-10}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput dataIn[n] annotation
+        (Placement(transformation(extent={{-90,20},{-70,40}}),
+            iconTransformation(extent={{-90,20},{-70,40}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n]
+        annotation (Placement(transformation(extent={{66,24},{86,44}}),
+            iconTransformation(extent={{69,20},{89,40}})));
 
     protected
                    Integer enable_flag(start=0);
@@ -3574,8 +3362,10 @@ Clock transition definitions:
                     // 3: output := -UdataIn
                     // 4: output := U-0X
 
-                  D.Interfaces.Logic nextstate[n](start=fill(L.'U',n));
-                  D.Interfaces.Logic next_assign_val[n](start=fill(L.'U',n));
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate[n](start=fill(L.
+            'U', n));
+      Modelica_Electrical_Digital_Interfaces.Logic next_assign_val[n](start=
+            fill(L.'U', n));
         algorithm
           if enable == L.'1' or enable == L.'H' then
             enable_flag := 1;
@@ -3732,13 +3522,13 @@ Clock transition definitions:
         model DLATREG "Level sensitive register bank with reset active high"
 
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
           parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
           parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-          parameter D.Interfaces.Strength strength = S.'S_X01'
-        "output strength";
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
           parameter Integer n(min=1) = 1 "data width";
 
     protected
@@ -3755,15 +3545,15 @@ Clock transition definitions:
             tLH=tLH,
             n=n)
           annotation (Placement(transformation(extent={{20,12},{76,68}})));
-          D.Interfaces.DigitalInput reset
-            annotation (Placement(transformation(extent={{-100,-68},{-84,-52}})));
-          D.Interfaces.DigitalInput enable
-            annotation (Placement(transformation(extent={{-100,-28},{-84,-12}})));
-          D.Interfaces.DigitalInput dataIn[n]
-            annotation (Placement(transformation(extent={{-100,32},{-84,48}})));
-          D.Interfaces.DigitalOutput dataOut[n]
-            annotation (Placement(transformation(extent={{84,32},{100,48}}),
-                iconTransformation(extent={{84,32},{100,48}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput reset
+        annotation (Placement(transformation(extent={{-100,-68},{-84,-52}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable
+        annotation (Placement(transformation(extent={{-100,-28},{-84,-12}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput dataIn[n]
+        annotation (Placement(transformation(extent={{-100,32},{-84,48}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n]
+        annotation (Placement(transformation(extent={{84,32},{100,48}}),
+            iconTransformation(extent={{84,32},{100,48}})));
           D.Registers.DLATR dLATR(n=n,
             strength=strength,
             ResetMap=ResetMap)
@@ -3934,8 +3724,8 @@ Clock transition definitions:
         model DLATSR "Level sensitive register bank with set and reset"
 
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
           parameter Integer ResetSetMap[L, L]=[
                      1,  1,  1,  1,  1,  1,  1,  1,  1;
@@ -3949,25 +3739,24 @@ Clock transition definitions:
                      1,  4,  7,  2,  4,  4,  7,  2,  4]
         "function selection by [reset, set] reading";
             /* Defaults for set and reset are active high */
-          parameter D.Interfaces.Strength strength = S.'S_X01'
-        "output strength";
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
           parameter Integer n(min=1) = 1 "data width";
 
-          D.Interfaces.DigitalInput set
-            annotation (Placement(transformation(extent={{-10,100},{10,80}})));
-          D.Interfaces.DigitalInput reset
-            annotation (Placement(transformation(extent={{-10,-100},{10,-80}}),
-                iconTransformation(extent={{-10,-100},{10,-80}})));
-          D.Interfaces.DigitalInput enable
-                                          annotation (Placement(transformation(
-                  extent={{-90,-20},{-70,0}}),  iconTransformation(extent={{-90,-30},
-                    {-70,-10}})));
-          D.Interfaces.DigitalInput dataIn[n] annotation (Placement(transformation(
-                  extent={{-90,20},{-70,40}}), iconTransformation(extent={{-90,20},
-                    {-70,40}})));
-          D.Interfaces.DigitalOutput dataOut[n] annotation (Placement(
-                transformation(extent={{68,20},{88,40}}),  iconTransformation(
-                  extent={{69,20},{89,40}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput set
+        annotation (Placement(transformation(extent={{-10,100},{10,80}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput reset annotation (
+          Placement(transformation(extent={{-10,-100},{10,-80}}),
+            iconTransformation(extent={{-10,-100},{10,-80}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable annotation (
+          Placement(transformation(extent={{-90,-20},{-70,0}}),
+            iconTransformation(extent={{-90,-30},{-70,-10}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput dataIn[n] annotation
+        (Placement(transformation(extent={{-90,20},{-70,40}}),
+            iconTransformation(extent={{-90,20},{-70,40}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n]
+        annotation (Placement(transformation(extent={{68,20},{88,40}}),
+            iconTransformation(extent={{69,20},{89,40}})));
 
     protected
                   Integer enable_flag(start=0);
@@ -3986,8 +3775,10 @@ Clock transition definitions:
                     // 7: output := U-0X
                     // 8: output := -UdataInX
 
-                  D.Interfaces.Logic nextstate[n](start=fill(L.'U',n));
-                  D.Interfaces.Logic next_assign_val[n](start=fill(L.'U',n));
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate[n](start=fill(L.
+            'U', n));
+      Modelica_Electrical_Digital_Interfaces.Logic next_assign_val[n](start=
+            fill(L.'U', n));
 
         algorithm
           if enable == L.'1' or enable == L.'H' then
@@ -4191,13 +3982,13 @@ Clock transition definitions:
       "Level sensitive register bank with set and reset, active high"
 
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
           parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
           parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-          parameter D.Interfaces.Strength strength = S.'S_X01'
-        "output strength";
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
           parameter Integer n(min=1) = 1 "data width";
 
     protected
@@ -4219,17 +4010,17 @@ Clock transition definitions:
             tLH=tLH,
             n=n)
           annotation (Placement(transformation(extent={{20,12},{76,68}})));
-          D.Interfaces.DigitalInput set
-            annotation (Placement(transformation(extent={{-100,72},{-84,88}})));
-          D.Interfaces.DigitalInput reset
-            annotation (Placement(transformation(extent={{-100,-68},{-84,-52}})));
-          D.Interfaces.DigitalInput enable
-            annotation (Placement(transformation(extent={{-100,-28},{-84,-12}})));
-          D.Interfaces.DigitalInput dataIn[n]
-            annotation (Placement(transformation(extent={{-100,32},{-84,48}})));
-          D.Interfaces.DigitalOutput dataOut[n]
-            annotation (Placement(transformation(extent={{84,32},{100,48}}),
-                iconTransformation(extent={{84,32},{100,48}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput set
+        annotation (Placement(transformation(extent={{-100,72},{-84,88}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput reset
+        annotation (Placement(transformation(extent={{-100,-68},{-84,-52}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable
+        annotation (Placement(transformation(extent={{-100,-28},{-84,-12}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput dataIn[n]
+        annotation (Placement(transformation(extent={{-100,32},{-84,48}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n]
+        annotation (Placement(transformation(extent={{84,32},{100,48}}),
+            iconTransformation(extent={{84,32},{100,48}})));
           D.Registers.DLATSR dLATSR(n=n,
             ResetSetMap=ResetSetMap,
             strength=strength)
@@ -4430,25 +4221,25 @@ Clock transition definitions:
   package Tristates "Transfergates, Buffers, Inverters, and WiredX"
       extends Modelica_Icons.Package;
     import D = Modelica_Electrical_Digital;
-    import L = Modelica_Electrical_Digital.Interfaces.Logic;
+    import L = Modelica_Electrical_Digital_Interfaces.Logic;
     import T = Modelica_Electrical_Digital.Tables;
-    import S = Modelica_Electrical_Digital.Interfaces.Strength;
+    import S = Modelica_Electrical_Digital_Interfaces.Strength;
 
     model NXFERGATE "Transfergate with enable active high"
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      D.Interfaces.DigitalInput enable
-        annotation (Placement(transformation(extent={{-100,60},{-80,80}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable annotation (
+          Placement(transformation(extent={{-100,60},{-80,80}}),
             iconTransformation(extent={{-100,60},{-80,80}})));
-      D.Interfaces.DigitalInput x
-        annotation (Placement(transformation(extent={{-100,-20},{-80,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x annotation (
+          Placement(transformation(extent={{-100,-20},{-80,0}}),
             iconTransformation(extent={{-100,-20},{-80,0}})));
-      D.Interfaces.DigitalOutput y
-        annotation (Placement(transformation(extent={{80,-20},{100,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{80,-20},{100,0}}),
             iconTransformation(extent={{80,-20},{100,0}})));
     protected
-              D.Interfaces.Logic nextstate(start=L.'U');
-              D.Interfaces.DigitalOutput yy(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
               D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL,y(start=L.'U', fixed=true));
     algorithm
       nextstate := T.NXferTable[enable, x];
@@ -4525,18 +4316,18 @@ Clock transition definitions:
       "Transfergate with enable active high. Output strength reduced."
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      D.Interfaces.DigitalInput enable
-        annotation (Placement(transformation(extent={{-100,60},{-80,80}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable annotation (
+          Placement(transformation(extent={{-100,60},{-80,80}}),
             iconTransformation(extent={{-100,60},{-80,80}})));
-      D.Interfaces.DigitalInput x
-        annotation (Placement(transformation(extent={{-100,-20},{-80,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x annotation (
+          Placement(transformation(extent={{-100,-20},{-80,0}}),
             iconTransformation(extent={{-100,-20},{-80,0}})));
-      D.Interfaces.DigitalOutput y
-        annotation (Placement(transformation(extent={{80,-20},{100,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{80,-20},{100,0}}),
             iconTransformation(extent={{80,-20},{100,0}})));
     protected
-              D.Interfaces.Logic nextstate(start=L.'U');
-              D.Interfaces.DigitalOutput yy(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
               D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL, y(start=L.'U', fixed=true));
     algorithm
       nextstate := T.NRXferTable[enable, x];
@@ -4613,18 +4404,18 @@ Clock transition definitions:
     model PXFERGATE "Transfergate with enable active low"
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      D.Interfaces.DigitalInput enable
-        annotation (Placement(transformation(extent={{-100,60},{-80,80}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable annotation (
+          Placement(transformation(extent={{-100,60},{-80,80}}),
             iconTransformation(extent={{-100,60},{-80,80}})));
-      D.Interfaces.DigitalInput x
-        annotation (Placement(transformation(extent={{-100,-20},{-80,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x annotation (
+          Placement(transformation(extent={{-100,-20},{-80,0}}),
             iconTransformation(extent={{-100,-20},{-80,0}})));
-      D.Interfaces.DigitalOutput y
-        annotation (Placement(transformation(extent={{80,-20},{100,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{80,-20},{100,0}}),
             iconTransformation(extent={{80,-20},{100,0}})));
     protected
-              D.Interfaces.Logic nextstate(start=L.'U');
-              D.Interfaces.DigitalOutput yy(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
               D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL);
     algorithm
       nextstate := T.PXferTable[enable, x];
@@ -4701,18 +4492,18 @@ Clock transition definitions:
       "Transfergate with enable active low. Output strength reduced."
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      D.Interfaces.DigitalInput enable
-        annotation (Placement(transformation(extent={{-100,60},{-80,80}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable annotation (
+          Placement(transformation(extent={{-100,60},{-80,80}}),
             iconTransformation(extent={{-100,60},{-80,80}})));
-      D.Interfaces.DigitalInput x
-        annotation (Placement(transformation(extent={{-100,-20},{-80,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x annotation (
+          Placement(transformation(extent={{-100,-20},{-80,0}}),
             iconTransformation(extent={{-100,-20},{-80,0}})));
-      D.Interfaces.DigitalOutput y
-        annotation (Placement(transformation(extent={{80,-20},{100,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{80,-20},{100,0}}),
             iconTransformation(extent={{80,-20},{100,0}})));
     protected
-              D.Interfaces.Logic nextstate(start=L.'U');
-              D.Interfaces.DigitalOutput yy(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
               D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL);
     algorithm
       nextstate := T.PRXferTable[enable, x];
@@ -4788,19 +4579,20 @@ Clock transition definitions:
     model BUF3S "Tristate buffer with enable active high"
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
-      D.Interfaces.DigitalInput enable
-        annotation (Placement(transformation(extent={{-100,60},{-80,80}}),
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable annotation (
+          Placement(transformation(extent={{-100,60},{-80,80}}),
             iconTransformation(extent={{-100,60},{-80,80}})));
-      D.Interfaces.DigitalInput x
-        annotation (Placement(transformation(extent={{-100,-20},{-80,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x annotation (
+          Placement(transformation(extent={{-100,-20},{-80,0}}),
             iconTransformation(extent={{-100,-20},{-80,0}})));
-      D.Interfaces.DigitalOutput y
-        annotation (Placement(transformation(extent={{80,-20},{100,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{80,-20},{100,0}}),
             iconTransformation(extent={{80,-20},{100,0}})));
     protected
-              D.Interfaces.Logic nextstate(start=L.'U');
-              D.Interfaces.DigitalOutput yy(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
               D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL, y(start=L.'U', fixed=true));
     algorithm
       nextstate := T.Buf3sTable[strength, T.UX01Conv[enable], T.UX01Conv[x]];
@@ -4873,19 +4665,20 @@ Clock transition definitions:
     model BUF3SL "Tristate buffer with enable active low"
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
-      D.Interfaces.DigitalInput enable
-        annotation (Placement(transformation(extent={{-100,60},{-80,80}}),
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable annotation (
+          Placement(transformation(extent={{-100,60},{-80,80}}),
             iconTransformation(extent={{-100,60},{-80,80}})));
-      D.Interfaces.DigitalInput x
-        annotation (Placement(transformation(extent={{-100,-20},{-80,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x annotation (
+          Placement(transformation(extent={{-100,-20},{-80,0}}),
             iconTransformation(extent={{-100,-20},{-80,0}})));
-      D.Interfaces.DigitalOutput y
-        annotation (Placement(transformation(extent={{80,-20},{100,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{80,-20},{100,0}}),
             iconTransformation(extent={{80,-20},{100,0}})));
     protected
-              D.Interfaces.Logic nextstate(start=L.'U');
-              D.Interfaces.DigitalOutput yy(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
               D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL);
     algorithm
       nextstate := T.Buf3slTable[strength, T.UX01Conv[enable], T.UX01Conv[x]];
@@ -4958,19 +4751,20 @@ Clock transition definitions:
     model INV3S "Tristate Inverter with enable active high"
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
-      D.Interfaces.DigitalInput enable
-        annotation (Placement(transformation(extent={{-100,60},{-80,80}}),
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable annotation (
+          Placement(transformation(extent={{-100,60},{-80,80}}),
             iconTransformation(extent={{-100,60},{-80,80}})));
-      D.Interfaces.DigitalInput x
-        annotation (Placement(transformation(extent={{-100,-20},{-80,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x annotation (
+          Placement(transformation(extent={{-100,-20},{-80,0}}),
             iconTransformation(extent={{-100,-20},{-80,0}})));
-      D.Interfaces.DigitalOutput y
-        annotation (Placement(transformation(extent={{80,-20},{100,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{80,-20},{100,0}}),
             iconTransformation(extent={{80,-20},{100,0}})));
     protected
-              D.Interfaces.Logic nextstate(start=L.'U');
-              D.Interfaces.DigitalOutput yy(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
               D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL, y(start=L.'U',fixed=true));
     algorithm
       nextstate := T.Buf3sTable[strength, T.UX01Conv[enable], T.UX01Conv[T.NotTable[x]]];
@@ -5048,19 +4842,20 @@ Clock transition definitions:
     model INV3SL "Tristate inverter with enable active low"
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
-      D.Interfaces.DigitalInput enable
-        annotation (Placement(transformation(extent={{-100,60},{-80,80}}),
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
+      Modelica_Electrical_Digital_Interfaces.DigitalInput enable annotation (
+          Placement(transformation(extent={{-100,60},{-80,80}}),
             iconTransformation(extent={{-100,60},{-80,80}})));
-      D.Interfaces.DigitalInput x
-        annotation (Placement(transformation(extent={{-100,-20},{-80,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput x annotation (
+          Placement(transformation(extent={{-100,-20},{-80,0}}),
             iconTransformation(extent={{-100,-20},{-80,0}})));
-      D.Interfaces.DigitalOutput y
-        annotation (Placement(transformation(extent={{80,-20},{100,0}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput y annotation (
+          Placement(transformation(extent={{80,-20},{100,0}}),
             iconTransformation(extent={{80,-20},{100,0}})));
     protected
-              D.Interfaces.Logic nextstate(start=L.'U');
-              D.Interfaces.DigitalOutput yy(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
               D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL);
     algorithm
       nextstate := T.Buf3sTable[strength, T.UX01Conv[T.NotTable[enable]], T.UX01Conv[T.NotTable[x]]];
@@ -5136,9 +4931,10 @@ Clock transition definitions:
     end INV3SL;
 
     model WiredX "Wired node with multiple input and one output"
-      extends D.Interfaces.MISO;
+      extends Modelica_Electrical_Digital_Interfaces.MISO;
     protected
-      D.Interfaces.Logic auxiliary[n](each start=L.'Z', each fixed=true);
+      Modelica_Electrical_Digital_Interfaces.Logic auxiliary[n](each start=L.
+            'Z', each fixed=true);
     equation
       auxiliary[1] = x[1];
       for i in 1:n - 1 loop
@@ -5176,13 +4972,14 @@ Wires n input signals in one output signal, without delay.
     model DLATRAM "Level sensitive Random Access Memory"
 
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
 
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
       parameter Integer n_addr(min=1) = 2 "addr width";
       parameter Integer n_data(min=1) = 2 "data width";
       parameter String fileName = Modelica_Utilities.Files.loadResource(
@@ -5191,32 +4988,29 @@ Wires n input signals in one output signal, without delay.
                              loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
                              caption="Open file in which table is present")));
 
-      D.Interfaces.DigitalInput RE "read enable"   annotation (Placement(transformation(
-              extent={{-100,-30},{-84,-14}}),
-                                            iconTransformation(extent={{-100,-28},{
-                -84,-12}})));
-      D.Interfaces.DigitalInput WE "write enable" annotation (Placement(transformation(
-              extent={{-100,-60},{-84,-44}}),
-                                       iconTransformation(extent={{-100,-58},{-84,
-                -42}})));
-      D.Interfaces.DigitalInput addr[n_addr] "address"
-                                             annotation (Placement(transformation(
-              extent={{-100,50},{-80,70}}), iconTransformation(extent={{-100,50},
-                {-80,70}})));
-      D.Interfaces.DigitalInput dataIn[n_data] "data input"
+      Modelica_Electrical_Digital_Interfaces.DigitalInput RE "read enable"
+        annotation (Placement(transformation(extent={{-100,-30},{-84,-14}}),
+            iconTransformation(extent={{-100,-28},{-84,-12}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput WE "write enable"
+        annotation (Placement(transformation(extent={{-100,-60},{-84,-44}}),
+            iconTransformation(extent={{-100,-58},{-84,-42}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput addr[n_addr]
+        "address" annotation (Placement(transformation(extent={{-100,50},{-80,
+                70}}), iconTransformation(extent={{-100,50},{-80,70}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput dataIn[n_data]
+        "data input"
         annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-      D.Interfaces.DigitalOutput dataOut[n_data] "data output"
-                                          annotation (Placement(
-            transformation(extent={{80,10},{100,30}}), iconTransformation(
-              extent={{80,10},{100,30}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n_data]
+        "data output" annotation (Placement(transformation(extent={{80,10},{100,
+                30}}), iconTransformation(extent={{80,10},{100,30}})));
 
     function getMemory
       extends Modelica_Icons.Function;
       input String filename;
       input Integer n_addr "addr width";
       input Integer n_data "data width";
-      output D.Interfaces.Logic m[integer(2^n_addr),n_data]
-          "memory with data, lowest bit on left side";
+        output Modelica_Electrical_Digital_Interfaces.Logic m[integer(2^n_addr),
+          n_data] "memory with data, lowest bit on left side";
       output String data;
       output Integer bit;
     algorithm
@@ -5239,14 +5033,21 @@ Wires n input signals in one output signal, without delay.
     end getMemory;
 
     public
-      D.Interfaces.Logic mem[integer(2^n_addr),n_data](start=fill(L.'U',integer(2^n_addr),n_data));
+      Modelica_Electrical_Digital_Interfaces.Logic mem[integer(2^n_addr),n_data]
+        (start=fill(
+                L.'U',
+                integer(2^n_addr),
+                n_data));
     protected
-      D.Interfaces.Logic nextstate[n_data](start=fill(L.'U',n_data));
-      D.Interfaces.Logic mem_word[n_data](start=fill(L.'U',n_data));
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate[n_data](start=fill(
+            L.'U', n_data));
+      Modelica_Electrical_Digital_Interfaces.Logic mem_word[n_data](start=fill(
+            L.'U', n_data));
       Integer int_addr;
       // Boolean addr_change;
 
-      D.Interfaces.DigitalOutput yy[n_data](start=fill(L.'U',n_data));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy[n_data](start=
+            fill(L.'U', n_data));
       D.Delay.InertialDelaySensitive inertialDelaySensitive[n_data](each tLH=tLH, each tHL=tHL);
 
     function address
@@ -5435,13 +5236,14 @@ Firstly Write is carried out, then Read.</b></p>
     model DLATROM "Level sensitive Read Only Memory"
 
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
 
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
       parameter Integer n_addr(min=1) = 2 "addr width";
       parameter Integer n_data(min=1) = 2 "data width";
       parameter String fileName=Modelica_Utilities.Files.loadResource(
@@ -5451,25 +5253,23 @@ Firstly Write is carried out, then Read.</b></p>
                              loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
                              caption="Open file in which table is present")));
 
-      D.Interfaces.DigitalInput RE "read enable"   annotation (Placement(transformation(
-              extent={{-100,-30},{-80,-10}}),
-                                            iconTransformation(extent={{-100,
-                -27},{-86,-13}})));
-      D.Interfaces.DigitalInput addr[n_addr] "address" annotation (Placement(transformation(
-              extent={{-100,50},{-80,70}}), iconTransformation(extent={{-100,52},{
-                -84,68}})));
-      D.Interfaces.DigitalOutput dataOut[n_data] "data output"
-                                            annotation (Placement(
-            transformation(extent={{80,8},{100,28}}),  iconTransformation(
-              extent={{84,12},{100,29}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput RE "read enable"
+        annotation (Placement(transformation(extent={{-100,-30},{-80,-10}}),
+            iconTransformation(extent={{-100,-27},{-86,-13}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalInput addr[n_addr]
+        "address" annotation (Placement(transformation(extent={{-100,50},{-80,
+                70}}), iconTransformation(extent={{-100,52},{-84,68}})));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n_data]
+        "data output" annotation (Placement(transformation(extent={{80,8},{100,
+                28}}), iconTransformation(extent={{84,12},{100,29}})));
 
     function getMemory
       extends Modelica_Icons.Function;
       input String filename;
       input Integer n_addr "addr width";
       input Integer n_data "data width";
-      output D.Interfaces.Logic m[integer(2^n_addr),n_data]
-          "memory with data, lowest bit on left side";
+        output Modelica_Electrical_Digital_Interfaces.Logic m[integer(2^n_addr),
+          n_data] "memory with data, lowest bit on left side";
       output String data;
       output Integer bit;
     algorithm
@@ -5492,15 +5292,21 @@ Firstly Write is carried out, then Read.</b></p>
     end getMemory;
 
     protected
-      D.Interfaces.Logic m[integer(2^n_addr),n_data](start=fill(L.'U',integer(2^n_addr),n_data))
-        "memory with data, lowest bit on left side";
-      D.Interfaces.Logic nextstate[n_data](start=fill(L.'U',n_data));
+      Modelica_Electrical_Digital_Interfaces.Logic m[integer(2^n_addr),n_data](
+          start=fill(
+                L.'U',
+                integer(2^n_addr),
+                n_data)) "memory with data, lowest bit on left side";
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate[n_data](start=fill(
+            L.'U', n_data));
       //D.Interfaces.Logic mem[integer(2^n_addr),n_data](start=fill(L.'U',integer(2^n_addr),n_data));
-      D.Interfaces.Logic mem_word[n_data](start=fill(L.'U',n_data));
-      D.Interfaces.Logic addr_bit;
+      Modelica_Electrical_Digital_Interfaces.Logic mem_word[n_data](start=fill(
+            L.'U', n_data));
+      Modelica_Electrical_Digital_Interfaces.Logic addr_bit;
       Integer int_addr;
 
-      D.Interfaces.DigitalOutput yy[n_data](start=fill(L.'U',n_data));
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy[n_data](start=
+            fill(L.'U', n_data));
       D.Delay.InertialDelaySensitive inertialDelaySensitive[n_data](each tLH=tLH, each tHL=tHL);
 
     algorithm
@@ -5618,28 +5424,29 @@ Description in VHDL is given by <a href=\"http://www.cs.sfu.ca/~ggbaker/referenc
 (2 data inputs, 1 select input, 1 output)"
 
       import D = Modelica_Electrical_Digital;
-      import L = Modelica_Electrical_Digital.Interfaces.Logic;
-      import S = Modelica_Electrical_Digital.Interfaces.Strength;
+      import L = Modelica_Electrical_Digital_Interfaces.Logic;
+      import S = Modelica_Electrical_Digital_Interfaces.Strength;
       import T = Modelica_Electrical_Digital.Tables;
       parameter Modelica_SIunits.Time tHL=0 "High->Low delay";
       parameter Modelica_SIunits.Time tLH=0 "Low->High delay";
-      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
-      D.Interfaces.DigitalInput in1 "data input 1"
+      parameter Modelica_Electrical_Digital_Interfaces.Strength strength=S.
+          'S_X01' "output strength";
+      Modelica_Electrical_Digital_Interfaces.DigitalInput in1 "data input 1"
         annotation (Placement(transformation(extent={{-100,40},{-80,60}}),
             iconTransformation(extent={{-100,40},{-80,60}})));
-      D.Interfaces.DigitalInput in0 "data input 0"
+      Modelica_Electrical_Digital_Interfaces.DigitalInput in0 "data input 0"
         annotation (Placement(transformation(extent={{-100,-60},{-80,-40}}),
             iconTransformation(extent={{-100,-60},{-80,-40}})));
-      D.Interfaces.DigitalInput sel "select input"
-      annotation (Placement(transformation(extent={{-10,80},{10,100}}),
+      Modelica_Electrical_Digital_Interfaces.DigitalInput sel "select input"
+        annotation (Placement(transformation(extent={{-10,80},{10,100}}),
             iconTransformation(extent={{-10,80},{10,100}})));
-      D.Interfaces.DigitalOutput out "output"
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput out "output"
         annotation (Placement(transformation(extent={{80,-10},{100,10}}),
             iconTransformation(extent={{80,-10},{100,10}})));
 
     protected
-              D.Interfaces.Logic nextstate(start=L.'U');
-              D.Interfaces.DigitalOutput yy(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
+      Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
               D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL, y(start=L.'U',fixed=true));
 
     algorithm

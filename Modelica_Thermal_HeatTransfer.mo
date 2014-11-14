@@ -13,7 +13,8 @@ package Modelica_Thermal_HeatTransfer
         "Temperature of element";
       Modelica_SIunits.TemperatureSlope der_T(start=0)
         "Time derivative of temperature (= der(T))";
-      Interfaces.HeatPort_a port annotation (Placement(transformation(
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a port annotation (
+          Placement(transformation(
             origin={0,-100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
@@ -140,7 +141,7 @@ compute C:
 
     model ThermalConductor
       "Lumped thermal element transporting heat without storing it"
-      extends Interfaces.Element1D;
+      extends Modelica_Thermal_HeatTransfer_Interfaces.Element1D;
       parameter Modelica_SIunits.ThermalConductance G
         "Constant thermal conductance of material";
 
@@ -238,7 +239,7 @@ e.g., with one of the following equations:
 
     model ThermalResistor
       "Lumped thermal element transporting heat without storing it"
-      extends Interfaces.Element1D;
+      extends Modelica_Thermal_HeatTransfer_Interfaces.Element1D;
       parameter Modelica_SIunits.ThermalResistance R
         "Constant thermal resistance of material";
 
@@ -299,16 +300,16 @@ especially if it shall be allowed that a ThermalResistance is defined to be zero
       "Lumped thermal element for heat convection (Q_flow = Gc*dT)"
       Modelica_SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
       Modelica_SIunits.TemperatureDifference dT "= solid.T - fluid.T";
-      Modelica_Blocks.Interfaces.RealInput Gc(unit="W/K")
+      Modelica_Blocks_Interfaces.RealInput Gc(unit="W/K")
         "Signal representing the convective thermal conductance in [W/K]"
         annotation (Placement(transformation(
             origin={0,100},
             extent={{-20,-20},{20,20}},
             rotation=270)));
-      Interfaces.HeatPort_a solid annotation (Placement(transformation(extent={{
-                -110,-10},{-90,10}}, rotation=0)));
-      Interfaces.HeatPort_b fluid annotation (Placement(transformation(extent={{
-                90,-10},{110,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a solid annotation (
+          Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b fluid annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     equation
       dT = solid.T - fluid.T;
       solid.Q_flow = Q_flow;
@@ -453,16 +454,16 @@ McGraw-Hill, 1997, p.270):
       "Lumped thermal element for heat convection (dT = Rc*Q_flow)"
       Modelica_SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
       Modelica_SIunits.TemperatureDifference dT "= solid.T - fluid.T";
-      Modelica_Blocks.Interfaces.RealInput Rc(unit="K/W")
+      Modelica_Blocks_Interfaces.RealInput Rc(unit="K/W")
         "Signal representing the convective thermal resistance in [K/W]"
         annotation (Placement(transformation(
             origin={0,100},
             extent={{-20,-20},{20,20}},
             rotation=270)));
-      Interfaces.HeatPort_a solid annotation (Placement(transformation(extent={{
-                -110,-10},{-90,10}}, rotation=0)));
-      Interfaces.HeatPort_b fluid annotation (Placement(transformation(extent={{
-                90,-10},{110,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a solid annotation (
+          Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b fluid annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     equation
       dT = solid.T - fluid.T;
       solid.Q_flow = Q_flow;
@@ -551,7 +552,7 @@ especially if it shall be allowed that a convective resistance is defined to be 
     end ConvectiveResistor;
 
     model BodyRadiation "Lumped thermal element for radiation heat transfer"
-      extends Interfaces.Element1D;
+      extends Modelica_Thermal_HeatTransfer_Interfaces.Element1D;
       parameter Real Gr(unit="m2")
         "Net radiation conductance between two surfaces (see docu)";
     equation
@@ -698,9 +699,9 @@ place from the inner to the outer cylinder):
 
     model ThermalCollector "Collects m heat flows"
       parameter Integer m(min=1)=3 "Number of collected heat flows";
-      Interfaces.HeatPort_a port_a[m]
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a port_a[m]
         annotation (Placement(transformation(extent={{-10,110},{10,90}})));
-      Interfaces.HeatPort_b port_b
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port_b
         annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
     equation
@@ -835,11 +836,11 @@ This is a model to collect the heat flows from <i>m</i> heatports to one single 
 
     model TemperatureSensor "Absolute temperature sensor in Kelvin"
 
-      Modelica_Blocks.Interfaces.RealOutput T(unit="K")
+      Modelica_Blocks_Interfaces.RealOutput T(unit="K")
         "Absolute temperature as output signal"
         annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
-      Interfaces.HeatPort_a port annotation (Placement(transformation(extent={{
-                -110,-10},{-90,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a port annotation (
+          Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
     equation
       T = port.T;
       port.Q_flow = 0;
@@ -932,11 +933,11 @@ sensor model.
 
     model RelTemperatureSensor "Relative Temperature sensor"
       extends Modelica_Icons.TranslationalSensor;
-      Interfaces.HeatPort_a port_a annotation (Placement(transformation(extent={{
-                -110,-10},{-90,10}}, rotation=0)));
-      Interfaces.HeatPort_b port_b annotation (Placement(transformation(extent={{
-                90,-10},{110,10}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput T_rel(unit="K", displayUnit="K")
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a port_a annotation (
+          Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port_b annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput T_rel(unit="K", displayUnit="K")
         "Relative temperature as output signal"
         annotation (Placement(transformation(
             origin={0,-90},
@@ -981,16 +982,16 @@ the two ports of this component and is provided as output signal in Kelvin.
 
     model HeatFlowSensor "Heat flow rate sensor"
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput Q_flow(unit="W")
+      Modelica_Blocks_Interfaces.RealOutput Q_flow(unit="W")
         "Heat flow from port_a to port_b as output signal" annotation (Placement(
             transformation(
             origin={0,-100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Interfaces.HeatPort_a port_a annotation (Placement(transformation(extent={{
-                -110,-10},{-90,10}}, rotation=0)));
-      Interfaces.HeatPort_b port_b annotation (Placement(transformation(extent={{
-                90,-10},{110,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a port_a annotation (
+          Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port_b annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     equation
       port_a.T = port_b.T;
       port_a.Q_flow + port_b.Q_flow = 0;
@@ -1032,9 +1033,9 @@ The output signal is positive, if the heat flows from port_a to port_b.
       parameter Boolean useFixedTemperature(start=false)
         "Fixed Temperature if true"
         annotation(Evaluate=true);
-      Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a port_a
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a port_a
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-      Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_b port_b
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port_b
         annotation (Placement(transformation(extent={{90,-10},{110,10}})));
       Modelica_Thermal_HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -1044,7 +1045,7 @@ The output signal is positive, if the heat flows from port_a to port_b.
             extent={{-10,-10},{10,10}},
             rotation=90,
             origin={-50,-30})));
-      Modelica_Blocks.Interfaces.RealOutput Q_flow(unit="W")
+      Modelica_Blocks_Interfaces.RealOutput Q_flow(unit="W")
         "Heat flow from port_a to port_b as output signal" annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=270,
@@ -1109,8 +1110,8 @@ To avoid a singular equation system, the temperature of the sensor is set to 293
     model FixedTemperature "Fixed temperature boundary condition in Kelvin"
 
       parameter Modelica_SIunits.Temperature T "Fixed temperature at port";
-      Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-                -10},{110,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     equation
       port.T = T;
       annotation (
@@ -1174,9 +1175,9 @@ i.e., it defines a fixed temperature as a boundary condition.
     model PrescribedTemperature
       "Variable temperature boundary condition in Kelvin"
 
-      Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-                -10},{110,10}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput T(unit="K") annotation (Placement(transformation(
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput T(unit="K") annotation (Placement(transformation(
               extent={{-140,-20},{-100,20}}, rotation=0)));
     equation
       port.T = T;
@@ -1244,8 +1245,8 @@ as required to keep the temperature at the specified value.
         "Reference temperature";
       parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
         "Temperature coefficient of heat flow rate";
-      Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-                -10},{110,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     equation
       port.Q_flow = -Q_flow*(1 + alpha*(port.T - T_ref));
       annotation (
@@ -1326,13 +1327,13 @@ in order to simulate temperature dependent losses (which are given with respect 
         "Reference temperature";
       parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
         "Temperature coefficient of heat flow rate";
-      Modelica_Blocks.Interfaces.RealInput Q_flow(unit="W")
+      Modelica_Blocks_Interfaces.RealInput Q_flow(unit="W")
             annotation (Placement(transformation(
             origin={-100,0},
             extent={{20,-20},{-20,20}},
             rotation=180)));
-      Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-                -10},{110,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     equation
       port.Q_flow = -Q_flow*(1 + alpha*(port.T - T_ref));
       annotation (
@@ -1425,10 +1426,10 @@ in order to simulate temperature dependent losses (which are given with respect 
 
     model ToKelvin "Conversion block from degCelsius to Kelvin"
 
-      Modelica_Blocks.Interfaces.RealInput Celsius(unit="degC")
+      Modelica_Blocks_Interfaces.RealInput Celsius(unit="degC")
          annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput Kelvin(unit="K")
+      Modelica_Blocks_Interfaces.RealOutput Kelvin(unit="K")
         annotation (Placement(transformation(extent={{100,-10},{120,10}},
               rotation=0)));
     equation
@@ -1486,10 +1487,10 @@ and provide is as output signal.
 
     model FromKelvin "Conversion from Kelvin to degCelsius"
 
-      Modelica_Blocks.Interfaces.RealInput Kelvin(unit="K")
+      Modelica_Blocks_Interfaces.RealInput Kelvin(unit="K")
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput Celsius(unit="degC")
+      Modelica_Blocks_Interfaces.RealOutput Celsius(unit="degC")
         annotation (Placement(transformation(extent={{100,-10},{120,10}},
               rotation=0)));
     equation
@@ -1549,8 +1550,8 @@ and provides is as output signal.
       "Fixed temperature boundary condition in degree Celsius"
       parameter Modelica_SIunits.Conversions.NonSIunits.Temperature_degC T
         "Fixed Temperature at the port";
-      Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{
-                90,-10},{110,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     equation
       port.T = Modelica_SIunits.Conversions.from_degC(T);
       annotation (
@@ -1614,9 +1615,9 @@ i.e., it defines a fixed temperature as a boundary condition.
     model PrescribedTemperature
       "Variable temperature boundary condition in degCelsius"
 
-      Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{
-                90,-10},{110,10}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput T(unit="degC") annotation (Placement(
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput T(unit="degC") annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
     equation
       port.T = Modelica_SIunits.Conversions.from_degC(T);
@@ -1683,12 +1684,12 @@ as required to keep the temperature at the specified value.
 
     model TemperatureSensor "Absolute temperature sensor in degCelsius"
 
-      Modelica_Blocks.Interfaces.RealOutput T(unit="degC")
+      Modelica_Blocks_Interfaces.RealOutput T(unit="degC")
         "Absolute temperature in degree Celsius as output signal"
         annotation (Placement(
             transformation(extent={{90,-10},{110,10}}, rotation=0)));
-      Interfaces.HeatPort_a port annotation (Placement(transformation(extent={{
-                -110,-10},{-90,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a port annotation (
+          Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
     equation
       T = Modelica_SIunits.Conversions.to_degC(port.T);
       port.Q_flow = 0;
@@ -1804,9 +1805,9 @@ Example:
 
     model ToKelvin "Conversion block from degFahrenheit to Kelvin"
 
-      Modelica_Blocks.Interfaces.RealInput Fahrenheit(unit="degF") annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput Fahrenheit(unit="degF") annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput Kelvin(unit="K")
+      Modelica_Blocks_Interfaces.RealOutput Kelvin(unit="K")
           annotation (Placement(transformation(extent={{100,-10},{120,10}},
               rotation=0)));
     equation
@@ -1865,10 +1866,10 @@ and provides is as output signal.
       parameter Integer n=1
         "Only kept for backwards compatibility (parameter is not used in the model and will be removed in a future version)"
                                                                                                             annotation(Dialog(enable=false));
-      Modelica_Blocks.Interfaces.RealInput Kelvin(unit="K")
+      Modelica_Blocks_Interfaces.RealInput Kelvin(unit="K")
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput Fahrenheit(unit="degF")
+      Modelica_Blocks_Interfaces.RealOutput Fahrenheit(unit="degF")
      annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
                0)));
     equation
@@ -1928,8 +1929,8 @@ and provides them as output signals.
       "Fixed temperature boundary condition in degFahrenheit"
       parameter Modelica_SIunits.Conversions.NonSIunits.Temperature_degF T
         "Fixed Temperature at the port";
-      Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{
-                90,-10},{110,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     equation
       port.T = Modelica_SIunits.Conversions.from_degF(T);
       annotation (
@@ -1993,9 +1994,9 @@ i.e., it defines a fixed temperature as a boundary condition.
     model PrescribedTemperature
       "Variable temperature boundary condition in degFahrenheit"
 
-      Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{
-                90,-10},{110,10}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput T(unit="degF")
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput T(unit="degF")
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
     equation
@@ -2062,10 +2063,10 @@ as required to keep the temperature at the specified value.
 
     model TemperatureSensor "Absolute temperature sensor in degFahrenheit"
 
-      Modelica_Blocks.Interfaces.RealOutput T annotation (Placement(
+      Modelica_Blocks_Interfaces.RealOutput T annotation (Placement(
             transformation(extent={{90,-10},{110,10}}, rotation=0)));
-      Interfaces.HeatPort_a port annotation (Placement(transformation(extent={{
-                -110,-10},{-90,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a port annotation (
+          Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
     equation
       T = Modelica_SIunits.Conversions.to_degF(port.T);
       port.Q_flow = 0;
@@ -2182,10 +2183,10 @@ Example:
       parameter Integer n=1
         "Only kept for backwards compatibility (parameter is not used in the model and will be removed in a future version)"
                                                                                                             annotation(Dialog(enable=false));
-      Modelica_Blocks.Interfaces.RealInput Rankine(unit="degRk")
+      Modelica_Blocks_Interfaces.RealInput Rankine(unit="degRk")
        annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput Kelvin(unit="K")
+      Modelica_Blocks_Interfaces.RealOutput Kelvin(unit="K")
         annotation (Placement(transformation(extent={{100,-10},{120,10}},
               rotation=0)));
     equation
@@ -2244,10 +2245,10 @@ and provides them as output signals.
       parameter Integer n=1
         "Only kept for backwards compatibility (parameter is not used in the model and will be removed in a future version)"
                                                                                                             annotation(Dialog(enable=false));
-      Modelica_Blocks.Interfaces.RealInput Kelvin(unit="K")
+      Modelica_Blocks_Interfaces.RealInput Kelvin(unit="K")
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealOutput Rankine(unit="degRk")
+      Modelica_Blocks_Interfaces.RealOutput Rankine(unit="degRk")
          annotation (Placement(transformation(extent={{100,-10},{120,10}},
               rotation=0)));
     equation
@@ -2306,8 +2307,8 @@ and provides them as output signals.
 
       parameter Modelica_SIunits.Conversions.NonSIunits.Temperature_degRk T
         "Fixed Temperature at the port";
-      Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{
-                90,-10},{110,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     equation
       port.T = Modelica_SIunits.Conversions.from_degRk(T);
       annotation (
@@ -2371,9 +2372,9 @@ This model defines a fixed temperature T at its port in degree Rankine,
     model PrescribedTemperature
       "Variable temperature boundary condition in degRankine"
 
-      Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{
-                90,-10},{110,10}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput T(unit="degRk")
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port annotation (
+          Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+      Modelica_Blocks_Interfaces.RealInput T(unit="degRk")
          annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
               rotation=0)));
     equation
@@ -2440,10 +2441,10 @@ as required to keep the temperature at the specified value.
 
     model TemperatureSensor "Absolute temperature sensor in degRankine"
 
-      Modelica_Blocks.Interfaces.RealOutput T annotation (Placement(
+      Modelica_Blocks_Interfaces.RealOutput T annotation (Placement(
             transformation(extent={{90,-10},{110,10}}, rotation=0)));
-      Interfaces.HeatPort_a port annotation (Placement(transformation(extent={{
-                -110,-10},{-90,10}}, rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a port annotation (
+          Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
     equation
       T = Modelica_SIunits.Conversions.to_degRk(port.T);
       port.Q_flow = 0;
@@ -2552,233 +2553,6 @@ Example:
 </html>"));
   end Rankine;
 
-  package Interfaces "Connectors and partial models"
-
-    extends Modelica_Icons.InterfacesPackage;
-
-    partial connector HeatPort "Thermal port for 1-dim. heat transfer"
-      Modelica_SIunits.Temperature T "Port temperature";
-      flow Modelica_SIunits.HeatFlowRate Q_flow
-        "Heat flow rate (positive if flowing from outside into the component)";
-      annotation (Documentation(info="<html>
-
-</html>"));
-    end HeatPort;
-
-    connector HeatPort_a
-      "Thermal port for 1-dim. heat transfer (filled rectangular icon)"
-
-      extends HeatPort;
-
-      annotation(defaultComponentName = "port_a",
-        Documentation(info="<HTML>
-<p>This connector is used for 1-dimensional heat flow between components.
-The variables in the connector are:</p>
-<pre>
-   T       Temperature in [Kelvin].
-   Q_flow  Heat flow rate in [Watt].
-</pre>
-<p>According to the Modelica sign convention, a <b>positive</b> heat flow
-rate <b>Q_flow</b> is considered to flow <b>into</b> a component. This
-convention has to be used whenever this connector is used in a model
-class.</p>
-<p>Note, that the two connector classes <b>HeatPort_a</b> and
-<b>HeatPort_b</b> are identical with the only exception of the different
-<b>icon layout</b>.</p></html>"),     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-                100,100}}), graphics={Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={191,0,0},
-              fillColor={191,0,0},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Rectangle(
-              extent={{-50,50},{50,-50}},
-              lineColor={191,0,0},
-              fillColor={191,0,0},
-              fillPattern=FillPattern.Solid), Text(
-              extent={{-120,120},{100,60}},
-              lineColor={191,0,0},
-              textString="%name")}));
-    end HeatPort_a;
-
-    connector HeatPort_b
-      "Thermal port for 1-dim. heat transfer (unfilled rectangular icon)"
-
-      extends HeatPort;
-
-      annotation(defaultComponentName = "port_b",
-        Documentation(info="<HTML>
-<p>This connector is used for 1-dimensional heat flow between components.
-The variables in the connector are:</p>
-<pre>
-   T       Temperature in [Kelvin].
-   Q_flow  Heat flow rate in [Watt].
-</pre>
-<p>According to the Modelica sign convention, a <b>positive</b> heat flow
-rate <b>Q_flow</b> is considered to flow <b>into</b> a component. This
-convention has to be used whenever this connector is used in a model
-class.</p>
-<p>Note, that the two connector classes <b>HeatPort_a</b> and
-<b>HeatPort_b</b> are identical with the only exception of the different
-<b>icon layout</b>.</p></html>"),     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Rectangle(
-              extent={{-50,50},{50,-50}},
-              lineColor={191,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid), Text(
-              extent={{-100,120},{120,60}},
-              lineColor={191,0,0},
-              textString="%name")}),
-        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-                100,100}}), graphics={Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={191,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}));
-    end HeatPort_b;
-
-    partial model Element1D
-      "Partial heat transfer element with two HeatPort connectors that does not store energy"
-
-      Modelica_SIunits.HeatFlowRate Q_flow
-        "Heat flow rate from port_a -> port_b";
-      Modelica_SIunits.TemperatureDifference dT "port_a.T - port_b.T";
-    public
-      HeatPort_a port_a annotation (Placement(transformation(extent={{-110,-10},
-                {-90,10}}, rotation=0)));
-      HeatPort_b port_b annotation (Placement(transformation(extent={{90,-10},{
-                110,10}}, rotation=0)));
-    equation
-      dT = port_a.T - port_b.T;
-      port_a.Q_flow = Q_flow;
-      port_b.Q_flow = -Q_flow;
-      annotation (Documentation(info="<HTML>
-<p>
-This partial model contains the basic connectors and variables to
-allow heat transfer models to be created that <b>do not store energy</b>,
-This model defines and includes equations for the temperature
-drop across the element, <b>dT</b>, and the heat flow rate
-through the element from port_a to port_b, <b>Q_flow</b>.
-</p>
-<p>
-By extending this model, it is possible to write simple
-constitutive equations for many types of heat transfer components.
-</p>
-</html>"));
-    end Element1D;
-
-    partial model PartialElementaryConditionalHeatPort
-      "Partial model to include a conditional HeatPort in order to dissipate losses, used for textual modeling, i.e., for elementary models"
-      parameter Boolean useHeatPort = false "=true, if heatPort is enabled"
-        annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
-      parameter Modelica_SIunits.Temperature T=293.15
-        "Fixed device temperature if useHeatPort = false"
-        annotation(Dialog(enable=not useHeatPort));
-      Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPort(final T=
-            TheatPort, final Q_flow=-lossPower) if useHeatPort
-        "Optional port to which dissipated losses are transported in form of heat"
-        annotation (Placement(transformation(extent={{-110,-110},{-90,-90}}),
-            iconTransformation(extent={{-110,-110},{-90,-90}})));
-      Modelica_SIunits.Power lossPower
-        "Loss power leaving component via heatPort (> 0, if heat is flowing out of component)";
-      Modelica_SIunits.Temperature TheatPort "Temperature of heatPort";
-    equation
-      if not useHeatPort then
-         TheatPort = T;
-      end if;
-      annotation (Documentation(info="<html>
-<p>
-This partial model provides a conditional heat port for dissipating losses.
-</p>
-<ul>
-<li>If <b>useHeatPort</b> is set to <b>false</b> (default), no heat port is available, and the thermal loss power is dissipated internally.
-In this case, the parameter <b>T</b> specifies the fixed device temperature (the default for T = 20&deg;C) </li>
-<li>If <b>useHeatPort</b> is set to <b>true</b>, the heat port is available. </li>
-</ul>
-<p>
-If this model is used, the loss power has to be provided by an equation in the model which inherits from PartialElementaryConditionalHeatPort model
-(<b>lossPower = ...</b>). The device temperature <b>TheatPort</b> can be used to describe the influence of the device temperature on the model behaviour.
-</p>
-</html>"));
-    end PartialElementaryConditionalHeatPort;
-
-    partial model PartialElementaryConditionalHeatPortWithoutT
-      "Partial model to include a conditional HeatPort in order to dissipate losses, used for textual modeling, i.e., for elementary models"
-      parameter Boolean useHeatPort = false "=true, if heatPort is enabled"
-        annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
-      Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPort(final Q_flow=
-           -lossPower) if useHeatPort
-        "Optional port to which dissipated losses are transported in form of heat"
-        annotation (Placement(transformation(extent={{-110,-110},{-90,-90}}),
-            iconTransformation(extent={{-110,-110},{-90,-90}})));
-      Modelica_SIunits.Power lossPower
-        "Loss power leaving component via heatPort (> 0, if heat is flowing out of component)";
-      annotation (Documentation(info="<html>
-<p>
-This partial model provides a conditional heat port for dissipating losses.
-</p>
-<ul>
-<li>If <b>useHeatPort</b> is set to <b>false</b> (default), no heat port is available, and the thermal loss power is dissipated internally.
-<li>If <b>useHeatPort</b> is set to <b>true</b>, the heat port is available and must be connected from the outside.</li>
-</ul>
-<p>
-If this model is used, the loss power has to be provided by an equation in the model which inherits from the PartialElementaryConditionalHeatPortWithoutT model
-(<b>lossPower = ...</b>).
-</p>
-
-<p>
-Note, this partial model is used in cases, where heatPort.T (that is the device temperature) is not utilized in the model. If this is desired, inherit instead from partial model
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Interfaces.PartialElementaryConditionalHeatPort\">PartialElementaryConditionalHeatPort</a>.
-</p>
-</html>"));
-    end PartialElementaryConditionalHeatPortWithoutT;
-
-    partial model PartialConditionalHeatPort
-      "Partial model to include a conditional HeatPort in order to dissipate losses, used for graphical modeling, i.e., for building models by drag-and-drop"
-      parameter Boolean useHeatPort = false "=true, if HeatPort is enabled"
-        annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
-      parameter Modelica_SIunits.Temperature T=293.15
-        "Fixed device temperature if useHeatPort = false"
-        annotation(Dialog(enable=not useHeatPort));
-      Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPort if
-        useHeatPort
-        "Optional port to which dissipated losses are transported in form of heat"
-        annotation (Placement(transformation(extent={{-110,-110},{-90,-90}}),
-            iconTransformation(extent={{-110,-110},{-90,-90}})));
-      Modelica_Thermal_HeatTransfer.Sources.FixedTemperature fixedTemperature(final T=T) if
-           not useHeatPort
-        annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
-    protected
-      HeatPort_a internalHeatPort
-        annotation (Placement(transformation(extent={{-104,-84},{-96,-76}})));
-    equation
-      connect(heatPort, internalHeatPort) annotation (Line(
-          points={{-100,-100},{-100,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(fixedTemperature.port, internalHeatPort) annotation (Line(
-          points={{-80,-80},{-100,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      annotation (Documentation(info="<html>
-<p>
-This partial model provides a conditional heat port for dissipating losses.
-</p>
-<ul>
-<li>If <b>useHeatPort</b> is set to <b>false</b> (default), no heat port is available, and the thermal loss power is dissipated internally.
-In this case, the parameter <b>T</b> specifies the fixed device temperature (the default for T = 20&deg;C) </li>
-<li>If <b>useHeatPort</b> is set to <b>true</b>, the heat port is available. </li>
-</ul>
-<p>
-If this model is used, the <b>internalHeatPort</b> has to be connected in the model which inherits from PartialElementaryConditionalHeatPort model.
-The device temperature <b>internalHeatPort.T</b> can be used to describe the influence of the device temperature on the model behaviour.
-</p>
-</html>"));
-    end PartialConditionalHeatPort;
-    annotation (                               Documentation(info="<html>
-
-</html>"));
-  end Interfaces;
   annotation (
      Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100,-100},{100,100}}), graphics={
       Polygon(

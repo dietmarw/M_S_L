@@ -575,14 +575,14 @@ ideal AC DC converter</a>, which is used in the
   package SinglePhase "Single phase AC components"
     extends Modelica_Icons.Package;
 
-
     package Basic "Basic components for AC singlephase models"
       extends Modelica_Icons.Package;
 
       model Ground "Electrical ground"
 
-        Interfaces.PositivePin pin annotation (Placement(transformation(extent={{
-                  -10,90},{10,110}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin
+          pin annotation (Placement(transformation(extent={{-10,90},{10,110}},
+                rotation=0)));
       equation
         Connections.potentialRoot(pin.reference, 256);
         if Connections.isRoot(pin.reference) then
@@ -609,7 +609,8 @@ Every electrical circuit, e.g., a series resonance
       end Ground;
 
       model Resistor "Single phase linear resistor"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.real;
         import Modelica_ComplexMath.conj;
         parameter Modelica_SIunits.Resistance R_ref(start=1)
@@ -669,7 +670,8 @@ A linear temperature dependency of the resistance is also taken into account.
       end Resistor;
 
       model Conductor "Single phase linear conductor"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.real;
         import Modelica_ComplexMath.conj;
         parameter Modelica_SIunits.Conductance G_ref(start=1)
@@ -730,7 +732,8 @@ A linear temperature dependency of the conductance is also taken into account.
       end Conductor;
 
       model Capacitor "Single phase linear capacitor"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.j;
         parameter Modelica_SIunits.Capacitance C(start=1) "Capacitance";
       equation
@@ -775,7 +778,8 @@ The capacitance <code>C</code> is allowed to be positive, zero, or negative.
       end Capacitor;
 
       model Inductor "Single phase linear inductor"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.j;
         parameter Modelica_SIunits.Inductance L(start=1) "Inductance";
       equation
@@ -821,7 +825,8 @@ The Inductance <code>L</code> is allowed to be positive, zero, or negative.
       end Inductor;
 
       model VariableResistor "Single phase variable resistor"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.real;
         import Modelica_ComplexMath.conj;
         parameter Modelica_SIunits.Temperature T_ref=293.15
@@ -895,7 +900,8 @@ A zero crossing of the R signal could cause singularities due to the actual stru
       end VariableResistor;
 
       model VariableConductor "Single phase variable conductor"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.real;
         import Modelica_ComplexMath.conj;
         parameter Modelica_SIunits.Temperature T_ref=293.15
@@ -964,7 +970,8 @@ A linear temperature dependency of the conductance is also taken into account.
       end VariableConductor;
 
       model VariableCapacitor "Single phase variable capacitor"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.j;
         Modelica_Blocks.Interfaces.RealInput C(unit="F")
           "Variable capacitances"
@@ -1026,7 +1033,8 @@ The abstraction of a variable capacitor at quasi stationary operation assumes:
       end VariableCapacitor;
 
       model VariableInductor "Single phase variable inductor"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.j;
         Modelica_Blocks.Interfaces.RealInput L(unit="H") "Variable inductances"
           annotation (Placement(transformation(
@@ -1087,7 +1095,8 @@ The abstraction of a variable inductor at quasi stationary operation assumes:
       end VariableInductor;
 
       model VariableImpedance "Single phase variable impedance"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.real;
         import Modelica_ComplexMath.imag;
         import Modelica_ComplexMath.conj;
@@ -1170,7 +1179,8 @@ singularities due to the actual structure of the connected network.
       end VariableImpedance;
 
       model VariableAdmittance "Single phase variable admittance"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.real;
         import Modelica_ComplexMath.imag;
         import Modelica_ComplexMath.conj;
@@ -1275,7 +1285,8 @@ Quasi stationary theory for single phase circuits can be found in the
       extends Modelica_Icons.Package;
 
       model Idle "Idle branch"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
       equation
         i = Complex(0);
         annotation (Icon(graphics={Rectangle(
@@ -1299,7 +1310,8 @@ This model is a simple idle branch considering the complex current <i><u>i</u></
       end Idle;
 
       model Short "Short cut branch"
-        extends Interfaces.OnePort;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
       equation
         v = Complex(0);
         annotation (Icon(graphics={Rectangle(
@@ -1331,13 +1343,13 @@ This model is a simple short cut branch considering the complex voltage <i><u>v<
           "Opened switch conductance";
         extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(final T=
              293.15);
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.PositivePin p
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin p
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.NegativePin n2
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin n2
           annotation (Placement(transformation(extent={{90,-10},{110,10}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.NegativePin n1
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin n1
           annotation (Placement(transformation(extent={{90,40},{110,60}},
                 rotation=0)));
         Modelica_Blocks.Interfaces.BooleanInput control
@@ -1432,16 +1444,16 @@ This switch is only intended to be used for structural changes, not for fast swi
           "Opened switch conductance";
         extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(final T=
              293.15);
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.PositivePin p1
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin p1
           annotation (Placement(transformation(extent={{-110,40},{-90,60}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.PositivePin p2
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin p2
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.NegativePin n1
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin n1
           annotation (Placement(transformation(extent={{90,40},{110,60}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.NegativePin n2
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin n2
           annotation (Placement(transformation(extent={{90,-10},{110,10}},
                 rotation=0)));
         Modelica_Blocks.Interfaces.BooleanInput control
@@ -1559,7 +1571,7 @@ This switch is only intended to be used for structural changes, not for fast swi
         import Modelica_ComplexMath.real;
         import Modelica_ComplexMath.conj;
         extends
-          Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.OnePort;
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
           "Closed switch resistance" annotation (Placement(transformation(extent=
                   {{-56.6667,10},{-10,56.6667}}, rotation=0)));
@@ -1641,7 +1653,7 @@ This switch is only intended to be used for structural changes, not for fast swi
         import Modelica_ComplexMath.real;
         import Modelica_ComplexMath.conj;
         extends
-          Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.OnePort;
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
           "Closed switch resistance" annotation (Placement(transformation(extent=
                   {{-56.6667,10},{-10,56.6667}}, rotation=0)));
@@ -1726,19 +1738,19 @@ This switch is only intended to be used for structural changes, not for fast swi
         Modelica_SIunits.ComplexVoltage v2=pin_p2.v - pin_n2.v
           "Voltage drop of side 2";
         Modelica_SIunits.ComplexCurrent i2=pin_p2.i "Current into side 2";
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.PositivePin pin_p1
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin pin_p1
           "Primary positive pin" annotation (Placement(transformation(extent={{
                   -110,40},{-90,60}}), iconTransformation(extent={{-110,40},{-90,
                   60}})));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.PositivePin pin_p2
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin pin_p2
           "Secondary positive pin" annotation (Placement(transformation(extent=
                   {{90,40},{110,60}}), iconTransformation(extent={{90,40},{110,
                   60}})));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.NegativePin pin_n1
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin pin_n1
           "Primary negative pin" annotation (Placement(transformation(extent={{
                   -110,-60},{-90,-40}}), iconTransformation(extent={{-110,-60},
                   {-90,-40}})));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.NegativePin pin_n2
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin pin_n2
           "Secondary negative pin" annotation (Placement(transformation(extent=
                   {{90,-60},{110,-40}}), iconTransformation(extent={{90,-60},{
                   110,-40}})));
@@ -1864,7 +1876,7 @@ Quasi stationary theory for single phase circuits can be found in the
 
       model ReferenceSensor "Sensor of reference angle gamma"
         extends
-          Modelica_Electrical_QuasiStationary.SinglePhase.Interfaces.AbsoluteSensor;
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.AbsoluteSensor;
         Modelica_Blocks.Interfaces.RealOutput y "Reference angle" annotation (
             Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
       equation
@@ -1879,7 +1891,8 @@ Quasi stationary theory for single phase circuits can be found in the
       end ReferenceSensor;
 
       model FrequencySensor "Frequency sensor"
-        extends Interfaces.AbsoluteSensor;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.AbsoluteSensor;
         import Modelica_Constants.pi;
         Modelica_Blocks.Interfaces.RealOutput y annotation (Placement(
               transformation(extent={{100,-10},{120,10}}, rotation=0)));
@@ -1907,7 +1920,8 @@ This sensor can be used to measure the frequency of the reference system.
       end FrequencySensor;
 
       model PotentialSensor "Potential sensor"
-        extends Interfaces.AbsoluteSensor;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.AbsoluteSensor;
         Modelica_ComplexBlocks.Interfaces.ComplexOutput y annotation (Placement(
               transformation(extent={{100,-10},{120,10}}, rotation=0)));
       equation
@@ -1933,7 +1947,8 @@ This sensor can be used to measure the complex potential.
       end PotentialSensor;
 
       model VoltageSensor "Voltage sensor"
-        extends Interfaces.RelativeSensor;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.RelativeSensor;
       equation
         i = Complex(0);
         y = v;
@@ -1957,7 +1972,8 @@ This sensor can be used to measure the complex voltage.
       end VoltageSensor;
 
       model CurrentSensor "Current sensor"
-        extends Interfaces.RelativeSensor;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.RelativeSensor;
       equation
         v = Complex(0);
         y = i;
@@ -1983,14 +1999,18 @@ This sensor can be used to measure the complex current.
       model PowerSensor "Power sensor"
         import Modelica_ComplexMath.conj;
         extends Modelica_Icons.RotationalSensor;
-        Interfaces.PositivePin currentP annotation (Placement(transformation(
-                extent={{-110,-10},{-90,10}}, rotation=0)));
-        Interfaces.NegativePin currentN annotation (Placement(transformation(
-                extent={{90,-10},{110,10}}, rotation=0)));
-        Interfaces.PositivePin voltageP annotation (Placement(transformation(
-                extent={{-10,90},{10,110}}, rotation=0)));
-        Interfaces.NegativePin voltageN annotation (Placement(transformation(
-                extent={{-10,-110},{10,-90}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin
+          currentP annotation (Placement(transformation(extent={{-110,-10},{-90,
+                  10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+          currentN annotation (Placement(transformation(extent={{90,-10},{110,
+                  10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin
+          voltageP annotation (Placement(transformation(extent={{-10,90},{10,
+                  110}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+          voltageN annotation (Placement(transformation(extent={{-10,-110},{10,
+                  -90}}, rotation=0)));
         output Modelica_SIunits.ComplexCurrent i;
         output Modelica_SIunits.ComplexVoltage v;
         Modelica_ComplexBlocks.Interfaces.ComplexOutput y annotation (Placement(
@@ -2055,7 +2075,8 @@ Quasi stationary theory for single phase circuits can be found in the
       extends Modelica_Icons.SourcesPackage;
 
       model VoltageSource "Constant AC voltage"
-        extends Interfaces.Source;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.Source;
         parameter Modelica_SIunits.Frequency f(start=1)
           "frequency of the source";
         parameter Modelica_SIunits.Voltage V(start=1)
@@ -2089,7 +2110,8 @@ This is a constant voltage source, specifying the complex voltage by the RMS vol
       end VoltageSource;
 
       model VariableVoltageSource "Variable AC voltage"
-        extends Interfaces.Source;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.Source;
         Modelica_Blocks.Interfaces.RealInput f annotation (Placement(
               transformation(
               origin={40,100},
@@ -2129,7 +2151,8 @@ Additionally, the frequency of the voltage source is defined by a real signal in
       end VariableVoltageSource;
 
       model CurrentSource "Constant AC current"
-        extends Interfaces.Source;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.Source;
         parameter Modelica_SIunits.Frequency f(start=1)
           "frequency of the source";
         parameter Modelica_SIunits.Current I(start=1)
@@ -2161,7 +2184,8 @@ This is a constant current source, specifying the complex current by the RMS cur
       end CurrentSource;
 
       model VariableCurrentSource "Variable AC current"
-        extends Interfaces.Source;
+        extends
+          Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.Source;
         Modelica_Blocks.Interfaces.RealInput f annotation (Placement(
               transformation(
               origin={40,100},
@@ -2208,292 +2232,6 @@ Quasi stationary theory for single phase circuits can be found in the
 </html>"));
     end Sources;
 
-    package Interfaces "Interfaces for AC singlephase models"
-      extends Modelica_Icons.InterfacesPackage;
-
-      connector Pin "Basic connector"
-        Modelica_SIunits.ComplexVoltage v "Complex potential at the node";
-        flow Modelica_SIunits.ComplexCurrent i
-          "Complex current flowing into the pin";
-        annotation (Documentation(info="<html>
-<p>
-The potential of this connector is the complex voltage and the flow variable is the complex current.
-The <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">positive</a> and
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">negative pin</a> are
-derived from this base connector.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">PositivePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">NegativePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.Plug\">Plug</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug\">PositivePlug</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug\">NegativePlug</a>
-</p>
-
-</html>"));
-      end Pin;
-
-      connector PositivePin "Positive connector"
-        extends Pin;
-        Types.Reference reference "Reference";
-        annotation (
-          Diagram(graphics={Text(
-                extent={{-100,100},{100,60}},
-                lineColor={0,0,255},
-                fillColor={0,0,255},
-                fillPattern=FillPattern.Solid,
-                textString="%name"), Rectangle(
-                extent={{-40,40},{40,-40}},
-                lineColor={85,170,255},
-                fillColor={85,170,255},
-                fillPattern=FillPattern.Solid)}),
-          Icon(graphics={Rectangle(
-                extent={{-100,100},{100,-100}},
-                lineColor={85,170,255},
-                fillColor={85,170,255},
-                fillPattern=FillPattern.Solid)}),
-          Documentation(info="<html>
-
-<p>
-The positive pin is based on <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">Pin</a>.
-Additionally the reference angle is specified in the connector. The time derivative of the reference angle is the actual angular velocity of the quasi stationary voltage and current. The symbol is also designed such way to look different than the <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">negative pin</a>.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">Pin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">NegativePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.Plug\">Plug</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug\">PositivePlug</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug\">NegativePlug</a>
-</p>
-</html>"));
-      end PositivePin;
-
-      connector NegativePin "Negative Connector"
-        extends Pin;
-        Types.Reference reference "Reference";
-        annotation (
-          Diagram(graphics={Text(
-                extent={{-100,100},{100,60}},
-                lineColor={0,0,255},
-                fillColor={0,0,255},
-                fillPattern=FillPattern.Solid,
-                textString="%name"), Rectangle(
-                extent={{-40,40},{40,-40}},
-                lineColor={85,170,255},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.Solid)}),
-          Icon(graphics={Rectangle(
-                extent={{-100,100},{100,-100}},
-                lineColor={85,170,255},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.Solid)}),
-          Documentation(info="<html>
-
-<p>
-The negative pin is based on <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">Pin</a>.
-Additionally the reference angle is specified in the connector. The time derivative of the reference angle is the actual angular velocity of the quasi stationary voltage and current. The symbol is also designed such way to look different than the <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">positive pin</a>.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">Pin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">PositivePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.Plug\">Plug</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug\">PositivePlug</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug\">NegativePlug</a>
-</p>
-</html>"));
-      end NegativePin;
-
-      partial model TwoPin "Two pins"
-        import Modelica_Constants.eps;
-        Modelica_SIunits.ComplexVoltage v "Complex voltage";
-        Modelica_SIunits.Voltage abs_v = Modelica_ComplexMath.'abs'(v)
-          "Magnitude of complex voltage";
-        Modelica_SIunits.Angle arg_v = Modelica_ComplexMath.arg(v)
-          "Argument of complex voltage";
-        Modelica_SIunits.ComplexCurrent i "Complex current";
-        Modelica_SIunits.Current abs_i = Modelica_ComplexMath.'abs'(i)
-          "Magnitude of complex current";
-        Modelica_SIunits.Angle arg_i = Modelica_ComplexMath.arg(i)
-          "Argument of complex current";
-        Modelica_SIunits.ActivePower P = Modelica_ComplexMath.real(v*Modelica_ComplexMath.conj(i))
-          "Active power";
-        Modelica_SIunits.ReactivePower Q = Modelica_ComplexMath.imag(v*Modelica_ComplexMath.conj(i))
-          "Reactive power";
-        Modelica_SIunits.ApparentPower S = Modelica_ComplexMath.'abs'(v*Modelica_ComplexMath.conj(i))
-          "Magnitude of complex apparent power";
-        Real pf = cos(Modelica_ComplexMath.arg(Complex(P,Q))) "Power factor";
-        Modelica_SIunits.AngularVelocity omega
-          "Angular velocity of reference frame";
-
-        PositivePin pin_p "Positive pin" annotation (Placement(transformation(
-                extent={{-110,-10},{-90,10}}, rotation=0)));
-        NegativePin pin_n "Negative pin" annotation (Placement(transformation(
-                extent={{90,-10},{110,10}}, rotation=0)));
-      equation
-        Connections.branch(pin_p.reference, pin_n.reference);
-        pin_p.reference.gamma = pin_n.reference.gamma;
-        omega = der(pin_p.reference.gamma);
-        v = pin_p.v - pin_n.v;
-        i = pin_p.i;
-        annotation (Documentation(info="<html>
-<p>
-This partial model uses a <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">positive</a>
-and <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">negative pin</a> and defines the complex voltage difference as well as the complex current (into the positive pin). Additionally, the angular velocity of the quasi stationary system is explicitly defined as variable. This model is mainly intended to be used with graphical representation of user models.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">PositivePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">NegativePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.OnePort\">OnePort</a>
-</p>
-</html>"));
-      end TwoPin;
-
-      partial model OnePort "Two pins, current through"
-        extends TwoPin;
-      equation
-        pin_p.i + pin_n.i = Complex(0);
-        annotation (Documentation(info="<html>
-<p>
-This partial model is based on <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.TwoPin\">TwoPin</a> and
-additionally considers the complex current balance of the
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">positive</a> and the
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">negative pin</a>.
-This model is intended to be used with textual representation of user models.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">PositivePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">NegativePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.TwoPin\">TwoPin</a>
-</p>
-</html>"));
-      end OnePort;
-
-      partial model AbsoluteSensor "Partial potential sensor"
-        extends Modelica_Icons.RotationalSensor;
-        Modelica_SIunits.AngularVelocity omega;
-        PositivePin pin "Pin" annotation (Placement(transformation(extent={{-110,
-                  -10},{-90,10}}, rotation=0)));
-      equation
-        omega = der(pin.reference.gamma);
-        pin.i = Complex(0);
-        annotation (Icon(graphics={
-              Line(points={{-70,0},{-94,0}}, color={0,0,0}),
-              Text(
-                extent={{-100,100},{100,70}},
-                lineColor={0,0,255},
-                pattern=LinePattern.None,
-                fillColor={170,85,255},
-                fillPattern=FillPattern.Solid,
-                textString="%name"),
-              Line(points={{100,0},{70,0}}, color={0,0,0})}), Documentation(info="<html>
-<p>
-The absolute sensor partial model provides a single
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">positive pin</a> to measure the complex voltage. Additionally this model contains a proper icon and a definition of the angular velocity.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.RelativeSensor\">RelativeSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.PotentialSensor\">PotentialSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.AbsoluteSensor\">MultiPhase.Interfaces.AbsoluteSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.RelativeSensor\">MultiPhase.Interfaces.RelativeSensor</a>
-</p>
-
-</html>"));
-      end AbsoluteSensor;
-
-      partial model RelativeSensor "Partial voltage / current sensor"
-        extends Modelica_Icons.RotationalSensor;
-        extends OnePort;
-        Modelica_ComplexBlocks.Interfaces.ComplexOutput y annotation (Placement(
-              transformation(
-              origin={0,-110},
-              extent={{-10,-10},{10,10}},
-              rotation=270)));
-        annotation (Icon(graphics={
-              Line(points={{-70,0},{-94,0}}, color={0,0,0}),
-              Line(points={{70,0},{94,0}}, color={0,0,0}),
-              Text(
-                extent={{-100,100},{100,70}},
-                lineColor={0,0,255},
-                pattern=LinePattern.None,
-                fillColor={170,85,255},
-                fillPattern=FillPattern.Solid,
-                textString="%name"),
-              Line(points={{0,-70},{0,-80},{0,-90},{0,-100}}, color={85,170,255})}),
-            Documentation(info="<html>
-<p>
-The relative sensor partial model relies on the
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.OnePort\">OnePort</a> to measure the complex voltage, current or power. Additionally this model contains a proper icon and a definition of the angular velocity.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.AbsoluteSensor\">AbsoluteSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.VoltageSensor\">VoltageSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.CurrentSensor\">CurrentSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.PowerSensor\">PowerSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.AbsoluteSensor\">MultiPhase.Interfaces.AbsoluteSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.RelativeSensor\">MultiPhase.Interfaces.RelativeSensor</a>
-</p>
-
-</html>"));
-      end RelativeSensor;
-
-      partial model Source "Partial voltage / current source"
-        extends OnePort;
-        Modelica_SIunits.Angle gamma(start=0) = pin_p.reference.gamma;
-      equation
-        Connections.root(pin_p.reference);
-        annotation (Icon(graphics={
-              Ellipse(
-                extent={{-50,50},{50,-50}},
-                lineColor={0,0,0},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.Solid),
-              Text(
-                extent={{100,-100},{-100,-60}},
-                textString="%name",
-                lineColor={0,0,255}),
-              Line(points={{-90,0},{-50,0}}, color={0,0,0}),
-              Line(points={{50,0},{90,0}}, color={0,0,0})}), Documentation(info="<html>
-<p>
-The source partial model relies on the
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.OnePort\">OnePort</a> and contains a proper icon.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource\">VoltageSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VariableVoltageSource\">VariableVoltageSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources.CurrentSource\">CurrentSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VariableCurrentSource\">VariableCurrentSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.Source\">MultiPhase.Interfaces.Source</a>.
-</p>
-</html>"));
-      end Source;
-      annotation (Documentation(info="<html>
-<p>This package contains connector specifications and partial models for more complex components.</p>
-</html>"));
-    end Interfaces;
 
     package Utilities "Library with auxiliary models for testing"
       extends Modelica_Icons.UtilitiesPackage;
@@ -2515,12 +2253,12 @@ The source partial model relies on the
         Modelica_SIunits.Voltage vDC=pin_pDC.v - pin_nDC.v "DC voltage";
         Modelica_SIunits.Current iDC=pin_pDC.i "DC current";
         Modelica_SIunits.Power pDC=vDC*iDC "DC power";
-        Interfaces.PositivePin pin_pQS annotation (Placement(transformation(
-                extent={{-110,110},{-90,90}}), iconTransformation(extent={{-110,
-                  110},{-90,90}})));
-        Interfaces.NegativePin pin_nQS annotation (Placement(transformation(
-                extent={{-110,-110},{-90,-90}}), iconTransformation(extent={{-110,
-                  -110},{-90,-90}})));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin
+          pin_pQS annotation (Placement(transformation(extent={{-110,110},{-90,
+                  90}}), iconTransformation(extent={{-110,110},{-90,90}})));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+          pin_nQS annotation (Placement(transformation(extent={{-110,-110},{-90,
+                  -90}}), iconTransformation(extent={{-110,-110},{-90,-90}})));
         Modelica_Electrical_Analog.Interfaces.PositivePin pin_pDC annotation (
             Placement(transformation(extent={{90,110},{110,90}}),
               iconTransformation(extent={{90,110},{110,90}})));
@@ -2702,7 +2440,6 @@ Quasi stationary theory for single phase circuits can be found in the
   package Machines "Quasistationary machine models"
     extends Modelica_Icons.Package;
 
-
     package BasicMachines "Basic machine models"
       extends Modelica_Icons.Package;
 
@@ -2715,22 +2452,24 @@ Quasi stationary theory for single phase circuits can be found in the
           model Yy00 "Transformer Yy0"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yy00");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
           equation
             connect(star1.pin_n, starpoint1) annotation (Line(points={{-10,-90},{
                     -10,-100},{-50,-100}}, color={85,170,255}));
@@ -2756,22 +2495,24 @@ Transformer Yy0
           model Yy02 "Transformer Yy2"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yy02");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot2(final m=m) annotation (Placement(
                   transformation(extent={{50,-30},{30,-10}}, rotation=0)));
           equation
@@ -2801,22 +2542,24 @@ Transformer Yy2
           model Yy04 "Transformer Yy4"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yy04");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot2(final m=m) annotation (Placement(
                   transformation(extent={{30,10},{50,30}}, rotation=0)));
           equation
@@ -2846,22 +2589,24 @@ Transformer Yy4
           model Yy06 "Transformer Yy6"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yy06");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
           equation
             connect(star1.pin_n, starpoint1) annotation (Line(points={{-10,-90},{
                     -10,-100},{-50,-100}}, color={85,170,255}));
@@ -2887,22 +2632,24 @@ Transformer Yy6
           model Yy08 "Transformer Yy8"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yy08");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot2(final m=m) annotation (Placement(
                   transformation(extent={{50,10},{30,30}}, rotation=0)));
           equation
@@ -2932,22 +2679,24 @@ Transformer Yy8
           model Yy10 "Transformer Yy10"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yy10");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot2(final m=m) annotation (Placement(
                   transformation(extent={{30,-30},{50,-10}}, rotation=0)));
           equation
@@ -3003,15 +2752,16 @@ This package contains transformers primary Y connected / secondary y connected i
           model Yd01 "Transformer Yd1"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yd01");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta2(final m=m) annotation (Placement(
                   transformation(extent={{50,-30},{30,-10}}, rotation=0)));
           equation
@@ -3039,15 +2789,16 @@ Transformer Yd1
           model Yd03 "Transformer Yd3"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yd03");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta2(final m=m) annotation (Placement(
                   transformation(extent={{30,10},{50,30}}, rotation=0)));
             MultiPhase.Basic.Delta Rot2(final m=m) annotation (Placement(
@@ -3079,15 +2830,16 @@ Transformer Yd3
           model Yd05 "Transformer Yd5"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yd05");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta2(final m=m) annotation (Placement(
                   transformation(extent={{30,10},{50,30}}, rotation=0)));
           equation
@@ -3115,15 +2867,16 @@ Transformer Yd5
           model Yd07 "Transformer Yd7"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yd07");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta2(final m=m) annotation (Placement(
                   transformation(extent={{50,10},{30,30}}, rotation=0)));
           equation
@@ -3151,15 +2904,16 @@ Transformer Yd7
           model Yd09 "Transformer Yd9"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yd09");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta2(final m=m) annotation (Placement(
                   transformation(extent={{30,-30},{50,-10}}, rotation=0)));
             MultiPhase.Basic.Delta Rot2(final m=m) annotation (Placement(
@@ -3191,15 +2945,16 @@ Transformer Yd9
           model Yd11 "Transformer Yd11"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yd11");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta2(final m=m) annotation (Placement(
                   transformation(extent={{30,-30},{50,-10}}, rotation=0)));
           equation
@@ -3253,22 +3008,24 @@ This package contains transformers primary Y connected / secondary d connected i
           model Yz01 "Transformer Yz1"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yz01");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -3308,22 +3065,24 @@ Transformer Yz1
           model Yz03 "Transformer Yz3"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yz03");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -3363,22 +3122,24 @@ Transformer Yz3
           model Yz05 "Transformer Yz5"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yz05");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -3411,22 +3172,24 @@ Transformer Yz5
           model Yz07 "Transformer Yz7"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yz07");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -3459,22 +3222,24 @@ Transformer Yz7
           model Yz09 "Transformer Yz9"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yz09");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -3514,22 +3279,24 @@ Transformer Yz9
           model Yz11 "Transformer Yz11"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Yz11");
             MultiPhase.Basic.Star star1(final m=m) annotation (Placement(
                   transformation(
                   origin={-10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint1 annotation (Placement(
-                  transformation(extent={{-60,-110},{-40,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint1 annotation (Placement(transformation(extent={{-60,-110},
+                      {-40,-90}}, rotation=0)));
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -3595,15 +3362,16 @@ This package contains transformers primary Y connected / secondary zig-zag conne
           model Dy01 "Transformer Dy1"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dy01");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
             MultiPhase.Basic.Delta Rot2(final m=m) annotation (Placement(
@@ -3635,15 +3403,16 @@ Transformer Dy1
           model Dy03 "Transformer Dy3"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dy03");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
             MultiPhase.Basic.Delta Rot2(final m=m) annotation (Placement(
@@ -3675,15 +3444,16 @@ Transformer Dy3
           model Dy05 "Transformer Dy5"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dy05");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
           equation
@@ -3711,15 +3481,16 @@ Transformer Dy5
           model Dy07 "Transformer Dy7"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dy07");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
             MultiPhase.Basic.Delta Rot2(final m=m) annotation (Placement(
@@ -3751,15 +3522,16 @@ Transformer Dy7
           model Dy09 "Transformer Dy9"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dy09");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
             MultiPhase.Basic.Delta Rot2(final m=m) annotation (Placement(
@@ -3791,15 +3563,16 @@ Transformer Dy9
           model Dy11 "Transformer Dy11"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dy11");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
           equation
@@ -3853,7 +3626,7 @@ This package contains transformers primary D connected / secondary y connected i
           model Dd00 "Transformer Dd0"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dd00");
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
@@ -3884,7 +3657,7 @@ Transformer Dd0
           model Dd02 "Transformer Dd2"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dd02");
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
@@ -3919,7 +3692,7 @@ Transformer Dd2
           model Dd04 "Transformer Dd4"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dd04");
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
@@ -3950,7 +3723,7 @@ Transformer Dd4
           model Dd06 "Transformer Dd6"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dd06");
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
@@ -3981,7 +3754,7 @@ Transformer Dd6
           model Dd08 "Transformer Dd8"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dd08");
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
@@ -4016,7 +3789,7 @@ Transformer Dd8
           model Dd10 "Transformer Dd10"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dd10");
             MultiPhase.Basic.Delta Delta1(final m=m) annotation (Placement(
                   transformation(extent={{-50,-30},{-30,-10}}, rotation=0)));
@@ -4073,15 +3846,16 @@ This package contains transformers primary D connected / secondary d connected i
           model Dz00 "Transformer Dz0"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dz00");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -4123,15 +3897,16 @@ Transformer Dz0
           model Dz02 "Transformer Dz2"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dz02");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -4173,15 +3948,16 @@ Transformer Dz2
           model Dz04 "Transformer Dz4"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dz04");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -4216,15 +3992,16 @@ Transformer Dz4
           model Dz06 "Transformer Dz6"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dz06");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -4259,15 +4036,16 @@ Transformer Dz6
           model Dz08 "Transformer Dz8"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dz08");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -4309,15 +4087,16 @@ Transformer Dz8
           model Dz10 "Transformer Dz10"
 
             extends
-              Modelica_Electrical_QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+              Modelica_Electrical_QuasiStationary_Machines_Interfaces.PartialBasicTransformer(
                 final VectorGroup="Dz10");
             MultiPhase.Basic.Star star2(final m=m) annotation (Placement(
                   transformation(
                   origin={10,-80},
                   extent={{-10,-10},{10,10}},
                   rotation=270)));
-            SinglePhase.Interfaces.NegativePin starpoint2 annotation (Placement(
-                  transformation(extent={{40,-110},{60,-90}}, rotation=0)));
+            Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+              starpoint2 annotation (Placement(transformation(extent={{40,-110},
+                      {60,-90}}, rotation=0)));
             MultiPhase.Basic.Delta Rot21(final m=m) annotation (Placement(
                   transformation(
                   origin={30,0},
@@ -4535,19 +4314,24 @@ Copyright &copy; 1998-2013, Modelica Association and Anton Haumer.
           Modelica_SIunits.ComplexVoltage v3[m];
           Modelica_SIunits.ComplexCurrent i3[m];
           Modelica_SIunits.ComplexCurrent im[m] "Magnetizing current";
-          MultiPhase.Interfaces.PositivePlug plug_p1(final m=m) annotation (
-              Placement(transformation(extent={{-110,40},{-90,60}}, rotation=0)));
-          MultiPhase.Interfaces.NegativePlug plug_n1(final m=m) annotation (
-              Placement(transformation(extent={{-110,-60},{-90,-40}}, rotation=
-                    0)));
-          MultiPhase.Interfaces.PositivePlug plug_p2(final m=m) annotation (
-              Placement(transformation(extent={{90,90},{110,110}}, rotation=0)));
-          MultiPhase.Interfaces.NegativePlug plug_n2(final m=m) annotation (
-              Placement(transformation(extent={{90,30},{110,50}}, rotation=0)));
-          MultiPhase.Interfaces.PositivePlug plug_p3(final m=m) annotation (
-              Placement(transformation(extent={{90,-30},{110,-50}}, rotation=0)));
-          MultiPhase.Interfaces.NegativePlug plug_n3(final m=m) annotation (
-              Placement(transformation(extent={{90,-90},{110,-110}}, rotation=0)));
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
+            plug_p1(final m=m) annotation (Placement(transformation(extent={{-110,
+                    40},{-90,60}}, rotation=0)));
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
+            plug_n1(final m=m) annotation (Placement(transformation(extent={{-110,
+                    -60},{-90,-40}}, rotation=0)));
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
+            plug_p2(final m=m) annotation (Placement(transformation(extent={{90,
+                    90},{110,110}}, rotation=0)));
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
+            plug_n2(final m=m) annotation (Placement(transformation(extent={{90,
+                    30},{110,50}}, rotation=0)));
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
+            plug_p3(final m=m) annotation (Placement(transformation(extent={{90,
+                    -30},{110,-50}}, rotation=0)));
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
+            plug_n3(final m=m) annotation (Placement(transformation(extent={{90,
+                    -90},{110,-110}}, rotation=0)));
         equation
           v1 = plug_p1.pin.v - plug_n1.pin.v;
           i1 = plug_p1.pin.i;
@@ -4670,253 +4454,6 @@ This package contains components for modeling quasi stationary electrical induct
 </html>"));
     end BasicMachines;
 
-    package Interfaces "SpacePhasor connector and PartialMachines"
-      extends Modelica_Icons.InterfacesPackage;
-
-      partial model PartialBasicTransformer
-        "Partial model of three-phase transformer"
-        extends Modelica_Electrical_Machines.Icons.QuasiStationaryTransformer;
-        constant Integer m(min=1) = 3 "Number of phases";
-        constant String VectorGroup="Yy00";
-        parameter Real n(start=1)
-          "Ratio primary voltage (line-to-line) / secondary voltage (line-to-line)";
-        parameter Modelica_SIunits.Resistance R1(start=5E-3/(if C1 == "D" then 1
-               else 3)) "Primary resistance per phase at TRef"
-          annotation (Dialog(tab="Nominal resistances and inductances"));
-        parameter Modelica_SIunits.Temperature T1Ref(start=293.15)
-          "Reference temperature of primary resistance"
-          annotation (Dialog(tab="Nominal resistances and inductances"));
-        parameter
-          Modelica_Electrical_Machines.Thermal.LinearTemperatureCoefficient20
-          alpha20_1(start=0)
-          "Temperature coefficient of primary resistance at 20 degC"
-          annotation (Dialog(tab="Nominal resistances and inductances"));
-        parameter Modelica_SIunits.Inductance L1sigma(start=78E-6/(if C1 == "D"
-               then 1 else 3)) "Primary stray inductance per phase"
-          annotation (Dialog(tab="Nominal resistances and inductances"));
-        parameter Modelica_SIunits.Resistance R2(start=5E-3/(if C2 == "d" then 1
-               else 3)) "Secondary resistance per phase at TRef"
-          annotation (Dialog(tab="Nominal resistances and inductances"));
-        parameter Modelica_SIunits.Temperature T2Ref(start=293.15)
-          "Reference temperature of secondary resistance"
-          annotation (Dialog(tab="Nominal resistances and inductances"));
-        parameter
-          Modelica_Electrical_Machines.Thermal.LinearTemperatureCoefficient20
-          alpha20_2(start=0)
-          "Temperature coefficient of secondary resistance at 20 degC"
-          annotation (Dialog(tab="Nominal resistances and inductances"));
-        parameter Modelica_SIunits.Inductance L2sigma(start=78E-6/(if C2 == "d"
-               then 1 else 3)) "Secondary stray inductance per phase"
-          annotation (Dialog(tab="Nominal resistances and inductances"));
-        parameter Boolean useThermalPort=false
-          "Enable / disable (=fixed temperatures) thermal port"
-          annotation (Evaluate=true);
-        parameter Modelica_SIunits.Temperature T1Operational(start=293.15)
-          "Operational temperature of primary resistance" annotation (Dialog(
-              group="Operational temperatures", enable=not useThermalPort));
-        parameter Modelica_SIunits.Temperature T2Operational(start=293.15)
-          "Operational temperature of secondary resistance" annotation (Dialog(
-              group="Operational temperatures", enable=not useThermalPort));
-        output Modelica_Electrical_Machines.Interfaces.PowerBalanceTransformer
-          powerBalance(
-          final power1=sum({Modelica_ComplexMath.real(v1[j]*
-              Modelica_ComplexMath.conj(i1[j])) for j in 1:m}),
-          final power2=sum({Modelica_ComplexMath.real(v2[j]*
-              Modelica_ComplexMath.conj(-i2[j])) for j in 1:m}),
-          final lossPower1=-sum(r1.resistor.LossPower),
-          final lossPower2=-sum(r2.resistor.LossPower),
-          final lossPowerCore=0) "Power balance";
-        output Modelica_SIunits.ComplexVoltage v1[m]=plug1.pin.v
-          "Primary voltage";
-        output Modelica_SIunits.ComplexCurrent i1[m]=plug1.pin.i
-          "Primary current";
-        output Modelica_SIunits.ComplexVoltage v2[m]=plug2.pin.v
-          "Secondary voltage";
-        output Modelica_SIunits.ComplexCurrent i2[m]=plug2.pin.i
-          "Secondary current";
-      protected
-        constant String C1=Modelica_Utilities.Strings.substring(
-                VectorGroup,
-                1,
-                1);
-        constant String C2=Modelica_Utilities.Strings.substring(
-                VectorGroup,
-                2,
-                2);
-        parameter Real ni=n*(if C2 == "z" then sqrt(3) else 2)*(if C2 == "d"
-             then 1 else sqrt(3))/(if C1 == "D" then 1 else sqrt(3));
-      public
-        MultiPhase.Interfaces.PositivePlug plug1(final m=m) "Primary plug"
-          annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-                rotation=0)));
-        MultiPhase.Interfaces.NegativePlug plug2(final m=m) "Secondary plug"
-          annotation (Placement(transformation(extent={{90,-10},{110,10}},
-                rotation=0)));
-        MultiPhase.Basic.Resistor r1(
-          final m=m,
-          final R_ref=fill(R1, m),
-          final T_ref=fill(T1Ref, m),
-          final alpha_ref=fill(
-              Modelica_Electrical_Machines.Thermal.convertAlpha(alpha20_1,
-              T1Ref), m),
-          final useHeatPort=true,
-          final T=fill(T1Ref, m)) annotation (Placement(transformation(extent={
-                  {-90,10},{-70,-10}}, rotation=0)));
-        MultiPhase.Basic.Inductor l1sigma(final m=m, final L=fill(L1sigma, m))
-          annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-                rotation=0)));
-        MultiPhase.Basic.Resistor r2(
-          final m=m,
-          final R_ref=fill(R2, m),
-          final T_ref=fill(T2Ref, m),
-          final alpha_ref=fill(
-              Modelica_Electrical_Machines.Thermal.convertAlpha(alpha20_2,
-              T2Ref), m),
-          final useHeatPort=true,
-          final T=fill(T2Ref, m)) annotation (Placement(transformation(extent={
-                  {70,10},{90,-10}}, rotation=0)));
-        MultiPhase.Basic.Inductor l2sigma(final m=m, final L=fill(L2sigma, m))
-          annotation (Placement(transformation(extent={{50,-10},{70,10}},
-                rotation=0)));
-        BasicMachines.Components.IdealCore core(
-          final m=m,
-          final n12=ni,
-          final n13=ni) annotation (Placement(transformation(extent={{-10,-10},
-                  {10,10}}, rotation=0)));
-        Modelica_Electrical_Machines.Interfaces.ThermalPortTransformer
-          thermalPort if useThermalPort
-          annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-        Modelica_Electrical_Machines.Thermal.ThermalAmbientTransformer
-          thermalAmbient(
-          final useTemperatureInputs=false,
-          final T1=T1Operational,
-          final T2=T2Operational) if not useThermalPort annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=270,
-              origin={-30,80})));
-      protected
-        Modelica_Electrical_Machines.Interfaces.ThermalPortTransformer
-          internalThermalPort
-          annotation (Placement(transformation(extent={{-4,76},{4,84}})));
-      equation
-        connect(r1.plug_n, l1sigma.plug_p)
-          annotation (Line(points={{-70,0},{-70,0}}, color={85,170,255}));
-        connect(l2sigma.plug_n, r2.plug_p)
-          annotation (Line(points={{70,0},{70,0}}, color={85,170,255}));
-        connect(plug1, r1.plug_p)
-          annotation (Line(points={{-100,0},{-90,0}}, color={85,170,255}));
-        connect(r2.plug_n, plug2)
-          annotation (Line(points={{90,0},{100,0}}, color={85,170,255}));
-        connect(thermalPort, internalThermalPort) annotation (Line(
-            points={{0,100},{0,80}},
-            color={199,0,0},
-            smooth=Smooth.None));
-        connect(thermalAmbient.thermalPort, internalThermalPort) annotation (Line(
-            points={{-20,80},{0,80}},
-            color={199,0,0},
-            smooth=Smooth.None));
-        connect(r1.heatPort, internalThermalPort.heatPort1) annotation (Line(
-            points={{-80,10},{-80,60},{0,60},{0,80}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(r2.heatPort, internalThermalPort.heatPort2) annotation (Line(
-            points={{80,10},{80,60},{0,60},{0,80}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics={Text(
-                extent={{0,-60},{0,-100}},
-                lineColor={0,0,0},
-                textString="%VectorGroup"), Text(
-                extent={{0,100},{0,60}},
-                lineColor={0,0,255},
-                textString="%name")}), Documentation(info="<html>
-Partial model of a three-phase transformer, containing primary and secondary resistances and stray inductances, as well as the iron core.
-Circuit layout (vector group) of primary and secondary windings have to be defined.
-<br><b>Default values for transformer's parameters (a realistic example) are:</b><br>
-<table>
-<tr>
-<td valign=\"top\">turns ratio n</td>
-<td valign=\"top\">1</td><td valign=\"top\"> </td>
-</tr>
-<tr>
-<td valign=\"top\">nominal frequency fNominal</td>
-<td valign=\"top\">50</td><td valign=\"top\">Hz</td>
-</tr>
-<tr>
-<td valign=\"top\">nominal voltage per phase</td>
-<td valign=\"top\">100</td><td valign=\"top\">V RMS</td>
-</tr>
-<tr>
-<td valign=\"top\">nominal current per phase</td>
-<td valign=\"top\">100</td><td valign=\"top\">A RMS</td>
-</tr>
-<tr>
-<td valign=\"top\">nominal apparent power</td>
-<td valign=\"top\">30</td><td valign=\"top\">kVA</td>
-</tr>
-<tr>
-<td valign=\"top\">primary resistance R1</td>
-<td valign=\"top\">0.005</td><td valign=\"top\">Ohm per phase at reference temperature</td>
-</tr>
-<tr>
-<td valign=\"top\">reference temperature T1Ref</td>
-<td valign=\"top\">20</td><td valign=\"top\">&deg;C</td>
-</tr>
-<tr>
-<td valign=\"top\">temperature coefficient alpha20_1 </td>
-<td valign=\"top\">0</td><td valign=\"top\">1/K</td>
-</tr>
-<tr>
-<td valign=\"top\">primary stray inductance L1sigma</td>
-<td valign=\"top\">78E-6</td><td valign=\"top\">H per phase</td>
-</tr>
-<tr>
-<td valign=\"top\">secondary resistance R2</td>
-<td valign=\"top\">0.005</td><td valign=\"top\">Ohm per phase at reference temperature</td>
-</tr>
-<tr>
-<td valign=\"top\">reference temperature T2Ref</td>
-<td valign=\"top\">20</td><td valign=\"top\">&deg;C</td>
-</tr>
-<tr>
-<td valign=\"top\">temperature coefficient alpha20_2 </td>
-<td valign=\"top\">0</td><td valign=\"top\">1/K</td>
-</tr>
-<tr>
-<td valign=\"top\">secondary stray inductance L2sigma</td>
-<td valign=\"top\">78E-6</td><td valign=\"top\">H per phase</td>
-</tr>
-<tr>
-<td valign=\"top\">operational temperature T1Operational</td>
-<td valign=\"top\">20</td><td valign=\"top\">&deg;C</td>
-</tr>
-<tr>
-<td valign=\"top\">operational temperature T2Operational</td>
-<td valign=\"top\">20</td><td valign=\"top\">&deg;C</td>
-</tr>
-<tr>
-<td valign=\"top\">These values give the operational parameters:</td>
-<td valign=\"top\"> </td><td valign=\"top\"> </td>
-</tr>
-<tr>
-<td valign=\"top\">nominal voltage drop</td>
-<td valign=\"top\">0.05</td><td valign=\"top\">p.u.</td>
-</tr>
-<tr>
-<td valign=\"top\">nominal copper losses</td>
-<td valign=\"top\">300</td><td valign=\"top\">W</td>
-</tr>
-</table>
-</html>"));
-      end PartialBasicTransformer;
-      annotation (Documentation(info="<html>
-<p>
-This package contains the quasi stationary space phasor connector and partial models for quasi stationary machine models.
-</p>
-</html>"));
-    end Interfaces;
 
     package SpacePhasors
       "Space phasor components for quasi stationary electric machines"
@@ -5054,16 +4591,17 @@ Quasi stationary DC machine models therefore are part of the
   package MultiPhase "Multiphase AC components"
     extends Modelica_Icons.Package;
 
-
     package Basic "Basic components for AC multiphase models"
       extends Modelica_Icons.Package;
 
       model Star "Star connection"
         parameter Integer m(final min=1) = 3 "Number of phases";
-        Interfaces.PositivePlug plug_p(final m=m) annotation (Placement(
-              transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-        SinglePhase.Interfaces.NegativePin pin_n annotation (Placement(
-              transformation(extent={{90,-10},{110,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
+          plug_p(final m=m) annotation (Placement(transformation(extent={{-110,
+                  -10},{-90,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+          pin_n annotation (Placement(transformation(extent={{90,-10},{110,10}},
+                rotation=0)));
         PlugToPins_p plugToPins_p(final m=m) annotation (Placement(transformation(
                 extent={{-80,-10},{-60,10}}, rotation=0)));
       equation
@@ -5104,10 +4642,12 @@ Star (wye) connection of a multi phase circuit. The potentials at the star point
 
       model Delta "Delta (polygon) connection"
         parameter Integer m(final min=2) = 3 "Number of phases";
-        Interfaces.PositivePlug plug_p(final m=m) annotation (Placement(
-              transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-        Interfaces.NegativePlug plug_n(final m=m) annotation (Placement(
-              transformation(extent={{90,-10},{110,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
+          plug_p(final m=m) annotation (Placement(transformation(extent={{-110,
+                  -10},{-90,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
+          plug_n(final m=m) annotation (Placement(transformation(extent={{90,-10},
+                  {110,10}}, rotation=0)));
 
         PlugToPins_p plugToPins_p(final m=m) annotation (Placement(transformation(
                 extent={{-80,-10},{-60,10}}, rotation=0)));
@@ -5156,10 +4696,10 @@ Delta (polygon) connection of a multi phase circuit.
             m) "Number of base systems";
         final parameter Integer mBasic=integer(m/mSystems)
           "Phase number of base systems";
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.PositivePlug
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
           plug_p(final m=m) annotation (Placement(transformation(extent={{-110,
                   -10},{-90,10}}, rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.NegativePlug
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
           starpoints(final m=mSystems) annotation (Placement(transformation(
                 extent={{90,-10},{110,10}}, rotation=0)));
         Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_p
@@ -5230,10 +4770,10 @@ Star (wye) connection of a multi phase circuit consiting of multiple base system
             m) "Number of base systems";
         final parameter Integer mBasic=integer(m/mSystems)
           "Phase number of base systems";
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.PositivePlug
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
           plug_p(final m=m) annotation (Placement(transformation(extent={{-110,
                   -10},{-90,10}}, rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.NegativePlug
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
           plug_n(final m=m) annotation (Placement(transformation(extent={{90,-10},
                   {110,10}}, rotation=0)));
         Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_p
@@ -5289,7 +4829,8 @@ Delta (polygon) connection of a multi phase circuit consiting of multiple base s
             m) "Number of symmetric base systems";
         parameter Modelica_SIunits.Resistance R=1e6
           "Insulation resistance between base systems";
-        Interfaces.PositivePlug plug(m=m)
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
+          plug(m=m)
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
         MultiStar multiStar(m=m) annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
@@ -5304,8 +4845,8 @@ Delta (polygon) connection of a multi phase circuit consiting of multiple base s
               extent={{-10,-10},{10,10}},
               rotation=0,
               origin={50,0})));
-        SinglePhase.Interfaces.NegativePin pin annotation (Placement(
-              transformation(
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+          pin annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={100,0})));
@@ -5358,10 +4899,12 @@ Multi star points are connected by resistors. This model is required to operate 
         parameter Integer k(
           final min=1,
           final max=m) = 1 "Phase index";
-        Interfaces.PositivePlug plug_p(final m=m) annotation (Placement(
-              transformation(extent={{-30,-10},{-10,10}}, rotation=0)));
-        SinglePhase.Interfaces.PositivePin pin_p annotation (Placement(
-              transformation(extent={{10,-10},{30,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
+          plug_p(final m=m) annotation (Placement(transformation(extent={{-30,-10},
+                  {-10,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin
+          pin_p annotation (Placement(transformation(extent={{10,-10},{30,10}},
+                rotation=0)));
       equation
         Connections.branch(plug_p.reference, pin_p.reference);
         //Connections.potentialRoot(plug_p.reference);
@@ -5403,10 +4946,12 @@ Connects the single phase (positive) pin <code>k</code> of the multi phase (posi
         parameter Integer k(
           final min=1,
           final max=m) = 1 "Phase index";
-        Interfaces.NegativePlug plug_n(final m=m) annotation (Placement(
-              transformation(extent={{-30,-10},{-10,10}}, rotation=0)));
-        SinglePhase.Interfaces.NegativePin pin_n annotation (Placement(
-              transformation(extent={{10,-10},{30,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
+          plug_n(final m=m) annotation (Placement(transformation(extent={{-30,-10},
+                  {-10,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+          pin_n annotation (Placement(transformation(extent={{10,-10},{30,10}},
+                rotation=0)));
       equation
         Connections.branch(plug_n.reference, pin_n.reference);
         //Connections.potentialRoot(plug_n.reference);
@@ -5445,10 +4990,12 @@ Connects the single phase (negative) pin <code>k</code> of the multi phase (nega
 
       model PlugToPins_p "Connect all (positive) pins"
         parameter Integer m(final min=1) = 3 "number of phases";
-        Interfaces.PositivePlug plug_p(final m=m) annotation (Placement(
-              transformation(extent={{-30,-10},{-10,10}}, rotation=0)));
-        SinglePhase.Interfaces.PositivePin pin_p[m] annotation (Placement(
-              transformation(extent={{10,-10},{30,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
+          plug_p(final m=m) annotation (Placement(transformation(extent={{-30,-10},
+                  {-10,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin
+          pin_p[m] annotation (Placement(transformation(extent={{10,-10},{30,10}},
+                rotation=0)));
         PlugToPin_p plugToPin_p[m](each final m=m, final k={j for j in 1:m})
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
       equation
@@ -5488,10 +5035,12 @@ Connects all <code>m</code> single phase (positive) pins of the multi phase (pos
 
       model PlugToPins_n "Connect all (negative) pins"
         parameter Integer m(final min=1) = 3 "number of phases";
-        Interfaces.NegativePlug plug_n(final m=m) annotation (Placement(
-              transformation(extent={{-30,-10},{-10,10}}, rotation=0)));
-        SinglePhase.Interfaces.NegativePin pin_n[m] annotation (Placement(
-              transformation(extent={{10,-10},{30,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
+          plug_n(final m=m) annotation (Placement(transformation(extent={{-30,-10},
+                  {-10,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
+          pin_n[m] annotation (Placement(transformation(extent={{10,-10},{30,10}},
+                rotation=0)));
         PlugToPin_n plugToPin_n[m](each final m=m, final k={j for j in 1:m})
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
       equation
@@ -5530,7 +5079,8 @@ Connects all <code>m</code> single phase (negative) pins of the multi phase (neg
       end PlugToPins_n;
 
       model Resistor "Multiphase linear resistor"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         parameter Modelica_SIunits.Resistance R_ref[m](start=fill(1, m))
           "Reference resistances at T_ref";
         parameter Modelica_SIunits.Temperature T_ref[m]=fill(293.15, m)
@@ -5597,7 +5147,8 @@ A linear temperature dependency of the resistances for enabled heat ports is als
       end Resistor;
 
       model Conductor "Multiphase linear conductor"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         parameter Modelica_SIunits.Conductance G_ref[m](start=fill(1, m))
           "Reference conductances at T_ref";
         parameter Modelica_SIunits.Temperature T_ref[m]=fill(293.15, m)
@@ -5663,7 +5214,8 @@ A linear temperature dependency of the conductances for enabled heat ports is al
       end Conductor;
 
       model Capacitor "Multiphase linear capacitor"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         parameter Modelica_SIunits.Capacitance C[m](start=fill(1, m))
           "Capacitances";
         SinglePhase.Basic.Capacitor capacitor[m](final C=C) annotation (
@@ -5711,7 +5263,8 @@ using <code>m</code> <a href=\"modelica://Modelica.Electrical.QuasiStationary.Si
       end Capacitor;
 
       model Inductor "Multiphase linear inductor"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         parameter Modelica_SIunits.Inductance L[m](start=fill(1, m))
           "Inductances";
         SinglePhase.Basic.Inductor inductor[m](final L=L) annotation (Placement(
@@ -5760,7 +5313,8 @@ using <code>m</code> <a href=\"modelica://Modelica.Electrical.QuasiStationary.Si
       end Inductor;
 
       model VariableResistor "Multiphase variable resistor"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         parameter Modelica_SIunits.Temperature T_ref[m]=fill(293.15, m)
           "Reference temperatures";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref[m]=
@@ -5842,7 +5396,8 @@ A linear temperature dependency of the resistances is also taken into account.
       end VariableResistor;
 
       model VariableConductor "Multiphase variable conductor"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         parameter Modelica_SIunits.Temperature T_ref[m]=fill(293.15, m)
           "Reference temperatures";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref[m]=
@@ -5920,7 +5475,8 @@ A linear temperature dependency of the conductances is also taken into account.
       end VariableConductor;
 
       model VariableCapacitor "Multiphase variable capacitor"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         Modelica_Blocks.Interfaces.RealInput C[m](each unit="F")
           "Variable capacitance" annotation (Placement(transformation(
               origin={0,110},
@@ -5979,7 +5535,8 @@ The capacitances <code>C</code> are given as <code>m</code> input signals.
       end VariableCapacitor;
 
       model VariableInductor "Multiphase variable inductor"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         Modelica_Blocks.Interfaces.RealInput L[m](each unit="H")
           "Variable inductance" annotation (Placement(transformation(
               origin={0,110},
@@ -6037,7 +5594,8 @@ The inductances <code>L</code> are given as <code>m</code> input signals.
       end VariableInductor;
 
       model VariableImpedance "Multiphase variable impedance"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         parameter Modelica_SIunits.Temperature T_ref[m]=fill(293.15, m)
           "Reference temperatures";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref[m]=
@@ -6123,7 +5681,8 @@ A linear temperature dependency of the resistances is also taken into account.
       end VariableImpedance;
 
       model VariableAdmittance "Multiphase variable admittance"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         parameter Modelica_SIunits.Temperature T_ref[m]=fill(293.15, m)
           "Reference temperatures";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref[m]=
@@ -6231,7 +5790,8 @@ Quasi stationary theory can be found in the
       extends Modelica_Icons.Package;
 
       model Idle "Idle branch"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
 
         SinglePhase.Ideal.Idle idle[m] annotation (Placement(transformation(
                 extent={{-10,-10},{10,10}}, rotation=0)));
@@ -6264,7 +5824,8 @@ it uses <i>m</i> <a href=\"modelica://Modelica.Electrical.QuasiStationary.Single
       end Idle;
 
       model Short "Short cut branch"
-        extends Interfaces.TwoPlug;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
 
         SinglePhase.Ideal.Short short[m] annotation (Placement(transformation(
                 extent={{-10,-10},{10,10}}, rotation=0)));
@@ -6310,13 +5871,13 @@ it uses <i>m</i> <a href=\"modelica://Modelica.Electrical.QuasiStationary.Single
               origin={0,80},
               extent={{-20,-20},{20,20}},
               rotation=270)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.PositivePlug plug_p(final m=m)
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug plug_p(final m=m)
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.NegativePlug plug_n2(final m=m)
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug plug_n2(final m=m)
           annotation (Placement(transformation(extent={{90,-10},{110,10}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.NegativePlug plug_n1(final m=m)
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug plug_n1(final m=m)
           annotation (Placement(transformation(extent={{90,40},{110,60}},
                 rotation=0)));
         Modelica_Electrical_QuasiStationary.SinglePhase.Ideal.IdealCommutingSwitch
@@ -6410,16 +5971,16 @@ This switch is only intended to be used for structural changes, not fast switchi
               origin={0,80},
               extent={{-20,-20},{20,20}},
               rotation=270)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.PositivePlug plug_p1(final m=m)
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug plug_p1(final m=m)
           annotation (Placement(transformation(extent={{-110,40},{-90,60}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.PositivePlug plug_p2(final m=m)
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug plug_p2(final m=m)
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.NegativePlug plug_n2(final m=m)
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug plug_n2(final m=m)
           annotation (Placement(transformation(extent={{90,-10},{110,10}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.NegativePlug plug_n1(final m=m)
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug plug_n1(final m=m)
           annotation (Placement(transformation(extent={{90,40},{110,60}},
                 rotation=0)));
         Modelica_Electrical_QuasiStationary.SinglePhase.Ideal.IdealIntermediateSwitch
@@ -6513,7 +6074,7 @@ This switch is only intended to be used for structural changes, not fast switchi
 
       model IdealOpeningSwitch "Multiphase ideal opener"
         extends
-          Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.TwoPlug;
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         parameter Modelica_SIunits.Resistance Ron[m](final min=zeros(m), start=
               fill(1.E-5, m)) "Closed switch resistance";
         parameter Modelica_SIunits.Conductance Goff[m](final min=zeros(m), start=
@@ -6576,7 +6137,7 @@ This switch is only intended to be used for structural changes, not fast switchi
 
       model IdealClosingSwitch "Multiphase ideal closer"
         extends
-          Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.TwoPlug;
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
         parameter Modelica_SIunits.Resistance Ron[m](final min=zeros(m), start=
               fill(1.E-5, m)) "Closed switch resistance";
         parameter Modelica_SIunits.Conductance Goff[m](final min=zeros(m), start=
@@ -6883,7 +6444,7 @@ In quasistaionary operation, instantaneous power equals active power;
 
       model ReferenceSensor "Sensor of reference angle gamma"
         extends
-          Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.AbsoluteSensor;
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.AbsoluteSensor;
         Modelica_Blocks.Interfaces.RealOutput y "Reference angle" annotation (
             Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
       equation
@@ -6900,7 +6461,8 @@ In quasistaionary operation, instantaneous power equals active power;
       end ReferenceSensor;
 
       model FrequencySensor "Frequency sensor"
-        extends Interfaces.AbsoluteSensor;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.AbsoluteSensor;
         SinglePhase.Sensors.FrequencySensor frequencySensor annotation (Placement(
               transformation(extent={{-10,-10},{10,10}}, rotation=0)));
         Basic.PlugToPin_p plugToPin_p(final m=m, final k=1) annotation (Placement(
@@ -6943,7 +6505,8 @@ This sensor can be used to measure the frequency of the reference system, using 
       end FrequencySensor;
 
       model PotentialSensor "Potential sensor"
-        extends Interfaces.AbsoluteSensor;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.AbsoluteSensor;
         Modelica_Electrical_QuasiStationary.SinglePhase.Sensors.PotentialSensor
           potentialSensor[m] annotation (Placement(transformation(extent={{-10,
                   -10},{10,10}}, rotation=0)));
@@ -6986,7 +6549,8 @@ This sensor can be used to measure <i>m</i> complex potentials, using <i>m</i>
       end PotentialSensor;
 
       model VoltageSensor "Voltage sensor"
-        extends Interfaces.RelativeSensor;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.RelativeSensor;
         Modelica_Electrical_QuasiStationary.SinglePhase.Sensors.VoltageSensor voltageSensor[m]
           annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                 rotation=0)));
@@ -7021,7 +6585,8 @@ This sensor can be used to measure <i>m</i> complex voltages, using <i>m</i>
       end VoltageSensor;
 
       model CurrentSensor "Current Sensor"
-        extends Interfaces.RelativeSensor;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.RelativeSensor;
         Modelica_Electrical_QuasiStationary.SinglePhase.Sensors.CurrentSensor currentSensor[m]
           annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                 rotation=0)));
@@ -7059,14 +6624,18 @@ This sensor can be used to measure <i>m</i> complex currents, using <i>m</i>
         extends Modelica_Icons.RotationalSensor;
         parameter Integer m(min=1) = 3 "number of phases";
         Modelica_SIunits.AngularVelocity omega=der(currentP.reference.gamma);
-        Interfaces.PositivePlug currentP(final m=m) annotation (Placement(
-              transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-        Interfaces.NegativePlug currentN(final m=m) annotation (Placement(
-              transformation(extent={{90,-10},{110,10}}, rotation=0)));
-        Interfaces.PositivePlug voltageP(final m=m) annotation (Placement(
-              transformation(extent={{-10,90},{10,110}}, rotation=0)));
-        Interfaces.NegativePlug voltageN(final m=m) annotation (Placement(
-              transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
+          currentP(final m=m) annotation (Placement(transformation(extent={{-110,
+                  -10},{-90,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
+          currentN(final m=m) annotation (Placement(transformation(extent={{90,
+                  -10},{110,10}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
+          voltageP(final m=m) annotation (Placement(transformation(extent={{-10,
+                  90},{10,110}}, rotation=0)));
+        Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
+          voltageN(final m=m) annotation (Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0)));
         Modelica_ComplexBlocks.Interfaces.ComplexOutput y annotation (Placement(
               transformation(
               origin={-80,-110},
@@ -7161,7 +6730,8 @@ Quasi stationary theory can be found in the
       extends Modelica_Icons.SourcesPackage;
 
       model VoltageSource "Constant multiphase AC voltage"
-        extends Interfaces.Source;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.Source;
         import Modelica_ComplexMath.j;
         import Modelica_ComplexMath.exp;
         parameter Modelica_SIunits.Frequency f(start=1)
@@ -7207,7 +6777,8 @@ This model describes <i>m</i> constant voltage sources, specifying the complex v
       end VoltageSource;
 
       model VariableVoltageSource "Variable multiphase AC voltage"
-        extends Interfaces.Source;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.Source;
         Modelica_Blocks.Interfaces.RealInput f annotation (Placement(
               transformation(
               origin={40,100},
@@ -7252,7 +6823,8 @@ Additionally, the frequency of the voltage source is defined by a real signal in
 
       model ReferenceVoltageSource
         "Variable multiphase AC voltage with reference angle input"
-        extends Interfaces.ReferenceSource;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.ReferenceSource;
         import Modelica_Constants.pi;
         Modelica_Blocks.Interfaces.RealInput gamma
           "Reference angle of voltage source" annotation (Placement(
@@ -7290,7 +6862,8 @@ Additionally, the frequency of the current source is defined by a real signal in
       end ReferenceVoltageSource;
 
       model CurrentSource "Constant multiphase AC current"
-        extends Interfaces.Source;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.Source;
         import Modelica_ComplexMath.j;
         import Modelica_ComplexMath.exp;
         parameter Modelica_SIunits.Frequency f(start=1)
@@ -7331,7 +6904,8 @@ This model describes <i>m</i> constant current sources, specifying the complex c
       end CurrentSource;
 
       model VariableCurrentSource "Variable multiphase AC current"
-        extends Interfaces.Source;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.Source;
         Modelica_Blocks.Interfaces.RealInput f annotation (Placement(
               transformation(
               origin={40,100},
@@ -7374,7 +6948,8 @@ Additionally, the frequency of the current source is defined by a real signal in
 
       model ReferenceCurrentSource
         "Variable multiphase AC current with reference angle input"
-        extends Interfaces.ReferenceSource;
+        extends
+          Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.ReferenceSource;
         import Modelica_Constants.pi;
         Modelica_Blocks.Interfaces.RealInput gamma
           "Reference angle of current source" annotation (Placement(
@@ -7431,376 +7006,6 @@ Quasi stationary theory can be found in the
 </html>"));
     end Sources;
 
-    package Interfaces "Interfaces for AC multiphase models"
-      extends Modelica_Icons.InterfacesPackage;
-
-      connector Plug "Basic multiphase plug"
-        parameter Integer m=3 "number of phases";
-        SinglePhase.Interfaces.Pin pin[m];
-        annotation (Documentation(info="<html>
-
-<p>
-This multiphase plug contains a vector of <i>m</i> <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">single phase pins</a>.
-The <a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug\">positive</a> and
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug\">negative plug</a> are
-derived from this base connector.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">Pin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">PositivePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">NegativePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug\">PositivePlug</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug\">NegativePlug</a>
-</p>
-</html>"));
-      end Plug;
-
-      connector PositivePlug "Positive multiphase connector"
-        extends Plug;
-        Types.Reference reference;
-        annotation (
-          Icon(graphics={Ellipse(
-                extent={{-100,100},{100,-100}},
-                lineColor={85,170,255},
-                fillColor={85,170,255},
-                fillPattern=FillPattern.Solid)}),
-          Diagram(graphics={Ellipse(
-                extent={{-40,40},{40,-40}},
-                lineColor={85,170,255},
-                fillColor={85,170,255},
-                fillPattern=FillPattern.Solid), Text(
-                extent={{-100,100},{100,60}},
-                lineColor={0,0,255},
-                fillColor={0,0,255},
-                fillPattern=FillPattern.Solid,
-                textString="%name")}),
-          Documentation(info="<html>
-
-<p>
-The positive plug is based on <a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.Plug\">Plug</a>.
-Additionally the reference angle is specified in the connector. The time derivative of the reference angle is the actual angular velocity of each quasi stationary voltage and current. The symbol is also designed such way to look different than the <a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug\">negative plug</a>.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">Pin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">PositivePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">NegativePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.Plug\">Plug</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug\">NegativePlug</a>
-</p>
-</html>"));
-      end PositivePlug;
-
-      connector NegativePlug "Negative multiphase connector"
-        extends Plug;
-        Types.Reference reference;
-        annotation (
-          Icon(graphics={Ellipse(
-                extent={{-100,100},{100,-100}},
-                lineColor={85,170,255},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.Solid)}),
-          Diagram(graphics={Ellipse(
-                extent={{-40,40},{40,-40}},
-                lineColor={85,170,255},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.Solid), Text(
-                extent={{-100,100},{100,60}},
-                lineColor={0,0,255},
-                fillColor={0,0,255},
-                fillPattern=FillPattern.Solid,
-                textString="%name")}),
-          Documentation(info="<html>
-
-<p>
-The negative plug is based on <a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.Plug\">Plug</a>.
-Additionally the reference angle is specified in the connector. The time derivative of the reference angle is the actual angular velocity of each quasi stationary voltage and current. The symbol is also designed such way to look different than the <a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug\">positive plug</a>.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">Pin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin\">PositivePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin\">NegativePin</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.Plug\">Plug</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug\">PositivePlug</a>,
-</p>
-</html>"));
-      end NegativePlug;
-
-      partial model TwoPlug "Two plugs with pin-adapter"
-        parameter Integer m(min=1) = 3 "Number of phases";
-        Modelica_SIunits.ComplexVoltage v[m] "Complex voltage";
-        Modelica_SIunits.Voltage abs_v[m] = Modelica_ComplexMath.'abs'(v)
-          "Magnitude of complex voltage";
-        Modelica_SIunits.Angle arg_v[m] = Modelica_ComplexMath.arg(v)
-          "Argument of complex voltage";
-        Modelica_SIunits.ComplexCurrent i[m] "Complex current";
-        Modelica_SIunits.Current abs_i[m] = Modelica_ComplexMath.'abs'(i)
-          "Magnitude of complex current";
-        Modelica_SIunits.Angle arg_i[m] = Modelica_ComplexMath.arg(i)
-          "Argument of complex current";
-        Modelica_SIunits.ActivePower P[m] = {Modelica_ComplexMath.real(v[k]*Modelica_ComplexMath.conj(i[k])) for k in 1:m}
-          "Active power";
-        Modelica_SIunits.ActivePower P_total = sum(P) "Total active power";
-        Modelica_SIunits.ReactivePower Q[m] = {Modelica_ComplexMath.imag(v[k]*Modelica_ComplexMath.conj(i[k])) for k in 1:m}
-          "Reactive power";
-        Modelica_SIunits.ReactivePower Q_total = sum(Q) "Total reactive power";
-        Modelica_SIunits.ApparentPower S[m] = {Modelica_ComplexMath.'abs'(v[k]*Modelica_ComplexMath.conj(i[k])) for k in 1:m}
-          "Magnitude of complex apparent power";
-        Modelica_SIunits.ApparentPower S_total=sqrt(P_total^2+Q_total^2)
-          "Magntiude of total complex apparent power";
-        Real pf[m] = {cos(Modelica_ComplexMath.arg(Complex(P[k],Q[k]))) for k in 1:m}
-          "Power factor";
-        /*
-  Real pf_total = cos(Modelica.ComplexMath.arg(Complex(P_total,Q_total)))
-   "Total power factor";
-  */
-        Modelica_SIunits.AngularVelocity omega
-          "Angular velocity of reference frame";
-
-        PositivePlug plug_p(final m=m)
-          "Positive quasi stationary multi phase plug" annotation (Placement(
-              transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-        NegativePlug plug_n(final m=m)
-          "Negative quasi stationary multi phase plug" annotation (Placement(
-              transformation(extent={{90,-10},{110,10}}, rotation=0)));
-        Basic.PlugToPins_p plugToPins_p(final m=m) annotation (Placement(
-              transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
-        Basic.PlugToPins_n plugToPins_n(final m=m) annotation (Placement(
-              transformation(
-              origin={70,0},
-              extent={{-10,-10},{10,10}},
-              rotation=180)));
-      equation
-        omega = der(plug_p.reference.gamma);
-        v = plug_p.pin.v - plug_n.pin.v;
-        i = plug_p.pin.i;
-        connect(plug_p, plugToPins_p.plug_p) annotation (Line(points={{-100,0},{-93,
-                0},{-86,0},{-72,0}}, color={85,170,255}));
-        connect(plugToPins_n.plug_n, plug_n)
-          annotation (Line(points={{72,0},{86,0},{100,0}}, color={85,170,255}));
-        annotation (Documentation(info="<html>
-<p>
-This partial model uses a <a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug\">positive</a>
-and <a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug\">negative plug</a> and defines the complex voltage differences as well as the complex currents (into the positive plug). A <a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPins_p\">positive</a> and
-a <a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPins_n\">negative adapter</a> are used to give easy access to the single pins of both plugs. Additionally, the angular velocity of the quasi stationary system is explicitly defined as variable. This model is mainly intended to be used with graphical representation of user models.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug\">PositivePlug</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug\">NegativePlug</a>,
-</p>
-</html>"));
-      end TwoPlug;
-
-      partial model OnePort
-        parameter Integer m(min=1) = 3 "Number of phases";
-        Modelica_SIunits.ComplexVoltage v[m] "Complex voltage";
-        Modelica_SIunits.Voltage abs_v[m] = Modelica_ComplexMath.'abs'(v)
-          "Magnitude of complex voltage";
-        Modelica_SIunits.Angle arg_v[m] = Modelica_ComplexMath.arg(v)
-          "Argument of complex voltage";
-        Modelica_SIunits.ComplexCurrent i[m] "Complex current";
-        Modelica_SIunits.Current abs_i[m] = Modelica_ComplexMath.'abs'(i)
-          "Magnitude of complex current";
-        Modelica_SIunits.Angle arg_i[m] = Modelica_ComplexMath.arg(i)
-          "Argument of complex current";
-        Modelica_SIunits.ActivePower P[m] = {Modelica_ComplexMath.real(v[k]*Modelica_ComplexMath.conj(i[k])) for k in 1:m}
-          "Active power";
-        Modelica_SIunits.ActivePower P_total = sum(P) "Total active power";
-        Modelica_SIunits.ReactivePower Q[m] = {Modelica_ComplexMath.imag(v[k]*Modelica_ComplexMath.conj(i[k])) for k in 1:m}
-          "Reactive power";
-        Modelica_SIunits.ReactivePower Q_total = sum(Q) "Total reactive power";
-        Modelica_SIunits.ApparentPower S[m] = {Modelica_ComplexMath.'abs'(v[k]*Modelica_ComplexMath.conj(i[k])) for k in 1:m}
-          "Magnitude of complex apparent power";
-        Modelica_SIunits.ApparentPower S_total=sqrt(P_total^2+Q_total^2)
-          "Magntiude of total complex apparent power";
-        Real pf[m] = {cos(Modelica_ComplexMath.arg(Complex(P[k],Q[k]))) for k in 1:m}
-          "Power factor";
-        /*
-  Real pf_total = cos(Modelica.ComplexMath.arg(Complex(P_total,Q_total)))
-    "Total power factor";
-  */
-        Modelica_SIunits.AngularVelocity omega
-          "Angular velocity of reference frame";
-
-        PositivePlug plug_p(final m=m)
-          "Positive quasi stationary multi phase plug" annotation (Placement(
-              transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-        NegativePlug plug_n(final m=m)
-          "Negative quasi stationary multi phase plug" annotation (Placement(
-              transformation(extent={{90,-10},{110,10}}, rotation=0)));
-      equation
-        Connections.branch(plug_p.reference, plug_n.reference);
-        plug_p.reference.gamma = plug_n.reference.gamma;
-        omega = der(plug_p.reference.gamma);
-        v = plug_p.pin.v - plug_n.pin.v;
-        i = plug_p.pin.i;
-        plug_p.pin.i + plug_n.pin.i = fill(Complex(0), m);
-      end OnePort;
-
-      partial model AbsoluteSensor "Partial potential sensor"
-        extends Modelica_Icons.RotationalSensor;
-        parameter Integer m(min=1) = 3 "number of phases";
-        Modelica_SIunits.AngularVelocity omega;
-        PositivePlug plug_p(final m=m)
-          "Positive quasi stationary multi phase plug" annotation (Placement(
-              transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-      equation
-        omega = der(plug_p.reference.gamma);
-        annotation (Icon(graphics={Line(points={{-70,0},{-94,0}}, color={85,170,
-                255}),Line(points={{70,0},{80,0},{90,0},{100,0}}, color={85,170,
-                255}),Text(
-                    extent={{100,-100},{-100,-70}},
-                    lineColor={0,0,0},
-                    fillColor={0,0,0},
-                    fillPattern=FillPattern.Solid,
-                    textString="m=%m")}), Documentation(info="<html>
-
-<p>
-The absolute sensor partial model relies on the a
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug\">positive plug</a> to measure the complex potential. Additionally this model contains a proper icon and a definition of the angular velocity.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.RelativeSensor\">RelativeSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.AbsoluteSensor\">SinglePhase.Interfaces.AbsoluteSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.RelativeSensor\">SinglePhase.Interfaces.RelativeSensor</a>
-</p>
-
-</html>"));
-      end AbsoluteSensor;
-
-      partial model RelativeSensor "Partial voltage / current sensor"
-        extends Modelica_Icons.RotationalSensor;
-        extends TwoPlug;
-        Modelica_ComplexBlocks.Interfaces.ComplexOutput y[m] annotation (
-            Placement(transformation(
-              origin={0,-110},
-              extent={{-10,-10},{10,10}},
-              rotation=270)));
-        annotation (Icon(graphics={Line(points={{-70,0},{-94,0}}, color={0,0,0}),
-                Line(points={{70,0},{94,0}}, color={0,0,0}),Line(points={{0,-70},
-                {0,-80},{0,-90},{0,-100}}, color={85,170,255}),Text(
-                    extent={{100,-100},{-100,-70}},
-                    lineColor={0,0,0},
-                    fillColor={0,0,0},
-                    fillPattern=FillPattern.Solid,
-                    textString="m=%m")}), Documentation(info="<html>
-<p>
-The relative sensor partial model relies on the
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.TwoPlug\">TwoPlug</a> to measure the complex voltages, currents or power. Additionally this model contains a proper icon and a definition of the angular velocity.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.AbsoluteSensor\">AbsoluteSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.AbsoluteSensor\">SinglePhase.Interfaces.AbsoluteSensor</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.RelativeSensor\">SinglePhase.Interfaces.RelativeSensor</a>
-</p>
-
-</html>"));
-
-      end RelativeSensor;
-
-      partial model Source "Partial voltage / current source"
-        extends OnePort;
-        constant Modelica_SIunits.Angle pi=Modelica_Constants.pi;
-        Modelica_SIunits.Angle gamma(start=0) = plug_p.reference.gamma;
-      equation
-        Connections.root(plug_p.reference);
-        annotation (
-          Icon(graphics={
-              Ellipse(
-                extent={{-50,50},{50,-50}},
-                lineColor={0,0,0},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.Solid),
-              Text(
-                extent={{100,-100},{-100,-60}},
-                textString="%name",
-                lineColor={0,0,255}),
-              Line(points={{-90,0},{-50,0}}, color={0,0,0}),
-              Line(points={{50,0},{90,0}}, color={0,0,0}),
-              Text(
-                extent={{100,60},{-100,100}},
-                lineColor={0,0,0},
-                fillColor={0,0,0},
-                fillPattern=FillPattern.Solid,
-                textString="m=%m")}),
-          Documentation(info="<html>
-<p>
-The source partial model relies on the
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.TwoPlug\">TwoPlug</a> and contains a proper icon.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Sources.VoltageSource\">VoltageSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Sources.VariableVoltageSource\">VariableVoltageSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Sources.CurrentSource\">CurrentSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Sources.VariableCurrentSource\">VariableCurrentSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Source\">SinglePhase.Interfaces.Source</a>.
-</p>
-</html>"),Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-                  {100,100}}), graphics));
-      end Source;
-
-      partial model ReferenceSource
-        "Partial of voltage or current source with reference input"
-        extends
-          Modelica_Electrical_QuasiStationary.MultiPhase.Interfaces.OnePort;
-        import Modelica_Constants.pi;
-      equation
-        Connections.root(plug_p.reference);
-        annotation (Icon(graphics={
-              Ellipse(
-                extent={{-50,50},{50,-50}},
-                lineColor={0,0,0},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.Solid),
-              Text(
-                extent={{100,-100},{-100,-60}},
-                textString="%name",
-                lineColor={0,0,255}),
-              Line(points={{-90,0},{-50,0}}, color={0,0,0}),
-              Line(points={{50,0},{90,0}}, color={0,0,0}),
-              Text(
-                extent={{100,60},{-100,100}},
-                lineColor={0,0,0},
-                fillColor={0,0,0},
-                fillPattern=FillPattern.Solid,
-                textString="m=%m")}), Documentation(info="<html>
-<p>
-The source partial model relies on the
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.TwoPlug\">TwoPlug</a> and contains a proper icon.
-</p>
-
-<h4>See also</h4>
-
-<p>
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Sources.VoltageSource\">VoltageSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Sources.VariableVoltageSource\">VariableVoltageSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Sources.CurrentSource\">CurrentSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.MultiPhase.Sources.VariableCurrentSource\">VariableCurrentSource</a>,
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Source\">SinglePhase.Interfaces.Source</a>.
-</p>
-</html>"));
-      end ReferenceSource;
-    end Interfaces;
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
               {100,100}}), graphics={

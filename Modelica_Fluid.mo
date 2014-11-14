@@ -1697,11 +1697,10 @@ substance medium with one or more phases might be used.
 </HTML>"));
 end UsersGuide;
 
-
   model System
     "System properties and default values (ambient, flow direction, initialization)"
 
-    package Medium = Modelica_Media.Interfaces.PartialMedium
+    package Medium = Modelica_Media_Interfaces.PartialMedium
       "Medium model for default start values"
         annotation (choicesAllMatching = true);
     parameter Modelica_SIunits.AbsolutePressure p_ambient=101325
@@ -2031,7 +2030,7 @@ Limitation to bottom ports only, added inlet and outlet loss factors.</li>
 
         partial model PartialLumpedVessel
         "Lumped volume with a vector of fluid ports and replaceable heat transfer model"
-          extends Modelica_Fluid.Interfaces.PartialLumpedVolume;
+          extends Modelica_Fluid_Interfaces.PartialLumpedVolume;
 
           // Port definitions
           parameter Integer nPorts=0 "Number of ports"
@@ -2096,7 +2095,7 @@ Limitation to bottom ports only, added inlet and outlet loss factors.</li>
                 extent={{-10,-10},{30,30}},
                 rotation=90,
                 origin={-50,-10})));
-          Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer
+          Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort if use_HeatTransfer
             annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
           // Conservation of kinetic energy
@@ -2136,17 +2135,17 @@ Limitation to bottom ports only, added inlet and outlet loss factors.</li>
           // Remove portsData conditionally if use_portsData=false. Simplify their use in model equations by always
           // providing portsData_diameter and portsData_height, independent of the use_portsData setting.
           // Note: this moreover serves as work-around if a tool does not support a zero sized portsData record.
-          Modelica_Blocks.Interfaces.RealInput[nPorts]
+          Modelica_Blocks_Interfaces.RealInput[nPorts]
           portsData_diameter_internal = portsData.diameter if use_portsData and nPorts > 0;
-          Modelica_Blocks.Interfaces.RealInput[nPorts] portsData_height_internal = portsData.height if use_portsData and nPorts > 0;
-          Modelica_Blocks.Interfaces.RealInput[nPorts] portsData_zeta_in_internal = portsData.zeta_in if use_portsData and nPorts > 0;
-          Modelica_Blocks.Interfaces.RealInput[nPorts] portsData_zeta_out_internal = portsData.zeta_out if use_portsData and nPorts > 0;
-          Modelica_Blocks.Interfaces.RealInput[nPorts] portsData_diameter;
-          Modelica_Blocks.Interfaces.RealInput[nPorts] portsData_height;
-          Modelica_Blocks.Interfaces.RealInput[nPorts] portsData_zeta_in;
-          Modelica_Blocks.Interfaces.RealInput[nPorts] portsData_zeta_out;
-          Modelica_Blocks.Interfaces.BooleanInput[nPorts] regularFlow(each start=true);
-          Modelica_Blocks.Interfaces.BooleanInput[nPorts] inFlow(each start=false);
+          Modelica_Blocks_Interfaces.RealInput[nPorts] portsData_height_internal = portsData.height if use_portsData and nPorts > 0;
+          Modelica_Blocks_Interfaces.RealInput[nPorts] portsData_zeta_in_internal = portsData.zeta_in if use_portsData and nPorts > 0;
+          Modelica_Blocks_Interfaces.RealInput[nPorts] portsData_zeta_out_internal = portsData.zeta_out if use_portsData and nPorts > 0;
+          Modelica_Blocks_Interfaces.RealInput[nPorts] portsData_diameter;
+          Modelica_Blocks_Interfaces.RealInput[nPorts] portsData_height;
+          Modelica_Blocks_Interfaces.RealInput[nPorts] portsData_zeta_in;
+          Modelica_Blocks_Interfaces.RealInput[nPorts] portsData_zeta_out;
+          Modelica_Blocks_Interfaces.BooleanInput[nPorts] regularFlow(each start=true);
+          Modelica_Blocks_Interfaces.BooleanInput[nPorts] inFlow(each start=false);
 
         equation
           mb_flow = sum(ports.m_flow);
@@ -2344,7 +2343,7 @@ should be used if these values are needed.
 
       partial model PartialVesselHeatTransfer
           "Base class for vessel heat transfer models"
-        extends Modelica_Fluid.Interfaces.PartialHeatTransfer;
+        extends Modelica_Fluid_Interfaces.PartialHeatTransfer;
 
         annotation(Documentation(info="<html>
 Base class for vessel heat transfer models.
@@ -2527,7 +2526,7 @@ For larger port diameters, relative to the area of the vessel, the inlet pressur
 
       connector VesselFluidPorts_a
         "Fluid connector with filled, large icon to be used for horizontally aligned vectors of FluidPorts (vector dimensions must be added after dragging)"
-        extends Interfaces.FluidPort;
+        extends Modelica_Fluid_Interfaces.FluidPort;
         annotation (defaultComponentName="ports_b",
                     Diagram(coordinateSystem(
               preserveAspectRatio=false,
@@ -2580,7 +2579,7 @@ For larger port diameters, relative to the area of the vessel, the inlet pressur
 
       connector VesselFluidPorts_b
         "Fluid connector with outlined, large icon to be used for horizontally aligned vectors of FluidPorts (vector dimensions must be added after dragging)"
-        extends Interfaces.FluidPort;
+        extends Modelica_Fluid_Interfaces.FluidPort;
         annotation (defaultComponentName="ports_b",
                     Diagram(coordinateSystem(
               preserveAspectRatio=false,
@@ -2771,9 +2770,10 @@ or other flow models without storage, are directly connected.
         Modelica_Fluid.Pipes.BaseClasses.HeatTransfer.PartialFlowHeatTransfer
         "Wall heat transfer"
           annotation (Dialog(tab="Assumptions", group="Heat transfer",enable=use_HeatTransfer),choicesAllMatching=true);
-      Interfaces.HeatPorts_a[nNodes] heatPorts if use_HeatTransfer
-        annotation (Placement(transformation(extent={{-10,45},{10,65}}), iconTransformation(extent={{-30,36},
-                {32,52}})));
+      Modelica_Fluid_Interfaces.HeatPorts_a[nNodes] heatPorts if
+                                                  use_HeatTransfer annotation (
+          Placement(transformation(extent={{-10,45},{10,65}}),
+            iconTransformation(extent={{-30,36},{32,52}})));
 
       HeatTransfer heatTransfer(
         redeclare each final package Medium = Medium,
@@ -2909,7 +2909,7 @@ or other flow models without storage, are directly connected.
       extends Modelica_Icons.BasesPackage;
 
       partial model PartialStraightPipe "Base class for straight pipe models"
-        extends Modelica_Fluid.Interfaces.PartialTwoPort;
+        extends Modelica_Fluid_Interfaces.PartialTwoPort;
 
         // Geometry
 
@@ -2978,14 +2978,14 @@ Base class for one dimensional flow models. It specializes a PartialTwoPort with
         import Modelica_Fluid.Types.ModelStructure;
 
         // extending PartialTwoPort
-        extends Modelica_Fluid.Interfaces.PartialTwoPort(final
+        extends Modelica_Fluid_Interfaces.PartialTwoPort(final
             port_a_exposesState=(modelStructure == ModelStructure.av_b) or (
               modelStructure == ModelStructure.av_vb), final
             port_b_exposesState=(modelStructure == ModelStructure.a_vb) or (
               modelStructure == ModelStructure.av_vb));
 
         // distributed volume model
-        extends Modelica_Fluid.Interfaces.PartialDistributedVolume(final n=
+        extends Modelica_Fluid_Interfaces.PartialDistributedVolume(final n=
               nNodes, final fluidVolumes={crossAreas[i]*lengths[i] for i in 1:n}
               *nParallel);
 
@@ -3691,7 +3691,7 @@ This also allows for taking into account friction losses with respect to the act
               // (not exposed to GUI; needs to be hard coded when using this model
               //
               replaceable package Medium =
-                Modelica_Media.Interfaces.PartialMedium
+                Modelica_Media_Interfaces.PartialMedium
             "Medium in the component"
                   annotation(Dialog(tab="Internal Interface",enable=false));
 
@@ -3750,7 +3750,7 @@ This also allows for taking into account friction losses with respect to the act
               //
               // Implementation of momentum balance
               //
-              extends Modelica_Fluid.Interfaces.PartialDistributedFlow(final m=
+              extends Modelica_Fluid_Interfaces.PartialDistributedFlow(final m=
                 n - 1);
 
               // Advanced parameters
@@ -4337,7 +4337,7 @@ b has the same sign of the change of density.</p>
       extends Modelica_Icons.Package;
       partial model PartialFlowHeatTransfer
           "base class for any pipe heat transfer correlation"
-        extends Modelica_Fluid.Interfaces.PartialHeatTransfer;
+        extends Modelica_Fluid_Interfaces.PartialHeatTransfer;
 
         // Additional inputs provided to flow heat transfer model
           input Modelica_SIunits.Velocity[n] vs
@@ -6270,7 +6270,7 @@ b has the same sign of the change of density.</p>
 
         model TestWallFrictionAndGravity
           "Pressure loss in pipe due to wall friction and gravity (only for test purposes; if needed use Pipes.StaticPipe instead)"
-          extends Modelica_Fluid.Interfaces.PartialTwoPortTransport(dp_start=
+          extends Modelica_Fluid_Interfaces.PartialTwoPortTransport(dp_start=
                 dp_fric_nominal + system.g*height_ab*rho_nominal, m_flow_small=
                 if system.use_eps_Re then system.eps_m_flow*m_flow_nominal
                  else system.m_flow_small);
@@ -6517,7 +6517,7 @@ in the next figure:
           fluidVolume=V, heatTransfer(surfaceAreas={pistonCrossArea + 2*sqrt(
               pistonCrossArea*pi)*(flange.s + clearance/pistonCrossArea)}));
 
-      Modelica_Mechanics_Translational.Interfaces.Flange_b flange
+      Modelica_Mechanics_Translational_Interfaces.Flange_b flange
         "translation flange for piston" annotation (Placement(transformation(
               extent={{-10,90},{10,110}},   rotation=0)));
 
@@ -6605,7 +6605,7 @@ in the next figure:
       extends Modelica_Fluid.Machines.BaseClasses.PartialPump;
       Modelica_SIunits.Angle phi "Shaft angle";
       Modelica_SIunits.AngularVelocity omega "Shaft angular velocity";
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a shaft
+      Modelica_Mechanics_Rotational_Interfaces.Flange_a shaft
       annotation (Placement(transformation(extent={{-10,90},{10,110}},
                                                                      rotation=0)));
     equation
@@ -6670,13 +6670,13 @@ in the next figure:
           p_a_nominal)/(rho_nominal*g)
         "operational pump head according to nominal values";
 
-      Modelica_Blocks.Interfaces.RealInput m_flow_set if use_m_flow_set
+      Modelica_Blocks_Interfaces.RealInput m_flow_set if use_m_flow_set
         "Prescribed mass flow rate"
         annotation (Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=-90,
             origin={-50,82})));
-      Modelica_Blocks.Interfaces.RealInput p_set if use_p_set
+      Modelica_Blocks_Interfaces.RealInput p_set if use_p_set
         "Prescribed outlet pressure"
         annotation (Placement(transformation(
             extent={{-20,-20},{20,20}},
@@ -6684,9 +6684,9 @@ in the next figure:
             origin={50,82})));
 
     protected
-      Modelica_Blocks.Interfaces.RealInput m_flow_set_internal
+      Modelica_Blocks_Interfaces.RealInput m_flow_set_internal
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput p_set_internal
+      Modelica_Blocks_Interfaces.RealInput p_set_internal
         "Needed to connect to conditional connector";
     equation
       // Ideal control
@@ -6745,7 +6745,7 @@ Then the model can be replaced with a Pump with rotational shaft or with a Presc
       parameter Modelica_SIunits.Conversions.NonSIunits.AngularVelocity_rpm
         N_const =                                                                     N_nominal
         "Constant rotational speed" annotation(Dialog(enable = not use_N_in));
-      Modelica_Blocks.Interfaces.RealInput N_in(unit="1/min") if use_N_in
+      Modelica_Blocks_Interfaces.RealInput N_in(unit="1/min") if use_N_in
         "Prescribed rotational speed"
         annotation (Placement(transformation(
             extent={{-20,-20},{20,20}},
@@ -6756,7 +6756,7 @@ Then the model can be replaced with a Pump with rotational shaft or with a Presc
             origin={0,100})));
 
     protected
-      Modelica_Blocks.Interfaces.RealInput N_in_internal(unit="1/min")
+      Modelica_Blocks_Interfaces.RealInput N_in_internal(unit="1/min")
         "Needed to connect to conditional connector";
     equation
       // Connect statement active only if use_p_in = true
@@ -6795,7 +6795,7 @@ Then the model can be replaced with a Pump with rotational shaft or with a Presc
         import NonSI = Modelica_SIunits.Conversions.NonSIunits;
         import Constants = Modelica_Constants;
 
-      extends Modelica_Fluid.Interfaces.PartialTwoPort(
+      extends Modelica_Fluid_Interfaces.PartialTwoPort(
           port_b_exposesState=energyDynamics <> Types.Dynamics.SteadyState or
               massDynamics <> Types.Dynamics.SteadyState,
           port_a(p(start=p_a_start), m_flow(start=m_flow_start, min=if
@@ -6859,7 +6859,7 @@ Then the model can be replaced with a Pump with rotational shaft or with a Presc
           annotation (Dialog(tab="Assumptions"), Evaluate=true);
 
       // Energy and mass balance
-      extends Modelica_Fluid.Interfaces.PartialLumpedVolume(
+      extends Modelica_Fluid_Interfaces.PartialLumpedVolume(
           final fluidVolume=V,
           energyDynamics=Types.Dynamics.SteadyState,
           massDynamics=Types.Dynamics.SteadyState,
@@ -6885,7 +6885,7 @@ Then the model can be replaced with a Pump with rotational shaft or with a Presc
             extent={{-10,-10},{30,30}},
             rotation=180,
             origin={50,-10})));
-      Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort if use_HeatTransfer
         annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
 
       // Variables
@@ -7278,7 +7278,7 @@ provided a two-phase medium model is used (see Advanced tab).
           // (not exposed to GUI; needs to be hard coded when using this model
           //
           replaceable package Medium =
-            Modelica_Media.Interfaces.PartialMedium "Medium in the component"
+            Modelica_Media_Interfaces.PartialMedium "Medium in the component"
               annotation(Dialog(tab="Internal Interface",enable=false));
 
           // Inputs
@@ -7291,7 +7291,7 @@ provided a two-phase medium model is used (see Advanced tab).
 
         model PumpMonitoringNPSH "Monitor Net Positive Suction Head (NPSH)"
           extends PumpMonitoringBase(redeclare replaceable package Medium =
-            Modelica_Media.Interfaces.PartialTwoPhaseMedium);
+            Modelica_Media_Interfaces.PartialTwoPhaseMedium);
           Medium.Density rho_in = Medium.density(state_in)
             "Liquid density at the inlet port_a";
           Modelica_SIunits.Length NPSHa=NPSPa/(rho_in*system.g)
@@ -7629,7 +7629,7 @@ explained in detail in the
     end ValveCompressible;
 
     model ValveLinear "Valve for water/steam flows with linear pressure drop"
-      extends Modelica_Fluid.Interfaces.PartialTwoPortTransport;
+      extends Modelica_Fluid_Interfaces.PartialTwoPortTransport;
       parameter Modelica_SIunits.AbsolutePressure dp_nominal
         "Nominal pressure drop at full opening"
         annotation (Dialog(group="Nominal operating point"));
@@ -7637,7 +7637,7 @@ explained in detail in the
         "Nominal mass flowrate at full opening";
       final parameter Types.HydraulicConductance k = m_flow_nominal/dp_nominal
         "Hydraulic conductance at full opening";
-      Modelica_Blocks.Interfaces.RealInput opening(min=0,max=1)
+      Modelica_Blocks_Interfaces.RealInput opening(min=0,max=1)
         "=1: completely open, =0: completely closed"
       annotation (Placement(transformation(
             origin={0,90},
@@ -7693,7 +7693,7 @@ a simple model of a variable pressure loss is needed.</p>
     end ValveLinear;
 
     model ValveDiscrete "Valve for water/steam flows with linear pressure drop"
-      extends Modelica_Fluid.Interfaces.PartialTwoPortTransport;
+      extends Modelica_Fluid_Interfaces.PartialTwoPortTransport;
       parameter Modelica_SIunits.AbsolutePressure dp_nominal
         "Nominal pressure drop at full opening=1"
         annotation (Dialog(group="Nominal operating point"));
@@ -7701,7 +7701,7 @@ a simple model of a variable pressure loss is needed.</p>
         "Nominal mass flowrate at full opening=1";
       final parameter Types.HydraulicConductance k = m_flow_nominal/dp_nominal
         "Hydraulic conductance at full opening=1";
-      Modelica_Blocks.Interfaces.BooleanInput open
+      Modelica_Blocks_Interfaces.BooleanInput open
       annotation (Placement(transformation(
             origin={0,80},
             extent={{-20,-20},{20,20}},
@@ -7756,7 +7756,7 @@ it is open.
       partial model PartialValve "Base model for valves"
 
         import Modelica_Fluid.Types.CvTypes;
-        extends Modelica_Fluid.Interfaces.PartialTwoPortTransport(
+        extends Modelica_Fluid_Interfaces.PartialTwoPortTransport(
           dp_start=dp_nominal,
           m_flow_small=if system.use_eps_Re then system.eps_m_flow*
               m_flow_nominal else system.m_flow_small,
@@ -7815,7 +7815,7 @@ it is open.
         constant Modelica_SIunits.Area Kv2Av=27.7e-6 "Conversion factor";
         constant Modelica_SIunits.Area Cv2Av=24.0e-6 "Conversion factor";
 
-        Modelica_Blocks.Interfaces.RealInput opening(min=0, max=1)
+        Modelica_Blocks_Interfaces.RealInput opening(min=0, max=1)
           "Valve position in the range 0..1"
                                          annotation (Placement(transformation(
               origin={0,90},
@@ -7825,7 +7825,7 @@ it is open.
               rotation=270,
               origin={0,80})));
 
-        Modelica_Blocks.Interfaces.RealOutput opening_filtered if filteredOpening
+        Modelica_Blocks_Interfaces.RealOutput opening_filtered if filteredOpening
           "Filtered valve position in the range 0..1"
           annotation (Placement(transformation(extent={{60,40},{80,60}}),
               iconTransformation(extent={{60,50},{80,70}})));
@@ -7836,12 +7836,12 @@ it is open.
           annotation (Placement(transformation(extent={{34,44},{48,58}})));
 
       protected
-        Modelica_Blocks.Interfaces.RealOutput opening_actual
+        Modelica_Blocks_Interfaces.RealOutput opening_actual
           annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
       block MinLimiter "Limit the signal above a threshold"
        parameter Real uMin=0 "Lower limit of input signal";
-        extends Modelica_Blocks.Interfaces.SISO;
+        extends Modelica_Blocks_Interfaces.SISO;
 
       equation
         y = smooth(0, noEvent( if u < uMin then uMin else u));
@@ -8132,7 +8132,7 @@ This characteristic is such that the relative change of the flow coefficient is 
       extends Modelica_Icons.VariantsPackage;
       model CurvedBend "Curved bend flow model"
         extends Modelica_Fluid.Dissipation.Utilities.Icons.PressureLoss.Bend_i;
-        extends Modelica_Fluid.Interfaces.PartialPressureLoss;
+        extends Modelica_Fluid_Interfaces.PartialPressureLoss;
 
         parameter Modelica_Fluid.Fittings.BaseClasses.Bends.CurvedBend.Geometry
           geometry "Geometry of curved bend"
@@ -8187,7 +8187,7 @@ The details of the model are described in the
 
       model EdgedBend "Edged bend flow model"
         extends Modelica_Fluid.Dissipation.Utilities.Icons.PressureLoss.Bend_i;
-        extends Modelica_Fluid.Interfaces.PartialPressureLoss;
+        extends Modelica_Fluid_Interfaces.PartialPressureLoss;
 
         parameter Modelica_Fluid.Fittings.BaseClasses.Bends.EdgedBend.Geometry geometry
           "Geometry of curved bend"
@@ -8254,7 +8254,7 @@ The details of the model are described in the
       model ThickEdgedOrifice "Thicked edged orifice flow model"
         extends
           Modelica_Fluid.Dissipation.Utilities.Icons.PressureLoss.Orifice_i;
-        extends Modelica_Fluid.Interfaces.PartialPressureLoss;
+        extends Modelica_Fluid_Interfaces.PartialPressureLoss;
 
         parameter
           Modelica_Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Geometry
@@ -8336,7 +8336,7 @@ The details of the model are described in the
 
         extends
           Modelica_Fluid.Dissipation.Utilities.Icons.PressureLoss.General_i;
-        extends Modelica_Fluid.Interfaces.PartialTwoPortTransport;
+        extends Modelica_Fluid_Interfaces.PartialTwoPortTransport;
 
         parameter Real a(unit="(Pa.s2)/m6") "Coefficient for quadratic term"
           annotation(Dialog(group="dp = a*V_flow^2 + b*V_flow"));
@@ -8454,14 +8454,14 @@ such approximations.
   model SimpleGenericOrifice
       "Simple generic orifice defined by pressure loss coefficient and diameter (only for flow from port_a to port_b)"
 
-    extends Modelica_Fluid.Interfaces.PartialTwoPortTransport(
+    extends Modelica_Fluid_Interfaces.PartialTwoPortTransport(
         dp_start=dp_nominal,
         m_flow_small=if system.use_eps_Re then system.eps_m_flow*m_flow_nominal
              else system.m_flow_small,
         m_flow(stateSelect=if momentumDynamics == Types.Dynamics.SteadyState
                then StateSelect.default else StateSelect.prefer));
 
-    extends Modelica_Fluid.Interfaces.PartialLumpedFlow(final pathLength=0,
+    extends Modelica_Fluid_Interfaces.PartialLumpedFlow(final pathLength=0,
           final momentumDynamics=Types.Dynamics.SteadyState);
 
       parameter Modelica_SIunits.Diameter diameter "Diameter of orifice";
@@ -8770,17 +8770,17 @@ can appear, this component should not be used.
 
       import Constants = Modelica_Constants;
 
-      replaceable package Medium=Modelica_Media.Interfaces.PartialMedium annotation(choicesAllMatching);
+      replaceable package Medium=Modelica_Media_Interfaces.PartialMedium annotation(choicesAllMatching);
 
       // Ports
       parameter Integer nPorts_b=0
         "Number of outlet ports (mass is distributed evenly between the outlet ports"
         annotation(Dialog(connectorSizing=true));
 
-      Modelica_Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
+      Modelica_Fluid_Interfaces.FluidPort_a port_a(redeclare package Medium =
             Medium) annotation (Placement(transformation(extent={{-50,-10},{-30,
                 10}}, rotation=0)));
-      Modelica_Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](redeclare each
+      Modelica_Fluid_Interfaces.FluidPorts_b ports_b[nPorts_b](redeclare each
           package Medium = Medium) annotation (Placement(transformation(extent=
                 {{30,40},{50,-40}}, rotation=0)));
 
@@ -8882,7 +8882,7 @@ then ideal mixing would take place in the connection set, outside the volume. Th
     model TeeJunctionVolume
       "Splitting/joining component with static balances for a dynamic control volume"
       extends Modelica_Fluid.Fittings.BaseClasses.PartialTeeJunction;
-      extends Modelica_Fluid.Interfaces.PartialLumpedVolume(final fluidVolume=V);
+      extends Modelica_Fluid_Interfaces.PartialLumpedVolume(final fluidVolume=V);
 
       parameter Modelica_SIunits.Volume V "Mixing volume inside junction";
 
@@ -9777,13 +9777,13 @@ The used sufficient criteria for monotonicity follows from:
         partial model BaseModel
           "Generic pressure drop component with constant turbulent loss factor data and without an icon"
 
-          extends Modelica_Fluid.Interfaces.PartialTwoPortTransport(
+          extends Modelica_Fluid_Interfaces.PartialTwoPortTransport(
             dp_start=dp_nominal,
             m_flow_small=if system.use_eps_Re then system.eps_m_flow*
                 m_flow_nominal else system.m_flow_small,
             m_flow(stateSelect=if momentumDynamics == Types.Dynamics.SteadyState
                    then StateSelect.default else StateSelect.prefer));
-          extends Modelica_Fluid.Interfaces.PartialLumpedFlow(final pathLength=
+          extends Modelica_Fluid_Interfaces.PartialLumpedFlow(final pathLength=
                 0, final momentumDynamics=Types.Dynamics.SteadyState);
 
           parameter LossFactorData data "Loss factor data";
@@ -10009,13 +10009,13 @@ The used sufficient criteria for monotonicity follows from:
         partial model BaseModelNonconstantCrossSectionArea
           "Generic pressure drop component with constant turbulent loss factor data and without an icon, for non-constant cross section area"
 
-          extends Modelica_Fluid.Interfaces.PartialTwoPortTransport(
+          extends Modelica_Fluid_Interfaces.PartialTwoPortTransport(
             final dp_start=dp_nominal,
             m_flow_small=if system.use_eps_Re then system.eps_m_flow*
                 m_flow_nominal else system.m_flow_small,
             m_flow(stateSelect=if momentumDynamics == Types.Dynamics.SteadyState
                    then StateSelect.default else StateSelect.prefer));
-          extends Modelica_Fluid.Interfaces.PartialLumpedFlow(final pathLength=
+          extends Modelica_Fluid_Interfaces.PartialLumpedFlow(final pathLength=
                 0, final momentumDynamics=Types.Dynamics.SteadyState);
 
           parameter LossFactorData data "Loss factor data";
@@ -10321,23 +10321,23 @@ where
         import Modelica_Fluid.Types;
         import Modelica_Fluid.Types.PortFlowDirection;
 
-        replaceable package Medium=Modelica_Media.Interfaces.PartialMedium
+        replaceable package Medium=Modelica_Media_Interfaces.PartialMedium
           "Medium in the component"
           annotation (choicesAllMatching=true);
 
-        Modelica_Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium
+        Modelica_Fluid_Interfaces.FluidPort_a port_1(redeclare package Medium
             = Medium, m_flow(min=if (portFlowDirection_1 == PortFlowDirection.Entering)
                  then 0.0 else -Modelica_Constants.inf, max=if (
                 portFlowDirection_1 == PortFlowDirection.Leaving) then 0.0
                  else Modelica_Constants.inf)) annotation (Placement(
               transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-        Modelica_Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium
+        Modelica_Fluid_Interfaces.FluidPort_b port_2(redeclare package Medium
             = Medium, m_flow(min=if (portFlowDirection_2 == PortFlowDirection.Entering)
                  then 0.0 else -Modelica_Constants.inf, max=if (
                 portFlowDirection_2 == PortFlowDirection.Leaving) then 0.0
                  else Modelica_Constants.inf)) annotation (Placement(
               transformation(extent={{90,-10},{110,10}}, rotation=0)));
-        Modelica_Fluid.Interfaces.FluidPort_a port_3(redeclare package Medium
+        Modelica_Fluid_Interfaces.FluidPort_a port_3(redeclare package Medium
             = Medium, m_flow(min=if (portFlowDirection_3 == PortFlowDirection.Entering)
                  then 0.0 else -Modelica_Constants.inf, max=if (
                 portFlowDirection_3 == PortFlowDirection.Leaving) then 0.0
@@ -11123,7 +11123,7 @@ polynomials. The monotonicity is guaranteed using results from:
   package Sources "Define fixed or prescribed boundary conditions"
     extends Modelica_Icons.SourcesPackage;
     model FixedBoundary "Boundary source component"
-      import Modelica_Media.Interfaces.Choices.IndependentVariables;
+      import Modelica_Media_Interfaces.Choices.IndependentVariables;
       extends Sources.BaseClasses.PartialSource;
       parameter Boolean use_p=true "select p or d"
         annotation (Evaluate = true,
@@ -11249,7 +11249,7 @@ with exception of boundary pressure, do not have an effect.
 
     model Boundary_pT
       "Boundary with prescribed pressure, temperature, composition and trace substances"
-      import Modelica_Media.Interfaces.Choices.IndependentVariables;
+      import Modelica_Media_Interfaces.Choices.IndependentVariables;
 
       extends Sources.BaseClasses.PartialSource;
       parameter Boolean use_p_in = false
@@ -11281,30 +11281,30 @@ with exception of boundary pressure, do not have an effect.
         "Fixed values of trace substances"
         annotation (Evaluate=true,
                     Dialog(enable = (not use_C_in) and Medium.nC > 0));
-      Modelica_Blocks.Interfaces.RealInput p_in if use_p_in
+      Modelica_Blocks_Interfaces.RealInput p_in if use_p_in
         "Prescribed boundary pressure"
         annotation (Placement(transformation(extent={{-140,60},{-100,100}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput T_in if use_T_in
+      Modelica_Blocks_Interfaces.RealInput T_in if use_T_in
         "Prescribed boundary temperature"
         annotation (Placement(transformation(extent={{-140,20},{-100,60}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput X_in[Medium.nX] if use_X_in
+      Modelica_Blocks_Interfaces.RealInput X_in[Medium.nX] if use_X_in
         "Prescribed boundary composition"
         annotation (Placement(transformation(extent={{-140,-60},{-100,-20}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput C_in[Medium.nC] if use_C_in
+      Modelica_Blocks_Interfaces.RealInput C_in[Medium.nC] if use_C_in
         "Prescribed boundary trace substances"
         annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
               rotation=0)));
     protected
-      Modelica_Blocks.Interfaces.RealInput p_in_internal
+      Modelica_Blocks_Interfaces.RealInput p_in_internal
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput T_in_internal
+      Modelica_Blocks_Interfaces.RealInput T_in_internal
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput X_in_internal[Medium.nX]
+      Modelica_Blocks_Interfaces.RealInput X_in_internal[Medium.nX]
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput C_in_internal[Medium.nC]
+      Modelica_Blocks_Interfaces.RealInput C_in_internal[Medium.nC]
         "Needed to connect to conditional connector";
     equation
       Modelica_Fluid.Utilities.checkBoundary(
@@ -11412,7 +11412,7 @@ with exception of boundary pressure, do not have an effect.
 
     model Boundary_ph
       "Boundary with prescribed pressure, specific enthalpy, composition and trace substances"
-      import Modelica_Media.Interfaces.Choices.IndependentVariables;
+      import Modelica_Media_Interfaces.Choices.IndependentVariables;
       extends Sources.BaseClasses.PartialSource;
       parameter Boolean use_p_in = false
         "Get the pressure from the input connector"
@@ -11443,30 +11443,30 @@ with exception of boundary pressure, do not have an effect.
         "Fixed values of trace substances"
         annotation (Evaluate=true,
                     Dialog(enable = (not use_C_in) and Medium.nC > 0));
-      Modelica_Blocks.Interfaces.RealInput p_in if use_p_in
+      Modelica_Blocks_Interfaces.RealInput p_in if use_p_in
         "Prescribed boundary pressure"
         annotation (Placement(transformation(extent={{-140,60},{-100,100}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput h_in if use_h_in
+      Modelica_Blocks_Interfaces.RealInput h_in if use_h_in
         "Prescribed boundary specific enthalpy"
         annotation (Placement(transformation(extent={{-140,20},{-100,60}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput X_in[Medium.nX] if use_X_in
+      Modelica_Blocks_Interfaces.RealInput X_in[Medium.nX] if use_X_in
         "Prescribed boundary composition"
         annotation (Placement(transformation(extent={{-140,-60},{-100,-20}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput C_in[Medium.nC] if use_C_in
+      Modelica_Blocks_Interfaces.RealInput C_in[Medium.nC] if use_C_in
         "Prescribed boundary trace substances"
         annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
               rotation=0)));
     protected
-      Modelica_Blocks.Interfaces.RealInput p_in_internal
+      Modelica_Blocks_Interfaces.RealInput p_in_internal
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput h_in_internal
+      Modelica_Blocks_Interfaces.RealInput h_in_internal
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput X_in_internal[Medium.nX]
+      Modelica_Blocks_Interfaces.RealInput X_in_internal[Medium.nX]
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput C_in_internal[Medium.nC]
+      Modelica_Blocks_Interfaces.RealInput C_in_internal[Medium.nC]
         "Needed to connect to conditional connector";
     equation
       Modelica_Fluid.Utilities.checkBoundary(
@@ -11574,7 +11574,7 @@ with exception of boundary pressure, do not have an effect.
 
     model MassFlowSource_T
       "Ideal flow source that produces a prescribed mass flow with prescribed temperature, mass fraction and trace substances"
-      import Modelica_Media.Interfaces.Choices.IndependentVariables;
+      import Modelica_Media_Interfaces.Choices.IndependentVariables;
       extends Sources.BaseClasses.PartialFlowSource;
       parameter Boolean use_m_flow_in = false
         "Get the mass flow rate from the input connector"
@@ -11605,32 +11605,32 @@ with exception of boundary pressure, do not have an effect.
         "Fixed values of trace substances"
         annotation (Evaluate=true,
                     Dialog(enable = (not use_C_in) and Medium.nC > 0));
-      Modelica_Blocks.Interfaces.RealInput m_flow_in if     use_m_flow_in
+      Modelica_Blocks_Interfaces.RealInput m_flow_in if     use_m_flow_in
         "Prescribed mass flow rate"
         annotation (Placement(transformation(extent={{-120,60},{-80,100}},
               rotation=0), iconTransformation(extent={{-120,60},{-80,100}})));
-      Modelica_Blocks.Interfaces.RealInput T_in if         use_T_in
+      Modelica_Blocks_Interfaces.RealInput T_in if         use_T_in
         "Prescribed fluid temperature"
         annotation (Placement(transformation(extent={{-140,20},{-100,60}},
               rotation=0), iconTransformation(extent={{-140,20},{-100,60}})));
-      Modelica_Blocks.Interfaces.RealInput X_in[Medium.nX] if
+      Modelica_Blocks_Interfaces.RealInput X_in[Medium.nX] if
                                                             use_X_in
         "Prescribed fluid composition"
         annotation (Placement(transformation(extent={{-140,-60},{-100,-20}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput C_in[Medium.nC] if
+      Modelica_Blocks_Interfaces.RealInput C_in[Medium.nC] if
                                                             use_C_in
         "Prescribed boundary trace substances"
         annotation (Placement(transformation(extent={{-120,-100},{-80,-60}},
               rotation=0)));
     protected
-      Modelica_Blocks.Interfaces.RealInput m_flow_in_internal
+      Modelica_Blocks_Interfaces.RealInput m_flow_in_internal
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput T_in_internal
+      Modelica_Blocks_Interfaces.RealInput T_in_internal
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput X_in_internal[Medium.nX]
+      Modelica_Blocks_Interfaces.RealInput X_in_internal[Medium.nX]
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput C_in_internal[Medium.nC]
+      Modelica_Blocks_Interfaces.RealInput C_in_internal[Medium.nC]
         "Needed to connect to conditional connector";
     equation
       Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
@@ -11736,7 +11736,7 @@ with exception of boundary flow rate, do not have an effect.
 
     model MassFlowSource_h
       "Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, mass fraction and trace substances"
-      import Modelica_Media.Interfaces.Choices.IndependentVariables;
+      import Modelica_Media_Interfaces.Choices.IndependentVariables;
       extends Sources.BaseClasses.PartialFlowSource;
       parameter Boolean use_m_flow_in = false
         "Get the mass flow rate from the input connector"
@@ -11767,32 +11767,32 @@ with exception of boundary flow rate, do not have an effect.
         "Fixed values of trace substances"
         annotation (Evaluate=true,
                     Dialog(enable = (not use_C_in) and Medium.nC > 0));
-      Modelica_Blocks.Interfaces.RealInput m_flow_in if     use_m_flow_in
+      Modelica_Blocks_Interfaces.RealInput m_flow_in if     use_m_flow_in
         "Prescribed mass flow rate"
         annotation (Placement(transformation(extent={{-120,60},{-80,100}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput h_in if              use_h_in
+      Modelica_Blocks_Interfaces.RealInput h_in if              use_h_in
         "Prescribed fluid specific enthalpy"
         annotation (Placement(transformation(extent={{-140,20},{-100,60}},
               rotation=0), iconTransformation(extent={{-140,20},{-100,60}})));
-      Modelica_Blocks.Interfaces.RealInput X_in[Medium.nX] if
+      Modelica_Blocks_Interfaces.RealInput X_in[Medium.nX] if
                                                             use_X_in
         "Prescribed fluid composition"
         annotation (Placement(transformation(extent={{-140,-60},{-100,-20}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput C_in[Medium.nC] if
+      Modelica_Blocks_Interfaces.RealInput C_in[Medium.nC] if
                                                             use_C_in
         "Prescribed boundary trace substances"
         annotation (Placement(transformation(extent={{-120,-100},{-80,-60}},
               rotation=0), iconTransformation(extent={{-120,-100},{-80,-60}})));
     protected
-      Modelica_Blocks.Interfaces.RealInput m_flow_in_internal
+      Modelica_Blocks_Interfaces.RealInput m_flow_in_internal
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput h_in_internal
+      Modelica_Blocks_Interfaces.RealInput h_in_internal
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput X_in_internal[Medium.nX]
+      Modelica_Blocks_Interfaces.RealInput X_in_internal[Medium.nX]
         "Needed to connect to conditional connector";
-      Modelica_Blocks.Interfaces.RealInput C_in_internal[Medium.nC]
+      Modelica_Blocks_Interfaces.RealInput C_in_internal[Medium.nC]
         "Needed to connect to conditional connector";
     equation
       Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
@@ -11906,19 +11906,17 @@ with exception of boundary flow rate, do not have an effect.
       parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
 
       replaceable package Medium =
-          Modelica_Media.Interfaces.PartialMedium
+          Modelica_Media_Interfaces.PartialMedium
           "Medium model within the source"
          annotation (choicesAllMatching=true);
 
       Medium.BaseProperties medium "Medium in the source";
 
-      Interfaces.FluidPorts_b ports[nPorts](
-                         redeclare each package Medium = Medium,
-                         m_flow(each max=if flowDirection==Types.PortFlowDirection.Leaving then 0 else
-                                         +Constants.inf,
-                                each min=if flowDirection==Types.PortFlowDirection.Entering then 0 else
-                                         -Constants.inf))
-        annotation (Placement(transformation(extent={{90,40},{110,-40}})));
+        Modelica_Fluid_Interfaces.FluidPorts_b ports[nPorts](redeclare each
+            package Medium = Medium, m_flow(each max=if flowDirection == Types.PortFlowDirection.Leaving
+                 then 0 else +Constants.inf, each min=if flowDirection == Types.PortFlowDirection.Entering
+                 then 0 else -Constants.inf))
+          annotation (Placement(transformation(extent={{90,40},{110,-40}})));
       protected
       parameter Types.PortFlowDirection flowDirection=
                        Types.PortFlowDirection.Bidirectional
@@ -11960,19 +11958,17 @@ features are:
       parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
 
       replaceable package Medium =
-          Modelica_Media.Interfaces.PartialMedium
+          Modelica_Media_Interfaces.PartialMedium
           "Medium model within the source"
          annotation (choicesAllMatching=true);
 
       Medium.BaseProperties medium "Medium in the source";
 
-      Interfaces.FluidPort_b ports[nPorts](
-                         redeclare each package Medium = Medium,
-                         m_flow(each max=if flowDirection==Types.PortFlowDirection.Leaving then 0 else
-                                         +Constants.inf,
-                                each min=if flowDirection==Types.PortFlowDirection.Entering then 0 else
-                                         -Constants.inf))
-        annotation (Placement(transformation(extent={{90,10},{110,-10}})));
+        Modelica_Fluid_Interfaces.FluidPort_b ports[nPorts](redeclare each
+            package Medium = Medium, m_flow(each max=if flowDirection == Types.PortFlowDirection.Leaving
+                 then 0 else +Constants.inf, each min=if flowDirection == Types.PortFlowDirection.Entering
+                 then 0 else -Constants.inf))
+          annotation (Placement(transformation(extent={{90,10},{110,-10}})));
       protected
       parameter Types.PortFlowDirection flowDirection=
                        Types.PortFlowDirection.Bidirectional
@@ -12022,7 +12018,7 @@ to define fixed or prescribed ambient conditions.
     model Pressure "Ideal pressure sensor"
       extends Sensors.BaseClasses.PartialAbsoluteSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput p(final quantity="Pressure",
+      Modelica_Blocks_Interfaces.RealOutput p(final quantity="Pressure",
                                               final unit="Pa",
                                               displayUnit="bar",
                                               min=0) "Pressure at port"
@@ -12055,7 +12051,7 @@ ideal, i.e., it does not influence the fluid.
     model Density "Ideal one port density sensor"
       extends Sensors.BaseClasses.PartialAbsoluteSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput d(final quantity="Density",
+      Modelica_Blocks_Interfaces.RealOutput d(final quantity="Density",
                                               final unit="kg/m3",
                                               displayUnit="g/cm3",
                                               min=0) "Density in port medium"
@@ -12089,7 +12085,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
     model DensityTwoPort "Ideal two port density sensor"
       extends Sensors.BaseClasses.PartialFlowSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput d(final quantity="Density",
+      Modelica_Blocks_Interfaces.RealOutput d(final quantity="Density",
                                               final unit="kg/m3",
                                               displayUnit="g/cm3",
                                               min=0)
@@ -12138,7 +12134,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
     model Temperature "Ideal one port temperature sensor"
         extends Sensors.BaseClasses.PartialAbsoluteSensor;
 
-      Modelica_Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
+      Modelica_Blocks_Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                               final unit = "K", displayUnit = "degC", min=0)
         "Temperature in port medium"
         annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=
@@ -12226,7 +12222,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
     model TemperatureTwoPort "Ideal two port temperature sensor"
       extends Sensors.BaseClasses.PartialFlowSensor;
 
-      Modelica_Blocks.Interfaces.RealOutput T( final quantity="ThermodynamicTemperature",
+      Modelica_Blocks_Interfaces.RealOutput T( final quantity="ThermodynamicTemperature",
                                                final unit="K",
                                                min = 0,
                                                displayUnit="degC")
@@ -12301,7 +12297,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
     model SpecificEnthalpy "Ideal one port specific enthalpy sensor"
       extends Sensors.BaseClasses.PartialAbsoluteSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
+      Modelica_Blocks_Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                                   final unit="J/kg")
         "Specific enthalpy in port medium"
         annotation (Placement(transformation(extent={{100,-10},{120,10}},
@@ -12334,7 +12330,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
       "Ideal two port sensor for the specific enthalpy"
       extends Sensors.BaseClasses.PartialFlowSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
+      Modelica_Blocks_Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                                   final unit="J/kg")
         "Specific enthalpy of the passing fluid"
         annotation (Placement(transformation(
@@ -12373,7 +12369,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
     model SpecificEntropy "Ideal one port specific entropy sensor"
       extends Sensors.BaseClasses.PartialAbsoluteSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
+      Modelica_Blocks_Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                               final unit="J/(kg.K)")
         "Specific entropy in port medium"
         annotation (Placement(transformation(extent={{100,-10},{120,10}},
@@ -12406,7 +12402,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
       "Ideal two port sensor for the specific entropy"
       extends Sensors.BaseClasses.PartialFlowSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
+      Modelica_Blocks_Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                               final unit="J/(kg.K)")
         "Specific entropy of the passing fluid"
         annotation (Placement(transformation(
@@ -12456,7 +12452,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
       extends Modelica_Icons.RotationalSensor;
       parameter String substanceName = "water" "Name of mass fraction";
 
-      Modelica_Blocks.Interfaces.RealOutput Xi "Mass fraction in port medium"
+      Modelica_Blocks_Interfaces.RealOutput Xi "Mass fraction in port medium"
         annotation (Placement(transformation(extent={{100,-10},{120,10}},
               rotation=0)));
 
@@ -12506,7 +12502,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
     model MassFractionsTwoPort "Ideal two port sensor for mass fraction"
       extends Modelica_Fluid.Sensors.BaseClasses.PartialFlowSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput Xi "Mass fraction in port medium"
+      Modelica_Blocks_Interfaces.RealOutput Xi "Mass fraction in port medium"
         annotation (Placement(transformation(extent={{-10,-10},{10,10}},
               rotation=90,
             origin={0,110}), iconTransformation(
@@ -12564,7 +12560,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
       extends Modelica_Icons.RotationalSensor;
       parameter String substanceName = "CO2" "Name of trace substance";
 
-      Modelica_Blocks.Interfaces.RealOutput C "Trace substance in port medium"
+      Modelica_Blocks_Interfaces.RealOutput C "Trace substance in port medium"
         annotation (Placement(transformation(extent={{100,-10},{120,10}},
               rotation=0)));
 
@@ -12611,7 +12607,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
     model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
       extends Sensors.BaseClasses.PartialFlowSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput C
+      Modelica_Blocks_Interfaces.RealOutput C
         "Trace substance of the passing fluid"
         annotation (Placement(transformation(
             origin={0,110},
@@ -12663,7 +12659,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
     model MassFlowRate "Ideal sensor for mass flow rate"
       extends Sensors.BaseClasses.PartialFlowSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput m_flow(quantity="MassFlowRate",
+      Modelica_Blocks_Interfaces.RealOutput m_flow(quantity="MassFlowRate",
                                                    final unit="kg/s")
         "Mass flow rate from port_a to port_b" annotation (Placement(
             transformation(
@@ -12694,7 +12690,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
     model VolumeFlowRate "Ideal sensor for volume flow rate"
       extends Sensors.BaseClasses.PartialFlowSensor;
       extends Modelica_Icons.RotationalSensor;
-      Modelica_Blocks.Interfaces.RealOutput V_flow(final quantity="VolumeFlowRate",
+      Modelica_Blocks_Interfaces.RealOutput V_flow(final quantity="VolumeFlowRate",
                                                    final unit="m3/s")
         "Volume flow rate from port_a to port_b"
         annotation (Placement(transformation(
@@ -12743,7 +12739,7 @@ The sensor is ideal, i.e., it does not influence the fluid.
     model RelativePressure "Ideal relative pressure sensor"
       extends Sensors.BaseClasses.PartialRelativeSensor;
 
-      Modelica_Blocks.Interfaces.RealOutput p_rel(final quantity="Pressure",
+      Modelica_Blocks_Interfaces.RealOutput p_rel(final quantity="Pressure",
                                                   final unit="Pa",
                                                   displayUnit="bar")
         "Relative pressure signal" annotation (Placement(transformation(
@@ -12774,7 +12770,7 @@ through the sensor is allowed.
     model RelativeTemperature "Ideal relative temperature sensor"
       extends Sensors.BaseClasses.PartialRelativeSensor;
 
-      Modelica_Blocks.Interfaces.RealOutput T_rel(final quantity="ThermodynamicTemperature",
+      Modelica_Blocks_Interfaces.RealOutput T_rel(final quantity="ThermodynamicTemperature",
                                                   final unit = "K", displayUnit = "degC", min=0)
         "Relative temperature signal"                                                                               annotation (Placement(
             transformation(
@@ -12809,11 +12805,11 @@ through the sensor is allowed.
       partial model PartialAbsoluteSensor
         "Partial component to model a sensor that measures a potential variable"
 
-        replaceable package Medium=Modelica_Media.Interfaces.PartialMedium
+        replaceable package Medium=Modelica_Media_Interfaces.PartialMedium
           "Medium in the sensor"
           annotation(choicesAllMatching=true);
 
-        Modelica_Fluid.Interfaces.FluidPort_a port(redeclare package Medium =
+        Modelica_Fluid_Interfaces.FluidPort_a port(redeclare package Medium =
               Medium, m_flow(min=0)) annotation (Placement(transformation(
               origin={0,-100},
               extent={{-10,-10},{10,10}},
@@ -12837,13 +12833,13 @@ as signal.
         "Partial component to model a sensor that measures the difference between two potential variables"
         extends Modelica_Icons.TranslationalSensor;
         replaceable package Medium =
-          Modelica_Media.Interfaces.PartialMedium "Medium in the sensor"  annotation (
+          Modelica_Media_Interfaces.PartialMedium "Medium in the sensor"  annotation (
             choicesAllMatching = true);
 
-        Modelica_Fluid.Interfaces.FluidPort_a port_a(m_flow(min=0), redeclare
+        Modelica_Fluid_Interfaces.FluidPort_a port_a(m_flow(min=0), redeclare
             package Medium = Medium) annotation (Placement(transformation(
                 extent={{-110,-10},{-90,10}}, rotation=0)));
-        Modelica_Fluid.Interfaces.FluidPort_b port_b(m_flow(min=0), redeclare
+        Modelica_Fluid_Interfaces.FluidPort_b port_b(m_flow(min=0), redeclare
             package Medium = Medium) annotation (Placement(transformation(
                 extent={{110,-12},{90,8}}, rotation=0), iconTransformation(
                 extent={{110,-10},{90,10}})));
@@ -12891,7 +12887,7 @@ through the sensor is allowed.
 
       partial model PartialFlowSensor
         "Partial component to model sensors that measure flow properties"
-        extends Modelica_Fluid.Interfaces.PartialTwoPort;
+        extends Modelica_Fluid_Interfaces.PartialTwoPort;
 
         parameter Medium.MassFlowRate m_flow_nominal = system.m_flow_nominal
           "Nominal value of m_flow = port_a.m_flow"
@@ -12974,1199 +12970,6 @@ simple example.
 </html>"));
   end Sensors;
 
-  package Interfaces
-    "Interfaces for steady state and unsteady, mixed-phase, multi-substance, incompressible and compressible flow"
-
-    extends Modelica_Icons.InterfacesPackage;
-
-    connector FluidPort
-      "Interface for quasi one-dimensional fluid flow in a piping network (incompressible or compressible, one or more phases, one or more substances)"
-
-      replaceable package Medium = Modelica_Media.Interfaces.PartialMedium
-        "Medium model" annotation (choicesAllMatching=true);
-
-      flow Medium.MassFlowRate m_flow
-        "Mass flow rate from the connection point into the component";
-      Medium.AbsolutePressure p
-        "Thermodynamic pressure in the connection point";
-      stream Medium.SpecificEnthalpy h_outflow
-        "Specific thermodynamic enthalpy close to the connection point if m_flow < 0";
-      stream Medium.MassFraction Xi_outflow[Medium.nXi]
-        "Independent mixture mass fractions m_i/m close to the connection point if m_flow < 0";
-      stream Medium.ExtraProperty C_outflow[Medium.nC]
-        "Properties c_i/m close to the connection point if m_flow < 0";
-    end FluidPort;
-
-    connector FluidPort_a "Generic fluid connector at design inlet"
-      extends FluidPort;
-      annotation (defaultComponentName="port_a",
-                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics={Ellipse(
-              extent={{-40,40},{40,-40}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid), Text(extent={{-150,110},{150,50}},
-                textString="%name")}),
-           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-                100,100}}), graphics={Ellipse(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,127,255},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid), Ellipse(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid)}));
-    end FluidPort_a;
-
-    connector FluidPort_b "Generic fluid connector at design outlet"
-      extends FluidPort;
-      annotation (defaultComponentName="port_b",
-                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics={
-            Ellipse(
-              extent={{-40,40},{40,-40}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-30,30},{30,-30}},
-              lineColor={0,127,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Text(extent={{-150,110},{150,50}}, textString="%name")}),
-           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-                100,100}}), graphics={
-            Ellipse(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,127,255},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-80,80},{80,-80}},
-              lineColor={0,127,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}));
-    end FluidPort_b;
-
-    connector FluidPorts_a
-      "Fluid connector with filled, large icon to be used for vectors of FluidPorts (vector dimensions must be added after dragging)"
-      extends FluidPort;
-      annotation (defaultComponentName="ports_a",
-                  Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-50,-200},{50,200}},
-            initialScale=0.2), graphics={
-            Text(extent={{-75,130},{75,100}}, textString="%name"),
-            Rectangle(
-              extent={{25,-100},{-25,100}},
-              lineColor={0,127,255}),
-            Ellipse(
-              extent={{-25,90},{25,40}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-25,25},{25,-25}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-25,-40},{25,-90}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid)}),
-           Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-50,-200},{50,200}},
-            initialScale=0.2), graphics={
-            Rectangle(
-              extent={{50,-200},{-50,200}},
-              lineColor={0,127,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-50,180},{50,80}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-50,50},{50,-50}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-50,-80},{50,-180}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid)}));
-    end FluidPorts_a;
-
-    connector FluidPorts_b
-      "Fluid connector with outlined, large icon to be used for vectors of FluidPorts (vector dimensions must be added after dragging)"
-      extends FluidPort;
-      annotation (defaultComponentName="ports_b",
-                  Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-50,-200},{50,200}},
-            initialScale=0.2), graphics={
-            Text(extent={{-75,130},{75,100}}, textString="%name"),
-            Rectangle(
-              extent={{-25,100},{25,-100}},
-              lineColor={0,0,0}),
-            Ellipse(
-              extent={{-25,90},{25,40}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-25,25},{25,-25}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-25,-40},{25,-90}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-15,-50},{15,-80}},
-              lineColor={0,127,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-15,15},{15,-15}},
-              lineColor={0,127,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-15,50},{15,80}},
-              lineColor={0,127,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}),
-           Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-50,-200},{50,200}},
-            initialScale=0.2), graphics={
-            Rectangle(
-              extent={{-50,200},{50,-200}},
-              lineColor={0,127,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-50,180},{50,80}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-50,50},{50,-50}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-50,-80},{50,-180}},
-              lineColor={0,0,0},
-              fillColor={0,127,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-30,30},{30,-30}},
-              lineColor={0,127,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-30,100},{30,160}},
-              lineColor={0,127,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Ellipse(
-              extent={{-30,-100},{30,-160}},
-              lineColor={0,127,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}));
-    end FluidPorts_b;
-
-    partial model PartialTwoPort "Partial component with two ports"
-      import Constants = Modelica_Constants;
-      outer Modelica_Fluid.System system "System wide properties";
-
-      replaceable package Medium =
-          Modelica_Media.Interfaces.PartialMedium "Medium in the component"
-          annotation (choicesAllMatching = true);
-
-      parameter Boolean allowFlowReversal = system.allowFlowReversal
-        "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-        annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-      Modelica_Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-            Medium, m_flow(min=if allowFlowReversal then -Constants.inf else 0))
-        "Fluid connector a (positive design flow direction is from port_a to port_b)"
-        annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-              rotation=0)));
-      Modelica_Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-            Medium, m_flow(max=if allowFlowReversal then +Constants.inf else 0))
-        "Fluid connector b (positive design flow direction is from port_a to port_b)"
-        annotation (Placement(transformation(extent={{110,-10},{90,10}},
-              rotation=0), iconTransformation(extent={{110,-10},{90,10}})));
-      // Model structure, e.g., used for visualization
-    protected
-      parameter Boolean port_a_exposesState = false
-        "= true if port_a exposes the state of a fluid volume";
-      parameter Boolean port_b_exposesState = false
-        "= true if port_b.p exposes the state of a fluid volume";
-      parameter Boolean showDesignFlowDirection = true
-        "= false to hide the arrow in the model icon";
-
-      annotation (
-        Documentation(info="<html>
-<p>
-This partial model defines an interface for components with two ports.
-The treatment of the design flow direction and of flow reversal are predefined based on the parameter <code><b>allowFlowReversal</b></code>.
-The component may transport fluid and may have internal storage for a given fluid <code><b>Medium</b></code>.
-</p>
-<p>
-An extending model providing direct access to internal storage of mass or energy through port_a or port_b
-should redefine the protected parameters <code><b>port_a_exposesState</b></code> and <code><b>port_b_exposesState</b></code> appropriately.
-This will be visualized at the port icons, in order to improve the understanding of fluid model diagrams.
-</p>
-</html>"),
-        Icon(coordinateSystem(
-              preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}}), graphics={
-            Polygon(
-              points={{20,-70},{60,-85},{20,-100},{20,-70}},
-              lineColor={0,128,255},
-              smooth=Smooth.None,
-              fillColor={0,128,255},
-              fillPattern=FillPattern.Solid,
-              visible=showDesignFlowDirection),
-            Polygon(
-              points={{20,-75},{50,-85},{20,-95},{20,-75}},
-              lineColor={255,255,255},
-              smooth=Smooth.None,
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid,
-              visible=allowFlowReversal),
-            Line(
-              points={{55,-85},{-60,-85}},
-              color={0,128,255},
-              smooth=Smooth.None,
-              visible=showDesignFlowDirection),
-            Text(
-              extent={{-149,-114},{151,-154}},
-              lineColor={0,0,255},
-              textString="%name"),
-            Ellipse(
-              extent={{-110,26},{-90,-24}},
-              lineColor={0,0,0},
-              fillColor={0,0,0},
-              fillPattern=FillPattern.Solid,
-              visible=port_a_exposesState),
-            Ellipse(
-              extent={{90,25},{110,-25}},
-              lineColor={0,0,0},
-              fillColor={0,0,0},
-              fillPattern=FillPattern.Solid,
-              visible=port_b_exposesState)}));
-    end PartialTwoPort;
-
-  partial model PartialTwoPortTransport
-      "Partial element transporting fluid between two ports without storage of mass or energy"
-
-    extends PartialTwoPort(
-      final port_a_exposesState=false,
-      final port_b_exposesState=false);
-
-    // Advanced
-    // Note: value of dp_start shall be refined by derived model, basing on local dp_nominal
-    parameter Medium.AbsolutePressure dp_start = 0.01*system.p_start
-        "Guess value of dp = port_a.p - port_b.p"
-      annotation(Dialog(tab = "Advanced", enable=from_dp));
-    parameter Medium.MassFlowRate m_flow_start = system.m_flow_start
-        "Guess value of m_flow = port_a.m_flow"
-      annotation(Dialog(tab = "Advanced", enable=not from_dp));
-    // Note: value of m_flow_small shall be refined by derived model, basing on local m_flow_nominal
-    parameter Medium.MassFlowRate m_flow_small = if system.use_eps_Re then system.eps_m_flow*system.m_flow_nominal else system.m_flow_small
-        "Small mass flow rate for regularization of zero flow"
-      annotation(Dialog(tab = "Advanced"));
-
-    // Diagnostics
-    parameter Boolean show_T = true
-        "= true, if temperatures at port_a and port_b are computed"
-      annotation(Dialog(tab="Advanced",group="Diagnostics"));
-    parameter Boolean show_V_flow = true
-        "= true, if volume flow rate at inflowing port is computed"
-      annotation(Dialog(tab="Advanced",group="Diagnostics"));
-
-    // Variables
-    Medium.MassFlowRate m_flow(
-       min=if allowFlowReversal then -Modelica_Constants.inf else 0,
-       start = m_flow_start) "Mass flow rate in design flow direction";
-    Modelica_SIunits.Pressure dp(start=dp_start)
-        "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-
-    Modelica_SIunits.VolumeFlowRate V_flow=
-        m_flow/Utilities.regStep(               m_flow,
-                    Medium.density(state_a),
-                    Medium.density(state_b),
-                    m_flow_small) if show_V_flow
-        "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
-
-    Medium.Temperature port_a_T=
-        Utilities.regStep(               port_a.m_flow,
-                    Medium.temperature(state_a),
-                    Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow)),
-                    m_flow_small) if show_T
-        "Temperature close to port_a, if show_T = true";
-    Medium.Temperature port_b_T=
-        Utilities.regStep(               port_b.m_flow,
-                    Medium.temperature(state_b),
-                    Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow)),
-                    m_flow_small) if show_T
-        "Temperature close to port_b, if show_T = true";
-    protected
-    Medium.ThermodynamicState state_a
-        "state for medium inflowing through port_a";
-    Medium.ThermodynamicState state_b
-        "state for medium inflowing through port_b";
-  equation
-    // medium states
-    state_a = Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow));
-    state_b = Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), inStream(port_b.Xi_outflow));
-
-    // Pressure drop in design flow direction
-    dp = port_a.p - port_b.p;
-
-    // Design direction of mass flow rate
-    m_flow = port_a.m_flow;
-    assert(m_flow > -m_flow_small or allowFlowReversal, "Reverting flow occurs even though allowFlowReversal is false");
-
-    // Mass balance (no storage)
-    port_a.m_flow + port_b.m_flow = 0;
-
-    // Transport of substances
-    port_a.Xi_outflow = inStream(port_b.Xi_outflow);
-    port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-
-    port_a.C_outflow = inStream(port_b.C_outflow);
-    port_b.C_outflow = inStream(port_a.C_outflow);
-
-    annotation (
-      Documentation(info="<html>
-<p>
-This component transports fluid between its two ports, without storing mass or energy.
-Energy may be exchanged with the environment though, e.g., in the form of work.
-<code>PartialTwoPortTransport</code> is intended as base class for devices like orifices, valves and simple fluid machines.</p>
-<p>
-Three equations need to be added by an extending class using this component:
-</p>
-<ul>
-<li>the momentum balance specifying the relationship between the pressure drop <code>dp</code> and the mass flow rate <code>m_flow</code>,</li>
-<li><code>port_b.h_outflow</code> for flow in design direction, and</li>
-<li><code>port_a.h_outflow</code> for flow in reverse direction.</li>
-</ul>
-<p>
-Moreover appropriate values shall be assigned to the following parameters:
-</p>
-<ul>
-<li><code>dp_start</code> for a guess of the pressure drop</li>
-<li><code>m_flow_small</code> for regularization of zero flow.</li>
-</ul>
-</html>"));
-  end PartialTwoPortTransport;
-
-    connector HeatPorts_a
-      "HeatPort connector with filled, large icon to be used for vectors of HeatPorts (vector dimensions must be added after dragging)"
-      extends Modelica_Thermal_HeatTransfer.Interfaces.HeatPort;
-      annotation (defaultComponentName="heatPorts_a",
-           Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-200,-50},{200,50}},
-            initialScale=0.2), graphics={
-            Rectangle(
-              extent={{-201,50},{200,-50}},
-              lineColor={127,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Rectangle(
-              extent={{-171,45},{-83,-45}},
-              lineColor={127,0,0},
-              fillColor={127,0,0},
-              fillPattern=FillPattern.Solid),
-            Rectangle(
-              extent={{-45,45},{43,-45}},
-              lineColor={127,0,0},
-              fillColor={127,0,0},
-              fillPattern=FillPattern.Solid),
-            Rectangle(
-              extent={{82,45},{170,-45}},
-              lineColor={127,0,0},
-              fillColor={127,0,0},
-              fillPattern=FillPattern.Solid)}));
-    end HeatPorts_a;
-
-    connector HeatPorts_b
-      "HeatPort connector with filled, large icon to be used for vectors of HeatPorts (vector dimensions must be added after dragging)"
-      extends Modelica_Thermal_HeatTransfer.Interfaces.HeatPort;
-      annotation (defaultComponentName="heatPorts_b",
-           Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-200,-50},{200,50}},
-            initialScale=0.2), graphics={
-            Rectangle(
-              extent={{-200,50},{200,-51}},
-              lineColor={127,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Rectangle(
-              extent={{-170,44},{-82,-46}},
-              lineColor={127,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Rectangle(
-              extent={{-44,46},{44,-44}},
-              lineColor={127,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Rectangle(
-              extent={{82,45},{170,-45}},
-              lineColor={127,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}));
-    end HeatPorts_b;
-
-    partial model PartialHeatTransfer
-      "Common interface for heat transfer models"
-
-      // Parameters
-      replaceable package Medium=Modelica_Media.Interfaces.PartialMedium
-        "Medium in the component"
-        annotation(Dialog(tab="Internal Interface",enable=false));
-
-      parameter Integer n=1 "Number of heat transfer segments"
-        annotation(Dialog(tab="Internal Interface",enable=false), Evaluate=true);
-
-      // Inputs provided to heat transfer model
-      input Medium.ThermodynamicState[n] states
-        "Thermodynamic states of flow segments";
-
-      input Modelica_SIunits.Area[n] surfaceAreas "Heat transfer areas";
-
-      // Outputs defined by heat transfer model
-      output Modelica_SIunits.HeatFlowRate[n] Q_flows "Heat flow rates";
-
-      // Parameters
-      parameter Boolean use_k = false
-        "= true to use k value for thermal isolation"
-        annotation(Dialog(tab="Internal Interface",enable=false));
-      parameter Modelica_SIunits.CoefficientOfHeatTransfer k=0
-        "Heat transfer coefficient to ambient"
-        annotation (Dialog(group="Ambient"), Evaluate=true);
-      parameter Modelica_SIunits.Temperature T_ambient=system.T_ambient
-        "Ambient temperature" annotation (Dialog(group="Ambient"));
-      outer Modelica_Fluid.System system "System wide properties";
-
-      // Heat ports
-      Modelica_Fluid.Interfaces.HeatPorts_a[n] heatPorts
-        "Heat port to component boundary" annotation (Placement(transformation(
-              extent={{-10,60},{10,80}}, rotation=0), iconTransformation(extent=
-               {{-20,60},{20,80}})));
-
-      // Variables
-      Modelica_SIunits.Temperature[n] Ts=Medium.temperature(states)
-        "Temperatures defined by fluid states";
-
-    equation
-      if use_k then
-        Q_flows = heatPorts.Q_flow + {k*surfaceAreas[i]*(T_ambient - heatPorts[i].T) for i in 1:n};
-      else
-        Q_flows = heatPorts.Q_flow;
-      end if;
-
-      annotation (Documentation(info="<html>
-<p>
-This component is a common interface for heat transfer models. The heat flow rates <code>Q_flows[n]</code> through the boundaries of n flow segments
-are obtained as function of the thermodynamic <code>states</code> of the flow segments for a given fluid <code>Medium</code>,
-the <code>surfaceAreas[n]</code> and the boundary temperatures <code>heatPorts[n].T</code>.
-</p>
-<p>
-The heat loss coefficient <code>k</code> can be used to model a thermal isolation between <code>heatPorts.T</code> and <code>T_ambient</code>.</p>
-<p>
-An extending model implementing this interface needs to define one equation: the relation between the predefined fluid temperatures <code>Ts[n]</code>,
-the boundary temperatures <code>heatPorts[n].T</code>, and the heat flow rates <code>Q_flows[n]</code>.
-</p>
-</html>"));
-    end PartialHeatTransfer;
-
-      partial model PartialLumpedVolume
-      "Lumped volume with mass and energy balance"
-      import Modelica_Fluid.Types;
-      import Modelica_Fluid.Types.Dynamics;
-      import Modelica_Media.Interfaces.Choices.IndependentVariables;
-
-        outer Modelica_Fluid.System system "System properties";
-        replaceable package Medium =
-          Modelica_Media.Interfaces.PartialMedium "Medium in the component"
-            annotation (choicesAllMatching = true);
-
-        // Inputs provided to the volume model
-      input Modelica_SIunits.Volume fluidVolume "Volume";
-
-        // Assumptions
-        parameter Types.Dynamics energyDynamics=system.energyDynamics
-        "Formulation of energy balance"
-          annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-        parameter Types.Dynamics massDynamics=system.massDynamics
-        "Formulation of mass balance"
-          annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-        final parameter Types.Dynamics substanceDynamics=massDynamics
-        "Formulation of substance balance"
-          annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-        final parameter Types.Dynamics traceDynamics=massDynamics
-        "Formulation of trace substance balance"
-          annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-
-        // Initialization
-        parameter Medium.AbsolutePressure p_start = system.p_start
-        "Start value of pressure"
-          annotation(Dialog(tab = "Initialization"));
-        parameter Boolean use_T_start = true
-        "= true, use T_start, otherwise h_start"
-          annotation(Dialog(tab = "Initialization"), Evaluate=true);
-        parameter Medium.Temperature T_start=
-          if use_T_start then system.T_start else Medium.temperature_phX(p_start,h_start,X_start)
-        "Start value of temperature"
-          annotation(Dialog(tab = "Initialization", enable = use_T_start));
-        parameter Medium.SpecificEnthalpy h_start=
-          if use_T_start then Medium.specificEnthalpy_pTX(p_start, T_start, X_start) else Medium.h_default
-        "Start value of specific enthalpy"
-          annotation(Dialog(tab = "Initialization", enable = not use_T_start));
-        parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
-        "Start value of mass fractions m_i/m"
-          annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
-        parameter Medium.ExtraProperty C_start[Medium.nC](
-             quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
-        "Start value of trace substances"
-          annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
-
-        Medium.BaseProperties medium(
-          preferredMediumStates=true,
-          p(start=p_start),
-          h(start=h_start),
-          T(start=T_start),
-          Xi(start=X_start[1:Medium.nXi]));
-      Modelica_SIunits.Energy U "Internal energy of fluid";
-      Modelica_SIunits.Mass m "Mass of fluid";
-      Modelica_SIunits.Mass[Medium.nXi] mXi
-        "Masses of independent components in the fluid";
-      Modelica_SIunits.Mass[Medium.nC] mC
-        "Masses of trace substances in the fluid";
-        // C need to be added here because unlike for Xi, which has medium.Xi,
-        // there is no variable medium.C
-        Medium.ExtraProperty C[Medium.nC] "Trace substance mixture content";
-
-        // variables that need to be defined by an extending class
-      Modelica_SIunits.MassFlowRate mb_flow "Mass flows across boundaries";
-      Modelica_SIunits.MassFlowRate[Medium.nXi] mbXi_flow
-        "Substance mass flows across boundaries";
-        Medium.ExtraPropertyFlowRate[Medium.nC] mbC_flow
-        "Trace substance mass flows across boundaries";
-      Modelica_SIunits.EnthalpyFlowRate Hb_flow
-        "Enthalpy flow across boundaries or energy source/sink";
-      Modelica_SIunits.HeatFlowRate Qb_flow
-        "Heat flow across boundaries or energy source/sink";
-      Modelica_SIunits.Power Wb_flow
-        "Work flow across boundaries or source term";
-    protected
-        parameter Boolean initialize_p = not Medium.singleState
-        "= true to set up initial equations for pressure";
-        Real[Medium.nC] mC_scaled(min=fill(Modelica_Constants.eps, Medium.nC))
-        "Scaled masses of trace substances in the fluid";
-      equation
-        assert(not (energyDynamics<>Dynamics.SteadyState and massDynamics==Dynamics.SteadyState) or Medium.singleState,
-               "Bad combination of dynamics options and Medium not conserving mass if fluidVolume is fixed.");
-
-        // Total quantities
-        m = fluidVolume*medium.d;
-        mXi = m*medium.Xi;
-        U = m*medium.u;
-        mC = m*C;
-
-        // Energy and mass balances
-        if energyDynamics == Dynamics.SteadyState then
-          0 = Hb_flow + Qb_flow + Wb_flow;
-        else
-          der(U) = Hb_flow + Qb_flow + Wb_flow;
-        end if;
-
-        if massDynamics == Dynamics.SteadyState then
-          0 = mb_flow;
-        else
-          der(m) = mb_flow;
-        end if;
-
-        if substanceDynamics == Dynamics.SteadyState then
-          zeros(Medium.nXi) = mbXi_flow;
-        else
-          der(mXi) = mbXi_flow;
-        end if;
-
-        if traceDynamics == Dynamics.SteadyState then
-          zeros(Medium.nC)  = mbC_flow;
-        else
-          der(mC_scaled) = mbC_flow./Medium.C_nominal;
-        end if;
-          mC = mC_scaled.*Medium.C_nominal;
-
-      initial equation
-        // initialization of balances
-        if energyDynamics == Dynamics.FixedInitial then
-          /*
-    if use_T_start then
-      medium.T = T_start;
-    else
-      medium.h = h_start;
-    end if;
-    */
-          if Medium.ThermoStates == IndependentVariables.ph or
-             Medium.ThermoStates == IndependentVariables.phX then
-             medium.h = h_start;
-          else
-             medium.T = T_start;
-          end if;
-        elseif energyDynamics == Dynamics.SteadyStateInitial then
-          /*
-    if use_T_start then
-      der(medium.T) = 0;
-    else
-      der(medium.h) = 0;
-    end if;
-    */
-          if Medium.ThermoStates == IndependentVariables.ph or
-             Medium.ThermoStates == IndependentVariables.phX then
-             der(medium.h) = 0;
-          else
-             der(medium.T) = 0;
-          end if;
-        end if;
-
-        if massDynamics == Dynamics.FixedInitial then
-          if initialize_p then
-            medium.p = p_start;
-          end if;
-        elseif massDynamics == Dynamics.SteadyStateInitial then
-          if initialize_p then
-            der(medium.p) = 0;
-          end if;
-        end if;
-
-        if substanceDynamics == Dynamics.FixedInitial then
-          medium.Xi = X_start[1:Medium.nXi];
-        elseif substanceDynamics == Dynamics.SteadyStateInitial then
-          der(medium.Xi) = zeros(Medium.nXi);
-        end if;
-
-        if traceDynamics == Dynamics.FixedInitial then
-          mC_scaled = m*C_start[1:Medium.nC]./Medium.C_nominal;
-        elseif traceDynamics == Dynamics.SteadyStateInitial then
-          der(mC_scaled) = zeros(Medium.nC);
-        end if;
-
-        annotation (
-          Documentation(info="<html>
-<p>
-Interface and base class for an ideally mixed fluid volume with the ability to store mass and energy.
-The following boundary flow and source terms are part of the energy balance and must be specified in an extending class:
-</p>
-<ul>
-<li><code><b>Qb_flow</b></code>, e.g., convective or latent heat flow rate across segment boundary, and</li>
-<li><code><b>Wb_flow</b></code>, work term, e.g., p*der(fluidVolume) if the volume is not constant.</li>
-</ul>
-<p>
-The component volume <code><b>fluidVolume</b></code> is an input that needs to be set in the extending class to complete the model.
-</p>
-<p>
-Further source terms must be defined by an extending class for fluid flow across the segment boundary:
-</p>
-<ul>
-<li><code><b>Hb_flow</b></code>, enthalpy flow,</li>
-<li><code><b>mb_flow</b></code>, mass flow,</li>
-<li><code><b>mbXi_flow</b></code>, substance mass flow, and</li>
-<li><code><b>mbC_flow</b></code>, trace substance mass flow.</li>
-</ul>
-</html>"));
-      end PartialLumpedVolume;
-
-        partial model PartialLumpedFlow
-      "Base class for a lumped momentum balance"
-
-          outer Modelica_Fluid.System system "System properties";
-
-          replaceable package Medium =
-            Modelica_Media.Interfaces.PartialMedium "Medium in the component";
-
-          parameter Boolean allowFlowReversal = system.allowFlowReversal
-        "= true to allow flow reversal, false restricts to design direction (m_flow >= 0)"
-            annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-          // Inputs provided to the flow model
-      input Modelica_SIunits.Length pathLength "Length flow path";
-
-          // Variables defined by the flow model
-          Medium.MassFlowRate m_flow(
-             min=if allowFlowReversal then -Modelica_Constants.inf else 0,
-             start = m_flow_start,
-             stateSelect = if momentumDynamics == Types.Dynamics.SteadyState then StateSelect.default else
-                                       StateSelect.prefer)
-        "mass flow rates between states";
-
-          // Parameters
-          parameter Modelica_Fluid.Types.Dynamics momentumDynamics=system.momentumDynamics
-        "Formulation of momentum balance"
-        annotation (Dialog(tab="Assumptions", group="Dynamics"), Evaluate=true);
-
-          parameter Medium.MassFlowRate m_flow_start=system.m_flow_start
-        "Start value of mass flow rates"
-            annotation(Dialog(tab="Initialization"));
-
-          // Total quantities
-      Modelica_SIunits.Momentum I "Momenta of flow segments";
-
-          // Source terms and forces to be defined by an extending model (zero if not used)
-      Modelica_SIunits.Force Ib_flow "Flow of momentum across boundaries";
-      Modelica_SIunits.Force F_p "Pressure force";
-      Modelica_SIunits.Force F_fg "Friction and gravity force";
-
-        equation
-          // Total quantities
-          I = m_flow*pathLength;
-
-          // Momentum balances
-          if momentumDynamics == Types.Dynamics.SteadyState then
-            0 = Ib_flow - F_p - F_fg;
-          else
-            der(I) = Ib_flow - F_p - F_fg;
-          end if;
-
-        initial equation
-          if momentumDynamics == Types.Dynamics.FixedInitial then
-            m_flow = m_flow_start;
-          elseif momentumDynamics == Types.Dynamics.SteadyStateInitial then
-            der(m_flow) = 0;
-          end if;
-
-          annotation (
-             Documentation(info="<html>
-<p>
-Interface and base class for a momentum balance, defining the mass flow rate <code><b>m_flow</b></code>
-of a given <code>Medium</code> in a flow model.
-</p>
-<p>
-The following boundary flow and force terms are part of the momentum balance and must be specified in an extending model (to zero if not considered):
-</p>
-<ul>
-<li><code><b>Ib_flow</b></code>, the flow of momentum across model boundaries,</li>
-<li><code><b>F_p[m]</b></code>, pressure force, and</li>
-<li><code><b>F_fg[m]</b></code>, friction and gravity forces.</li>
-</ul>
-<p>
-The length of the flow path <code><b>pathLength</b></code> is an input that needs to be set in an extending class to complete the model.
-</p>
-</html>"));
-        end PartialLumpedFlow;
-
-  partial model PartialDistributedVolume
-      "Base class for distributed volume models"
-      import Modelica_Fluid.Types;
-      import Modelica_Fluid.Types.Dynamics;
-      import Modelica_Media.Interfaces.Choices.IndependentVariables;
-    outer Modelica_Fluid.System system "System properties";
-
-    replaceable package Medium =
-      Modelica_Media.Interfaces.PartialMedium "Medium in the component"
-        annotation (choicesAllMatching = true);
-
-    // Discretization
-    parameter Integer n=2 "Number of discrete volumes";
-
-    // Inputs provided to the volume model
-      input Modelica_SIunits.Volume[n] fluidVolumes
-        "Discretized volume, determine in inheriting class";
-
-    // Assumptions
-    parameter Types.Dynamics energyDynamics=system.energyDynamics
-        "Formulation of energy balances"
-      annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-    parameter Types.Dynamics massDynamics=system.massDynamics
-        "Formulation of mass balances"
-      annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-    final parameter Types.Dynamics substanceDynamics=massDynamics
-        "Formulation of substance balances"
-      annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-    final parameter Types.Dynamics traceDynamics=massDynamics
-        "Formulation of trace substance balances"
-      annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-
-    //Initialization
-    parameter Medium.AbsolutePressure p_a_start=system.p_start
-        "Start value of pressure at port a"
-      annotation(Dialog(tab = "Initialization"));
-    parameter Medium.AbsolutePressure p_b_start=p_a_start
-        "Start value of pressure at port b"
-      annotation(Dialog(tab = "Initialization"));
-    final parameter Medium.AbsolutePressure[n] ps_start=if n > 1 then linspace(
-          p_a_start, p_b_start, n) else {(p_a_start + p_b_start)/2}
-        "Start value of pressure";
-
-    parameter Boolean use_T_start=true "Use T_start if true, otherwise h_start"
-       annotation(Evaluate=true, Dialog(tab = "Initialization"));
-
-    parameter Medium.Temperature T_start=if use_T_start then system.T_start else
-                Medium.temperature_phX(
-          (p_a_start + p_b_start)/2,
-          h_start,
-          X_start) "Start value of temperature"
-      annotation(Evaluate=true, Dialog(tab = "Initialization", enable = use_T_start));
-    parameter Medium.SpecificEnthalpy h_start=if use_T_start then
-          Medium.specificEnthalpy_pTX(
-          (p_a_start + p_b_start)/2,
-          T_start,
-          X_start) else Medium.h_default "Start value of specific enthalpy"
-      annotation(Evaluate=true, Dialog(tab = "Initialization", enable = not use_T_start));
-    parameter Medium.MassFraction X_start[Medium.nX]=Medium.X_default
-        "Start value of mass fractions m_i/m"
-      annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
-    parameter Medium.ExtraProperty C_start[Medium.nC](
-         quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
-        "Start value of trace substances"
-      annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
-
-    // Total quantities
-      Modelica_SIunits.Energy[n] Us "Internal energy of fluid";
-      Modelica_SIunits.Mass[n] ms "Fluid mass";
-      Modelica_SIunits.Mass[n,Medium.nXi] mXis "Substance mass";
-      Modelica_SIunits.Mass[n,Medium.nC] mCs "Trace substance mass";
-    // C need to be added here because unlike for Xi, which has medium[:].Xi,
-    // there is no variable medium[:].C
-      Modelica_SIunits.Mass[n,Medium.nC] mCs_scaled
-        "Scaled trace substance mass";
-    Medium.ExtraProperty Cs[n, Medium.nC] "Trace substance mixture content";
-
-    Medium.BaseProperties[n] mediums(
-      each preferredMediumStates=true,
-      p(start=ps_start),
-      each h(start=h_start),
-      each T(start=T_start),
-      each Xi(start=X_start[1:Medium.nXi]));
-
-    //Source terms, have to be defined by an extending model (to zero if not used)
-    Medium.MassFlowRate[n] mb_flows "Mass flow rate, source or sink";
-    Medium.MassFlowRate[n,Medium.nXi] mbXi_flows
-        "Independent mass flow rates, source or sink";
-    Medium.ExtraPropertyFlowRate[n,Medium.nC] mbC_flows
-        "Trace substance mass flow rates, source or sink";
-      Modelica_SIunits.EnthalpyFlowRate[n] Hb_flows
-        "Enthalpy flow rate, source or sink";
-      Modelica_SIunits.HeatFlowRate[n] Qb_flows
-        "Heat flow rate, source or sink";
-      Modelica_SIunits.Power[n] Wb_flows "Mechanical power, p*der(V) etc.";
-
-    protected
-    parameter Boolean initialize_p = not Medium.singleState
-        "= true to set up initial equations for pressure";
-
-  equation
-    assert(not (energyDynamics<>Dynamics.SteadyState and massDynamics==Dynamics.SteadyState) or Medium.singleState,
-           "Bad combination of dynamics options and Medium not conserving mass if fluidVolumes are fixed.");
-
-    // Total quantities
-    for i in 1:n loop
-      ms[i] =fluidVolumes[i]*mediums[i].d;
-      mXis[i, :] = ms[i]*mediums[i].Xi;
-      mCs[i, :]  = ms[i]*Cs[i, :];
-      Us[i] = ms[i]*mediums[i].u;
-    end for;
-
-    // Energy and mass balances
-    if energyDynamics == Dynamics.SteadyState then
-      for i in 1:n loop
-        0 = Hb_flows[i] + Wb_flows[i] + Qb_flows[i];
-      end for;
-    else
-      for i in 1:n loop
-        der(Us[i]) = Hb_flows[i] + Wb_flows[i] + Qb_flows[i];
-      end for;
-    end if;
-    if massDynamics == Dynamics.SteadyState then
-      for i in 1:n loop
-        0 = mb_flows[i];
-      end for;
-    else
-      for i in 1:n loop
-        der(ms[i]) = mb_flows[i];
-      end for;
-    end if;
-    if substanceDynamics == Dynamics.SteadyState then
-      for i in 1:n loop
-        zeros(Medium.nXi) = mbXi_flows[i, :];
-      end for;
-    else
-      for i in 1:n loop
-        der(mXis[i, :]) = mbXi_flows[i, :];
-      end for;
-    end if;
-    if traceDynamics == Dynamics.SteadyState then
-      for i in 1:n loop
-        zeros(Medium.nC)  = mbC_flows[i, :];
-      end for;
-    else
-      for i in 1:n loop
-        der(mCs_scaled[i, :])  = mbC_flows[i, :]./Medium.C_nominal;
-        mCs[i, :] = mCs_scaled[i, :].*Medium.C_nominal;
-      end for;
-    end if;
-
-  initial equation
-    // initialization of balances
-    if energyDynamics == Dynamics.FixedInitial then
-      /*
-    if use_T_start then
-      mediums.T = fill(T_start, n);
-    else
-      mediums.h = fill(h_start, n);
-    end if;
-    */
-      if Medium.ThermoStates == IndependentVariables.ph or
-         Medium.ThermoStates == IndependentVariables.phX then
-         mediums.h = fill(h_start, n);
-      else
-         mediums.T = fill(T_start, n);
-      end if;
-
-    elseif energyDynamics == Dynamics.SteadyStateInitial then
-      /*
-    if use_T_start then
-      der(mediums.T) = zeros(n);
-    else
-      der(mediums.h) = zeros(n);
-    end if;
-    */
-      if Medium.ThermoStates == IndependentVariables.ph or
-         Medium.ThermoStates == IndependentVariables.phX then
-         der(mediums.h) = zeros(n);
-      else
-         der(mediums.T) = zeros(n);
-      end if;
-    end if;
-
-    if massDynamics == Dynamics.FixedInitial then
-      if initialize_p then
-        mediums.p = ps_start;
-      end if;
-    elseif massDynamics == Dynamics.SteadyStateInitial then
-      if initialize_p then
-        der(mediums.p) = zeros(n);
-      end if;
-    end if;
-
-    if substanceDynamics == Dynamics.FixedInitial then
-      mediums.Xi = fill(X_start[1:Medium.nXi], n);
-    elseif substanceDynamics == Dynamics.SteadyStateInitial then
-      for i in 1:n loop
-        der(mediums[i].Xi) = zeros(Medium.nXi);
-      end for;
-    end if;
-
-    if traceDynamics == Dynamics.FixedInitial then
-      Cs = fill(C_start[1:Medium.nC], n);
-    elseif traceDynamics == Dynamics.SteadyStateInitial then
-      for i in 1:n loop
-        der(mCs[i,:])      = zeros(Medium.nC);
-      end for;
-    end if;
-
-     annotation (      Documentation(info="<html>
-<p>
-Interface and base class for <code><b>n</b></code> ideally mixed fluid volumes with the ability to store mass and energy.
-It is intended to model a one-dimensional spatial discretization of fluid flow according to the finite volume method.
-The following boundary flow and source terms are part of the energy balance and must be specified in an extending class:
-</p>
-<ul>
-<li><code><b>Qb_flows[n]</b></code>, heat flow term, e.g., conductive heat flows across segment boundaries, and</li>
-<li><code><b>Wb_flows[n]</b></code>, work term.</li>
-</ul>
-<p>
-The component volumes <code><b>fluidVolumes[n]</b></code> are an input that needs to be set in an extending class to complete the model.
-</p>
-<p>
-Further source terms must be defined by an extending class for fluid flow across the segment boundary:
-</p>
-<ul>
-<li><code><b>Hb_flows[n]</b></code>, enthalpy flow,</li>
-<li><code><b>mb_flows[n]</b></code>, mass flow,</li>
-<li><code><b>mbXi_flows[n]</b></code>, substance mass flow, and</li>
-<li><code><b>mbC_flows[n]</b></code>, trace substance mass flow.</li>
-</ul>
-</html>"));
-  end PartialDistributedVolume;
-
-        partial model PartialDistributedFlow
-      "Base class for a distributed momentum balance"
-
-          outer Modelica_Fluid.System system "System properties";
-
-          replaceable package Medium =
-            Modelica_Media.Interfaces.PartialMedium "Medium in the component";
-
-          parameter Boolean allowFlowReversal = system.allowFlowReversal
-        "= true to allow flow reversal, false restricts to design direction (m_flows >= zeros(m))"
-            annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-          // Discretization
-          parameter Integer m=1 "Number of flow segments";
-
-          // Inputs provided to the flow model
-      input Modelica_SIunits.Length[m] pathLengths "Lengths along flow path";
-
-          // Variables defined by momentum model
-          Medium.MassFlowRate[m] m_flows(
-             each min=if allowFlowReversal then -Modelica_Constants.inf else 0,
-             each start = m_flow_start,
-             each stateSelect = if momentumDynamics == Types.Dynamics.SteadyState then StateSelect.default else
-                                       StateSelect.prefer)
-        "mass flow rates between states";
-
-          // Parameters
-          parameter Modelica_Fluid.Types.Dynamics momentumDynamics=system.momentumDynamics
-        "Formulation of momentum balance"
-        annotation (Dialog(tab="Assumptions", group="Dynamics"), Evaluate=true);
-
-          parameter Medium.MassFlowRate m_flow_start=system.m_flow_start
-        "Start value of mass flow rates"
-            annotation(Dialog(tab="Initialization"));
-
-          // Total quantities
-      Modelica_SIunits.Momentum[m] Is "Momenta of flow segments";
-
-          // Source terms and forces to be defined by an extending model (zero if not used)
-      Modelica_SIunits.Force[m] Ib_flows "Flow of momentum across boundaries";
-      Modelica_SIunits.Force[m] Fs_p "Pressure forces";
-      Modelica_SIunits.Force[m] Fs_fg "Friction and gravity forces";
-
-        equation
-          // Total quantities
-          Is = {m_flows[i]*pathLengths[i] for i in 1:m};
-
-          // Momentum balances
-          if momentumDynamics == Types.Dynamics.SteadyState then
-            zeros(m) = Ib_flows - Fs_p - Fs_fg;
-          else
-            der(Is) = Ib_flows - Fs_p - Fs_fg;
-          end if;
-
-        initial equation
-          if momentumDynamics == Types.Dynamics.FixedInitial then
-            m_flows = fill(m_flow_start, m);
-          elseif momentumDynamics == Types.Dynamics.SteadyStateInitial then
-            der(m_flows) = zeros(m);
-          end if;
-
-          annotation (
-             Documentation(info="<html>
-<p>
-Interface and base class for <code><b>m</b></code> momentum balances, defining the mass flow rates <code><b>m_flows[m]</b></code>
-of a given <code>Medium</code> in <code><b>m</b></code> flow segments.
-</p>
-<p>
-The following boundary flow and force terms are part of the momentum balances and must be specified in an extending model (to zero if not considered):
-</p>
-<ul>
-<li><code><b>Ib_flows[m]</b></code>, the flows of momentum across segment boundaries,</li>
-<li><code><b>Fs_p[m]</b></code>, pressure forces, and</li>
-<li><code><b>Fs_fg[m]</b></code>, friction and gravity forces.</li>
-</ul>
-<p>
-The lengths along the flow path <code><b>pathLengths[m]</b></code> are an input that needs to be set in an extending class to complete the model.
-</p>
-</html>"));
-        end PartialDistributedFlow;
-
-    partial model PartialPressureLoss
-      "Base flow model for pressure loss functions with the same area at port_a and at port_b"
-      extends Modelica_Fluid.Interfaces.PartialTwoPortTransport;
-    protected
-      parameter Medium.ThermodynamicState state_dp_small=Medium.setState_pTX(
-                           Medium.reference_p,
-                           Medium.reference_T,
-                           Medium.reference_X)
-        "Medium state to compute dp_small"                                        annotation(HideResult=true);
-      Medium.Density d_a
-        "Density at port_a when fluid is flowing from port_a to port_b";
-      Medium.Density d_b
-        "If allowFlowReversal=true then Density at port_b when fluid is flowing from port_b to port_a else d_a";
-      Medium.DynamicViscosity eta_a
-        "Dynamic viscosity at port_a when fluid is flowing from port_a to port_b";
-      Medium.DynamicViscosity eta_b
-        "If allowFlowReversal=true then Dynamic viscosity at port_b when fluid is flowing from port_b to port_a else eta_a";
-    equation
-      // Isenthalpic state transformation (no storage and no loss of energy)
-      port_a.h_outflow = inStream(port_b.h_outflow);
-      port_b.h_outflow = inStream(port_a.h_outflow);
-
-      // Medium properties
-      d_a   = Medium.density(state_a);
-      eta_a = Medium.dynamicViscosity(state_a);
-      if allowFlowReversal then
-        d_b   = Medium.density(state_b);
-        eta_b = Medium.dynamicViscosity(state_b);
-      else
-        d_b   = d_a;
-        eta_b = eta_a;
-      end if;
-
-    end PartialPressureLoss;
-
-    annotation (Documentation(info="<html>
-
-</html>",   revisions="<html>
-<ul>
-<li><i>June 9th, 2008</i>
-       by Michael Sielemann: Introduced stream keyword after decision at 57th Design Meeting (Lund).</li>
-<li><i>May 30, 2007</i>
-       by Christoph Richter: moved everything back to its original position in Modelica_Fluid.</li>
-<li><i>Apr. 20, 2007</i>
-       by Christoph Richter: moved parts of the original package from Modelica_Fluid
-       to the development branch of Modelica 2.2.2.</li>
-<li><i>Nov. 2, 2005</i>
-       by Francesco Casella: restructured after 45th Design Meeting.</li>
-<li><i>Nov. 20-21, 2002</i>
-       by Hilding Elmqvist, Mike Tiller, Allan Watson, John Batteh, Chuck Newman,
-       Jonas Eborn: Improved at the 32nd Modelica Design Meeting.
-<li><i>Nov. 11, 2002</i>
-       by Hilding Elmqvist, Martin Otter: improved version.</li>
-<li><i>Nov. 6, 2002</i>
-       by Hilding Elmqvist: first version.</li>
-<li><i>Aug. 11, 2002</i>
-       by Martin Otter: Improved according to discussion with Hilding
-       Elmqvist and Hubertus Tummescheit.<br>
-       The PortVicinity model is manually
-       expanded in the base models.<br>
-       The Volume used for components is renamed
-       PartialComponentVolume.<br>
-       A new volume model \"Fluid.Components.PortVolume\"
-       introduced that has the medium properties of the port to which it is
-       connected.<br>
-       Fluid.Interfaces.PartialTwoPortTransport is a component
-       for elementary two port transport elements, whereas PartialTwoPort
-       is a component for a container component.</li>
-</ul>
-</html>"));
-
-  end Interfaces;
 
   package Types "Common types for fluid models"
     extends Modelica_Icons.TypesPackage;

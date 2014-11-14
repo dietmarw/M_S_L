@@ -342,7 +342,6 @@ This is the library of electric machine models.
 </html>"));
   end UsersGuide;
 
-
   package BasicMachines "Basic machine models"
     extends Modelica_Icons.Package;
     package AsynchronousInductionMachines
@@ -350,7 +349,8 @@ This is the library of electric machine models.
       extends Modelica_Icons.VariantsPackage;
       model AIM_SquirrelCage
         "Asynchronous induction machine with squirrel cage rotor"
-        extends Interfaces.PartialBasicInductionMachine(
+        extends
+          Modelica_Electrical_Machines_Interfaces.PartialBasicInductionMachine(
           final idq_ss=airGapS.i_ss,
           final idq_sr=airGapS.i_sr,
           final idq_rs=airGapS.i_rs,
@@ -358,11 +358,14 @@ This is the library of electric machine models.
           redeclare final
             Thermal.AsynchronousInductionMachines.ThermalAmbientAIMC
             thermalAmbient(final Tr=TrOperational),
-          redeclare final Interfaces.InductionMachines.ThermalPortAIMC
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortAIMC
             thermalPort,
-          redeclare final Interfaces.InductionMachines.ThermalPortAIMC
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortAIMC
             internalThermalPort,
-          redeclare final Interfaces.InductionMachines.PowerBalanceAIMC
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.PowerBalanceAIMC
             powerBalance(final lossPowerRotorWinding=squirrelCageR.LossPower,
               final lossPowerRotorCore=0),
           statorCore(final w=statorCoreParameters.wRef));
@@ -549,7 +552,8 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
       end AIM_SquirrelCage;
 
       model AIM_SlipRing "Asynchronous induction machine with slipring rotor"
-        extends Interfaces.PartialBasicInductionMachine(
+        extends
+          Modelica_Electrical_Machines_Interfaces.PartialBasicInductionMachine(
           final idq_ss=airGapS.i_ss,
           final idq_sr=airGapS.i_sr,
           final idq_rs=airGapS.i_rs,
@@ -557,11 +561,14 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
           redeclare final
             Thermal.AsynchronousInductionMachines.ThermalAmbientAIMS
             thermalAmbient(final Tr=TrOperational, final mr=m),
-          redeclare final Interfaces.InductionMachines.ThermalPortAIMS
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortAIMS
             thermalPort(final mr=m),
-          redeclare final Interfaces.InductionMachines.ThermalPortAIMS
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortAIMS
             internalThermalPort(final mr=m),
-          redeclare final Interfaces.InductionMachines.PowerBalanceAIMS
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.PowerBalanceAIMS
             powerBalance(
             final lossPowerRotorWinding=sum(rr.resistor.LossPower),
             final lossPowerRotorCore=rotorCore.lossPower,
@@ -643,10 +650,10 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
               extent={{10,-10},{-10,10}},
               rotation=90,
               origin={-80,40})));
-        Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_rp(final m=
+        Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_rp(final m=
               m) "Positive rotor plug" annotation (Placement(transformation(
                 extent={{-110,70},{-90,50}}, rotation=0)));
-        Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_rn(final m=
+        Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_rn(final m=
               m) "Negative rotor plug" annotation (Placement(transformation(
                 extent={{-110,-50},{-90,-70}}, rotation=0)));
         Components.Inductor lrsigma(final L=fill(internalTurnsRatio^2*Lrsigma,
@@ -914,7 +921,8 @@ These models use package SpacePhasors.
       "Models of synchronous induction machines"
       extends Modelica_Icons.VariantsPackage;
       model SM_PermanentMagnet "Permanent magnet synchronous induction machine"
-        extends Interfaces.PartialBasicInductionMachine(
+        extends
+          Modelica_Electrical_Machines_Interfaces.PartialBasicInductionMachine(
           Lssigma(start=0.1/(2*pi*fsNominal)),
           final idq_ss=airGapR.i_ss,
           final idq_sr=airGapR.i_sr,
@@ -926,22 +934,25 @@ These models use package SpacePhasors.
             final useDamperCage=useDamperCage,
             final Tr=TrOperational,
             final Tpm=TpmOperational),
-          redeclare final Interfaces.InductionMachines.ThermalPortSMPM
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortSMPM
             thermalPort(final useDamperCage=useDamperCage),
-          redeclare final Interfaces.InductionMachines.ThermalPortSMPM
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortSMPM
             internalThermalPort(final useDamperCage=useDamperCage),
-          redeclare final Interfaces.InductionMachines.PowerBalanceSMPM
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.PowerBalanceSMPM
             powerBalance(
             final lossPowerRotorWinding=damperCageLossPower,
             final lossPowerRotorCore=0,
             final lossPowerPermanentMagnet=permanentMagnet.lossPower),
           statorCore(final w=statorCoreParameters.wRef));
-        Modelica_Blocks.Interfaces.RealOutput ir[2](
+        Modelica_Blocks_Interfaces.RealOutput ir[2](
           start=zeros(2),
           each final quantity="ElectricCurrent",
           each final unit="A") if useDamperCage "Damper cage currents"
           annotation (Dialog(showStartAttribute=true));
-        Modelica_Blocks.Interfaces.RealOutput idq_dr[2](
+        Modelica_Blocks_Interfaces.RealOutput idq_dr[2](
           each stateSelect=StateSelect.prefer,
           each final quantity="ElectricCurrent",
           each final unit="A") if useDamperCage
@@ -1033,7 +1044,7 @@ These models use package SpacePhasors.
       protected
         final parameter Modelica_SIunits.Current Ie=sqrt(2)*VsOpenCircuit/(Lmd*
             2*pi*fsNominal) "Equivalent excitation current";
-        Modelica_Blocks.Interfaces.RealOutput damperCageLossPower(final
+        Modelica_Blocks_Interfaces.RealOutput damperCageLossPower(final
             quantity="Power", final unit="W") "Damper losses";
       equation
         connect(ir, damperCage.i);
@@ -1245,7 +1256,8 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
 
       model SM_ElectricalExcited
         "Electrical excited synchronous induction machine with damper cage"
-        extends Interfaces.PartialBasicInductionMachine(
+        extends
+          Modelica_Electrical_Machines_Interfaces.PartialBasicInductionMachine(
           Lssigma(start=0.1/(2*pi*fsNominal)),
           final idq_ss=airGapR.i_ss,
           final idq_sr=airGapR.i_sr,
@@ -1257,11 +1269,14 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
             final useDamperCage=useDamperCage,
             final Te=TeOperational,
             final Tr=TrOperational),
-          redeclare final Interfaces.InductionMachines.ThermalPortSMEE
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortSMEE
             thermalPort(final useDamperCage=useDamperCage),
-          redeclare final Interfaces.InductionMachines.ThermalPortSMEE
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortSMEE
             internalThermalPort(final useDamperCage=useDamperCage),
-          redeclare final Interfaces.InductionMachines.PowerBalanceSMEE
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.PowerBalanceSMEE
             powerBalance(
             final lossPowerRotorWinding=damperCageLossPower,
             final powerExcitation=ve*ie,
@@ -1269,12 +1284,12 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
             final lossPowerBrush=brush.lossPower,
             final lossPowerRotorCore=0),
           statorCore(final w=statorCoreParameters.wRef));
-        Modelica_Blocks.Interfaces.RealOutput ir[2](
+        Modelica_Blocks_Interfaces.RealOutput ir[2](
           start=zeros(2),
           each final quantity="ElectricCurrent",
           each final unit="A") if useDamperCage "Damper cage currents"
           annotation (Dialog(showStartAttribute=true));
-        Modelica_Blocks.Interfaces.RealOutput idq_dr[2](
+        Modelica_Blocks_Interfaces.RealOutput idq_dr[2](
           each stateSelect=StateSelect.prefer,
           each final quantity="ElectricCurrent",
           each final unit="A") if useDamperCage
@@ -1392,10 +1407,10 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
               extent={{10,-10},{-10,10}},
               rotation=90,
               origin={-80,-20})));
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_ep
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_ep
           "Positive excitation pin" annotation (Placement(transformation(extent=
                  {{-110,70},{-90,50}}, rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_en
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_en
           "Negative excitation pin" annotation (Placement(transformation(extent=
                  {{-90,-50},{-110,-70}}, rotation=0)));
         Losses.DCMachines.Brush brush(final brushParameters=brushParameters,
@@ -1408,7 +1423,7 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
             IeOpenCircuit) "Stator current / excitation current";
         final parameter Modelica_SIunits.Inductance Lesigma=Lmd*turnsRatio^2*3/
             2*sigmae/(1 - sigmae);
-        Modelica_Blocks.Interfaces.RealOutput damperCageLossPower(final
+        Modelica_Blocks_Interfaces.RealOutput damperCageLossPower(final
             quantity="Power", final unit="W") "Damper losses";
       equation
         connect(ir, damperCage.i);
@@ -1671,7 +1686,8 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
 
       model SM_ReluctanceRotor
         "Synchronous induction machine with reluctance rotor and damper cage"
-        extends Interfaces.PartialBasicInductionMachine(
+        extends
+          Modelica_Electrical_Machines_Interfaces.PartialBasicInductionMachine(
           Lssigma(start=0.1/(2*pi*fsNominal)),
           final idq_ss=airGapR.i_ss,
           final idq_sr=airGapR.i_sr,
@@ -1681,20 +1697,23 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
             Thermal.SynchronousInductionMachines.ThermalAmbientSMR
             thermalAmbient(final useDamperCage=useDamperCage, final Tr=
                 TrOperational),
-          redeclare final Interfaces.InductionMachines.ThermalPortSMR
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortSMR
             thermalPort(final useDamperCage=useDamperCage),
-          redeclare final Interfaces.InductionMachines.ThermalPortSMR
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortSMR
             internalThermalPort(final useDamperCage=useDamperCage),
-          redeclare final Interfaces.InductionMachines.PowerBalanceSMR
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.PowerBalanceSMR
             powerBalance(final lossPowerRotorWinding=damperCageLossPower,
               final lossPowerRotorCore=0),
           statorCore(final w=statorCoreParameters.wRef));
-        Modelica_Blocks.Interfaces.RealOutput ir[2](
+        Modelica_Blocks_Interfaces.RealOutput ir[2](
           start=zeros(2),
           each final quantity="ElectricCurrent",
           each final unit="A") if useDamperCage "Damper cage currents"
           annotation (Dialog(showStartAttribute=true));
-        Modelica_Blocks.Interfaces.RealOutput idq_dr[2](
+        Modelica_Blocks_Interfaces.RealOutput idq_dr[2](
           each stateSelect=StateSelect.prefer,
           each final quantity="ElectricCurrent",
           each final unit="A") if useDamperCage
@@ -1767,7 +1786,7 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
               extent={{-10,-10},{10,10}},
               rotation=270)));
       protected
-        Modelica_Blocks.Interfaces.RealOutput damperCageLossPower(final
+        Modelica_Blocks_Interfaces.RealOutput damperCageLossPower(final
             quantity="Power", final unit="W") "Damper losses";
       equation
         connect(ir, damperCage.i);
@@ -2019,7 +2038,7 @@ These models use package SpacePhasors.
     package DCMachines "Models of DC machines"
       extends Modelica_Icons.VariantsPackage;
       model DC_PermanentMagnet "Permanent magnet DC machine"
-        extends Interfaces.PartialBasicDCMachine(
+        extends Modelica_Electrical_Machines_Interfaces.PartialBasicDCMachine(
           final ViNominal=VaNominal - Thermal.convertResistance(
                     Ra,
                     TaRef,
@@ -2029,11 +2048,15 @@ These models use package SpacePhasors.
           final psi_eNominal=Lme*IeNominal,
           redeclare final Thermal.DCMachines.ThermalAmbientDCPM thermalAmbient(
               final Tpm=TpmOperational),
-          redeclare final Interfaces.DCMachines.ThermalPortDCPM thermalPort,
-          redeclare final Interfaces.DCMachines.ThermalPortDCPM
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCPM
+            thermalPort,
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCPM
             internalThermalPort,
-          redeclare final Interfaces.DCMachines.PowerBalanceDCPM powerBalance(
-              final lossPowerPermanentMagnet=0),
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.PowerBalanceDCPM
+            powerBalance(final lossPowerPermanentMagnet=0),
           core(final w=airGapDC.w));
         final parameter Modelica_SIunits.Temperature TpmOperational=293.15
           "Operational temperature of permanent magnet"
@@ -2175,7 +2198,7 @@ Armature resistance resp. inductance include resistance resp. inductance of comm
 
       model DC_ElectricalExcited
         "Electrical shunt/separate excited linear DC machine"
-        extends Interfaces.PartialBasicDCMachine(
+        extends Modelica_Electrical_Machines_Interfaces.PartialBasicDCMachine(
           final ViNominal=VaNominal - Thermal.convertResistance(
                     Ra,
                     TaRef,
@@ -2185,11 +2208,16 @@ Armature resistance resp. inductance include resistance resp. inductance of comm
           final psi_eNominal=Lme*IeNominal,
           redeclare final Thermal.DCMachines.ThermalAmbientDCEE thermalAmbient(
               final Te=TeOperational),
-          redeclare final Interfaces.DCMachines.ThermalPortDCEE thermalPort,
-          redeclare final Interfaces.DCMachines.ThermalPortDCEE
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCEE
+            thermalPort,
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCEE
             internalThermalPort,
-          redeclare final Interfaces.DCMachines.PowerBalanceDCEE powerBalance(
-              final powerExcitation=ve*ie, final lossPowerExcitation=re.LossPower),
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.PowerBalanceDCEE
+            powerBalance(final powerExcitation=ve*ie, final lossPowerExcitation
+              =re.LossPower),
           core(final w=airGapDC.w));
 
         parameter Modelica_SIunits.Current IeNominal(start=1)
@@ -2247,10 +2275,10 @@ Armature resistance resp. inductance include resistance resp. inductance of comm
               extent={{-10,-10},{10,10}},
               rotation=270,
               origin={-80,20})));
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_ep
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_ep
           "Positive excitation pin" annotation (Placement(transformation(extent=
                  {{-110,70},{-90,50}}, rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_en
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_en
           "Negative excitation pin" annotation (Placement(transformation(extent=
                  {{-90,-50},{-110,-70}}, rotation=0)));
       protected
@@ -2442,7 +2470,7 @@ Armature current does not cover excitation current of a shunt excitation; in thi
       end DC_ElectricalExcited;
 
       model DC_SeriesExcited "Series excited linear DC machine"
-        extends Interfaces.PartialBasicDCMachine(
+        extends Modelica_Electrical_Machines_Interfaces.PartialBasicDCMachine(
           wNominal(start=1410*2*pi/60),
           final ViNominal=VaNominal - (Thermal.convertResistance(
                     Ra,
@@ -2457,11 +2485,15 @@ Armature current does not cover excitation current of a shunt excitation; in thi
           final psi_eNominal=Lme*abs(IaNominal),
           redeclare final Thermal.DCMachines.ThermalAmbientDCSE thermalAmbient(
               final Tse=TeOperational),
-          redeclare final Interfaces.DCMachines.ThermalPortDCSE thermalPort,
-          redeclare final Interfaces.DCMachines.ThermalPortDCSE
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCSE
+            thermalPort,
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCSE
             internalThermalPort,
-          redeclare final Interfaces.DCMachines.PowerBalanceDCSE powerBalance(
-              final powerSeriesExcitation=ve*ie, final
+          redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.PowerBalanceDCSE
+            powerBalance(final powerSeriesExcitation=ve*ie, final
               lossPowerSeriesExcitation=re.LossPower),
           core(final w=airGapDC.w));
         parameter Modelica_SIunits.Resistance Re(start=0.01)
@@ -2519,10 +2551,10 @@ Armature current does not cover excitation current of a shunt excitation; in thi
               extent={{-10,-10},{10,10}},
               rotation=270,
               origin={-80,20})));
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_ep
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_ep
           "Positive series excitation pin" annotation (Placement(transformation(
                 extent={{-110,70},{-90,50}}, rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_en
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_en
           "Negative series excitation pin" annotation (Placement(transformation(
                 extent={{-90,-50},{-110,-70}}, rotation=0)));
       protected
@@ -2825,13 +2857,15 @@ where e.g., <code>L*der(i)</code> is replaced by <code>j*omega*L*(I_re+j*I_im)</
       package Yy "Transformers: primary Y / secondary y"
         extends Modelica_Icons.VariantsPackage;
         model Yy00 "Transformer Yy0"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yy00");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yy00");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -2839,7 +2873,7 @@ where e.g., <code>L*der(i)</code> is replaced by <code>j*omega*L*(I_re+j*I_im)</
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
         equation
@@ -2865,13 +2899,15 @@ Transformer Yy0
         end Yy00;
 
         model Yy02 "Transformer Yy2"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yy02");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yy02");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -2879,7 +2915,7 @@ Transformer Yy0
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot2(final m=m)
@@ -2910,13 +2946,15 @@ Transformer Yy2
         end Yy02;
 
         model Yy04 "Transformer Yy4"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yy04");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yy04");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -2924,7 +2962,7 @@ Transformer Yy2
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot2(final m=m)
@@ -2955,13 +2993,15 @@ Transformer Yy4
         end Yy04;
 
         model Yy06 "Transformer Yy6"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yy06");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yy06");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -2969,7 +3009,7 @@ Transformer Yy4
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
         equation
@@ -2995,13 +3035,15 @@ Transformer Yy6
         end Yy06;
 
         model Yy08 "Transformer Yy8"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yy08");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yy08");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -3009,7 +3051,7 @@ Transformer Yy6
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot2(final m=m)
@@ -3040,13 +3082,15 @@ Transformer Yy8
         end Yy08;
 
         model Yy10 "Transformer Yy10"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yy10");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yy10");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -3054,7 +3098,7 @@ Transformer Yy8
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot2(final m=m)
@@ -3110,13 +3154,15 @@ This package contains transformers primary Y connected / secondary y connected i
       package Yd "Transformers: primary Y / secondary d"
         extends Modelica_Icons.VariantsPackage;
         model Yd01 "Transformer Yd1"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yd01");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yd01");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta2(final m=m)
@@ -3145,13 +3191,15 @@ Transformer Yd1
         end Yd01;
 
         model Yd03 "Transformer Yd3"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yd03");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yd03");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta2(final m=m)
@@ -3186,13 +3234,15 @@ Transformer Yd3
         end Yd03;
 
         model Yd05 "Transformer Yd5"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yd05");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yd05");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta2(final m=m)
@@ -3221,13 +3271,15 @@ Transformer Yd5
         end Yd05;
 
         model Yd07 "Transformer Yd7"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yd07");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yd07");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta2(final m=m)
@@ -3256,13 +3308,15 @@ Transformer Yd7
         end Yd07;
 
         model Yd09 "Transformer Yd9"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yd09");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yd09");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta2(final m=m)
@@ -3296,13 +3350,15 @@ Transformer Yd9
         end Yd09;
 
         model Yd11 "Transformer Yd11"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yd11");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yd11");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta2(final m=m)
@@ -3356,13 +3412,15 @@ This package contains transformers primary Y connected / secondary d connected i
       package Yz "Transformers: primary Y / secondary zig-zag"
         extends Modelica_Icons.VariantsPackage;
         model Yz01 "Transformer Yz1"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yz01");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yz01");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -3370,7 +3428,7 @@ This package contains transformers primary Y connected / secondary d connected i
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -3410,13 +3468,15 @@ Transformer Yz1
         end Yz01;
 
         model Yz03 "Transformer Yz3"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yz03");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yz03");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -3424,7 +3484,7 @@ Transformer Yz1
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -3464,13 +3524,15 @@ Transformer Yz3
         end Yz03;
 
         model Yz05 "Transformer Yz5"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yz05");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yz05");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -3478,7 +3540,7 @@ Transformer Yz3
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -3511,13 +3573,15 @@ Transformer Yz5
         end Yz05;
 
         model Yz07 "Transformer Yz7"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yz07");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yz07");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -3525,7 +3589,7 @@ Transformer Yz5
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -3558,13 +3622,15 @@ Transformer Yz7
         end Yz07;
 
         model Yz09 "Transformer Yz9"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yz09");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yz09");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -3572,7 +3638,7 @@ Transformer Yz7
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -3612,13 +3678,15 @@ Transformer Yz9
         end Yz09;
 
         model Yz11 "Transformer Yz11"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Yz11");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Yz11");
           Modelica_Electrical_MultiPhase.Basic.Star star1(final m=m)
             annotation (Placement(transformation(
                 origin={-10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint1
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint1
             annotation (Placement(transformation(extent={{-60,-110},{-40,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
@@ -3626,7 +3694,7 @@ Transformer Yz9
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -3691,13 +3759,15 @@ This package contains transformers primary Y connected / secondary zig-zag conne
       package Dy "Transformers: primary D / secondary y"
         extends Modelica_Icons.VariantsPackage;
         model Dy01 "Transformer Dy1"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dy01");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dy01");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
@@ -3731,13 +3801,15 @@ Transformer Dy1
         end Dy01;
 
         model Dy03 "Transformer Dy3"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dy03");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dy03");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
@@ -3771,13 +3843,15 @@ Transformer Dy3
         end Dy03;
 
         model Dy05 "Transformer Dy5"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dy05");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dy05");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
@@ -3806,13 +3880,15 @@ Transformer Dy5
         end Dy05;
 
         model Dy07 "Transformer Dy7"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dy07");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dy07");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
@@ -3846,13 +3922,15 @@ Transformer Dy7
         end Dy07;
 
         model Dy09 "Transformer Dy9"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dy09");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dy09");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
@@ -3886,13 +3964,15 @@ Transformer Dy9
         end Dy09;
 
         model Dy11 "Transformer Dy11"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dy11");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dy11");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
@@ -3946,7 +4026,9 @@ This package contains transformers primary D connected / secondary y connected i
       package Dd "Transformers: primary D / secondary d"
         extends Modelica_Icons.VariantsPackage;
         model Dd00 "Transformer Dd0"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dd00");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dd00");
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
             annotation (Placement(transformation(extent={{-50,-30},{-30,-10}},
                   rotation=0)));
@@ -3976,7 +4058,9 @@ Transformer Dd0
         end Dd00;
 
         model Dd02 "Transformer Dd2"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dd02");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dd02");
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
             annotation (Placement(transformation(extent={{-50,-30},{-30,-10}},
                   rotation=0)));
@@ -4011,7 +4095,9 @@ Transformer Dd2
         end Dd02;
 
         model Dd04 "Transformer Dd4"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dd04");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dd04");
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
             annotation (Placement(transformation(extent={{-50,-30},{-30,-10}},
                   rotation=0)));
@@ -4041,7 +4127,9 @@ Transformer Dd4
         end Dd04;
 
         model Dd06 "Transformer Dd6"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dd06");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dd06");
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
             annotation (Placement(transformation(extent={{-50,-30},{-30,-10}},
                   rotation=0)));
@@ -4071,7 +4159,9 @@ Transformer Dd6
         end Dd06;
 
         model Dd08 "Transformer Dd8"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dd08");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dd08");
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
             annotation (Placement(transformation(extent={{-50,-30},{-30,-10}},
                   rotation=0)));
@@ -4106,7 +4196,9 @@ Transformer Dd8
         end Dd08;
 
         model Dd10 "Transformer Dd10"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dd10");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dd10");
           Modelica_Electrical_MultiPhase.Basic.Delta Delta1(final m=m)
             annotation (Placement(transformation(extent={{-50,-30},{-30,-10}},
                   rotation=0)));
@@ -4161,13 +4253,15 @@ This package contains transformers primary D connected / secondary d connected i
       package Dz "Transformers: primary D / secondary zig-zag"
         extends Modelica_Icons.VariantsPackage;
         model Dz00 "Transformer Dz0"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dz00");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dz00");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -4210,13 +4304,15 @@ Transformer Dz0
         end Dz00;
 
         model Dz02 "Transformer Dz2"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dz02");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dz02");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -4259,13 +4355,15 @@ Transformer Dz2
         end Dz02;
 
         model Dz04 "Transformer Dz4"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dz04");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dz04");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -4301,13 +4399,15 @@ Transformer Dz4
         end Dz04;
 
         model Dz06 "Transformer Dz6"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dz06");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dz06");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -4343,13 +4443,15 @@ Transformer Dz6
         end Dz06;
 
         model Dz08 "Transformer Dz8"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dz08");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dz08");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -4392,13 +4494,15 @@ Transformer Dz8
         end Dz08;
 
         model Dz10 "Transformer Dz10"
-          extends Interfaces.PartialBasicTransformer(final VectorGroup="Dz10");
+          extends
+            Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer(
+                                                     final VectorGroup="Dz10");
           Modelica_Electrical_MultiPhase.Basic.Star star2(final m=m)
             annotation (Placement(transformation(
                 origin={10,-80},
                 extent={{-10,-10},{10,10}},
                 rotation=270)));
-          Modelica_Electrical_Analog.Interfaces.NegativePin starpoint2
+          Modelica_Electrical_Analog_Interfaces.NegativePin starpoint2
             annotation (Placement(transformation(extent={{40,-110},{60,-90}},
                   rotation=0)));
           Modelica_Electrical_MultiPhase.Basic.Delta Rot21(final m=m)
@@ -4615,15 +4719,17 @@ Copyright &copy; 1998-2013, Modelica Association and Anton Haumer.
           "Magnetizing flux phasor with respect to the rotor fixed frame";
         Real RotationMatrix[2, 2] "Matrix of rotation from rotor to stator";
       public
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a flange annotation (
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a flange annotation (
             Placement(transformation(extent={{-10,110},{10,90}}, rotation=0)));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a support
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a support
           "Support at which the reaction torque is acting" annotation (
             Placement(transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
-        Interfaces.SpacePhasor spacePhasor_s annotation (Placement(
-              transformation(extent={{-110,90},{-90,110}}, rotation=0)));
-        Interfaces.SpacePhasor spacePhasor_r annotation (Placement(
-              transformation(extent={{90,90},{110,110}}, rotation=0)));
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor_s
+          annotation (Placement(transformation(extent={{-110,90},{-90,110}},
+                rotation=0)));
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor_r
+          annotation (Placement(transformation(extent={{90,90},{110,110}},
+                rotation=0)));
         /*
   Modelica.SIunits.AngularVelocity omegaPsi_ms
     "Angular velocity of main flux with respect to the stator fixed frame";
@@ -4757,10 +4863,12 @@ Model of the airgap in rotor-fixed coordinate system, using only equations.
         parameter Modelica_SIunits.Inductance L[2] "Inductance of both axes";
         Modelica_SIunits.Voltage v_[2];
         Modelica_SIunits.Current i_[2];
-        Interfaces.SpacePhasor spacePhasor_a annotation (Placement(
-              transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-        Interfaces.SpacePhasor spacePhasor_b annotation (Placement(
-              transformation(extent={{90,-10},{110,10}}, rotation=0)));
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor_a
+          annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
+                rotation=0)));
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor_b
+          annotation (Placement(transformation(extent={{90,-10},{110,10}},
+                rotation=0)));
       equation
         spacePhasor_a.i_ + spacePhasor_b.i_ = zeros(2);
         v_ = spacePhasor_a.v_ - spacePhasor_b.v_;
@@ -4797,13 +4905,14 @@ This is a model of an inductor, described with space phasors.
           "Reference temperature";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
           "Temperature coefficient of resistance at T_ref";
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(T=
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=
               T_ref);
         Modelica_SIunits.Resistance Rr_actual
           "Actual resistance = Rr*(1 + alpha*(T_heatPort - T_ref))";
-        Interfaces.SpacePhasor spacePhasor_r annotation (Placement(
-              transformation(extent={{-110,90},{-90,110}}, rotation=0)));
-       Modelica_Blocks.Interfaces.RealOutput i[2](
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor_r
+          annotation (Placement(transformation(extent={{-110,90},{-90,110}},
+                rotation=0)));
+       Modelica_Blocks_Interfaces.RealOutput i[2](
           each final quantity="ElectricCurrent",
           each final unit="A") = -spacePhasor_r.i_
           "Currents out from squirrel cage";
@@ -4863,20 +4972,21 @@ Material properties alpha of both axis are the same.
           "Reference temperature of both resistances in d- and q-axis";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
           "Temperature coefficient of both resistances in d- and q-axis at T_ref";
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(T=
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=
               T_ref);
         Modelica_SIunits.Resistance Rrd_actual
           "Actual resistance = Rrd*(1 + alpha*(T_heatPort - T_ref))";
         Modelica_SIunits.Resistance Rrq_actual
           "Actual resistance = Rrq*(1 + alpha*(T_heatPort - T_ref))";
-        Modelica_Blocks.Interfaces.RealOutput i[2](
+        Modelica_Blocks_Interfaces.RealOutput i[2](
           each final quantity="ElectricCurrent",
           each final unit="A") = -spacePhasor_r.i_ "Currents out from damper";
-        Modelica_Blocks.Interfaces.RealOutput lossPower(
+        Modelica_Blocks_Interfaces.RealOutput lossPower(
           final quantity="Power",
           final unit="W") = LossPower "Damper losses";
-        Interfaces.SpacePhasor spacePhasor_r annotation (Placement(
-              transformation(extent={{-110,90},{-90,110}}, rotation=0)));
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor_r
+          annotation (Placement(transformation(extent={{-110,90},{-90,110}},
+                rotation=0)));
       equation
         assert((1 + alpha*(T_heatPort - T_ref)) >=Modelica_Constants.eps,
           "Temperature outside scope of model!");
@@ -4937,11 +5047,12 @@ although reference temperature for both resistances is the same.
           "Ratio stator current / excitation current";
         Modelica_SIunits.Current ie "Excitation current";
         Modelica_SIunits.Voltage ve "Excitation voltage";
-        Interfaces.SpacePhasor spacePhasor_r annotation (Placement(
-              transformation(extent={{-110,90},{-90,110}}, rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_ep annotation (
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor_r
+          annotation (Placement(transformation(extent={{-110,90},{-90,110}},
+                rotation=0)));
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_ep annotation (
             Placement(transformation(extent={{90,110},{110,90}}, rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_en annotation (
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_en annotation (
             Placement(transformation(extent={{110,-110},{90,-90}}, rotation=0)));
       equation
         pin_ep.i + pin_en.i = 0;
@@ -4971,8 +5082,9 @@ Model of an electrical excitation, converting excitation to space phasor.
 
       model PermanentMagnet "Permanent magnet excitation"
         parameter Modelica_SIunits.Current Ie "Equivalent excitation current";
-        Interfaces.SpacePhasor spacePhasor_r annotation (Placement(
-              transformation(extent={{-110,90},{-90,110}}, rotation=0)));
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor_r
+          annotation (Placement(transformation(extent={{-110,90},{-90,110}},
+                rotation=0)));
       equation
         spacePhasor_r.i_ = {-Ie,0};
         annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -5016,7 +5128,7 @@ Model of a permanent magnet excitation, characterized by an equivalent excitatio
 
       model InductorDC
         "Ideal linear electrical inductor for electrical DC machines"
-        extends Modelica_Electrical_Analog.Interfaces.OnePort;
+        extends Modelica_Electrical_Analog_Interfaces.OnePort;
         parameter Modelica_SIunits.Inductance L(start=1) "Inductance";
         parameter Boolean quasiStationary(start=false)
           "No electrical transients if true" annotation (Evaluate=true);
@@ -5074,18 +5186,18 @@ If <code>quasiStationary == false</code>, the electrical transients are neglecte
         Modelica_SIunits.Voltage vai "Induced armature voltage";
         Modelica_SIunits.Current ia "Armature current";
         output Modelica_SIunits.Torque tauElectrical;
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a flange annotation (
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a flange annotation (
             Placement(transformation(extent={{-10,110},{10,90}}, rotation=0)));
-        Modelica_Mechanics_Rotational.Interfaces.Flange_a support
+        Modelica_Mechanics_Rotational_Interfaces.Flange_a support
           "Support at which the reaction torque is acting" annotation (
             Placement(transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_ap annotation (
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_ap annotation (
             Placement(transformation(extent={{-110,110},{-90,90}}, rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_ep annotation (
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_ep annotation (
             Placement(transformation(extent={{90,110},{110,90}}, rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_an annotation (
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_an annotation (
             Placement(transformation(extent={{-110,-110},{-90,-90}}, rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_en annotation (
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_en annotation (
             Placement(transformation(extent={{90,-110},{110,-90}}, rotation=0)));
       equation
         // armature pins
@@ -5170,22 +5282,22 @@ Induced armature voltage is calculated from flux times angular velocity.
         Modelica_SIunits.Current ie=pin_ep.i;
         Modelica_SIunits.Voltage vse=pin_sep.v - pin_sen.v;
         Modelica_SIunits.Current ise=pin_sep.i;
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_p
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_p
           "Positive pin to airgap"
           annotation (Placement(transformation(extent={{90,110},{110,90}})));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_n
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_n
           "Negative pin to airgap"
           annotation (Placement(transformation(extent={{-110,110},{-90,90}})));
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_ep
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_ep
           "Positive pin to shunt excitation"
           annotation (Placement(transformation(extent={{90,-108},{110,-88}})));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_en
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_en
           "Negative pin to shunt excitation"
           annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_sep
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_sep
           "Positive pin to series excitation"
           annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_sen
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_sen
           "Negative pin to series excitation" annotation (Placement(
               transformation(extent={{-110,-110},{-90,-90}})));
       equation
@@ -5234,22 +5346,22 @@ the connection to airgap has to be grounded at one point.
         Modelica_SIunits.Current i3[m]=plug_p3.pin.i;
         Modelica_SIunits.Current im[m]=i1 + i2/n12 + i3/n13
           "Magnetizing current";
-        Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_p1(final m=
+        Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p1(final m=
               m) annotation (Placement(transformation(extent={{-110,40},{-90,60}},
                 rotation=0)));
-        Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_n1(final m=
+        Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_n1(final m=
               m) annotation (Placement(transformation(extent={{-110,-60},{-90,-40}},
                 rotation=0)));
-        Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_p2(final m=
+        Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p2(final m=
               m) annotation (Placement(transformation(extent={{90,90},{110,110}},
                 rotation=0)));
-        Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_n2(final m=
+        Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_n2(final m=
               m) annotation (Placement(transformation(extent={{90,30},{110,50}},
                 rotation=0)));
-        Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_p3(final m=
+        Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p3(final m=
               m) annotation (Placement(transformation(extent={{90,-30},{110,-50}},
                 rotation=0)));
-        Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_n3(final m=
+        Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_n3(final m=
               m) annotation (Placement(transformation(extent={{90,-90},{110,-110}},
                 rotation=0)));
       equation
@@ -5303,7 +5415,7 @@ Ideal transformer with 3 windings: no magnetizing current.
       end IdealCore;
 
       partial model BasicTransformer "Partial model of three-phase transformer"
-        extends Interfaces.PartialBasicTransformer;
+        extends Modelica_Electrical_Machines_Interfaces.PartialBasicTransformer;
         //dummy will be removed when conversion script is applicable
         annotation (Documentation(info="<html>
 Partial model of a three-phase transformer, containing primary and secondary resistances and stray inductances, as well as the iron core.
@@ -5435,16 +5547,16 @@ The induction machine models use package SpacePhasors.
     model VoltageQuasiRMSSensor "Length of space phasor -> RMS voltage"
       extends Modelica_Icons.RotationalSensor;
       constant Integer m(final min=1) = 3 "Number of phases";
-      Modelica_Blocks.Interfaces.RealOutput V(final quantity=
+      Modelica_Blocks_Interfaces.RealOutput V(final quantity=
             "ElectricPotential", final unit="V") annotation (Placement(
             transformation(
             origin={0,-110},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_p(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p(final m=m)
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
               rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_n(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_n(final m=m)
         annotation (Placement(transformation(extent={{90,-10},{110,10}},
               rotation=0)));
       Modelica_Electrical_MultiPhase.Sensors.VoltageSensor VoltageSensor1(
@@ -5501,15 +5613,15 @@ output is length of the space phasor divided by sqrt(2), thus giving in sinusoid
     model CurrentQuasiRMSSensor "Length of space phasor -> RMS current"
       extends Modelica_Icons.RotationalSensor;
       constant Integer m(final min=1) = 3 "Number of phases";
-      Modelica_Blocks.Interfaces.RealOutput I(final quantity="ElectricCurrent",
+      Modelica_Blocks_Interfaces.RealOutput I(final quantity="ElectricCurrent",
           final unit="A") annotation (Placement(transformation(
             origin={0,-110},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_p(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p(final m=m)
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
               rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_n(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_n(final m=m)
         annotation (Placement(transformation(extent={{90,-10},{110,10}},
               rotation=0)));
       Modelica_Electrical_MultiPhase.Sensors.CurrentSensor CurrentSensor1(
@@ -5566,23 +5678,23 @@ output is length of the space phasor divided by sqrt(2), thus giving in sinusoid
     model ElectricalPowerSensor "Instantaneous power from space phasors"
       extends Modelica_Icons.RotationalSensor;
       constant Integer m(final min=1) = 3 "Number of phases";
-      Modelica_Blocks.Interfaces.RealOutput P(final quantity="Power", final
+      Modelica_Blocks_Interfaces.RealOutput P(final quantity="Power", final
           unit="W") annotation (Placement(transformation(
             origin={-50,110},
             extent={{10,-10},{-10,10}},
             rotation=270)));
-      Modelica_Blocks.Interfaces.RealOutput Q(final quantity="Power", final
+      Modelica_Blocks_Interfaces.RealOutput Q(final quantity="Power", final
           unit="var") annotation (Placement(transformation(
             origin={50,110},
             extent={{10,-10},{-10,10}},
             rotation=270)));
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_p(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p(final m=m)
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
               rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_ni(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_ni(final m=m)
         annotation (Placement(transformation(extent={{90,-10},{110,10}},
               rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_nv(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_nv(final m=m)
         annotation (Placement(transformation(extent={{-10,-110},{10,-90}},
               rotation=0)));
     protected
@@ -5614,10 +5726,10 @@ Q = giving in stationary state reactive power.<br>
 
     model MechanicalPowerSensor "Mechanical power = torque x speed"
       extends Modelica_Icons.RotationalSensor;
-      extends Modelica_Mechanics_Rotational.Interfaces.PartialTwoFlanges;
+      extends Modelica_Mechanics_Rotational_Interfaces.PartialTwoFlanges;
       parameter Boolean useSupport=false "Use support or fixed housing"
         annotation (Evaluate=true);
-      Modelica_Blocks.Interfaces.RealOutput P(final quantity="Power", final
+      Modelica_Blocks_Interfaces.RealOutput P(final quantity="Power", final
           unit="W") annotation (Placement(transformation(
             origin={0,110},
             extent={{10,-10},{-10,10}},
@@ -5637,7 +5749,7 @@ Q = giving in stationary state reactive power.<br>
       Modelica_Mechanics_Rotational.Components.Fixed fixed if (not useSupport)
         annotation (Placement(transformation(extent={{-40,-100},{-20,-80}},
               rotation=0)));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a support if useSupport
+      Modelica_Mechanics_Rotational_Interfaces.Flange_a support if useSupport
         "Support at which the reaction torque is acting" annotation (Placement(
             transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
     equation
@@ -5695,13 +5807,13 @@ Calculates (mechanical) power from torque times angular speed.
       parameter Integer p(min=1) "Number of pole pairs";
       parameter Boolean useSupport=false "Use support or fixed housing"
         annotation (Evaluate=true);
-      Modelica_Blocks.Interfaces.RealOutput rotorDisplacementAngle(final
+      Modelica_Blocks_Interfaces.RealOutput rotorDisplacementAngle(final
           quantity="Angle", final unit="rad") annotation (Placement(
             transformation(extent={{100,-10},{120,10}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_p(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p(final m=m)
         annotation (Placement(transformation(extent={{-110,50},{-90,70}},
               rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_n(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_n(final m=m)
         annotation (Placement(transformation(extent={{-110,-70},{-90,-50}},
               rotation=0)));
       Modelica_Electrical_MultiPhase.Sensors.VoltageSensor VoltageSensor1(
@@ -5712,7 +5824,7 @@ Calculates (mechanical) power from torque times angular speed.
       Modelica_Electrical_Machines.SpacePhasors.Blocks.ToSpacePhasor ToSpacePhasorVS
         annotation (Placement(transformation(extent={{-60,-20},{-40,0}},
               rotation=0)));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a flange annotation (
+      Modelica_Mechanics_Rotational_Interfaces.Flange_a flange annotation (
           Placement(transformation(extent={{-10,90},{10,110}}, rotation=0)));
       Modelica_Mechanics_Rotational.Sensors.RelAngleSensor relativeAngleSensor
         annotation (Placement(transformation(extent={{40,70},{20,90}}, rotation=
@@ -5734,7 +5846,7 @@ Calculates (mechanical) power from torque times angular speed.
       Modelica_Blocks.Routing.DeMultiplex2 deMultiplex2(final n1=1, final n2=1)
         annotation (Placement(transformation(extent={{60,-20},{80,0}}, rotation=
                0)));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a support if useSupport
+      Modelica_Mechanics_Rotational_Interfaces.Flange_a support if useSupport
         "support at which the reaction torque is acting" annotation (Placement(
             transformation(extent={{90,90},{110,110}}, rotation=0)));
       Modelica_Mechanics_Rotational.Components.Fixed fixed if (not useSupport)
@@ -5899,18 +6011,19 @@ This package contains sensors that are useful when modelling machines.
         parameter Real InverseTransformation[m, 2]={{cos(-(k - 1)/m*2*pi),-sin(
             -(k - 1)/m*2*pi)} for k in 1:m};
       public
-        Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_p(final m=m)
+        Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p(final m=m)
           annotation (Placement(transformation(extent={{-110,90},{-90,110}},
                 rotation=0)));
-        Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_n(final m=m)
+        Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_n(final m=m)
           annotation (Placement(transformation(extent={{-110,-110},{-90,-90}},
                 rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.PositivePin zero annotation (
+        Modelica_Electrical_Analog_Interfaces.PositivePin zero annotation (
             Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
-        Modelica_Electrical_Analog.Interfaces.NegativePin ground annotation (
+        Modelica_Electrical_Analog_Interfaces.NegativePin ground annotation (
             Placement(transformation(extent={{90,-110},{110,-90}}, rotation=0)));
-        Interfaces.SpacePhasor spacePhasor annotation (Placement(transformation(
-                extent={{90,90},{110,110}}, rotation=0)));
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor
+          annotation (Placement(transformation(extent={{90,90},{110,110}},
+                rotation=0)));
       equation
         v/turnsRatio = plug_p.pin.v - plug_n.pin.v;
         i*turnsRatio = +plug_p.pin.i;
@@ -5969,11 +6082,13 @@ Zero-sequence voltage and current are present at pin zero. An additional zero-se
             cos(-angle)}};
         //Real InverseRotator[2,2] = {{+cos(+angle),-sin(+angle)},{+sin(+angle),+cos(+angle)}};
       public
-        Interfaces.SpacePhasor spacePhasor_a annotation (Placement(
-              transformation(extent={{-110,90},{-90,110}}, rotation=0)));
-        Interfaces.SpacePhasor spacePhasor_b annotation (Placement(
-              transformation(extent={{90,90},{110,110}}, rotation=0)));
-        Modelica_Blocks.Interfaces.RealInput angle annotation (Placement(
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor_a
+          annotation (Placement(transformation(extent={{-110,90},{-90,110}},
+                rotation=0)));
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor_b
+          annotation (Placement(transformation(extent={{90,90},{110,110}},
+                rotation=0)));
+        Modelica_Blocks_Interfaces.RealInput angle annotation (Placement(
               transformation(
               origin={0,-120},
               extent={{-20,-20},{20,20}},
@@ -6045,13 +6160,13 @@ a ground has to be used where necessary for currents flowing back.
       extends Modelica_Icons.Package;
 
       block Rotator "Rotates space phasor"
-        extends Modelica_Blocks.Interfaces.MIMOs(final n=2);
+        extends Modelica_Blocks_Interfaces.MIMOs(final n=2);
       protected
         Real RotationMatrix[2, 2]={{+cos(-angle),-sin(-angle)},{+sin(-angle),+
             cos(-angle)}};
         //Real InverseRotator[2,2] = {{+cos(+angle),-sin(+angle)},{+sin(+angle),+cos(+angle)}};
       public
-        Modelica_Blocks.Interfaces.RealInput angle annotation (Placement(
+        Modelica_Blocks_Interfaces.RealInput angle annotation (Placement(
               transformation(
               origin={0,-120},
               extent={{-20,-20},{20,20}},
@@ -6097,7 +6212,7 @@ Rotates a space phasor (voltage or current) input <code>u</code> by the <code>an
 
       block ToSpacePhasor
         "Conversion of multi phase instantaneous values to space phasors"
-        extends Modelica_Blocks.Interfaces.MIMO(final nin=m, final nout=2);
+        extends Modelica_Blocks_Interfaces.MIMO(final nin=m, final nout=2);
         parameter Integer m(min=1) = 3 "Number of phases";
       protected
         parameter Modelica_SIunits.Angle phi[m]=
@@ -6106,7 +6221,7 @@ Rotates a space phasor (voltage or current) input <code>u</code> by the <code>an
         parameter Real InverseTransformation[m, 2]={{+cos(-phi[k]),-sin(-phi[k])}
             for k in 1:m};
       public
-        Modelica_Blocks.Interfaces.RealOutput zero "Zero sequence component"
+        Modelica_Blocks_Interfaces.RealOutput zero "Zero sequence component"
           annotation (Placement(transformation(extent={{100,-70},{120,-90}},
                 rotation=0)));
       equation
@@ -6144,7 +6259,7 @@ Transformation of multi phase values (of voltages or currents) to space phasor a
 
       block FromSpacePhasor
         "Conversion of space phasors to multi phase instantaneous values"
-        extends Modelica_Blocks.Interfaces.MIMO(final nin=2, final nout=m);
+        extends Modelica_Blocks_Interfaces.MIMO(final nin=2, final nout=m);
         parameter Integer m(min=1) = 3 "Number of phases";
       protected
         parameter Modelica_SIunits.Angle phi[m]=
@@ -6153,7 +6268,7 @@ Transformation of multi phase values (of voltages or currents) to space phasor a
         parameter Real InverseTransformation[m, 2]={{+cos(-phi[k]),-sin(-phi[k])}
             for k in 1:m};
       public
-        Modelica_Blocks.Interfaces.RealInput zero "Zero seqeuence component"
+        Modelica_Blocks_Interfaces.RealInput zero "Zero seqeuence component"
           annotation (Placement(transformation(extent={{-140,-60},{-100,-100}},
                 rotation=0)));
       equation
@@ -6187,7 +6302,7 @@ Transformation of space phasor and zero sequence value to mutli phase values (of
       end FromSpacePhasor;
 
       block ToPolar "Converts a space phasor to polar coordinates"
-        extends Modelica_Blocks.Interfaces.MIMOs(final n=2);
+        extends Modelica_Blocks_Interfaces.MIMOs(final n=2);
         constant Real small=Modelica_Constants.small;
       equation
         y[1] = sqrt(u[1]^2 + u[2]^2);
@@ -6225,7 +6340,7 @@ Converts a space phasor from rectangular coordinates to polar coordinates.
       end ToPolar;
 
       block FromPolar "Converts a space phasor from polar coordinates"
-        extends Modelica_Blocks.Interfaces.MIMOs(final n=2);
+        extends Modelica_Blocks_Interfaces.MIMOs(final n=2);
       equation
         y = u[1]*{cos(u[2]),sin(u[2])};
         annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -6249,7 +6364,7 @@ Converts a space phasor from polar coordinates to rectangular coordinates.
       end FromPolar;
 
       block QuasiRMS
-        extends Modelica_Blocks.Interfaces.MISO(final nin=2);
+        extends Modelica_Blocks_Interfaces.MISO(final nin=2);
         Modelica_Electrical_Machines.SpacePhasors.Blocks.ToPolar toPolar
           annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
         Modelica_Blocks.Math.Gain gain(final k=1/sqrt(2))
@@ -6672,11 +6787,11 @@ Parameter record for <a href=\"modelica://Modelica.Electrical.Machines.Losses.In
     end PermanentMagnetLossParameters;
 
     model Friction "Model of angular velocity dependent friction losses"
-      extends Interfaces.FlangeSupport;
+      extends Modelica_Electrical_Machines_Interfaces.FlangeSupport;
       parameter FrictionParameters frictionParameters
         "Friction loss parameters";
       extends
-        Modelica_Thermal_HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT(
+        Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT(
           useHeatPort=false);
     equation
       if (frictionParameters.PRef <= 0) then
@@ -6798,10 +6913,10 @@ If it is desired to neglect friction losses, set <code>frictionParameters.PRef =
     package InductionMachines "Loss models for induction machines"
       extends Modelica_Icons.VariantsPackage;
       model Brush "Model considering voltage drop of carbon brushes"
-        extends Modelica_Electrical_MultiPhase.Interfaces.TwoPlug;
+        extends Modelica_Electrical_MultiPhase_Interfaces.TwoPlug;
         parameter BrushParameters brushParameters "Brush loss parameters";
         extends
-          Modelica_Thermal_HeatTransfer.Interfaces.PartialConditionalHeatPort(
+          Modelica_Thermal_HeatTransfer_Interfaces.PartialConditionalHeatPort(
             useHeatPort=false,final T=293.15);
         DCMachines.Brush brush[3](each final brushParameters=brushParameters,
             each final useHeatPort=true)
@@ -6843,13 +6958,13 @@ Model of voltage drop and losses of carbon brushes. This three-phase model uses 
 
       model StrayLoad
         "Model of stray load losses dependent on current and speed"
-        extends Modelica_Electrical_MultiPhase.Interfaces.OnePort;
-        extends Interfaces.FlangeSupport;
+        extends Modelica_Electrical_MultiPhase_Interfaces.OnePort;
+        extends Modelica_Electrical_Machines_Interfaces.FlangeSupport;
         import Modelica_Electrical_MultiPhase.Functions.quasiRMS;
         parameter StrayLoadParameters strayLoadParameters
           "Stray load loss parameters";
         extends
-          Modelica_Thermal_HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT(
+          Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT(
             useHeatPort=false);
         Modelica_SIunits.Current iRMS=quasiRMS(i);
       equation
@@ -6906,13 +7021,13 @@ If it is desired to neglect stray load losses, set <code>strayLoadParameters.PRe
 
       model PermanentMagnetLosses
         "Model of permanent magnet losses dependent on current and speed"
-        extends Interfaces.FlangeSupport;
+        extends Modelica_Electrical_Machines_Interfaces.FlangeSupport;
         import Modelica_Electrical_MultiPhase.Functions.quasiRMS;
         parameter Integer m(min=1) = 3 "Number of phases";
         parameter PermanentMagnetLossParameters permanentMagnetLossParameters
           "Permanent magnet loss parameters";
         extends
-          Modelica_Thermal_HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT(
+          Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT(
             useHeatPort=false);
         input Modelica_SIunits.Current is[m] "Instantaneous stator currents";
         Modelica_SIunits.Current iRMS=quasiRMS(is);
@@ -6966,11 +7081,11 @@ If it is desired to neglect permanent magnet losses, set <code>strayLoadParamete
         parameter Real turnsRatio(final min=Modelica_Constants.small)
           "Effective number of stator turns / effective number of rotor turns (if used as rotor core)";
         extends
-          Modelica_Thermal_HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT(
+          Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT(
             useHeatPort=false);
-        Interfaces.SpacePhasor spacePhasor annotation (Placement(transformation(
-                extent={{-110,-10},{-90,10}}, rotation=0), iconTransformation(
-                extent={{-110,-10},{-90,10}})));
+        Modelica_Electrical_Machines_Interfaces.SpacePhasor spacePhasor
+          annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
+                rotation=0), iconTransformation(extent={{-110,-10},{-90,10}})));
         input Modelica_SIunits.AngularVelocity w
           "Remagnetization angular velocity" annotation (Dialog(group="Losses"));
         Modelica_SIunits.Conductance Gc "Variable core loss conductance";
@@ -7088,10 +7203,10 @@ This package contains loss models used for induction machine models.
     package DCMachines "Loss models for DC machines"
       extends Modelica_Icons.VariantsPackage;
       model Brush "Model considering voltage drop of carbon brushes"
-        extends Modelica_Electrical_Analog.Interfaces.OnePort;
+        extends Modelica_Electrical_Analog_Interfaces.OnePort;
         parameter BrushParameters brushParameters "Brush loss parameters";
         extends
-          Modelica_Thermal_HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT(
+          Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT(
             useHeatPort=false);
       equation
         if (brushParameters.V <= 0) then
@@ -7167,12 +7282,12 @@ e.g., used for initial equations.
 
       model StrayLoad
         "Model of stray load losses dependent on current and speed"
-        extends Modelica_Electrical_Analog.Interfaces.OnePort;
-        extends Interfaces.FlangeSupport;
+        extends Modelica_Electrical_Analog_Interfaces.OnePort;
+        extends Modelica_Electrical_Machines_Interfaces.FlangeSupport;
         parameter StrayLoadParameters strayLoadParameters
           "Stray load loss parameters";
         extends
-          Modelica_Thermal_HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT(
+          Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT(
             useHeatPort=false);
       equation
         v = 0;
@@ -7218,11 +7333,11 @@ If it is desired to neglect stray load losses, set <code>strayLoadParameters.PRe
       end StrayLoad;
 
       model Core "Model of core losses"
-        extends Modelica_Electrical_Analog.Interfaces.OnePort;
+        extends Modelica_Electrical_Analog_Interfaces.OnePort;
         parameter CoreParameters coreParameters(final m=1)
           "Armature core losses";
         extends
-          Modelica_Thermal_HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT(
+          Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT(
             useHeatPort=false);
         input Modelica_SIunits.AngularVelocity w
           "Remagnetization angular velocity" annotation (Dialog(group="Losses"));
@@ -7464,8 +7579,9 @@ where <code>RRef</code> is the resistance at the reference temperature <code>TRe
       model ThermalAmbientAIMC
         "Thermal ambient for asynchronous induction machine with squirrel cage"
         extends
-          Interfaces.InductionMachines.PartialThermalAmbientInductionMachines(
-            redeclare final Interfaces.InductionMachines.ThermalPortAIMC
+          Modelica_Electrical_Machines_Interfaces.InductionMachines.PartialThermalAmbientInductionMachines(
+            redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortAIMC
             thermalPort);
         parameter Modelica_SIunits.Temperature Tr(start=TDefault)
           "Temperature of rotor (squirrel cage)"
@@ -7481,7 +7597,7 @@ where <code>RRef</code> is the resistance at the reference temperature <code>TRe
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-50,30})));
-        Modelica_Blocks.Interfaces.RealInput TRotorWinding if
+        Modelica_Blocks_Interfaces.RealInput TRotorWinding if
           useTemperatureInputs "Temperature of squirrel cage" annotation (
             Placement(transformation(
               extent={{-20,-20},{20,20}},
@@ -7520,8 +7636,9 @@ Additionally, all losses = heat flows are recorded.
       model ThermalAmbientAIMS
         "Thermal ambient for asynchronous induction machine with slipring"
         extends
-          Interfaces.InductionMachines.PartialThermalAmbientInductionMachines(
-            redeclare final Interfaces.InductionMachines.ThermalPortAIMS
+          Modelica_Electrical_Machines_Interfaces.InductionMachines.PartialThermalAmbientInductionMachines(
+            redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortAIMS
             thermalPort(final mr=mr));
         parameter Integer mr=m "Number of rotor phases";
         parameter Modelica_SIunits.Temperature Tr(start=TDefault)
@@ -7540,7 +7657,7 @@ Additionally, all losses = heat flows are recorded.
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-50,30})));
-        Modelica_Blocks.Interfaces.RealInput TRotorWinding if
+        Modelica_Blocks_Interfaces.RealInput TRotorWinding if
           useTemperatureInputs "Temperature of rotor windings" annotation (
             Placement(transformation(
               extent={{-20,-20},{20,20}},
@@ -7606,8 +7723,9 @@ Thermal parts for asynchronous induction machines
         parameter Boolean useDamperCage(start=true)
           "Enable / disable damper cage" annotation (Evaluate=true);
         extends
-          Interfaces.InductionMachines.PartialThermalAmbientInductionMachines(
-            redeclare final Interfaces.InductionMachines.ThermalPortSMPM
+          Modelica_Electrical_Machines_Interfaces.InductionMachines.PartialThermalAmbientInductionMachines(
+            redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortSMPM
             thermalPort(final useDamperCage=useDamperCage));
         parameter Modelica_SIunits.Temperature Tpm(start=TDefault)
           "Temperature of permanent magnet"
@@ -7629,7 +7747,7 @@ Thermal parts for asynchronous induction machines
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-20,30})));
-        Modelica_Blocks.Interfaces.RealInput TRotorWinding if (
+        Modelica_Blocks_Interfaces.RealInput TRotorWinding if (
           useTemperatureInputs and useDamperCage)
           "Temperature of damper cage (optional)" annotation (Placement(
               transformation(
@@ -7652,7 +7770,7 @@ Thermal parts for asynchronous induction machines
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-50,-10})));
-        Modelica_Blocks.Interfaces.RealInput TPermanentMagnet if
+        Modelica_Blocks_Interfaces.RealInput TPermanentMagnet if
           useTemperatureInputs "Temperature of permanent magnet" annotation (
             Placement(transformation(
               extent={{-20,-20},{20,20}},
@@ -7702,8 +7820,9 @@ Additionally, all losses = heat flows are recorded.
         parameter Boolean useDamperCage(start=true)
           "Enable / disable damper cage" annotation (Evaluate=true);
         extends
-          Interfaces.InductionMachines.PartialThermalAmbientInductionMachines(
-            redeclare final Interfaces.InductionMachines.ThermalPortSMEE
+          Modelica_Electrical_Machines_Interfaces.InductionMachines.PartialThermalAmbientInductionMachines(
+            redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortSMEE
             thermalPort(final useDamperCage=useDamperCage));
         parameter Modelica_SIunits.Temperature Tr(start=TDefault)
           "Temperature of damper cage (optional)" annotation (Dialog(enable=(
@@ -7724,7 +7843,7 @@ Additionally, all losses = heat flows are recorded.
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-20,30})));
-        Modelica_Blocks.Interfaces.RealInput TRotorWinding if (
+        Modelica_Blocks_Interfaces.RealInput TRotorWinding if (
           useTemperatureInputs and useDamperCage)
           "Temperature of damper cage (optional)" annotation (Placement(
               transformation(
@@ -7742,7 +7861,7 @@ Additionally, all losses = heat flows are recorded.
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-50,30})));
-        Modelica_Blocks.Interfaces.RealInput TExcitation if
+        Modelica_Blocks_Interfaces.RealInput TExcitation if
           useTemperatureInputs "Temperature of excitation" annotation (
             Placement(transformation(
               extent={{-20,-20},{20,20}},
@@ -7806,8 +7925,9 @@ Additionally, all losses = heat flows are recorded.
         parameter Boolean useDamperCage(start=true)
           "Enable / disable damper cage" annotation (Evaluate=true);
         extends
-          Interfaces.InductionMachines.PartialThermalAmbientInductionMachines(
-            redeclare final Interfaces.InductionMachines.ThermalPortSMR
+          Modelica_Electrical_Machines_Interfaces.InductionMachines.PartialThermalAmbientInductionMachines(
+            redeclare final
+            Modelica_Electrical_Machines_Interfaces.InductionMachines.ThermalPortSMR
             thermalPort(final useDamperCage=useDamperCage));
         parameter Modelica_SIunits.Temperature Tr(start=TDefault)
           "Temperature of damper cage (optional)" annotation (Dialog(enable=(
@@ -7823,7 +7943,7 @@ Additionally, all losses = heat flows are recorded.
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-20,30})));
-        Modelica_Blocks.Interfaces.RealInput TRotorWinding if (
+        Modelica_Blocks_Interfaces.RealInput TRotorWinding if (
           useTemperatureInputs and useDamperCage)
           "Temperature of damper cage (optional)" annotation (Placement(
               transformation(
@@ -7869,8 +7989,11 @@ Thermal parts for synchronous induction machines
       extends Modelica_Icons.VariantsPackage;
       model ThermalAmbientDCPM
         "Thermal ambient for DC machine with permanent magnets"
-        extends Interfaces.DCMachines.PartialThermalAmbientDCMachines(
-            redeclare final Interfaces.DCMachines.ThermalPortDCPM thermalPort);
+        extends
+          Modelica_Electrical_Machines_Interfaces.DCMachines.PartialThermalAmbientDCMachines(
+            redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCPM
+            thermalPort);
         parameter Modelica_SIunits.Temperature Tpm(start=TDefault)
           "Temperature of permanent magnet"
           annotation (Dialog(enable=not useTemperatureInputs));
@@ -7890,7 +8013,7 @@ Thermal parts for synchronous induction machines
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-20,-10})));
-        Modelica_Blocks.Interfaces.RealInput TPermanentMagnet if
+        Modelica_Blocks_Interfaces.RealInput TPermanentMagnet if
           useTemperatureInputs "Temperature of permanent magnet" annotation (
             Placement(transformation(
               extent={{-20,-20},{20,20}},
@@ -7924,8 +8047,11 @@ Additionally, all losses = heat flows are recorded.
 
       model ThermalAmbientDCEE
         "Thermal ambient for DC machine with electrical excitation"
-        extends Interfaces.DCMachines.PartialThermalAmbientDCMachines(
-            redeclare final Interfaces.DCMachines.ThermalPortDCEE thermalPort);
+        extends
+          Modelica_Electrical_Machines_Interfaces.DCMachines.PartialThermalAmbientDCMachines(
+            redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCEE
+            thermalPort);
         parameter Modelica_SIunits.Temperature Te(start=TDefault)
           "Temperature of (shunt) excitation"
           annotation (Dialog(enable=not useTemperatureInputs));
@@ -7945,7 +8071,7 @@ Additionally, all losses = heat flows are recorded.
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-20,-10})));
-        Modelica_Blocks.Interfaces.RealInput TExcitation if
+        Modelica_Blocks_Interfaces.RealInput TExcitation if
           useTemperatureInputs "Temperature of (shunt) excitation" annotation (
             Placement(transformation(
               extent={{-20,-20},{20,20}},
@@ -7978,8 +8104,11 @@ Additionally, all losses = heat flows are recorded.
 
       model ThermalAmbientDCSE
         "Thermal ambient for DC machine with series excitation"
-        extends Interfaces.DCMachines.PartialThermalAmbientDCMachines(
-            redeclare final Interfaces.DCMachines.ThermalPortDCSE thermalPort);
+        extends
+          Modelica_Electrical_Machines_Interfaces.DCMachines.PartialThermalAmbientDCMachines(
+            redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCSE
+            thermalPort);
         parameter Modelica_SIunits.Temperature Tse(start=TDefault)
           "Temperature of series excitation"
           annotation (Dialog(enable=not useTemperatureInputs));
@@ -7999,7 +8128,7 @@ Additionally, all losses = heat flows are recorded.
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-50,-10})));
-        Modelica_Blocks.Interfaces.RealInput T_se if useTemperatureInputs
+        Modelica_Blocks_Interfaces.RealInput T_se if useTemperatureInputs
           "Temperature of series excitation" annotation (Placement(
               transformation(
               extent={{-20,-20},{20,20}},
@@ -8032,8 +8161,11 @@ Additionally, all losses = heat flows are recorded.
 
       model ThermalAmbientDCCE
         "Thermal ambient for DC machine with compound excitation"
-        extends Interfaces.DCMachines.PartialThermalAmbientDCMachines(
-            redeclare final Interfaces.DCMachines.ThermalPortDCCE thermalPort);
+        extends
+          Modelica_Electrical_Machines_Interfaces.DCMachines.PartialThermalAmbientDCMachines(
+            redeclare final
+            Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCCE
+            thermalPort);
         parameter Modelica_SIunits.Temperature Te(start=TDefault)
           "Temperature of (shunt) excitation"
           annotation (Dialog(enable=not useTemperatureInputs));
@@ -8059,7 +8191,7 @@ Additionally, all losses = heat flows are recorded.
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-20,-10})));
-        Modelica_Blocks.Interfaces.RealInput T_e if useTemperatureInputs
+        Modelica_Blocks_Interfaces.RealInput T_e if useTemperatureInputs
           "Temperature of (shunt) excitation" annotation (Placement(
               transformation(
               extent={{-20,-20},{20,20}},
@@ -8075,7 +8207,7 @@ Additionally, all losses = heat flows are recorded.
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-50,-10})));
-        Modelica_Blocks.Interfaces.RealInput T_se if useTemperatureInputs
+        Modelica_Blocks_Interfaces.RealInput T_se if useTemperatureInputs
           "Temperature of series excitation" annotation (Placement(
               transformation(
               extent={{-20,-20},{20,20}},
@@ -8144,7 +8276,8 @@ Thermal parts for DC machines
         "Heat flow rate of core losses";
       output Modelica_SIunits.HeatFlowRate Q_flowTotal=Q_flow1 + Q_flow2 +
           Q_flowCore;
-      Interfaces.ThermalPortTransformer thermalPort(final m=m)
+      Modelica_Electrical_Machines_Interfaces.ThermalPortTransformer
+        thermalPort(final m=m)
         annotation (Placement(transformation(extent={{-10,90},{10,110}})));
       Modelica_Thermal_HeatTransfer.Sources.PrescribedTemperature temperature1
         annotation (Placement(transformation(
@@ -8156,7 +8289,7 @@ Thermal parts for DC machines
             extent={{-10,-10},{10,10}},
             rotation=90,
             origin={-80,-10})));
-      Modelica_Blocks.Interfaces.RealInput TPrimary if useTemperatureInputs
+      Modelica_Blocks_Interfaces.RealInput TPrimary if useTemperatureInputs
         "Temperature of primary windings" annotation (Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=90,
@@ -8171,7 +8304,7 @@ Thermal parts for DC machines
             extent={{-10,10},{10,-10}},
             rotation=90,
             origin={80,-10})));
-      Modelica_Blocks.Interfaces.RealInput TSecondary if useTemperatureInputs
+      Modelica_Blocks_Interfaces.RealInput TSecondary if useTemperatureInputs
         "Temperature of secondary windings" annotation (Placement(
             transformation(
             extent={{-20,20},{20,-20}},
@@ -8411,1476 +8544,6 @@ In sub-package <a href=\"modelica://Modelica.Electrical.Machines.Thermal.Constan
 </HTML>"));
   end Thermal;
 
-  package Interfaces "SpacePhasor connector and PartialMachines"
-    extends Modelica_Icons.InterfacesPackage;
-    connector SpacePhasor "Connector for Space Phasors"
-      Modelica_SIunits.Voltage v_[2] "1=real, 2=imaginary part";
-      flow Modelica_SIunits.Current i_[2] "1=real, 2=imaginary part";
-      annotation (
-        Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Polygon(
-                  points={{0,100},{-100,0},{0,-100},{100,0},{0,100}},
-                  lineColor={0,0,255},
-                  fillColor={0,0,255},
-                  fillPattern=FillPattern.Solid),Text(
-                  extent={{-150,-90},{150,-150}},
-                  lineColor={0,0,255},
-                  textString="%name")}),
-        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-                100,100}}), graphics={Polygon(
-                  points={{0,100},{-100,0},{0,-100},{100,0},{0,100}},
-                  lineColor={0,0,255},
-                  fillColor={0,0,255},
-                  fillPattern=FillPattern.Solid)}),
-        Documentation(info="<HTML>
-Connector for Space Phasors:
-<ul>
-<li>Voltage v_[2] ... Real and Imaginary part of voltage space phasor</li>
-<li>Current i_[2] ... Real and Imaginary part of current space phasor</li>
-</ul>
-</HTML>"));
-    end SpacePhasor;
-
-    partial model PartialBasicMachine "Partial model for all machines"
-      extends Icons.TransientMachine;
-      constant Modelica_SIunits.Angle pi=Modelica_Constants.pi;
-      parameter Modelica_SIunits.Inertia Jr "Rotor's moment of inertia";
-      parameter Boolean useSupport=false
-        "Enable / disable (=fixed stator) support" annotation (Evaluate=true);
-      parameter Modelica_SIunits.Inertia Js(start=Jr)
-        "Stator's moment of inertia" annotation (Dialog(enable=useSupport));
-      parameter Boolean useThermalPort=false
-        "Enable / disable (=fixed temperatures) thermal port"
-        annotation (Evaluate=true);
-      parameter Losses.FrictionParameters frictionParameters "Friction losses"
-        annotation (Dialog(tab="Losses"));
-      output Modelica_SIunits.Angle phiMechanical(start=0) = flange.phi -
-        internalSupport.phi "Mechanical angle of rotor against stator";
-      output Modelica_SIunits.AngularVelocity wMechanical(
-        displayUnit="1/min",
-        start=0) = der(phiMechanical)
-        "Mechanical angular velocity of rotor against stator";
-      output Modelica_SIunits.Torque tauElectrical=inertiaRotor.flange_a.tau
-        "Electromagnetic torque";
-      output Modelica_SIunits.Torque tauShaft=-flange.tau "Shaft torque";
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a flange "Shaft"
-        annotation (Placement(transformation(extent={{90,-10},{110,10}},
-              rotation=0)));
-      Modelica_Mechanics_Rotational.Components.Inertia inertiaRotor(final J=Jr)
-        annotation (Placement(transformation(
-            origin={80,0},
-            extent={{10,10},{-10,-10}},
-            rotation=180)));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a support if useSupport
-        "Support at which the reaction torque is acting" annotation (Placement(
-            transformation(extent={{90,-110},{110,-90}}, rotation=0)));
-      Modelica_Mechanics_Rotational.Components.Inertia inertiaStator(final J=Js)
-        annotation (Placement(transformation(
-            origin={80,-100},
-            extent={{10,10},{-10,-10}},
-            rotation=180)));
-      Modelica_Mechanics_Rotational.Components.Fixed fixed if (not useSupport)
-        annotation (Placement(transformation(
-            extent={{10,10},{-10,-10}},
-            rotation=180,
-            origin={50,-100})));
-      Losses.Friction friction(final frictionParameters=frictionParameters)
-        annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=0,
-            origin={90,-40})));
-    protected
-      Modelica_Mechanics_Rotational.Interfaces.Support internalSupport
-        annotation (Placement(transformation(extent={{56,-104},{64,-96}},
-              rotation=0)));
-    equation
-      connect(inertiaRotor.flange_b, flange) annotation (Line(points={{90,0},{
-              92,0},{92,0},{100,0}}, color={0,0,0}));
-      connect(inertiaStator.flange_b, support)
-        annotation (Line(points={{90,-100},{100,-100}}, color={0,0,0}));
-      connect(internalSupport, fixed.flange) annotation (Line(
-          points={{60,-100},{50,-100}},
-          color={0,0,0},
-          smooth=Smooth.None));
-      connect(internalSupport, inertiaStator.flange_a) annotation (Line(
-          points={{60,-100},{70,-100}},
-          color={0,0,0},
-          smooth=Smooth.None));
-      connect(inertiaRotor.flange_b, friction.flange) annotation (Line(
-          points={{90,0},{90,-30}},
-          color={0,0,0},
-          smooth=Smooth.None));
-      connect(friction.support, internalSupport) annotation (Line(
-          points={{90,-50},{90,-90},{60,-90},{60,-100}},
-          color={0,0,0},
-          smooth=Smooth.None));
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Text(
-                  extent={{-150,-120},{150,-180}},
-                  lineColor={0,0,255},
-                  textString="%name"),Rectangle(
-                  extent={{80,-80},{120,-120}},
-                  lineColor={192,192,192},
-                  fillColor={192,192,192},
-                  fillPattern=FillPattern.Solid),Line(
-                  visible=not useSupport,
-                  points={{80,-100},{120,-100}},
-                  color={0,0,0},
-                  smooth=Smooth.None),Line(
-                  visible=not useSupport,
-                  points={{90,-100},{80,-120}},
-                  color={0,0,0},
-                  smooth=Smooth.None),Line(
-                  visible=not useSupport,
-                  points={{100,-100},{90,-120}},
-                  color={0,0,0},
-                  smooth=Smooth.None),Line(
-                  visible=not useSupport,
-                  points={{110,-100},{100,-120}},
-                  color={0,0,0},
-                  smooth=Smooth.None),Line(
-                  visible=not useSupport,
-                  points={{120,-100},{110,-120}},
-                  color={0,0,0},
-                  smooth=Smooth.None)}), Documentation(info="<HTML>
-Base partial model DC machines:
-<ul>
-<li>main parts of the icon</li>
-<li>mechanical shaft</li>
-<li>mechanical support</li>
-</ul>
-Besides the mechanical connector <i>flange</i> (i.e., the shaft) the machines have a second mechanical connector <i>support</i>.<br>
-If <i>useSupport</i> = false, it is assumed that the stator is fixed.<br>
-Otherwise reaction torque (i.e., airGap torque, minus acceleration torque for stator's moment of inertia) can be measured at <i>support</i>.<br>
-One may also fix the the shaft and let rotate the stator; parameter Js is only of importance when the stator is rotating.
-</HTML>"));
-    end PartialBasicMachine;
-
-    partial model PartialBasicInductionMachine
-      "Partial model for induction machine"
-      final parameter Integer m=3 "Number of phases";
-      parameter Integer p(min=1, start=2) "Number of pole pairs (Integer)";
-      parameter Modelica_SIunits.Frequency fsNominal(start=50)
-        "Nominal frequency";
-      parameter Modelica_SIunits.Temperature TsOperational(start=293.15)
-        "Operational temperature of stator resistance" annotation (Dialog(group=
-             "Operational temperatures", enable=not useThermalPort));
-      parameter Modelica_SIunits.Resistance Rs(start=0.03)
-        "Stator resistance per phase at TRef"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Modelica_SIunits.Temperature TsRef(start=293.15)
-        "Reference temperature of stator resistance"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Thermal.LinearTemperatureCoefficient20 alpha20s(start=0)
-        "Temperature coefficient of stator resistance at 20 degC"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Modelica_SIunits.Inductance Lszero=Lssigma
-        "Stator zero sequence inductance"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Modelica_SIunits.Inductance Lssigma(start=3*(1 - sqrt(1 -
-            0.0667))/(2*pi*fsNominal)) "Stator stray inductance"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      extends PartialBasicMachine(
-        Jr(start=0.29),
-        frictionParameters(wRef=2*pi*fsNominal/p),
-        friction(final useHeatPort=true));
-      parameter Losses.CoreParameters statorCoreParameters(
-        final m=3,
-        VRef(start=100),
-        wRef=2*pi*fsNominal)
-        "Stator core losses; all parameters refer to stator side"
-        annotation (Dialog(tab="Losses"));
-      parameter Losses.StrayLoadParameters strayLoadParameters(IRef(start=100),
-          wRef=2*pi*fsNominal/p) "Stray load losses"
-        annotation (Dialog(tab="Losses"));
-      replaceable output InductionMachines.PartialPowerBalanceInductionMachines
-        powerBalance(
-        final powerStator=SpacePhasors.Functions.activePower(vs, is),
-        final powerMechanical=wMechanical*tauShaft,
-        final powerInertiaStator=inertiaStator.J*inertiaStator.a*inertiaStator.w,
-        final powerInertiaRotor=inertiaRotor.J*inertiaRotor.a*inertiaRotor.w,
-        final lossPowerStatorWinding=sum(rs.resistor.LossPower),
-        final lossPowerStatorCore=statorCore.lossPower,
-        final lossPowerStrayLoad=strayLoad.lossPower,
-        final lossPowerFriction=friction.lossPower) "Power balance";
-
-      output Modelica_SIunits.Voltage vs[m]=plug_sp.pin.v - plug_sn.pin.v
-        "Stator instantaneous voltages";
-      output Modelica_SIunits.Current is[m]=plug_sp.pin.i
-        "Stator instantaneous currents";
-      output Modelica_SIunits.Current i_0_s(stateSelect=StateSelect.prefer)=
-        spacePhasorS.zero.i "Stator zero-sequence current";
-      // to be defined in model that extends from this partial (since airgap isn't included here)
-      input Modelica_SIunits.Current idq_ss[2]
-        "Stator space phasor current / stator fixed frame";
-      input Modelica_SIunits.Current idq_sr[2](each stateSelect=StateSelect.prefer)
-        "Stator space phasor current / rotor fixed frame";
-      input Modelica_SIunits.Current idq_rs[2]
-        "Rotor space phasor current / stator fixed frame";
-      input Modelica_SIunits.Current idq_rr[2](each stateSelect=StateSelect.prefer)
-        "Rotor space phasor current / rotor fixed frame";
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_sp(final m=m)
-        "Positive stator plug" annotation (Placement(transformation(extent={{50,
-                90},{70,110}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_sn(final m=m)
-        "Negative stator plug" annotation (Placement(transformation(extent={{-70,
-                90},{-50,110}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Basic.Resistor rs(
-        final m=m,
-        final R=fill(Rs, m),
-        final T_ref=fill(TsRef, m),
-        final alpha=fill(Thermal.convertAlpha(         alpha20s, TsRef), m),
-        final useHeatPort=true,
-        final T=fill(TsRef, m)) annotation (Placement(transformation(extent={{
-                60,70},{40,90}}, rotation=0)));
-      BasicMachines.Components.Inductor lssigma(final L=fill(Lssigma, 2))
-        annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=270,
-            origin={20,20})));
-      Modelica_Electrical_Analog.Basic.Inductor lszero(final L=Lszero)
-        annotation (Placement(transformation(extent={{0,40},{-20,60}})));
-      Losses.InductionMachines.Core statorCore(
-        final coreParameters=statorCoreParameters,
-        final useHeatPort=true,
-        final turnsRatio=1) annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=180,
-            origin={0,30})));
-      SpacePhasors.Components.SpacePhasor spacePhasorS(final turnsRatio=1)
-        annotation (Placement(transformation(
-            origin={0,70},
-            extent={{10,10},{-10,-10}},
-            rotation=90)));
-      Losses.InductionMachines.StrayLoad strayLoad(
-        final strayLoadParameters=strayLoadParameters,
-        final useHeatPort=true,
-        final m=m)
-        annotation (Placement(transformation(extent={{90,70},{70,90}})));
-      replaceable InductionMachines.PartialThermalPortInductionMachines thermalPort(final m=m) if
-           useThermalPort
-        annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-      replaceable InductionMachines.PartialThermalAmbientInductionMachines thermalAmbient(
-        final useTemperatureInputs=false,
-        final Ts=TsOperational,
-        final m=m) if not useThermalPort annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=270,
-            origin={-30,-80})));
-    protected
-      replaceable InductionMachines.PartialThermalPortInductionMachines internalThermalPort(final m=m)
-        annotation (Placement(transformation(extent={{-4,-84},{4,-76}})));
-    equation
-      connect(spacePhasorS.plug_n, plug_sn) annotation (Line(
-          points={{-10,80},{-60,80},{-60,100}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(thermalPort, internalThermalPort) annotation (Line(
-          points={{0,-100},{0,-80}},
-          color={199,0,0},
-          smooth=Smooth.None));
-      connect(thermalAmbient.thermalPort, internalThermalPort) annotation (Line(
-          points={{-20,-80},{0,-80}},
-          color={199,0,0},
-          smooth=Smooth.None));
-      connect(strayLoad.plug_n, rs.plug_p) annotation (Line(
-          points={{70,80},{60,80}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(strayLoad.plug_p, plug_sp) annotation (Line(
-          points={{90,80},{90,100},{60,100}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(strayLoad.support, internalSupport) annotation (Line(
-          points={{80,70},{80,50},{60,50},{60,-100}},
-          color={0,0,0},
-          smooth=Smooth.None));
-      connect(spacePhasorS.plug_p, rs.plug_n) annotation (Line(
-          points={{10,80},{40,80}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(spacePhasorS.zero, lszero.p) annotation (Line(
-          points={{0,60},{0,50}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(lszero.n, spacePhasorS.ground) annotation (Line(
-          points={{-20,50},{-20,60},{-10,60}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(spacePhasorS.spacePhasor, lssigma.spacePhasor_a) annotation (Line(
-          points={{10,60},{20,60},{20,30}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(statorCore.spacePhasor, lssigma.spacePhasor_a) annotation (Line(
-          points={{10,30},{20,30}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(statorCore.heatPort, internalThermalPort.heatPortStatorCore)
-        annotation (Line(
-          points={{10,40},{50,40},{50,-80},{0,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(strayLoad.heatPort, internalThermalPort.heatPortStrayLoad)
-        annotation (Line(
-          points={{90,70},{90,60},{50,60},{50,-80},{0,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(rs.heatPort, internalThermalPort.heatPortStatorWinding)
-        annotation (Line(
-          points={{50,70},{50,-80},{0,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(friction.heatPort, internalThermalPort.heatPortFriction)
-        annotation (Line(
-          points={{80,-50},{50,-50},{50,-80},{0,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(strayLoad.flange, inertiaRotor.flange_b) annotation (Line(
-          points={{80,90},{100,90},{100,40},{90,40},{90,0}},
-          color={0,0,0},
-          smooth=Smooth.None));
-      annotation (Documentation(info="<HTML>
-Partial model for induction machine models
-</HTML>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics={Line(points={{-50,100},{-20,100},{-20,70}},
-              color={0,0,255}),Line(points={{50,100},{20,100},{20,70}}, color={
-              0,0,255})}));
-    end PartialBasicInductionMachine;
-
-    package InductionMachines
-      "Interfaces and partial models for induction machines"
-      extends Modelica_Icons.VariantsPackage;
-      connector PartialThermalPortInductionMachines
-        "Partial thermal port of induction machines"
-        parameter Integer m=3 "Number of stator phases";
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortStatorWinding[m] "Heat port of stator windings"
-          annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortStatorCore
-          "Heat port of (optional) stator core losses"
-          annotation (Placement(transformation(extent={{0,10},{20,30}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortRotorCore
-          "Heat port of (optional) rotor core losses"
-          annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortStrayLoad
-          "Heat port of (optional) stray losses"
-          annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortFriction
-          "Heat port of (optional) friction losses"
-          annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-        annotation (
-          Diagram(graphics={Rectangle(
-                      extent={{-60,60},{60,-60}},
-                      lineColor={199,0,0},
-                      fillColor={95,95,95},
-                      fillPattern=FillPattern.Solid),Ellipse(
-                      extent={{-50,50},{50,-50}},
-                      lineColor={191,0,0},
-                      fillColor={191,0,0},
-                      fillPattern=FillPattern.Solid)}),
-          Icon(graphics={Rectangle(
-                      extent={{-110,110},{110,-110}},
-                      lineColor={199,0,0},
-                      fillColor={95,95,95},
-                      fillPattern=FillPattern.Solid),Ellipse(
-                      extent={{-80,80},{80,-80}},
-                      lineColor={191,0,0},
-                      fillColor={191,0,0},
-                      fillPattern=FillPattern.Solid)}),
-          Documentation(info="<HTML>
-Partial thermal port for induction machines
-</HTML>"));
-      end PartialThermalPortInductionMachines;
-
-      model PartialThermalAmbientInductionMachines
-        "Partial thermal ambient for induction machines"
-        parameter Integer m=3 "Number of stator phases";
-        parameter Boolean useTemperatureInputs=false
-          "If true, temperature inputs are used; else, temperatures are constant"
-          annotation (Evaluate=true);
-        constant Modelica_SIunits.Temperature TDefault=293.15
-          "Default temperature";
-        parameter Modelica_SIunits.Temperature Ts(start=TDefault)
-          "Temperature of stator windings"
-          annotation (Dialog(enable=not useTemperatureInputs));
-        output Modelica_SIunits.HeatFlowRate Q_flowStatorWinding=
-            temperatureStatorWinding.port.Q_flow
-          "Heat flow rate of stator windings";
-        output Modelica_SIunits.HeatFlowRate Q_flowStatorCore=
-            temperatureStatorCore.port.Q_flow
-          "Heat flow rate of stator core losses";
-        output Modelica_SIunits.HeatFlowRate Q_flowRotorCore=
-            temperatureRotorCore.port.Q_flow
-          "Heat flow rate of stator core losses";
-        output Modelica_SIunits.HeatFlowRate Q_flowStrayLoad=
-            temperatureStrayLoad.port.Q_flow
-          "Heat flow rate of stray load losses";
-        output Modelica_SIunits.HeatFlowRate Q_flowFriction=temperatureFriction.port.Q_flow
-          "Heat flow rate of friction losses";
-        replaceable PartialThermalPortInductionMachines thermalPort(final m=m)
-          annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-        Modelica_Thermal_HeatTransfer.Sources.PrescribedTemperature
-          temperatureStatorWinding annotation (Placement(transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={-80,30})));
-        Modelica_Thermal_HeatTransfer.Sources.FixedTemperature
-          temperatureStatorCore(final T=TDefault) annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={20,50})));
-        Modelica_Thermal_HeatTransfer.Sources.FixedTemperature
-          temperatureRotorCore(final T=TDefault) annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={40,30})));
-        Modelica_Thermal_HeatTransfer.Sources.FixedTemperature
-          temperatureStrayLoad(final T=TDefault) annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={60,50})));
-        Modelica_Thermal_HeatTransfer.Sources.FixedTemperature
-          temperatureFriction(final T=TDefault) annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={80,30})));
-        Modelica_Blocks.Interfaces.RealInput TStatorWinding if
-          useTemperatureInputs "Temperature of stator windings" annotation (
-            Placement(transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=90,
-              origin={-80,-100})));
-        Modelica_Blocks.Sources.Constant constTs(final k=Ts) if not
-          useTemperatureInputs annotation (Placement(transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={-80,-10})));
-        Modelica_Thermal_HeatTransfer.Components.ThermalCollector
-          thermalCollectorStator(final m=m)
-          annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
-      equation
-        connect(constTs.y, temperatureStatorWinding.T) annotation (Line(
-            points={{-80,1},{-80,18}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(TStatorWinding, temperatureStatorWinding.T) annotation (Line(
-            points={{-80,-100},{-80,-60},{-100,-60},{-100,8},{-80,8},{-80,18}},
-            color={0,0,127},
-            smooth=Smooth.None));
-
-        connect(temperatureStrayLoad.port, thermalPort.heatPortStrayLoad)
-          annotation (Line(
-            points={{60,60},{60,100},{0,100}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(temperatureFriction.port, thermalPort.heatPortFriction)
-          annotation (Line(
-            points={{80,40},{80,100},{0,100}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(thermalCollectorStator.port_b, temperatureStatorWinding.port)
-          annotation (Line(
-            points={{-80,60},{-80,40}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(thermalCollectorStator.port_a, thermalPort.heatPortStatorWinding)
-          annotation (Line(
-            points={{-80,80},{-80,100},{0,100}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(temperatureStatorCore.port, thermalPort.heatPortStatorCore)
-          annotation (Line(
-            points={{20,60},{20,100},{0,100}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(temperatureRotorCore.port, thermalPort.heatPortRotorCore)
-          annotation (Line(
-            points={{40,40},{40,100},{0,100}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        annotation (Icon(graphics={Rectangle(
-                      extent={{-100,100},{100,-100}},
-                      lineColor={0,0,0},
-                      pattern=LinePattern.None,
-                      fillColor={159,159,223},
-                      fillPattern=FillPattern.Backward),Line(
-                      points={{-14,0},{54,0}},
-                      color={191,0,0},
-                      thickness=0.5,
-                      origin={0,-6},
-                      rotation=90),Polygon(
-                      points={{-20,-20},{-20,20},{20,0},{-20,-20}},
-                      lineColor={191,0,0},
-                      fillColor={191,0,0},
-                      fillPattern=FillPattern.Solid,
-                      origin={0,68},
-                      rotation=90)}), Documentation(info="<HTML>
-Partial thermal ambient for induction machines
-</HTML>"));
-      end PartialThermalAmbientInductionMachines;
-
-      record PartialPowerBalanceInductionMachines
-        "Partial power balance of induction machines"
-        extends Modelica_Icons.Record;
-        Modelica_SIunits.Power powerStator=0 "Electrical power (stator)";
-        Modelica_SIunits.Power powerMechanical=0 "Mechanical power";
-        Modelica_SIunits.Power powerInertiaStator=0 "Stator inertia power";
-        Modelica_SIunits.Power powerInertiaRotor=0 "Rotor inertia power";
-        Modelica_SIunits.Power lossPowerTotal=0 "Total loss power";
-        Modelica_SIunits.Power lossPowerStatorWinding=0 "Stator copper losses";
-        Modelica_SIunits.Power lossPowerStatorCore=0 "Stator core losses";
-        Modelica_SIunits.Power lossPowerRotorCore=0 "Rotor core losses";
-        Modelica_SIunits.Power lossPowerStrayLoad=0 "Stray load losses";
-        Modelica_SIunits.Power lossPowerFriction=0 "Friction losses";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Partial power balance of induction machines.
- </HTML>"));
-      end PartialPowerBalanceInductionMachines;
-
-      connector ThermalPortAIMC
-        "Thermal port of asynchronous induction machine with squirrel cage"
-        extends PartialThermalPortInductionMachines;
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortRotorWinding "Heat port of rotor (squirrel cage)"
-          annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-        annotation (Documentation(info="<HTML>
-Thermal port for asynchronous induction machine with squirrel cage
-</HTML>"));
-      end ThermalPortAIMC;
-
-      record PowerBalanceAIMC
-        "Power balance of asynchronous induction machines with squirrel cage"
-        extends PartialPowerBalanceInductionMachines(final lossPowerTotal=
-              lossPowerStatorWinding + lossPowerStatorCore + lossPowerRotorCore
-               + lossPowerStrayLoad + lossPowerFriction + lossPowerRotorWinding);
-        Modelica_SIunits.Power lossPowerRotorWinding "Rotor copper losses";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Power balance of asynchronous induction machines with squirrel cage.
- </HTML>"));
-      end PowerBalanceAIMC;
-
-      connector ThermalPortAIMS
-        "Thermal port of asynchronous induction machine with slipring"
-        extends PartialThermalPortInductionMachines;
-        parameter Integer mr=m "Number of rotor phases";
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortRotorWinding[mr] "Heat port of rotor windings"
-          annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortBrush
-          "Heat port of (optional) brush losses"
-          annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-        annotation (Documentation(info="<HTML>
-Thermal port for asynchronous induction machine with slipring rotor
-</HTML>"));
-      end ThermalPortAIMS;
-
-      record PowerBalanceAIMS
-        "Power balance of asynchronous induction machines with slipring"
-        extends PartialPowerBalanceInductionMachines(final lossPowerTotal=
-              lossPowerStatorWinding + lossPowerStatorCore + lossPowerRotorCore
-               + lossPowerStrayLoad + lossPowerFriction + lossPowerRotorWinding
-               + lossPowerBrush);
-        Modelica_SIunits.Power lossPowerRotorWinding "Rotor copper losses";
-        Modelica_SIunits.Power lossPowerBrush "Brush losses";
-        Modelica_SIunits.Power powerRotor "Electrical power (rotor)";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Power balance of asynchronous induction machines with slipring.
- </HTML>"));
-      end PowerBalanceAIMS;
-
-      connector ThermalPortSMPM
-        "Thermal port of synchronous induction machine with permanent magnets"
-        extends PartialThermalPortInductionMachines;
-        parameter Boolean useDamperCage(start=true)
-          "Enable / disable damper cage" annotation (Evaluate=true);
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortRotorWinding if useDamperCage
-          "Heat port of damper cage (optional)"
-          annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortPermanentMagnet "Heat port of permanent magnets"
-          annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-        annotation (Documentation(info="<HTML>
-Thermal port for synchronous induction machine with permanent magnets
-</HTML>"));
-      end ThermalPortSMPM;
-
-      record PowerBalanceSMPM
-        "Power balance of synchronous induction machines with permanent magnet"
-        extends PartialPowerBalanceInductionMachines(final lossPowerTotal=
-              lossPowerStatorWinding + lossPowerStatorCore + lossPowerRotorCore
-               + lossPowerStrayLoad + lossPowerFriction + lossPowerRotorWinding
-               + lossPowerPermanentMagnet);
-        Modelica_SIunits.Power lossPowerRotorWinding "Rotor copper losses";
-        Modelica_SIunits.Power lossPowerPermanentMagnet
-          "Permanent magnet losses";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Power balance of synchronous induction machines with permanent magnet.
- </HTML>"));
-      end PowerBalanceSMPM;
-
-      connector ThermalPortSMEE
-        "Thermal port of synchronous induction machine with electrical excitation"
-        extends PartialThermalPortInductionMachines;
-        parameter Boolean useDamperCage(start=true)
-          "Enable / disable damper cage" annotation (Evaluate=true);
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortRotorWinding if useDamperCage
-          "Heat port of damper cage (optional)"
-          annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortExcitation
-          "Heat port of excitation"
-          annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortBrush
-          "Heat port of (optional) brush losses"
-          annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-        annotation (Documentation(info="<HTML>
-Thermal port for synchronous induction machine with electrical excitation
-</HTML>"));
-      end ThermalPortSMEE;
-
-      record PowerBalanceSMEE
-        "Power balance of synchronous induction machines with electrical excitation"
-        extends PartialPowerBalanceInductionMachines(final lossPowerTotal=
-              lossPowerStatorWinding + lossPowerStatorCore + lossPowerRotorCore
-               + lossPowerStrayLoad + lossPowerFriction + lossPowerRotorWinding
-               + lossPowerExcitation + lossPowerBrush);
-        Modelica_SIunits.Power lossPowerRotorWinding "Rotor copper losses";
-        Modelica_SIunits.Power powerExcitation "Electrical excitation power";
-        Modelica_SIunits.Power lossPowerExcitation "Excitation losses";
-        Modelica_SIunits.Power lossPowerBrush "Brush losses";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Power balance of synchronous induction machines with electrical excitation.
- </HTML>"));
-      end PowerBalanceSMEE;
-
-      connector ThermalPortSMR
-        "Thermal port of synchronous induction machine with reluctance rotor"
-        extends PartialThermalPortInductionMachines;
-        parameter Boolean useDamperCage(start=true)
-          "Enable / disable damper cage" annotation (Evaluate=true);
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortRotorWinding if useDamperCage
-          "Heat port of damper cage (optional)"
-          annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-        annotation (Documentation(info="<HTML>
-Thermal port for synchronous induction machine with reluctance rotor
-</HTML>"));
-      end ThermalPortSMR;
-
-      record PowerBalanceSMR
-        "Power balance of synchronous induction machines with reluctance rotor"
-        extends PartialPowerBalanceInductionMachines(final lossPowerTotal=
-              lossPowerStatorWinding + lossPowerStatorCore + lossPowerRotorCore
-               + lossPowerStrayLoad + lossPowerFriction + lossPowerRotorWinding);
-        Modelica_SIunits.Power lossPowerRotorWinding "Rotor copper losses";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Power balance of synchronous induction machines with reluctance rotor.
- </HTML>"));
-      end PowerBalanceSMR;
-      annotation (Documentation(info="<HTML>
-Interfaces and partial models for induction machines
-</HTML>"));
-    end InductionMachines;
-
-    partial model PartialBasicDCMachine "Partial model for DC machine"
-      parameter Modelica_SIunits.Temperature TaOperational(start=293.15)
-        "Operational armature temperature" annotation (Dialog(group=
-              "Operational temperatures", enable=not useThermalPort));
-      parameter Modelica_SIunits.Voltage VaNominal(start=100)
-        "Nominal armature voltage" annotation (Dialog(tab="Nominal parameters"));
-      parameter Modelica_SIunits.Current IaNominal(start=100)
-        "Nominal armature current (>0..Motor, <0..Generator)"
-        annotation (Dialog(tab="Nominal parameters"));
-      parameter Modelica_SIunits.AngularVelocity wNominal(displayUnit="1/min",
-          start=1425*2*pi/60) "Nominal speed"
-        annotation (Dialog(tab="Nominal parameters"));
-      parameter Modelica_SIunits.Temperature TaNominal(start=293.15)
-        "Nominal armature temperature"
-        annotation (Dialog(tab="Nominal parameters"));
-      parameter Modelica_SIunits.Resistance Ra(start=0.05)
-        "Armature resistance at TRef"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Modelica_SIunits.Temperature TaRef(start=293.15)
-        "Reference temperature of armature resistance"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Thermal.LinearTemperatureCoefficient20 alpha20a(start=0)
-        "Temperature coefficient of armature resistance"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Modelica_SIunits.Inductance La(start=0.0015)
-        "Armature inductance"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      extends PartialBasicMachine(
-        Jr(start=0.15),
-        frictionParameters(wRef=wNominal),
-        friction(final useHeatPort=true));
-      parameter Losses.CoreParameters coreParameters(
-        final m=1,
-        VRef=ViNominal,
-        wRef=wNominal) "Armature core losses" annotation (Dialog(tab="Losses"));
-      parameter Losses.StrayLoadParameters strayLoadParameters(IRef=IaNominal,
-          wRef=wNominal) "Stray load losses" annotation (Dialog(tab="Losses"));
-      parameter Losses.BrushParameters brushParameters(ILinear=0.01*IaNominal)
-        "Brush losses" annotation (Dialog(tab="Losses"));
-      replaceable output DCMachines.PartialPowerBalanceDCMachines powerBalance(
-        final powerArmature=va*ia,
-        final powerMechanical=wMechanical*tauShaft,
-        final powerInertiaStator=inertiaStator.J*inertiaStator.a*inertiaStator.w,
-        final powerInertiaRotor=inertiaRotor.J*inertiaRotor.a*inertiaRotor.w,
-        final lossPowerArmature=ra.LossPower,
-        final lossPowerCore=core.lossPower,
-        final lossPowerStrayLoad=strayLoad.lossPower,
-        final lossPowerFriction=friction.lossPower,
-        final lossPowerBrush=brush.lossPower) "Power balance";
-
-      output Modelica_SIunits.Voltage va=pin_ap.v - pin_an.v "Armature voltage";
-      output Modelica_SIunits.Current ia(start=0) = pin_ap.i "Armature current";
-      Modelica_Electrical_Analog.Interfaces.PositivePin pin_ap
-        "Positive armature pin" annotation (Placement(transformation(extent={{
-                50,110},{70,90}}, rotation=0)));
-      Modelica_Electrical_Analog.Interfaces.NegativePin pin_an
-        "Negative armature pin" annotation (Placement(transformation(extent={{-70,
-                110},{-50,90}}, rotation=0)));
-      Modelica_Electrical_Analog.Basic.Resistor ra(
-        final R=Ra,
-        final T_ref=TaRef,
-        final alpha=Thermal.convertAlpha(         alpha20a, TaRef),
-        final useHeatPort=true,
-        final T=TaRef) annotation (Placement(transformation(extent={{60,50},{40,
-                70}}, rotation=0)));
-      BasicMachines.Components.InductorDC la(final L=La, final quasiStationary=
-            quasiStationary) annotation (Placement(transformation(extent={{30,
-                50},{10,70}}, rotation=0)));
-      Losses.DCMachines.Brush brush(final brushParameters=brushParameters,
-          final useHeatPort=true) annotation (Placement(transformation(
-            extent={{-10,10},{10,-10}},
-            rotation=180,
-            origin={-20,60})));
-      Losses.DCMachines.Core core(final coreParameters=coreParameters, final
-          useHeatPort=true)
-        annotation (Placement(transformation(extent={{10,70},{-10,90}})));
-      Losses.DCMachines.StrayLoad strayLoad(final strayLoadParameters=
-            strayLoadParameters, final useHeatPort=true)
-        annotation (Placement(transformation(extent={{90,50},{70,70}})));
-      replaceable DCMachines.PartialThermalPortDCMachines thermalPort if
-        useThermalPort
-        annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-      replaceable DCMachines.PartialThermalAmbientDCMachines thermalAmbient(final
-          useTemperatureInputs=false, final Ta=TaOperational) if not
-        useThermalPort annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=270,
-            origin={-30,-80})));
-    protected
-      constant Boolean quasiStationary=false "No electrical transients if true"
-        annotation (Evaluate=true);
-      parameter Modelica_SIunits.Voltage ViNominal "Nominal induced Voltage";
-      parameter Modelica_SIunits.MagneticFlux psi_eNominal
-        "Nominal magnetic flux";
-      parameter Real turnsRatio=ViNominal/(wNominal*psi_eNominal)
-        "Ratio of armature turns over number of turns of the excitation winding";
-      replaceable DCMachines.PartialThermalPortDCMachines internalThermalPort
-        annotation (Placement(transformation(extent={{-4,-84},{4,-76}})));
-    equation
-      assert(ViNominal >Modelica_Constants.eps,
-        "VaNominal has to be > (Ra[+Rse])*IaNominal");
-      connect(la.p, ra.n)
-        annotation (Line(points={{30,60},{40,60}}, color={0,0,255}));
-      connect(thermalPort, internalThermalPort) annotation (Line(
-          points={{0,-100},{0,-80}},
-          color={199,0,0},
-          smooth=Smooth.None));
-      connect(thermalAmbient.thermalPort, internalThermalPort) annotation (Line(
-          points={{-20,-80},{0,-80}},
-          color={199,0,0},
-          smooth=Smooth.None));
-      connect(brush.n, pin_an) annotation (Line(
-          points={{-30,60},{-60,60},{-60,100}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(pin_ap, strayLoad.p) annotation (Line(
-          points={{60,100},{90,100},{90,60}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(strayLoad.n, ra.p) annotation (Line(
-          points={{70,60},{60,60}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(strayLoad.support, internalSupport) annotation (Line(
-          points={{80,50},{80,30},{60,30},{60,-100}},
-          color={0,0,0},
-          smooth=Smooth.None));
-      connect(la.p, core.p) annotation (Line(
-          points={{30,60},{30,80},{10,80}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(core.n, brush.p) annotation (Line(
-          points={{-10,80},{-10,60}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(core.heatPort, internalThermalPort.heatPortCore) annotation (Line(
-          points={{10,70},{10,40},{50,40},{50,-80},{0,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(brush.heatPort, internalThermalPort.heatPortBrush) annotation (
-          Line(
-          points={{-10,50},{-10,40},{50,40},{50,-80},{0,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(strayLoad.heatPort, internalThermalPort.heatPortStrayLoad)
-        annotation (Line(
-          points={{90,50},{90,40},{50,40},{50,-80},{0,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(friction.heatPort, internalThermalPort.heatPortFriction)
-        annotation (Line(
-          points={{80,-50},{50,-50},{50,-80},{0,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(ra.heatPort, internalThermalPort.heatPortArmature) annotation (
-          Line(
-          points={{50,50},{50,-80},{0,-80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(inertiaRotor.flange_b, strayLoad.flange) annotation (Line(
-          points={{90,0},{92,0},{92,30},{100,30},{100,70},{80,70}},
-          color={0,0,0},
-          smooth=Smooth.None));
-      annotation (Documentation(info="<HTML>
-Partial model for DC machine models.
-</HTML>"), Icon(graphics={Line(points={{-40,70},{-60,70},{-60,90}}, color={0,0,
-              255}),Line(points={{40,70},{60,70},{60,90}}, color={0,0,255})}));
-    end PartialBasicDCMachine;
-
-    package DCMachines "Thermal ports of DC machines"
-      extends Modelica_Icons.VariantsPackage;
-      connector PartialThermalPortDCMachines
-        "Partial thermal port of DC machines"
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortArmature
-          "Heat port of armature"
-          annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortCore
-          "Heat port of (optional) core losses"
-          annotation (Placement(transformation(extent={{0,10},{20,30}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortStrayLoad
-          "Heat port of (optional) stray losses"
-          annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortFriction
-          "Heat port of (optional) friction losses"
-          annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortBrush
-          "Heat port of (optional) brush losses"
-          annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-        annotation (
-          Diagram(graphics={Rectangle(
-                      extent={{-60,60},{60,-60}},
-                      lineColor={199,0,0},
-                      fillColor={95,95,95},
-                      fillPattern=FillPattern.Solid),Ellipse(
-                      extent={{-50,50},{50,-50}},
-                      lineColor={191,0,0},
-                      fillColor={191,0,0},
-                      fillPattern=FillPattern.Solid)}),
-          Icon(graphics={Rectangle(
-                      extent={{-110,110},{110,-110}},
-                      lineColor={199,0,0},
-                      fillColor={95,95,95},
-                      fillPattern=FillPattern.Solid),Ellipse(
-                      extent={{-82,80},{78,-80}},
-                      lineColor={191,0,0},
-                      fillColor={191,0,0},
-                      fillPattern=FillPattern.Solid)}),
-          Documentation(info="<HTML>
-Partial thermal port for DC machines
-</HTML>"));
-      end PartialThermalPortDCMachines;
-
-      model PartialThermalAmbientDCMachines
-        "Partial thermal ambient for DC machines"
-        parameter Boolean useTemperatureInputs=false
-          "If true, temperature inputs are used; else, temperatures are constant"
-          annotation (Evaluate=true);
-        constant Modelica_SIunits.Temperature TDefault=293.15
-          "Default temperature";
-        parameter Modelica_SIunits.Temperature Ta(start=TDefault)
-          "Temperature of armature"
-          annotation (Dialog(enable=not useTemperatureInputs));
-        output Modelica_SIunits.HeatFlowRate Q_flowArmature=temperatureArmature.port.Q_flow
-          "Heat flow rate of armature";
-        output Modelica_SIunits.HeatFlowRate Q_flowCore=temperatureCore.port.Q_flow
-          "Heat flow rate of core losses";
-        output Modelica_SIunits.HeatFlowRate Q_flowStrayLoad=
-            temperatureStrayLoad.port.Q_flow
-          "Heat flow rate of stray load losses";
-        output Modelica_SIunits.HeatFlowRate Q_flowFriction=temperatureFriction.port.Q_flow
-          "Heat flow rate of friction losses";
-        output Modelica_SIunits.HeatFlowRate Q_flowBrush=temperatureBrush.port.Q_flow
-          "Heat flow rate of brushes";
-        replaceable PartialThermalPortDCMachines thermalPort
-          annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-        Modelica_Thermal_HeatTransfer.Sources.PrescribedTemperature
-          temperatureArmature annotation (Placement(transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={-80,30})));
-        Modelica_Thermal_HeatTransfer.Sources.FixedTemperature temperatureCore(
-            final T=TDefault) annotation (Placement(transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={40,30})));
-        Modelica_Thermal_HeatTransfer.Sources.FixedTemperature
-          temperatureStrayLoad(final T=TDefault) annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={60,10})));
-        Modelica_Thermal_HeatTransfer.Sources.FixedTemperature
-          temperatureFriction(final T=TDefault) annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={80,30})));
-        Modelica_Blocks.Interfaces.RealInput TArmature if useTemperatureInputs
-          "Temperature of armature" annotation (Placement(transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=90,
-              origin={-80,-100})));
-        Modelica_Blocks.Sources.Constant constTa(final k=Ta) if not
-          useTemperatureInputs annotation (Placement(transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={-80,-10})));
-        Modelica_Thermal_HeatTransfer.Sources.FixedTemperature temperatureBrush(
-            final T=TDefault) annotation (Placement(transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=90,
-              origin={20,10})));
-      equation
-        connect(constTa.y, temperatureArmature.T) annotation (Line(
-            points={{-80,1},{-80,18}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(TArmature, temperatureArmature.T) annotation (Line(
-            points={{-80,-100},{-80,-60},{-100,-60},{-100,8},{-80,8},{-80,18}},
-            color={0,0,127},
-            smooth=Smooth.None));
-
-        connect(temperatureArmature.port, thermalPort.heatPortArmature)
-          annotation (Line(
-            points={{-80,40},{-80,100},{0,100}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(temperatureBrush.port, thermalPort.heatPortBrush) annotation (
-            Line(
-            points={{20,20},{20,100},{0,100}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(temperatureCore.port, thermalPort.heatPortCore) annotation (
-            Line(
-            points={{40,40},{40,100},{0,100}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(temperatureStrayLoad.port, thermalPort.heatPortStrayLoad)
-          annotation (Line(
-            points={{60,20},{60,100},{0,100}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(temperatureFriction.port, thermalPort.heatPortFriction)
-          annotation (Line(
-            points={{80,40},{80,100},{0,100}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        annotation (Icon(graphics={Rectangle(
-                      extent={{-100,100},{100,-100}},
-                      lineColor={0,0,0},
-                      pattern=LinePattern.None,
-                      fillColor={159,159,223},
-                      fillPattern=FillPattern.Backward),Line(
-                      points={{-14,0},{54,0}},
-                      color={191,0,0},
-                      thickness=0.5,
-                      origin={0,-6},
-                      rotation=90),Polygon(
-                      points={{-20,-20},{-20,20},{20,0},{-20,-20}},
-                      lineColor={191,0,0},
-                      fillColor={191,0,0},
-                      fillPattern=FillPattern.Solid,
-                      origin={0,68},
-                      rotation=90)}),Documentation(info="<HTML>
-Partial thermal ambient for induction machines
-</HTML>"));
-      end PartialThermalAmbientDCMachines;
-
-      record PartialPowerBalanceDCMachines
-        "Partial power balance of DC machines"
-        extends Modelica_Icons.Record;
-        Modelica_SIunits.Power powerArmature=0 "Electrical armature power";
-        Modelica_SIunits.Power powerMechanical=0 "Mechanical power";
-        Modelica_SIunits.Power powerInertiaStator=0 "Stator inertia power";
-        Modelica_SIunits.Power powerInertiaRotor=0 "Rotor inertia power";
-        Modelica_SIunits.Power lossPowerTotal=0 "Total loss power";
-        Modelica_SIunits.Power lossPowerArmature=0 "Armature copper losses";
-        Modelica_SIunits.Power lossPowerCore=0 "Core losses";
-        Modelica_SIunits.Power lossPowerStrayLoad=0 "Stray load losses";
-        Modelica_SIunits.Power lossPowerFriction=0 "Friction losses";
-        Modelica_SIunits.Power lossPowerBrush=0 "Brush losses";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Partial power balance of DC machines.
- </HTML>"));
-      end PartialPowerBalanceDCMachines;
-
-      connector ThermalPortDCPM
-        "Thermal port of DC machine with permanent magnets"
-        extends PartialThermalPortDCMachines;
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortPermanentMagnet "Heat port of permanent magnets"
-          annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-        annotation (Documentation(info="<HTML>
-Thermal port for DC machine with permanent magnets
-</HTML>"));
-      end ThermalPortDCPM;
-
-      record PowerBalanceDCPM
-        "Power balance of DC machines with permanent magnet"
-        extends PartialPowerBalanceDCMachines(final lossPowerTotal=
-              lossPowerArmature + lossPowerCore + lossPowerStrayLoad +
-              lossPowerFriction + lossPowerBrush + lossPowerPermanentMagnet);
-        Modelica_SIunits.Power lossPowerPermanentMagnet
-          "Permanent magnet losses";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Power balance of DC machines with permanent magnet.
- </HTML>"));
-      end PowerBalanceDCPM;
-
-      connector ThermalPortDCEE
-        "Thermal port of DC machine with electrical excitation"
-        extends PartialThermalPortDCMachines;
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortExcitation
-          "Heat port of (shunt) excitation"
-          annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-        annotation (Documentation(info="<HTML>
-Thermal port for DC machine with electrical (shunt) excitation
-</HTML>"));
-      end ThermalPortDCEE;
-
-      record PowerBalanceDCEE
-        "Power balance of DC machines with electrical excitation"
-        extends PartialPowerBalanceDCMachines(final lossPowerTotal=
-              lossPowerArmature + lossPowerCore + lossPowerStrayLoad +
-              lossPowerFriction + lossPowerBrush + lossPowerExcitation);
-        Modelica_SIunits.Power powerExcitation
-          "Electrical (shunt) excitation power";
-        Modelica_SIunits.Power lossPowerExcitation "Excitation losses";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Power balance of DC machines with electrical excitation.
- </HTML>"));
-      end PowerBalanceDCEE;
-
-      connector ThermalPortDCSE
-        "Thermal port of DC machine with series excitation"
-        extends PartialThermalPortDCMachines;
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortSeriesExcitation "Heat port of series excitation"
-          annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-        annotation (Documentation(info="<HTML>
-Thermal port for DC machine with serial excitation
-</HTML>"));
-      end ThermalPortDCSE;
-
-      record PowerBalanceDCSE
-        "Power balance of DC machines with series excitation"
-        extends PartialPowerBalanceDCMachines(final lossPowerTotal=
-              lossPowerArmature + lossPowerCore + lossPowerStrayLoad +
-              lossPowerFriction + lossPowerBrush + lossPowerSeriesExcitation);
-        Modelica_SIunits.Power powerSeriesExcitation
-          "Electrical series excitation power";
-        Modelica_SIunits.Power lossPowerSeriesExcitation
-          "Series excitation losses";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Power balance of DC machines with series excitation.
- </HTML>"));
-      end PowerBalanceDCSE;
-
-      connector ThermalPortDCCE
-        "Thermal port of DC machine with compound excitation"
-        extends PartialThermalPortDCMachines;
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortShuntExcitation "Heat port of (shunt) excitation"
-          annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-        Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a
-          heatPortSeriesExcitation "Heat port of series excitation"
-          annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-        annotation (Documentation(info="<HTML>
-Thermal port for DC machine with compound excitation
-</HTML>"));
-      end ThermalPortDCCE;
-
-      record PowerBalanceDCCE
-        "Power balance of DC machines with compound excitation"
-        extends PartialPowerBalanceDCMachines(final lossPowerTotal=
-              lossPowerArmature + lossPowerCore + lossPowerStrayLoad +
-              lossPowerFriction + lossPowerBrush + lossPowerShuntExcitation +
-              lossPowerSeriesExcitation);
-        Modelica_SIunits.Power powerShuntExcitation
-          "Electrical (shunt) excitation power";
-        Modelica_SIunits.Power powerSeriesExcitation
-          "Electrical series excitation power";
-        Modelica_SIunits.Power lossPowerShuntExcitation
-          "(Shunt) excitation losses";
-        Modelica_SIunits.Power lossPowerSeriesExcitation
-          "Series excitation losses";
-        annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Power balance of DC machines with compound excitation.
- </HTML>"));
-      end PowerBalanceDCCE;
-      annotation (Documentation(info="<HTML>
-Thermal ports for DC machines
-</HTML>"));
-    end DCMachines;
-
-    partial model PartialBasicTransformer
-      "Partial model of three-phase transformer"
-      extends Icons.TransientTransformer;
-      final parameter Integer m(min=1) = 3 "Number of phases";
-      constant String VectorGroup="Yy00";
-      parameter Real n(start=1)
-        "Ratio primary voltage (line-to-line) / secondary voltage (line-to-line)";
-      parameter Modelica_SIunits.Resistance R1(start=5E-3/(if C1 == "D" then 1
-             else 3)) "Primary resistance per phase at TRef"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Modelica_SIunits.Temperature T1Ref(start=293.15)
-        "Reference temperature of primary resistance"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Thermal.LinearTemperatureCoefficient20 alpha20_1(start=0)
-        "Temperature coefficient of primary resistance at 20 degC"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Modelica_SIunits.Inductance L1sigma(start=78E-6/(if C1 == "D"
-             then 1 else 3)) "Primary stray inductance per phase"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Modelica_SIunits.Resistance R2(start=5E-3/(if C2 == "d" then 1
-             else 3)) "Secondary resistance per phase at TRef"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Modelica_SIunits.Temperature T2Ref(start=293.15)
-        "Reference temperature of secondary resistance"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Thermal.LinearTemperatureCoefficient20 alpha20_2(start=0)
-        "Temperature coefficient of secondary resistance at 20 degC"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Modelica_SIunits.Inductance L2sigma(start=78E-6/(if C2 == "d"
-             then 1 else 3)) "Secondary stray inductance per phase"
-        annotation (Dialog(tab="Nominal resistances and inductances"));
-      parameter Boolean useThermalPort=false
-        "Enable / disable (=fixed temperatures) thermal port"
-        annotation (Evaluate=true);
-      parameter Modelica_SIunits.Temperature T1Operational(start=293.15)
-        "Operational temperature of primary resistance" annotation (Dialog(
-            group="Operational temperatures", enable=not useThermalPort));
-      parameter Modelica_SIunits.Temperature T2Operational(start=293.15)
-        "Operational temperature of secondary resistance" annotation (Dialog(
-            group="Operational temperatures", enable=not useThermalPort));
-      output PowerBalanceTransformer powerBalance(
-        final power1=SpacePhasors.Functions.activePower(v1, i1),
-        final power2=SpacePhasors.Functions.activePower(v2, i2),
-        final lossPower1=sum(r1.resistor.LossPower),
-        final lossPower2=sum(r2.resistor.LossPower),
-        final lossPowerCore=0) "Power balance";
-      output Modelica_SIunits.Voltage v1[m]=plug1.pin.v "Primary voltage";
-      output Modelica_SIunits.Current i1[m]=plug1.pin.i "Primary current";
-      output Modelica_SIunits.Voltage v2[m]=plug2.pin.v "Secondary voltage";
-      output Modelica_SIunits.Current i2[m]=plug2.pin.i "Secondary current";
-    protected
-      constant String C1=Modelica_Utilities.Strings.substring(
-              VectorGroup,
-              1,
-              1);
-      constant String C2=Modelica_Utilities.Strings.substring(
-              VectorGroup,
-              2,
-              2);
-      parameter Real ni=n*(if C2 == "z" then sqrt(3) else 2)*(if C2 == "d"
-           then 1 else sqrt(3))/(if C1 == "D" then 1 else sqrt(3));
-    public
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug1(final m=m)
-        "Primary plug" annotation (Placement(transformation(extent={{-110,-10},
-                {-90,10}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug2(final m=m)
-        "Secondary plug" annotation (Placement(transformation(extent={{90,-10},
-                {110,10}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Basic.Resistor r1(
-        final m=m,
-        final R=fill(R1, m),
-        final T_ref=fill(T1Ref, m),
-        final alpha=fill(Thermal.convertAlpha(         alpha20_1, T1Ref), m),
-        final useHeatPort=true,
-        final T=fill(T1Ref, m)) annotation (Placement(transformation(extent={{-90,
-                10},{-70,-10}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Basic.Inductor l1sigma(final m=m, final L=
-            fill(L1sigma, m)) annotation (Placement(transformation(extent={{-70,
-                -10},{-50,10}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Basic.Resistor r2(
-        final m=m,
-        final R=fill(R2, m),
-        final T_ref=fill(T2Ref, m),
-        final alpha=fill(Thermal.convertAlpha(         alpha20_2, T2Ref), m),
-        final useHeatPort=true,
-        final T=fill(T2Ref, m)) annotation (Placement(transformation(extent={{90,10},
-                {70,-10}},        rotation=0)));
-      Modelica_Electrical_MultiPhase.Basic.Inductor l2sigma(final m=m, final L=
-            fill(L2sigma, m)) annotation (Placement(transformation(extent={{70,-10},
-                {50,10}},      rotation=0)));
-      BasicMachines.Components.IdealCore core(
-        final m=m,
-        final n12=ni,
-        final n13=ni) annotation (Placement(transformation(extent={{-10,-10},{
-                10,10}}, rotation=0)));
-      ThermalPortTransformer thermalPort(final m=m) if useThermalPort
-        annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-      Thermal.ThermalAmbientTransformer thermalAmbient(
-        final useTemperatureInputs=false,
-        final T1=T1Operational,
-        final T2=T2Operational,
-        final m=m) if not useThermalPort annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=270,
-            origin={-30,80})));
-    protected
-      ThermalPortTransformer internalThermalPort(final m=m)
-        annotation (Placement(transformation(extent={{-4,76},{4,84}})));
-    equation
-      connect(r1.plug_n, l1sigma.plug_p)
-        annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
-      connect(plug1, r1.plug_p)
-        annotation (Line(points={{-100,0},{-90,0}}, color={0,0,255}));
-      connect(thermalPort, internalThermalPort) annotation (Line(
-          points={{0,100},{0,80}},
-          color={199,0,0},
-          smooth=Smooth.None));
-      connect(thermalAmbient.thermalPort, internalThermalPort) annotation (Line(
-          points={{-20,80},{0,80}},
-          color={199,0,0},
-          smooth=Smooth.None));
-      connect(r1.heatPort, internalThermalPort.heatPort1) annotation (Line(
-          points={{-80,10},{-80,60},{0,60},{0,80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(r2.heatPort, internalThermalPort.heatPort2) annotation (Line(
-          points={{80,10},{80,60},{0,60},{0,80}},
-          color={191,0,0},
-          smooth=Smooth.None));
-      connect(r2.plug_p, plug2) annotation (Line(
-          points={{90,0},{100,0}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(l2sigma.plug_p, r2.plug_n) annotation (Line(
-          points={{70,0},{70,0}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Text(
-                  extent={{0,-60},{0,-100}},
-                  lineColor={0,0,255},
-                  textString="%VectorGroup"),Text(
-                  extent={{0,100},{0,60}},
-                  lineColor={0,0,255},
-                  textString="%name")}), Documentation(info="<html>
-Partial model of a three-phase transformer, containing primary and secondary resistances and stray inductances, as well as the iron core.
-Circuit layout (vector group) of primary and secondary windings have to be defined.
-<br><b>Default values for transformer's parameters (a realistic example) are:</b><br>
-<table>
-<tr>
-<td valign=\"top\">turns ratio n</td>
-<td valign=\"top\">1</td><td valign=\"top\"> </td>
-</tr>
-<tr>
-<td valign=\"top\">nominal frequency fNominal</td>
-<td valign=\"top\">50</td><td valign=\"top\">Hz</td>
-</tr>
-<tr>
-<td valign=\"top\">nominal voltage per phase</td>
-<td valign=\"top\">100</td><td valign=\"top\">V RMS</td>
-</tr>
-<tr>
-<td valign=\"top\">nominal current per phase</td>
-<td valign=\"top\">100</td><td valign=\"top\">A RMS</td>
-</tr>
-<tr>
-<td valign=\"top\">nominal apparent power</td>
-<td valign=\"top\">30</td><td valign=\"top\">kVA</td>
-</tr>
-<tr>
-<td valign=\"top\">primary resistance R1</td>
-<td valign=\"top\">0.005</td><td valign=\"top\">Ohm per phase at reference temperature</td>
-</tr>
-<tr>
-<td valign=\"top\">reference temperature T1Ref</td>
-<td valign=\"top\">20</td><td valign=\"top\">&deg;C</td>
-</tr>
-<tr>
-<td valign=\"top\">temperature coefficient alpha20_1 </td>
-<td valign=\"top\">0</td><td valign=\"top\">1/K</td>
-</tr>
-<tr>
-<td valign=\"top\">primary stray inductance L1sigma</td>
-<td valign=\"top\">78E-6</td><td valign=\"top\">H per phase</td>
-</tr>
-<tr>
-<td valign=\"top\">secondary resistance R2</td>
-<td valign=\"top\">0.005</td><td valign=\"top\">Ohm per phase at reference temperature</td>
-</tr>
-<tr>
-<td valign=\"top\">reference temperature T2Ref</td>
-<td valign=\"top\">20</td><td valign=\"top\">&deg;C</td>
-</tr>
-<tr>
-<td valign=\"top\">temperature coefficient alpha20_2 </td>
-<td valign=\"top\">0</td><td valign=\"top\">1/K</td>
-</tr>
-<tr>
-<td valign=\"top\">secondary stray inductance L2sigma</td>
-<td valign=\"top\">78E-6</td><td valign=\"top\">H per phase</td>
-</tr>
-<tr>
-<td valign=\"top\">operational temperature T1Operational</td>
-<td valign=\"top\">20</td><td valign=\"top\">&deg;C</td>
-</tr>
-<tr>
-<td valign=\"top\">operational temperature T2Operational</td>
-<td valign=\"top\">20</td><td valign=\"top\">&deg;C</td>
-</tr>
-<tr>
-<td valign=\"top\">These values give the operational parameters:</td>
-<td valign=\"top\"> </td><td valign=\"top\"> </td>
-</tr>
-<tr>
-<td valign=\"top\">nominal voltage drop</td>
-<td valign=\"top\">0.05</td><td valign=\"top\">p.u.</td>
-</tr>
-<tr>
-<td valign=\"top\">nominal copper losses</td>
-<td valign=\"top\">300</td><td valign=\"top\">W</td>
-</tr>
-</table>
-</html>"),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-                100}}), graphics));
-    end PartialBasicTransformer;
-
-    connector ThermalPortTransformer "Thermal port of transformers"
-      parameter Integer m=3 "number of phases";
-      Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPort1[m]
-        "Heat port of primary windings"
-        annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-      Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPort2[m]
-        "Heat port of secondary windings"
-        annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-      Modelica_Thermal_HeatTransfer.Interfaces.HeatPort_a heatPortCore
-        "Heat port of (optional) core losses"
-        annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-      annotation (
-        Diagram(graphics={Rectangle(
-                  extent={{-60,60},{60,-60}},
-                  lineColor={199,0,0},
-                  fillColor={95,95,95},
-                  fillPattern=FillPattern.Solid),Ellipse(
-                  extent={{-50,50},{50,-50}},
-                  lineColor={191,0,0},
-                  fillColor={191,0,0},
-                  fillPattern=FillPattern.Solid)}),
-        Icon(graphics={Rectangle(
-                  extent={{-110,110},{110,-110}},
-                  lineColor={199,0,0},
-                  fillColor={95,95,95},
-                  fillPattern=FillPattern.Solid),Ellipse(
-                  extent={{-80,80},{80,-80}},
-                  lineColor={191,0,0},
-                  fillColor={191,0,0},
-                  fillPattern=FillPattern.Solid)}),
-        Documentation(info="<HTML>
-Thermal port for transformers
-</HTML>"));
-    end ThermalPortTransformer;
-
-    record PowerBalanceTransformer "Power balance of transformers"
-      extends Modelica_Icons.Record;
-      Modelica_SIunits.Power power1 "Primary power";
-      Modelica_SIunits.Power power2 "Secondary power";
-      Modelica_SIunits.Power lossPowerTotal=lossPower1 + lossPower2 +
-          lossPowerCore "Total loss power";
-      Modelica_SIunits.Power lossPower1 "Primary copper losses";
-      Modelica_SIunits.Power lossPower2 "Secondary copper losses";
-      Modelica_SIunits.Power lossPowerCore "Core losses";
-      annotation (defaultComponentPrefixes="output", Documentation(info="<HTML>
-Power balance of transformers.
- </HTML>"));
-    end PowerBalanceTransformer;
-
-    partial model FlangeSupport "Shaft and support"
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a flange "Shaft end"
-        annotation (Placement(transformation(extent={{-10,110},{10,90}},
-              rotation=0)));
-      Modelica_Mechanics_Rotational.Interfaces.Flange_a support
-        "Housing and support" annotation (Placement(transformation(extent={{-10,
-                -110},{10,-90}}, rotation=0)));
-      Modelica_SIunits.Angle phi "Angle between shaft and support";
-      Modelica_SIunits.Torque tau "Torque";
-      Modelica_SIunits.AngularVelocity w
-        "Relative angular velocity of flange and support";
-    equation
-      phi = flange.phi - support.phi;
-      w = der(phi);
-      tau = -flange.tau;
-      tau = support.tau;
-      annotation (Documentation(info="<html>
-<p>
-This partial model defines shaft and housing connector for loss models.
-Positive torque <code>tau</code> acts as braking torque.
-</p>
-</html>"), Icon(graphics={Rectangle(
-                  extent={{-20,-80},{20,-120}},
-                  lineColor={192,192,192},
-                  fillColor={192,192,192},
-                  fillPattern=FillPattern.Solid)}));
-    end FlangeSupport;
-    annotation (Documentation(info="<HTML>
-This package contains the space phasor connector and partial models for machine models.
-</HTML>", revisions="<HTML>
-<dl>
-  <dt><b>Main Authors:</b></dt>
-  <dd>
-  <a href=\"http://www.haumer.at/\">Anton Haumer</a><br>
-  Technical Consulting &amp; Electrical Engineering<br>
-  A-3423 St.Andrae-Woerdern<br>Austria<br>
-  email: <a href=\"mailto:a.haumer@haumer.at\">a.haumer@haumer.at</a>
-  </dd>
-  <dt><b>Copyright:</b></dt>
-  <dd>Copyright &copy; 1998-2013, Modelica Association and Anton Haumer.<br>
-  <i>The Modelica package is <b>free</b> software; it can be redistributed and/or modified
-  under the terms of the <b>Modelica license</b>, see the license conditions
-  and the accompanying <b>disclaimer</b> in the documentation of package
-  Modelica in file \"Modelica/package.mo\".</i></dd>
-</dl>
-  <ul>
-  <li> v1.00 2004/09/16 Anton Haumer</li>
-  <li> v1.01 2004/09/18 Anton Haumer<br>
-       moved common equations from machine models to PartialMachine</li>
-  <li> v1.02 2004/09/19 Anton Haumer<br>
-       added PartialDCMachine</li>
-  <li> v1.2  2004/10/27 Anton Haumer<br>
-       fixed a bug with support (formerly bearing)</li>
-  <li> v1.4   2004/11/11 Anton Haumer<br>
-       removed mechanical flange support<br>
-       to ease the implementation of a 3D-frame in a future release</li>
-  <li> v1.51 Beta 2005/02/01 Anton Haumer<br>
-       changed parameter polePairs to Integer</li>
-  <li> v2.2.0 2011/02/10 Anton Haumer<br>
-       conditional ThermalPort for all machines</li>
-  </ul>
-</HTML>"));
-  end Interfaces;
 
   package Icons "Icons for electrical machines"
     extends Modelica_Icons.IconsPackage;
@@ -10531,7 +9194,7 @@ The icons can be utilized by inheriting them in the desired class using \"extend
     end ParameterRecords;
 
     block VfController "Voltage-Frequency-Controller"
-      extends Modelica_Blocks.Interfaces.SIMO(final nout=m);
+      extends Modelica_Blocks_Interfaces.SIMO(final nout=m);
       constant Modelica_SIunits.Angle pi=Modelica_Constants.pi;
       parameter Integer m=3 "Number of phases";
       parameter Modelica_SIunits.Angle orientation[m]=-
@@ -10583,7 +9246,7 @@ Phase shifts between sine-waves may be chosen by the user; default values are <i
 
     block ToDQ
       "Transform instantaneous stator inputs to rotor fixed space phasor"
-      extends Modelica_Blocks.Interfaces.MIMO(final nin=m, final nout=2);
+      extends Modelica_Blocks_Interfaces.MIMO(final nin=m, final nout=2);
       parameter Integer m(min=1) = 3 "Number of phases";
       parameter Integer p "Number of pole pairs";
       Modelica_Blocks.Math.Gain toGamma(final k=p) annotation (Placement(
@@ -10594,7 +9257,7 @@ Phase shifts between sine-waves may be chosen by the user; default values are <i
       Modelica_Electrical_Machines.SpacePhasors.Blocks.Rotator rotator
         annotation (Placement(transformation(extent={{-10,-10},{10,10}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput phi annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput phi annotation (Placement(
             transformation(
             origin={0,-120},
             extent={{20,-20},{-20,20}},
@@ -10635,7 +9298,7 @@ using the provided mechanical rotor angle phi. The ouput are the resulting d and
 
     block FromDQ
       "Transform rotor fixed space phasor to instantaneous stator quantities"
-      extends Modelica_Blocks.Interfaces.MIMO(final nin=2, final nout=m);
+      extends Modelica_Blocks_Interfaces.MIMO(final nin=2, final nout=m);
       parameter Integer m(min=1) = 3 "Number of phases";
       parameter Integer p "Number of pole pairs";
       Modelica_Blocks.Math.Gain toGamma(final k=-p) annotation (Placement(
@@ -10651,7 +9314,7 @@ using the provided mechanical rotor angle phi. The ouput are the resulting d and
       Modelica_Electrical_Machines.SpacePhasors.Blocks.FromSpacePhasor fromSpacePhasor(final m=m)
         annotation (Placement(transformation(extent={{60,-10},{80,10}},
               rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput phi annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput phi annotation (Placement(
             transformation(
             origin={0,-120},
             extent={{20,-20},{-20,20}},
@@ -10692,12 +9355,12 @@ using the provided mechanical rotor angle phi. The output are the instantaneous 
     model CurrentController "Current controller"
       constant Integer m=3 "Number of phases";
       parameter Integer p "Number of pole pairs";
-      extends Modelica_Blocks.Interfaces.MO(final nout=m);
-      Modelica_Blocks.Interfaces.RealInput id_rms annotation (Placement(
+      extends Modelica_Blocks_Interfaces.MO(final nout=m);
+      Modelica_Blocks_Interfaces.RealInput id_rms annotation (Placement(
             transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput iq_rms annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput iq_rms annotation (Placement(
             transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput phi annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput phi annotation (Placement(
             transformation(
             origin={0,-120},
             extent={{20,-20},{-20,20}},
@@ -10786,17 +9449,17 @@ They can be used to feed a current source which in turn feeds an induction machi
       Modelica_SIunits.Voltage Vd=sqrt(2)*(Rs*id_rms - omega*Lq*iq_rms);
       Modelica_SIunits.Voltage Vq=sqrt(2)*(Rs*iq_rms + omega*Ld*id_rms) + omega
           *psiM;
-      extends Modelica_Blocks.Interfaces.MO(final nout=m);
-      Modelica_Blocks.Interfaces.RealInput id_rms annotation (Placement(
+      extends Modelica_Blocks_Interfaces.MO(final nout=m);
+      Modelica_Blocks_Interfaces.RealInput id_rms annotation (Placement(
             transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput iq_rms annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput iq_rms annotation (Placement(
             transformation(extent={{-140,-80},{-100,-40}}, rotation=0)));
-      Modelica_Blocks.Interfaces.RealInput phi annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput phi annotation (Placement(
             transformation(
             origin={60,-120},
             extent={{20,-20},{-20,20}},
             rotation=270)));
-      Modelica_Blocks.Interfaces.RealInput iActual[3] annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput iActual[3] annotation (Placement(
             transformation(
             origin={-60,-120},
             extent={{20,-20},{-20,20}},
@@ -10930,13 +9593,13 @@ Note: No care is taken for current or voltage limiting, as well as for field wea
 
     model SwitchYD "Y-D-switch"
       parameter Integer m=3 "Number of phases";
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plugSupply(final m=
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plugSupply(final m=
            m) "To grid" annotation (Placement(transformation(extent={{-10,90},{
                 10,110}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_sp(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_sp(final m=m)
         "To positive stator plug" annotation (Placement(transformation(extent={
                 {50,-90},{70,-110}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_sn(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_sn(final m=m)
         "To negative stator plug" annotation (Placement(transformation(extent={
                 {-70,-90},{-50,-110}}, rotation=0)));
       Modelica_Electrical_MultiPhase.Basic.Star star(final m=m) annotation (
@@ -10949,7 +9612,7 @@ Note: No care is taken for current or voltage limiting, as well as for field wea
         Ron=fill(1e-5, m),
         Goff=fill(1e-5, m)) annotation (Placement(transformation(extent={{-10,-70},
                 {10,-50}}, rotation=0)));
-      Modelica_Blocks.Interfaces.BooleanInput control[m] annotation (Placement(
+      Modelica_Blocks_Interfaces.BooleanInput control[m] annotation (Placement(
             transformation(extent={{-120,-10},{-100,10}}, rotation=0)));
     equation
       connect(delta.plug_p, plugSupply) annotation (Line(points={{40,-70},{60,-70},
@@ -10989,10 +9652,10 @@ If <i>control</i> is true, plug_sp and plug_sn are delta connected and they are 
       parameter String terminalConnection(start="Y") "Choose Y=star/D=delta"
         annotation (choices(choice="Y" "Star connection", choice="D"
             "Delta connection"));
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_sp(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_sp(final m=m)
         "To positive stator plug" annotation (Placement(transformation(extent={
                 {50,-90},{70,-110}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_sn(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_sn(final m=m)
         "To negative stator plug" annotation (Placement(transformation(extent={
                 {-70,-90},{-50,-110}}, rotation=0)));
       Modelica_Electrical_MultiPhase.Basic.Star star(final m=m) if (
@@ -11003,10 +9666,10 @@ If <i>control</i> is true, plug_sp and plug_sn are delta connected and they are 
       Modelica_Electrical_MultiPhase.Basic.Delta delta(final m=m) if (
         terminalConnection == "D") annotation (Placement(transformation(extent=
                 {{-20,-70},{-40,-50}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plugSupply(final m=
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plugSupply(final m=
            m) "To grid" annotation (Placement(transformation(extent={{-10,-70},
                 {10,-90}}, rotation=0)));
-      Modelica_Electrical_Analog.Interfaces.NegativePin starpoint if (
+      Modelica_Electrical_Analog_Interfaces.NegativePin starpoint if (
         terminalConnection <> "D") annotation (Placement(transformation(extent=
                 {{-100,-90},{-80,-70}}, rotation=0)));
     equation
@@ -11044,10 +9707,10 @@ choosing Y-connection (StarDelta=Y) or D-connection (StarDelta=D).
       parameter String terminalConnection(start="Y") "Choose Y=star/D=delta"
         annotation (choices(choice="Y" "Star connection", choice="D"
             "Delta connection"));
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_sp(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_sp(final m=m)
         "To positive stator plug" annotation (Placement(transformation(extent={
                 {50,-90},{70,-110}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_sn(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_sn(final m=m)
         "To negative stator plug" annotation (Placement(transformation(extent={
                 {-70,-90},{-50,-110}}, rotation=0)));
       Modelica_Electrical_MultiPhase.Basic.MultiStar multiStar(final m=m) if
@@ -11060,10 +9723,10 @@ choosing Y-connection (StarDelta=Y) or D-connection (StarDelta=D).
                                                            (terminalConnection
          == "D") annotation (Placement(transformation(extent={{-20,-70},{-40,-50}},
               rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plugSupply(final m=
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plugSupply(final m=
            m) "To grid" annotation (Placement(transformation(extent={{-10,-70},
                 {10,-90}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug starpoint(final m=
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug starpoint(final m=
             mSystems) if (terminalConnection <> "D") annotation (Placement(
             transformation(extent={{-100,-90},{-80,-70}}, rotation=0)));
     equation
@@ -11100,10 +9763,10 @@ choosing Y-connection (StarDelta=Y) or D-connection (StarDelta=D).
 
     model SwitchedRheostat "Rheostat which is shortened after a given time"
       parameter Integer m=3 "Number of phases";
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_p(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p(final m=m)
         "To positive rotor plug" annotation (Placement(transformation(extent={{
                 90,70},{110,50}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_n(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_n(final m=m)
         "To negative rotor plug" annotation (Placement(transformation(extent={{
                 90,-50},{110,-70}}, rotation=0)));
       parameter Modelica_SIunits.Resistance RStart "Starting resistance";
@@ -11188,10 +9851,10 @@ choosing Y-connection (StarDelta=Y) or D-connection (StarDelta=D).
 
     model RampedRheostat "Rheostat with linearly decreasing resistance"
       parameter Integer m=3 "Number of phases";
-      Modelica_Electrical_MultiPhase.Interfaces.PositivePlug plug_p(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p(final m=m)
         "To positive rotor plug" annotation (Placement(transformation(extent={{
                 90,70},{110,50}}, rotation=0)));
-      Modelica_Electrical_MultiPhase.Interfaces.NegativePlug plug_n(final m=m)
+      Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_n(final m=m)
         "To negative rotor plug" annotation (Placement(transformation(extent={{
                 90,-50},{110,-70}}, rotation=0)));
       parameter Modelica_SIunits.Resistance RStart "Starting resistance";
