@@ -8011,7 +8011,6 @@ versionBuild=0,
 versionDate="2013-08-14",
 dateModified = "2013-08-14 08:44:41Z",
 revisionId="$Id::                                       $",
-uses(Complex(version="3.2.1"), ModelicaServices(version="3.2.1")),
 conversion(
  noneFromVersion="3.2",
  noneFromVersion="3.1",
@@ -8092,5 +8091,36 @@ TU Hamburg-Harburg, Politecnico di Milano, XRG Simulation.
 <p>
 <b>Modelica&reg;</b> is a registered trademark of the Modelica Association.
 </p>
-</html>"));
+</html>"),
+uses(
+Modelica_Math,
+Modelica_Blocks,
+Modelica_ComplexBlocks,
+Modelica_ComplexMath,
+Modelica_Constants,
+Modelica_Electrical_Analog,
+Modelica_Electrical_Digital,
+Modelica_Electrical_Machines,
+Modelica_Electrical_MultiPhase,
+Modelica_Electrical_QuasiStationary,
+Modelica_Electrical_Spice3,
+Modelica_Electrical_StateGraph,
+Modelica_Fluid,
+Modelica_Icons,
+Modelica_Magnetic_FluxTubes,
+Modelica_Magnetic_FundamentalWave,
+Modelica_Magnetic_QuasiStatic,
+Modelica_Mechanics_MultiBody,
+Modelica_Mechanics_Rotational,
+Modelica_Mechanics_Translational,
+Modelica_Media,
+Modelica_Services,
+Modelica_SIunits,
+Modelica_StateGraph,
+Modelica_Thermal_FluidHeatFlow,
+Modelica_Thermal_HeatTransfer,
+Modelica_Utilities,
+      Modelica(version="3.2.1")));
+//Complex,
+//Modelica_Reference,
 end M_S_L;
