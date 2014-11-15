@@ -18838,6 +18838,7 @@ November 3-4, 2003, pp. 149-158</p>
         "Unit vector in direction of flange_b rotation axis";
       encapsulated model Housing
         import Modelica_Mechanics_MultiBody_Interfaces;
+        import Modelica_SIunits;
         input Modelica_SIunits.Torque t[3];
         Modelica_Mechanics_MultiBody_Interfaces.Frame_a frame_a annotation (
             Placement(transformation(extent={{-116,-16},{-84,16}}, rotation=0)));

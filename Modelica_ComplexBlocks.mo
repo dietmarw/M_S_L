@@ -1729,10 +1729,10 @@ zero or negative.
 
     block RealToComplex "Converts Cartesian representation to complex"
       extends Modelica_ComplexBlocks_Interfaces.ComplexSO;
-      Modelica_Blocks.Interfaces.RealInput re annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput re annotation (Placement(
             transformation(extent={{-130,40},{-90,80}}), iconTransformation(
               extent={{-140,40},{-100,80}})));
-      Modelica_Blocks.Interfaces.RealInput im annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput im annotation (Placement(
             transformation(extent={{-130,-80},{-90,-40}}), iconTransformation(
               extent={{-140,-80},{-100,-40}})));
     equation
@@ -1767,10 +1767,10 @@ zero or negative.
 
     block PolarToComplex "Converts polar representation to complex"
       extends Modelica_ComplexBlocks_Interfaces.ComplexSO;
-      Modelica_Blocks.Interfaces.RealInput len annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput len annotation (Placement(
             transformation(extent={{-130,40},{-90,80}}), iconTransformation(
               extent={{-140,40},{-100,80}})));
-      Modelica_Blocks.Interfaces.RealInput phi annotation (Placement(
+      Modelica_Blocks_Interfaces.RealInput phi annotation (Placement(
             transformation(extent={{-130,-80},{-90,-40}}), iconTransformation(
               extent={{-140,-80},{-100,-40}})));
     equation
@@ -1805,10 +1805,10 @@ zero or negative.
 
     block ComplexToReal "Converts complex to Cartesian representation"
       extends Modelica_Blocks.Icons.Block;
-      Modelica_Blocks.Interfaces.RealOutput re annotation (Placement(
+      Modelica_Blocks_Interfaces.RealOutput re annotation (Placement(
             transformation(extent={{100,40},{140,80}}), iconTransformation(
               extent={{100,40},{140,80}})));
-      Modelica_Blocks.Interfaces.RealOutput im annotation (Placement(
+      Modelica_Blocks_Interfaces.RealOutput im annotation (Placement(
             transformation(extent={{100,-80},{140,-40}}), iconTransformation(
               extent={{100,-80},{140,-40}})));
       Modelica_ComplexBlocks_Interfaces.ComplexInput u
@@ -1849,10 +1849,10 @@ zero or negative.
 
     block ComplexToPolar "Converts complex to polar representation"
       extends Modelica_Blocks.Icons.Block;
-      Modelica_Blocks.Interfaces.RealOutput len annotation (Placement(
+      Modelica_Blocks_Interfaces.RealOutput len annotation (Placement(
             transformation(extent={{100,40},{140,80}}), iconTransformation(
               extent={{100,40},{140,80}})));
-      Modelica_Blocks.Interfaces.RealOutput phi annotation (Placement(
+      Modelica_Blocks_Interfaces.RealOutput phi annotation (Placement(
             transformation(extent={{100,-80},{140,-40}}), iconTransformation(
               extent={{100,-80},{140,-40}})));
       Modelica_ComplexBlocks_Interfaces.ComplexInput u

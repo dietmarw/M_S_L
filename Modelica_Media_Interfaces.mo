@@ -797,9 +797,9 @@ kappa is defined as - 1/v * der(v,p), with v = 1/d at constant temperature T.
         max=1.e5) "Type for mass flow rate with medium specific attributes";
 
     // Only for backwards compatibility to version 3.2 (
-    // (do not use these definitions in new models, but use Modelica_Media.Interfaces.Choices instead)
+    // (do not use these definitions in new models, but use Modelica_Media_Interfaces.Choices instead)
     package Choices = Modelica_Media_Interfaces.Choices annotation (obsolete=
-          "Use Modelica_Media.Interfaces.Choices");
+          "Use Modelica_Media_Interfaces.Choices");
 
     annotation (Documentation(info="<html>
 <p>
@@ -989,7 +989,7 @@ are described in
     "Generic pure liquid model with constant cp, compressibility and thermal expansion coefficients"
       import Modelica_Media;
 
-    extends PartialPureSubstance(ThermoStates=Modelica_Media.Interfaces.Choices.IndependentVariables.pTX,
+    extends PartialPureSubstance(ThermoStates=Modelica_Media_Interfaces.Choices.IndependentVariables.pTX,
         singleState=false);
     constant SpecificHeatCapacity cp_const
       "Specific heat capacity at constant pressure";
@@ -1404,7 +1404,7 @@ to the above list of assumptions</li>
   partial package PartialCondensingGases
     "Base class for mixtures of condensing and non-condensing gases"
       import Modelica_Media;
-    extends PartialMixtureMedium(ThermoStates=Modelica_Media.Interfaces.Choices.IndependentVariables.pTX);
+    extends PartialMixtureMedium(ThermoStates=Modelica_Media_Interfaces.Choices.IndependentVariables.pTX);
 
     replaceable partial function saturationPressure
       "Return saturation pressure of condensing fluid"
@@ -2112,7 +2112,7 @@ to the above list of assumptions</li>
     "Medium model with linear dependency of u, h from temperature. All other quantities, especially density, are constant."
       import Modelica_Media;
 
-    extends PartialPureSubstance(final ThermoStates=Modelica_Media.Interfaces.Choices.IndependentVariables.pT,
+    extends PartialPureSubstance(final ThermoStates=Modelica_Media_Interfaces.Choices.IndependentVariables.pT,
         final singleState=true);
 
     constant SpecificHeatCapacity cp_const
@@ -2413,7 +2413,7 @@ This function computes the specific internal energy of the fluid, but neglects t
     extends PartialPureSubstance(
       redeclare replaceable record FluidConstants = Types.Basic.FluidConstants,
 
-      ThermoStates=Modelica_Media.Interfaces.Choices.IndependentVariables.pT,
+      ThermoStates=Modelica_Media_Interfaces.Choices.IndependentVariables.pT,
       final singleState=false);
 
     constant SpecificHeatCapacity cp_const

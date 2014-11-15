@@ -8135,6 +8135,7 @@ Modelica_Magnetic_FundamentalWave_Examples,
 Modelica_Magnetic_FundamentalWave_Interfaces,
 Modelica_Magnetic_FundamentalWave,
 Modelica_Magnetic_QuasiStatic_FundamentalWave_Examples,
+Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces,
 Modelica_Magnetic_QuasiStatic_FundamentalWave,
 Modelica_Math,
 Modelica_Mechanics_MultiBody_Examples,
@@ -8160,5 +8161,5 @@ Modelica_Thermal_HeatTransfer_Examples,
 Modelica_Thermal_HeatTransfer_Interfaces,
 Modelica_Thermal_HeatTransfer,
 Modelica_Utilities_Examples,
-Modelica_Utilities)) ;
+Modelica_Utilities));
 end M_S_L;
