@@ -138,11 +138,10 @@ package Modelica_Electrical_Digital_Interfaces "Basic definitions"
 </html>"));
 
   partial block SISO "Single input, single output"
-    import D = Modelica_Electrical_Digital;
-    D.Interfaces.DigitalInput x "Connector of Digital input signal"
+    Modelica_Electrical_Digital_Interfaces.DigitalInput x "Connector of Digital input signal"
                  annotation (Placement(transformation(extent={{-70,-10},{-50,
               10}}, rotation=0)));
-    D.Interfaces.DigitalOutput y "Connector of Digital output signal"
+    Modelica_Electrical_Digital_Interfaces.DigitalOutput y "Connector of Digital output signal"
                   annotation (Placement(transformation(extent={{90,-10},{110,
               10}}, rotation=0)));
     annotation (                                        Icon(
@@ -160,13 +159,11 @@ package Modelica_Electrical_Digital_Interfaces "Basic definitions"
   end SISO;
 
   partial block MISO "Multiple input - single output"
-    import D = Modelica_Electrical_Digital;
-
     parameter Integer n(final min=2) = 2 "Number of inputs";
-    D.Interfaces.DigitalInput x[n] "Connector of Digital input signal vector"
+    Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] "Connector of Digital input signal vector"
                                    annotation (Placement(transformation(
             extent={{-70,-80},{-50,80}}, rotation=0)));
-    D.Interfaces.DigitalOutput y "Connector of Digital output signal"
+    Modelica_Electrical_Digital_Interfaces.DigitalOutput y "Connector of Digital output signal"
                   annotation (Placement(transformation(extent={{90,-10},{110,
               10}}, rotation=0)));
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -183,13 +180,12 @@ package Modelica_Electrical_Digital_Interfaces "Basic definitions"
   end MISO;
 
   partial block MIMO "Multiple input - multiple output"
-    import D = Modelica_Electrical_Digital;
 
     parameter Integer n(final min=1) = 1 "Number of inputs = Number of outputs";
-    D.Interfaces.DigitalInput x[n] "Connector of Digital input signal vector"
+    Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] "Connector of Digital input signal vector"
                                    annotation (Placement(transformation(
             extent={{-70,-80},{-50,80}}, rotation=0)));
-    D.Interfaces.DigitalOutput y[n] "Connector of Digital output signal vector"
+    Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] "Connector of Digital output signal vector"
                   annotation (Placement(transformation(extent={{90,-10},{110,
               10}}, rotation=0)));
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,

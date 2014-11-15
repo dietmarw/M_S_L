@@ -619,7 +619,7 @@ Every electrical circuit, e.g., a series resonance
           "Reference temperature";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref=0
           "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(T=T_ref);
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
         Modelica_SIunits.Resistance R_actual
           "Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
       equation
@@ -650,7 +650,7 @@ The resistance <code>R</code> is allowed to be positive, zero, or negative.
 
 <p>
 The resistor model also has an optional
-<a href=\"modelica://Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort\">conditional heat port</a>.
+<a href=\"modelica://Modelica.Electrical.Analog_Interfaces.ConditionalHeatPort\">conditional heat port</a>.
 A linear temperature dependency of the resistance is also taken into account.
 </p>
 
@@ -680,7 +680,7 @@ A linear temperature dependency of the resistance is also taken into account.
           "Reference temperature";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref=0
           "Temperature coefficient of conductance (G_actual = G_ref/(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(T=T_ref);
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
         Modelica_SIunits.Conductance G_actual
           "Conductance = G_ref/(1 + alpha_ref*(heatPort.T - T_ref))";
       equation
@@ -712,7 +712,7 @@ The conductance <code>G</code> is allowed to be positive, zero, or negative.
 
 <p>
 The conductor model also has an optional
-<a href=\"modelica://Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort\">conditional heat port</a>.
+<a href=\"modelica://Modelica.Electrical.Analog_Interfaces.ConditionalHeatPort\">conditional heat port</a>.
 A linear temperature dependency of the conductance is also taken into account.
 </p>
 
@@ -833,10 +833,10 @@ The Inductance <code>L</code> is allowed to be positive, zero, or negative.
           "Reference temperature";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref=0
           "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(T=T_ref);
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
         Modelica_SIunits.Resistance R_actual
           "Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        Modelica_Blocks.Interfaces.RealInput R_ref(unit="Ohm")
+        Modelica_Blocks_Interfaces.RealInput R_ref(unit="Ohm")
           "Variable resistance" annotation (Placement(transformation(
               origin={0,110},
               extent={{-20,-20},{20,20}},
@@ -874,7 +874,7 @@ The resistance <code>R</code> is given as input signal.
 
 <p>
 The variable resistor model also has an optional
-<a href=\"modelica://Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort\">conditional heat port</a>.
+<a href=\"modelica://Modelica.Electrical.Analog_Interfaces.ConditionalHeatPort\">conditional heat port</a>.
 A linear temperature dependency of the resistance is also taken into account.
 </p>
 
@@ -908,10 +908,10 @@ A zero crossing of the R signal could cause singularities due to the actual stru
           "Reference temperature";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref=0
           "Temperature coefficient of conductance (G_actual = G_ref/(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(T=T_ref);
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
         Modelica_SIunits.Conductance G_actual
           "Conductance = G_ref/(1 + alpha_ref*(heatPort.T - T_ref))";
-        Modelica_Blocks.Interfaces.RealInput G_ref(unit="S")
+        Modelica_Blocks_Interfaces.RealInput G_ref(unit="S")
           "Variable conductance" annotation (Placement(transformation(
               origin={0,110},
               extent={{-20,-20},{20,20}},
@@ -949,7 +949,7 @@ The conductance <code>G</code> is given as input signal.
 
 <p>
 The variable conductor model also has an optional
-<a href=\"modelica://Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort\">conditional heat port</a>.
+<a href=\"modelica://Modelica.Electrical.Analog_Interfaces.ConditionalHeatPort\">conditional heat port</a>.
 A linear temperature dependency of the conductance is also taken into account.
 </p>
 
@@ -973,7 +973,7 @@ A linear temperature dependency of the conductance is also taken into account.
         extends
           Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.j;
-        Modelica_Blocks.Interfaces.RealInput C(unit="F")
+        Modelica_Blocks_Interfaces.RealInput C(unit="F")
           "Variable capacitances"
           annotation (Placement(transformation(
               origin={0,110},
@@ -1036,7 +1036,7 @@ The abstraction of a variable capacitor at quasi stationary operation assumes:
         extends
           Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.OnePort;
         import Modelica_ComplexMath.j;
-        Modelica_Blocks.Interfaces.RealInput L(unit="H") "Variable inductances"
+        Modelica_Blocks_Interfaces.RealInput L(unit="H") "Variable inductances"
           annotation (Placement(transformation(
               origin={0,108},
               extent={{-20,-20},{20,20}},
@@ -1104,10 +1104,10 @@ The abstraction of a variable inductor at quasi stationary operation assumes:
           "Reference temperature";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref=0
           "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(T=T_ref);
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
         Modelica_SIunits.Resistance R_actual
           "Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        Modelica_ComplexBlocks.Interfaces.ComplexInput Z_ref
+        Modelica_ComplexBlocks_Interfaces.ComplexInput Z_ref
           "Variable complex inductance" annotation (Placement(transformation(
               origin={0,110},
               extent={{-20,-20},{20,20}},
@@ -1152,7 +1152,7 @@ the actual operating temperature and the reference input resistance <code>real(<
 
 <p>
 The variable impedance model has a
-<a href=\"modelica://Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort\">conditional heat port</a>.
+<a href=\"modelica://Modelica.Electrical.Analog_Interfaces.ConditionalHeatPort\">conditional heat port</a>.
 A linear temperature dependency of the resistance is taken into account.
 </p>
 
@@ -1188,10 +1188,10 @@ singularities due to the actual structure of the connected network.
           "Reference temperature";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref=0
           "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(T=T_ref);
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
         Modelica_SIunits.Conductance G_actual
           "Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        Modelica_ComplexBlocks.Interfaces.ComplexInput Y_ref
+        Modelica_ComplexBlocks_Interfaces.ComplexInput Y_ref
           "Variable complex admittance" annotation (Placement(transformation(
               origin={0,110},
               extent={{-20,-20},{20,20}},
@@ -1236,7 +1236,7 @@ the actual operating temperature and the reference input conductance <code>real(
 
 <p>
 The variable admittance model has a
-<a href=\"modelica://Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort\">conditional heat port</a>.
+<a href=\"modelica://Modelica.Electrical.Analog_Interfaces.ConditionalHeatPort\">conditional heat port</a>.
 A linear temperature dependency of the conductance is taken into account.
 </p>
 
@@ -1341,7 +1341,7 @@ This model is a simple short cut branch considering the complex voltage <i><u>v<
           "Closed switch resistance";
         parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
           "Opened switch conductance";
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(final T=
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
              293.15);
         Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin p
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
@@ -1352,7 +1352,7 @@ This model is a simple short cut branch considering the complex voltage <i><u>v<
         Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin n1
           annotation (Placement(transformation(extent={{90,40},{110,60}},
                 rotation=0)));
-        Modelica_Blocks.Interfaces.BooleanInput control
+        Modelica_Blocks_Interfaces.BooleanInput control
           "true => p--n2 connected, false => p--n1 connected" annotation (
             Placement(transformation(
               origin={0,80},
@@ -1442,7 +1442,7 @@ This switch is only intended to be used for structural changes, not for fast swi
           "Closed switch resistance";
         parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
           "Opened switch conductance";
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(final T=
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
              293.15);
         Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin p1
           annotation (Placement(transformation(extent={{-110,40},{-90,60}},
@@ -1456,7 +1456,7 @@ This switch is only intended to be used for structural changes, not for fast swi
         Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin n2
           annotation (Placement(transformation(extent={{90,-10},{110,10}},
                 rotation=0)));
-        Modelica_Blocks.Interfaces.BooleanInput control
+        Modelica_Blocks_Interfaces.BooleanInput control
           "true => p1--n2, p2--n1 connected, otherwise p1--n1, p2--n2  connected"
           annotation (Placement(transformation(
               origin={0,80},
@@ -1578,9 +1578,9 @@ This switch is only intended to be used for structural changes, not for fast swi
         parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
           "Opened switch conductance" annotation (Placement(transformation(extent=
                  {{10,10},{56.6667,56.6667}}, rotation=0)));
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(final T=
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
              293.15);
-        Modelica_Blocks.Interfaces.BooleanInput control
+        Modelica_Blocks_Interfaces.BooleanInput control
           "true => switch open, false => p--n connected" annotation (Placement(
               transformation(
               origin={0,70},
@@ -1660,9 +1660,9 @@ This switch is only intended to be used for structural changes, not for fast swi
         parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
           "Opened switch conductance" annotation (Placement(transformation(extent=
                  {{10,10},{56.6667,56.6667}}, rotation=0)));
-        extends Modelica_Electrical_Analog.Interfaces.ConditionalHeatPort(final T=
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
              293.15);
-        Modelica_Blocks.Interfaces.BooleanInput control
+        Modelica_Blocks_Interfaces.BooleanInput control
           "true => p--n connected, false => switch open" annotation (Placement(
               transformation(
               origin={0,70},
@@ -1877,7 +1877,7 @@ Quasi stationary theory for single phase circuits can be found in the
       model ReferenceSensor "Sensor of reference angle gamma"
         extends
           Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.AbsoluteSensor;
-        Modelica_Blocks.Interfaces.RealOutput y "Reference angle" annotation (
+        Modelica_Blocks_Interfaces.RealOutput y "Reference angle" annotation (
             Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
       equation
         y = pin.reference.gamma;
@@ -1894,7 +1894,7 @@ Quasi stationary theory for single phase circuits can be found in the
         extends
           Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.AbsoluteSensor;
         import Modelica_Constants.pi;
-        Modelica_Blocks.Interfaces.RealOutput y annotation (Placement(
+        Modelica_Blocks_Interfaces.RealOutput y annotation (Placement(
               transformation(extent={{100,-10},{120,10}}, rotation=0)));
       equation
         2*pi*y = omega;
@@ -1922,7 +1922,7 @@ This sensor can be used to measure the frequency of the reference system.
       model PotentialSensor "Potential sensor"
         extends
           Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.AbsoluteSensor;
-        Modelica_ComplexBlocks.Interfaces.ComplexOutput y annotation (Placement(
+        Modelica_ComplexBlocks_Interfaces.ComplexOutput y annotation (Placement(
               transformation(extent={{100,-10},{120,10}}, rotation=0)));
       equation
         y = pin.v;
@@ -2013,7 +2013,7 @@ This sensor can be used to measure the complex current.
                   -90}}, rotation=0)));
         output Modelica_SIunits.ComplexCurrent i;
         output Modelica_SIunits.ComplexVoltage v;
-        Modelica_ComplexBlocks.Interfaces.ComplexOutput y annotation (Placement(
+        Modelica_ComplexBlocks_Interfaces.ComplexOutput y annotation (Placement(
               transformation(
               origin={-80,-110},
               extent={{-10,-10},{10,10}},
@@ -2112,12 +2112,12 @@ This is a constant voltage source, specifying the complex voltage by the RMS vol
       model VariableVoltageSource "Variable AC voltage"
         extends
           Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.Source;
-        Modelica_Blocks.Interfaces.RealInput f annotation (Placement(
+        Modelica_Blocks_Interfaces.RealInput f annotation (Placement(
               transformation(
               origin={40,100},
               extent={{-20,-20},{20,20}},
               rotation=270)));
-        Modelica_ComplexBlocks.Interfaces.ComplexInput V annotation (Placement(
+        Modelica_ComplexBlocks_Interfaces.ComplexInput V annotation (Placement(
               transformation(
               origin={-40,100},
               extent={{-20,-20},{20,20}},
@@ -2186,12 +2186,12 @@ This is a constant current source, specifying the complex current by the RMS cur
       model VariableCurrentSource "Variable AC current"
         extends
           Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.Source;
-        Modelica_Blocks.Interfaces.RealInput f annotation (Placement(
+        Modelica_Blocks_Interfaces.RealInput f annotation (Placement(
               transformation(
               origin={40,100},
               extent={{-20,-20},{20,20}},
               rotation=270)));
-        Modelica_ComplexBlocks.Interfaces.ComplexInput I annotation (Placement(
+        Modelica_ComplexBlocks_Interfaces.ComplexInput I annotation (Placement(
               transformation(
               origin={-40,100},
               extent={{-20,-20},{20,20}},
@@ -2259,10 +2259,10 @@ Quasi stationary theory for single phase circuits can be found in the
         Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin
           pin_nQS annotation (Placement(transformation(extent={{-110,-110},{-90,
                   -90}}), iconTransformation(extent={{-110,-110},{-90,-90}})));
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_pDC annotation (
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_pDC annotation (
             Placement(transformation(extent={{90,110},{110,90}}),
               iconTransformation(extent={{90,110},{110,90}})));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_nDC annotation (
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_nDC annotation (
             Placement(transformation(extent={{90,-110},{110,-90}}),
               iconTransformation(extent={{90,-110},{110,-90}})));
       equation
@@ -2320,16 +2320,16 @@ At the DC side, only the mean of voltage and current are taken into account.
         Modelica_SIunits.Voltage vDC=pin_pDC.v - pin_nDC.v "DC voltage";
         Modelica_SIunits.Current iDC=pin_pDC.i "DC current";
         Modelica_SIunits.Power pDC=vDC*iDC "DC power";
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_pAC annotation (
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_pAC annotation (
             Placement(transformation(extent={{-110,110},{-90,90}}),
               iconTransformation(extent={{-110,110},{-90,90}})));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_nAC annotation (
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_nAC annotation (
             Placement(transformation(extent={{-110,-110},{-90,-90}}),
               iconTransformation(extent={{-110,-110},{-90,-90}})));
-        Modelica_Electrical_Analog.Interfaces.PositivePin pin_pDC annotation (
+        Modelica_Electrical_Analog_Interfaces.PositivePin pin_pDC annotation (
             Placement(transformation(extent={{90,110},{110,90}}),
               iconTransformation(extent={{90,110},{110,90}})));
-        Modelica_Electrical_Analog.Interfaces.NegativePin pin_nDC annotation (
+        Modelica_Electrical_Analog_Interfaces.NegativePin pin_nDC annotation (
             Placement(transformation(extent={{90,-110},{110,-90}}),
               iconTransformation(extent={{90,-110},{110,-90}})));
         Modelica_Electrical_Analog.Ideal.IdealDiode idealDiode1(Vknee=0)
@@ -2488,7 +2488,7 @@ Quasi stationary theory for single phase circuits can be found in the
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yy0
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yy00;
 
@@ -2535,7 +2535,7 @@ Transformer Yy0
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yy2
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yy02;
 
@@ -2582,7 +2582,7 @@ Transformer Yy2
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yy4
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yy04;
 
@@ -2625,7 +2625,7 @@ Transformer Yy4
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yy6
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yy06;
 
@@ -2672,7 +2672,7 @@ Transformer Yy6
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yy8
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yy08;
 
@@ -2719,7 +2719,7 @@ Transformer Yy8
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yy10
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yy10;
           annotation (Documentation(info="<HTML>
@@ -2782,7 +2782,7 @@ This package contains transformers primary Y connected / secondary y connected i
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yd1
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yd01;
 
@@ -2823,7 +2823,7 @@ Transformer Yd1
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yd3
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yd03;
 
@@ -2860,7 +2860,7 @@ Transformer Yd3
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yd5
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yd05;
 
@@ -2897,7 +2897,7 @@ Transformer Yd5
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yd7
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yd07;
 
@@ -2938,7 +2938,7 @@ Transformer Yd7
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yd9
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yd09;
 
@@ -2975,7 +2975,7 @@ Transformer Yd9
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yd11
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yd11;
           annotation (Documentation(info="<HTML>
@@ -3058,7 +3058,7 @@ This package contains transformers primary Y connected / secondary d connected i
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yz1
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yz01;
 
@@ -3115,7 +3115,7 @@ Transformer Yz1
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yz3
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yz03;
 
@@ -3165,7 +3165,7 @@ Transformer Yz3
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yz5
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yz05;
 
@@ -3215,7 +3215,7 @@ Transformer Yz5
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yz7
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yz07;
 
@@ -3272,7 +3272,7 @@ Transformer Yz7
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yz9
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yz09;
 
@@ -3329,7 +3329,7 @@ Transformer Yz9
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Yz11
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Yz11;
           annotation (Documentation(info="<HTML>
@@ -3396,7 +3396,7 @@ This package contains transformers primary Y connected / secondary zig-zag conne
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dy1
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dy01;
 
@@ -3437,7 +3437,7 @@ Transformer Dy1
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dy3
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dy03;
 
@@ -3474,7 +3474,7 @@ Transformer Dy3
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dy5
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dy05;
 
@@ -3515,7 +3515,7 @@ Transformer Dy5
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dy7
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dy07;
 
@@ -3556,7 +3556,7 @@ Transformer Dy7
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dy9
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dy09;
 
@@ -3593,7 +3593,7 @@ Transformer Dy9
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dy11
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dy11;
           annotation (Documentation(info="<HTML>
@@ -3650,7 +3650,7 @@ This package contains transformers primary D connected / secondary y connected i
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dd0
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dd00;
 
@@ -3685,7 +3685,7 @@ Transformer Dd0
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dd2
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dd02;
 
@@ -3716,7 +3716,7 @@ Transformer Dd2
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dd4
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dd04;
 
@@ -3747,7 +3747,7 @@ Transformer Dd4
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dd6
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dd06;
 
@@ -3782,7 +3782,7 @@ Transformer Dd6
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dd8
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dd08;
 
@@ -3813,7 +3813,7 @@ Transformer Dd8
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dd10
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dd10;
           annotation (Documentation(info="<HTML>
@@ -3890,7 +3890,7 @@ This package contains transformers primary D connected / secondary d connected i
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dz0
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dz00;
 
@@ -3941,7 +3941,7 @@ Transformer Dz0
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dz2
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dz02;
 
@@ -3985,7 +3985,7 @@ Transformer Dz2
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dz4
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dz04;
 
@@ -4029,7 +4029,7 @@ Transformer Dz4
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dz6
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dz06;
 
@@ -4080,7 +4080,7 @@ Transformer Dz6
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dz8
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dz08;
 
@@ -4131,7 +4131,7 @@ Transformer Dz8
             annotation (defaultComponentName="transformer", Documentation(info="<html>
 Transformer Dz10
 <br>Typical parameters see:
-<a href=\"modelica://Modelica.Electrical.Machines.Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
+<a href=\"modelica://Modelica.Electrical.Machines_Interfaces.PartialBasicTransformer\">PartialBasicTransformer</a>
 </html>"));
           end Dz10;
           annotation (Documentation(info="<HTML>
@@ -4466,9 +4466,9 @@ This package contains components for modeling quasi stationary electrical induct
           import Modelica_ComplexMath.exp;
           import Modelica_ComplexMath.'sum';
           parameter Integer m(min=1) = 3 "Number of phases";
-          Modelica_ComplexBlocks.Interfaces.ComplexInput u[m]
+          Modelica_ComplexBlocks_Interfaces.ComplexInput u[m]
             annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-          Modelica_Blocks.Interfaces.RealOutput y[2]
+          Modelica_Blocks_Interfaces.RealOutput y[2]
             annotation (Placement(transformation(extent={{100,-10},{120,10}})));
         protected
           parameter Modelica_SIunits.Angle phi[m]=
@@ -4511,9 +4511,9 @@ Transformation of quasi stationary multi phase values (voltages or currents) to 
           import Modelica_ComplexMath.j;
           import Modelica_ComplexMath.exp;
           parameter Integer m(min=1) = 3 "Number of phases";
-          Modelica_Blocks.Interfaces.RealInput u[2]
+          Modelica_Blocks_Interfaces.RealInput u[2]
             annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-          Modelica_ComplexBlocks.Interfaces.ComplexOutput y[m]
+          Modelica_ComplexBlocks_Interfaces.ComplexOutput y[m]
             annotation (Placement(transformation(extent={{100,-10},{120,10}})));
         protected
           parameter Modelica_SIunits.Angle phi[m]=
@@ -5088,7 +5088,7 @@ Connects all <code>m</code> single phase (negative) pins of the multi phase (neg
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref[m]=
             zeros(m)
           "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_MultiPhase.Interfaces.ConditionalHeatPort(
+        extends Modelica_Electrical_MultiPhase_Interfaces.ConditionalHeatPort(
             final mh=m, T=T_ref);
         SinglePhase.Basic.Resistor resistor[m](
           final R_ref=R_ref,
@@ -5126,7 +5126,7 @@ using <code>m</code> <a href=\"modelica://Modelica.Electrical.QuasiStationary.Si
 
 <p>
 The resistor model also has <code>m</code> optional
-<a href=\"modelica://Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
+<a href=\"modelica://Modelica.Electrical.MultiPhase_Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
 A linear temperature dependency of the resistances for enabled heat ports is also taken into account.
 </p>
 
@@ -5156,7 +5156,7 @@ A linear temperature dependency of the resistances for enabled heat ports is als
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref[m]=
             zeros(m)
           "Temperature coefficient of conductance (G_actual = G_ref/(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_MultiPhase.Interfaces.ConditionalHeatPort(
+        extends Modelica_Electrical_MultiPhase_Interfaces.ConditionalHeatPort(
             final mh=m, T=T_ref);
         SinglePhase.Basic.Conductor conductor[m](
           final G_ref=G_ref,
@@ -5193,7 +5193,7 @@ using <code>m</code> <a href=\"modelica://Modelica.Electrical.QuasiStationary.Si
 
 <p>
 The conductor model also has <code>m</code> optional
-<a href=\"modelica://Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
+<a href=\"modelica://Modelica.Electrical.MultiPhase_Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
 A linear temperature dependency of the conductances for enabled heat ports is also taken into account.
 </p>
 
@@ -5320,9 +5320,9 @@ using <code>m</code> <a href=\"modelica://Modelica.Electrical.QuasiStationary.Si
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref[m]=
             zeros(m)
           "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_MultiPhase.Interfaces.ConditionalHeatPort(
+        extends Modelica_Electrical_MultiPhase_Interfaces.ConditionalHeatPort(
             final mh=m, T=T_ref);
-        Modelica_Blocks.Interfaces.RealInput R_ref[m](each unit="Ohm")
+        Modelica_Blocks_Interfaces.RealInput R_ref[m](each unit="Ohm")
           "Variable resistance" annotation (Placement(transformation(
               origin={0,110},
               extent={{-20,-20},{20,20}},
@@ -5374,7 +5374,7 @@ The resistances <code>R</code> are given as <code>m</code> input signals.
 
 <p>
 The resistor model also has <code>m</code> optional
-<a href=\"modelica://Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
+<a href=\"modelica://Modelica.Electrical.MultiPhase_Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
 A linear temperature dependency of the resistances is also taken into account.
 </p>
 
@@ -5403,9 +5403,9 @@ A linear temperature dependency of the resistances is also taken into account.
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref[m]=
             zeros(m)
           "Temperature coefficient of resistance (G_actual = G_ref/(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_MultiPhase.Interfaces.ConditionalHeatPort(
+        extends Modelica_Electrical_MultiPhase_Interfaces.ConditionalHeatPort(
             final mh=m, T=T_ref);
-        Modelica_Blocks.Interfaces.RealInput G_ref[m](each unit="S")
+        Modelica_Blocks_Interfaces.RealInput G_ref[m](each unit="S")
           "Variable conductance" annotation (Placement(transformation(
               origin={0,110},
               extent={{-20,-20},{20,20}},
@@ -5453,7 +5453,7 @@ The conductances <code>G</code> are given as <code>m</code> input signals.
 
 <p>
 The conductor model also has <code>m</code> optional
-<a href=\"modelica://Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
+<a href=\"modelica://Modelica.Electrical.MultiPhase_Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
 A linear temperature dependency of the conductances is also taken into account.
 </p>
 
@@ -5477,7 +5477,7 @@ A linear temperature dependency of the conductances is also taken into account.
       model VariableCapacitor "Multiphase variable capacitor"
         extends
           Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
-        Modelica_Blocks.Interfaces.RealInput C[m](each unit="F")
+        Modelica_Blocks_Interfaces.RealInput C[m](each unit="F")
           "Variable capacitance" annotation (Placement(transformation(
               origin={0,110},
               extent={{-20,-20},{20,20}},
@@ -5537,7 +5537,7 @@ The capacitances <code>C</code> are given as <code>m</code> input signals.
       model VariableInductor "Multiphase variable inductor"
         extends
           Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.TwoPlug;
-        Modelica_Blocks.Interfaces.RealInput L[m](each unit="H")
+        Modelica_Blocks_Interfaces.RealInput L[m](each unit="H")
           "Variable inductance" annotation (Placement(transformation(
               origin={0,110},
               extent={{-20,-20},{20,20}},
@@ -5601,9 +5601,9 @@ The inductances <code>L</code> are given as <code>m</code> input signals.
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref[m]=
             zeros(m)
           "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_MultiPhase.Interfaces.ConditionalHeatPort(
+        extends Modelica_Electrical_MultiPhase_Interfaces.ConditionalHeatPort(
             final mh=m, T=T_ref);
-        Modelica_ComplexBlocks.Interfaces.ComplexInput Z_ref[m]
+        Modelica_ComplexBlocks_Interfaces.ComplexInput Z_ref[m]
           "Variable complex impedances" annotation (Placement(transformation(
               origin={0,110},
               extent={{-20,-20},{20,20}},
@@ -5660,7 +5660,7 @@ the actual operating temperature and the reference input resistances <code>real(
 
 <p>
 The impedance model also has <code>m</code> optional
-<a href=\"modelica://Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
+<a href=\"modelica://Modelica.Electrical.MultiPhase_Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
 A linear temperature dependency of the resistances is also taken into account.
 </p>
 
@@ -5688,9 +5688,9 @@ A linear temperature dependency of the resistances is also taken into account.
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref[m]=
             zeros(m)
           "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_MultiPhase.Interfaces.ConditionalHeatPort(
+        extends Modelica_Electrical_MultiPhase_Interfaces.ConditionalHeatPort(
             final mh=m, T=T_ref);
-        Modelica_ComplexBlocks.Interfaces.ComplexInput Y_ref[m]
+        Modelica_ComplexBlocks_Interfaces.ComplexInput Y_ref[m]
           "Variable complex admittances" annotation (Placement(transformation(
               origin={0,110},
               extent={{-20,-20},{20,20}},
@@ -5747,7 +5747,7 @@ the actual operating temperature and the reference input conductances <code>real
 
 <p>
 The admittance model also has <code>m</code> optional
-<a href=\"modelica://Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
+<a href=\"modelica://Modelica.Electrical.MultiPhase_Interfaces.ConditionalHeatPort\">conditional heat ports</a>.
 A linear temperature dependency of the conductances is also taken into account.
 </p>
 
@@ -5863,9 +5863,9 @@ it uses <i>m</i> <a href=\"modelica://Modelica.Electrical.QuasiStationary.Single
               fill(1.E-5, m)) "Closed switch resistance";
         parameter Modelica_SIunits.Conductance Goff[m](final min=zeros(m), start=
               fill(1.E-5, m)) "Opened switch conductance";
-        extends Modelica_Electrical_MultiPhase.Interfaces.ConditionalHeatPort(
+        extends Modelica_Electrical_MultiPhase_Interfaces.ConditionalHeatPort(
             final mh=m, final T=fill(293.15, m));
-        Modelica_Blocks.Interfaces.BooleanInput control[m]
+        Modelica_Blocks_Interfaces.BooleanInput control[m]
           "true => p--n2 connected, false => p--n1 connected" annotation (
             Placement(transformation(
               origin={0,80},
@@ -5963,9 +5963,9 @@ This switch is only intended to be used for structural changes, not fast switchi
               fill(1.E-5, m)) "Closed switch resistance";
         parameter Modelica_SIunits.Conductance Goff[m](final min=zeros(m), start=
               fill(1.E-5, m)) "Opened switch conductance";
-        extends Modelica_Electrical_MultiPhase.Interfaces.ConditionalHeatPort(
+        extends Modelica_Electrical_MultiPhase_Interfaces.ConditionalHeatPort(
             final mh=m, final T=fill(293.15, m));
-        Modelica_Blocks.Interfaces.BooleanInput control[m]
+        Modelica_Blocks_Interfaces.BooleanInput control[m]
           "true => p1--n2, p2--n1 connected, otherwise p1--n1, p2--n2 connected"
           annotation (Placement(transformation(
               origin={0,80},
@@ -6079,9 +6079,9 @@ This switch is only intended to be used for structural changes, not fast switchi
               fill(1.E-5, m)) "Closed switch resistance";
         parameter Modelica_SIunits.Conductance Goff[m](final min=zeros(m), start=
               fill(1.E-5, m)) "Opened switch conductance";
-        extends Modelica_Electrical_MultiPhase.Interfaces.ConditionalHeatPort(
+        extends Modelica_Electrical_MultiPhase_Interfaces.ConditionalHeatPort(
             final mh=m, final T=fill(293.15, m));
-        Modelica_Blocks.Interfaces.BooleanInput control[m]
+        Modelica_Blocks_Interfaces.BooleanInput control[m]
           "true => switch open, false => p--n connected" annotation (Placement(
               transformation(
               origin={0,70},
@@ -6142,9 +6142,9 @@ This switch is only intended to be used for structural changes, not fast switchi
               fill(1.E-5, m)) "Closed switch resistance";
         parameter Modelica_SIunits.Conductance Goff[m](final min=zeros(m), start=
               fill(1.E-5, m)) "Opened switch conductance";
-        extends Modelica_Electrical_MultiPhase.Interfaces.ConditionalHeatPort(
+        extends Modelica_Electrical_MultiPhase_Interfaces.ConditionalHeatPort(
             final mh=m, final T=fill(293.15, m));
-        Modelica_Blocks.Interfaces.BooleanInput control[m]
+        Modelica_Blocks_Interfaces.BooleanInput control[m]
           "true => p--n connected, false => switch open" annotation (Placement(
               transformation(
               origin={0,70},
@@ -6219,7 +6219,7 @@ Quasi stationary theory can be found in the
       extends Modelica_Icons.Package;
       block SymmetricalComponents
         "Creates symmetrical components from signals representing quasi static phasors"
-        extends Modelica_ComplexBlocks.Interfaces.ComplexMIMO(final nin=m,final
+        extends Modelica_ComplexBlocks_Interfaces.ComplexMIMO(final nin=m,final
             nout=m);
         parameter Integer m=3 "Number of phases";
       equation
@@ -6276,7 +6276,7 @@ Quasi stationary theory can be found in the
 
       block SingleToMultiPhase
         "Extends complex phase signal to complex multi phase signals using symmetricOrientation"
-        extends Modelica_ComplexBlocks.Interfaces.ComplexSIMO(final nout=m);
+        extends Modelica_ComplexBlocks_Interfaces.ComplexSIMO(final nout=m);
         parameter Integer m=3 "Number of phases";
       equation
         y = u*Modelica_ComplexMath.fromPolar(fill(1, m), -
@@ -6319,9 +6319,9 @@ Quasi stationary theory can be found in the
         import Modelica_ComplexMath.exp;
         import Modelica_ComplexMath.'sum';
         parameter Integer m(min=1) = 3 "Number of phases";
-        Modelica_ComplexBlocks.Interfaces.ComplexInput u[m]
+        Modelica_ComplexBlocks_Interfaces.ComplexInput u[m]
           annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-        Modelica_Blocks.Interfaces.RealOutput y[2]
+        Modelica_Blocks_Interfaces.RealOutput y[2]
           annotation (Placement(transformation(extent={{100,-10},{120,10}})));
       protected
         parameter Modelica_SIunits.Angle phi[m]=
@@ -6364,9 +6364,9 @@ Quasi stationary theory can be found in the
         import Modelica_ComplexMath.j;
         import Modelica_ComplexMath.exp;
         parameter Integer m(min=1) = 3 "Number of phases";
-        Modelica_Blocks.Interfaces.RealInput u[2]
+        Modelica_Blocks_Interfaces.RealInput u[2]
           annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-        Modelica_ComplexBlocks.Interfaces.ComplexOutput y[m]
+        Modelica_ComplexBlocks_Interfaces.ComplexOutput y[m]
           annotation (Placement(transformation(extent={{100,-10},{120,10}})));
       protected
         parameter Modelica_SIunits.Angle phi[m]=
@@ -6445,7 +6445,7 @@ In quasistaionary operation, instantaneous power equals active power;
       model ReferenceSensor "Sensor of reference angle gamma"
         extends
           Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.AbsoluteSensor;
-        Modelica_Blocks.Interfaces.RealOutput y "Reference angle" annotation (
+        Modelica_Blocks_Interfaces.RealOutput y "Reference angle" annotation (
             Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
       equation
         y = plug_p.reference.gamma;
@@ -6467,7 +6467,7 @@ In quasistaionary operation, instantaneous power equals active power;
               transformation(extent={{-10,-10},{10,10}}, rotation=0)));
         Basic.PlugToPin_p plugToPin_p(final m=m, final k=1) annotation (Placement(
               transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
-        Modelica_Blocks.Interfaces.RealOutput y annotation (Placement(
+        Modelica_Blocks_Interfaces.RealOutput y annotation (Placement(
               transformation(extent={{100,-10},{120,10}}, rotation=0)));
       equation
 
@@ -6512,7 +6512,7 @@ This sensor can be used to measure the frequency of the reference system, using 
                   -10},{10,10}}, rotation=0)));
         Basic.PlugToPins_p plugToPins_p(final m=m) annotation (Placement(
               transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
-        Modelica_ComplexBlocks.Interfaces.ComplexOutput y[m] annotation (
+        Modelica_ComplexBlocks_Interfaces.ComplexOutput y[m] annotation (
             Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
       equation
 
@@ -6636,7 +6636,7 @@ This sensor can be used to measure <i>m</i> complex currents, using <i>m</i>
         Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
           voltageN(final m=m) annotation (Placement(transformation(extent={{-10,
                   -110},{10,-90}}, rotation=0)));
-        Modelica_ComplexBlocks.Interfaces.ComplexOutput y annotation (Placement(
+        Modelica_ComplexBlocks_Interfaces.ComplexOutput y annotation (Placement(
               transformation(
               origin={-80,-110},
               extent={{-10,-10},{10,10}},
@@ -6779,12 +6779,12 @@ This model describes <i>m</i> constant voltage sources, specifying the complex v
       model VariableVoltageSource "Variable multiphase AC voltage"
         extends
           Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.Source;
-        Modelica_Blocks.Interfaces.RealInput f annotation (Placement(
+        Modelica_Blocks_Interfaces.RealInput f annotation (Placement(
               transformation(
               origin={40,100},
               extent={{-20,-20},{20,20}},
               rotation=270)));
-        Modelica_ComplexBlocks.Interfaces.ComplexInput V[m] annotation (Placement(
+        Modelica_ComplexBlocks_Interfaces.ComplexInput V[m] annotation (Placement(
               transformation(
               origin={-40,100},
               extent={{-20,-20},{20,20}},
@@ -6826,13 +6826,13 @@ Additionally, the frequency of the voltage source is defined by a real signal in
         extends
           Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.ReferenceSource;
         import Modelica_Constants.pi;
-        Modelica_Blocks.Interfaces.RealInput gamma
+        Modelica_Blocks_Interfaces.RealInput gamma
           "Reference angle of voltage source" annotation (Placement(
               transformation(
               origin={40,100},
               extent={{-20,-20},{20,20}},
               rotation=270)));
-        Modelica_ComplexBlocks.Interfaces.ComplexInput V[m] annotation (Placement(
+        Modelica_ComplexBlocks_Interfaces.ComplexInput V[m] annotation (Placement(
               transformation(
               origin={-40,100},
               extent={{-20,-20},{20,20}},
@@ -6906,12 +6906,12 @@ This model describes <i>m</i> constant current sources, specifying the complex c
       model VariableCurrentSource "Variable multiphase AC current"
         extends
           Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.Source;
-        Modelica_Blocks.Interfaces.RealInput f annotation (Placement(
+        Modelica_Blocks_Interfaces.RealInput f annotation (Placement(
               transformation(
               origin={40,100},
               extent={{-20,-20},{20,20}},
               rotation=270)));
-        Modelica_ComplexBlocks.Interfaces.ComplexInput I[m] annotation (Placement(
+        Modelica_ComplexBlocks_Interfaces.ComplexInput I[m] annotation (Placement(
               transformation(
               origin={-40,100},
               extent={{-20,-20},{20,20}},
@@ -6951,13 +6951,13 @@ Additionally, the frequency of the current source is defined by a real signal in
         extends
           Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.ReferenceSource;
         import Modelica_Constants.pi;
-        Modelica_Blocks.Interfaces.RealInput gamma
+        Modelica_Blocks_Interfaces.RealInput gamma
           "Reference angle of current source" annotation (Placement(
               transformation(
               origin={40,100},
               extent={{-20,-20},{20,20}},
               rotation=270)));
-        Modelica_ComplexBlocks.Interfaces.ComplexInput I[m] annotation (Placement(
+        Modelica_ComplexBlocks_Interfaces.ComplexInput I[m] annotation (Placement(
               transformation(
               origin={-40,100},
               extent={{-20,-20},{20,20}},

@@ -255,7 +255,7 @@ The absolute sensor partial model relies on the a
   partial model RelativeSensor "Partial voltage / current sensor"
     extends Modelica_Icons.RotationalSensor;
     extends TwoPlug;
-    Modelica_ComplexBlocks.Interfaces.ComplexOutput y[m] annotation (
+    Modelica_ComplexBlocks_Interfaces.ComplexOutput y[m] annotation (
         Placement(transformation(
           origin={0,-110},
           extent={{-10,-10},{10,10}},

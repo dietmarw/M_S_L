@@ -3414,7 +3414,7 @@ Source of constant magneto motive force.
     model SignalMagneticPotentialDifference
       "Source of magnetic potential difference with signal input"
       extends Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPort;
-      Modelica_ComplexBlocks.Interfaces.ComplexInput V_m
+      Modelica_ComplexBlocks_Interfaces.ComplexInput V_m
         "Complex signal input of magnetic potential difference" annotation (
           Placement(transformation(
             origin={0,100},
@@ -3528,7 +3528,7 @@ Source of constant magnetic flux.
       Modelica_SIunits.Angle arg_V_m = Modelica_ComplexMath.arg(V_m)
         "Argument of complex magnetic potential difference";
 
-      Modelica_ComplexBlocks.Interfaces.ComplexInput Phi
+      Modelica_ComplexBlocks_Interfaces.ComplexInput Phi
         "Complex signal input of magnetic flux" annotation (Placement(
             transformation(
             origin={0,100},
@@ -3589,7 +3589,7 @@ Source of magnetic flux with complex signal input.
       extends Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPort;
       Modelica_SIunits.ComplexMagneticPotentialDifference V_m
         "Complex magnetic potential difference";
-      Modelica_ComplexBlocks.Interfaces.ComplexOutput Phi
+      Modelica_ComplexBlocks_Interfaces.ComplexOutput Phi
         "Complex magnetic flux from por_ p to port_n as output signal"
         annotation (Placement(transformation(
             origin={0,-100},
@@ -3628,7 +3628,7 @@ Source of magnetic flux with complex signal input.
       "Sensor to measure magnetic potential difference"
       extends Modelica_Icons.RotationalSensor;
       extends Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPort;
-      Modelica_ComplexBlocks.Interfaces.ComplexOutput V_m
+      Modelica_ComplexBlocks_Interfaces.ComplexOutput V_m
         "Complex magnetic potential difference between port_p and port_n as output signal"
         annotation (Placement(transformation(
             origin={0,-100},
@@ -3667,7 +3667,7 @@ Source of magnetic flux with complex signal input.
 
     model MagneticPotentialSensor "Sensor to measure magnetic potential"
       extends Modelica_Icons.RotationalSensor;
-      Modelica_ComplexBlocks.Interfaces.ComplexOutput V_m
+      Modelica_ComplexBlocks_Interfaces.ComplexOutput V_m
         "Complex magnetic potential as output signal" annotation (Placement(
             transformation(
             origin={0,-100},

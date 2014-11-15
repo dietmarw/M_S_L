@@ -47,7 +47,7 @@ package Modelica_Electrical_QuasiStationary_Machines_Interfaces
     parameter Modelica_SIunits.Temperature T2Operational(start=293.15)
       "Operational temperature of secondary resistance" annotation (Dialog(
           group="Operational temperatures", enable=not useThermalPort));
-    output Modelica_Electrical_Machines.Interfaces.PowerBalanceTransformer
+    output Modelica_Electrical_Machines_Interfaces.PowerBalanceTransformer
       powerBalance(
       final power1=sum({Modelica_ComplexMath.real(v1[j]*
           Modelica_ComplexMath.conj(i1[j])) for j in 1:m}),
@@ -110,7 +110,7 @@ package Modelica_Electrical_QuasiStationary_Machines_Interfaces
       final n12=ni,
       final n13=ni) annotation (Placement(transformation(extent={{-10,-10},{10,
               10}}, rotation=0)));
-    Modelica_Electrical_Machines.Interfaces.ThermalPortTransformer
+    Modelica_Electrical_Machines_Interfaces.ThermalPortTransformer
       thermalPort if useThermalPort
       annotation (Placement(transformation(extent={{-10,90},{10,110}})));
     Modelica_Electrical_Machines.Thermal.ThermalAmbientTransformer
@@ -123,7 +123,7 @@ package Modelica_Electrical_QuasiStationary_Machines_Interfaces
           rotation=270,
           origin={-30,80})));
   protected
-    Modelica_Electrical_Machines.Interfaces.ThermalPortTransformer
+    Modelica_Electrical_Machines_Interfaces.ThermalPortTransformer
       internalThermalPort
       annotation (Placement(transformation(extent={{-4,76},{4,84}})));
   equation
