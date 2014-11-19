@@ -3663,7 +3663,7 @@ So the machine is at the beginning in cold condition, ending in warm condition
           T=TAmbient)
         annotation (Placement(transformation(extent={{42,-10},{22,10}})));
     protected
-      Modelica_Electrical_Machines.Interfaces.DCMachines.ThermalPortDCPM thermalPort
+      Modelica_Electrical_Machines_Interfaces.DCMachines.ThermalPortDCPM thermalPort
         annotation (Placement(transformation(extent={{-14,-4},{-6,4}})));
     public
       parameter
