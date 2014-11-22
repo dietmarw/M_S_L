@@ -1,7 +1,12 @@
 within ;
-package Modelica_Blocks
+encapsulated package Modelica_Blocks
   "Library of basic input/output control blocks (continuous, discrete, logical, table blocks)"
 import SI = Modelica_SIunits;
+  import Modelica_Icons;
+  import Modelica_Constants;
+  import Modelica_Utilities;
+  import Modelica_Math;
+  import Modelica_Blocks_Interfaces;
 
 extends Modelica_Icons.Package;
 
@@ -20,13 +25,12 @@ extends Modelica_Icons.Package;
       /* InitialState is the default, because it was the default in Modelica 2.2
      and therefore this setting is backward compatible
   */
-      parameter Modelica_Blocks.Types.Init initType=Init.InitialState
+      parameter Init initType=Init.InitialState
         "Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real y_start=0 "Initial or guess value of output (= state)"
         annotation (Dialog(group="Initialization"));
-      extends Modelica_Blocks_Interfaces.SISO(
-                              y(start=y_start));
+      extends Interfaces.SISO(y(start=y_start));
 
     initial equation
       if initType == Init.SteadyState then
@@ -116,7 +120,7 @@ This is discussed in the description of package
       parameter Real k(unit="1")=1 "Integrator gain";
       parameter Real outMax(start=1) "Upper limit of output";
       parameter Real outMin=-outMax "Lower limit of output";
-      parameter Modelica_Blocks.Types.Init initType=Init.InitialState
+      parameter Init initType=Init.InitialState
         "Type of initialization (1: no init, 2: steady state, 3/4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Boolean limitsAtInit = true
@@ -128,8 +132,7 @@ This is discussed in the description of package
       parameter Boolean strict=false
         "= true, if strict limits with noEvent(..)"
         annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
-      extends Modelica_Blocks_Interfaces.SISO(
-                              y(start=y_start));
+      extends Interfaces.SISO(y(start=y_start));
 
     initial equation
       if initType == Init.SteadyState then
@@ -229,9 +232,9 @@ to use <b>limitAtInit</b> = <b>false</b>.
     block Derivative "Approximated derivative block"
       import Modelica_Blocks.Types.Init;
       parameter Real k(unit="1")=1 "Gains";
-      parameter Modelica_SIunits.Time T(min=Modelica_Constants.small) = 0.01
+      parameter SIunits.Time T(min=Modelica_Constants.small)=0.01
         "Time constants (T>0 required; T=0 is ideal derivative block)";
-      parameter Modelica_Blocks.Types.Init initType=Init.NoInit
+      parameter Init initType=Init.NoInit
         "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real x_start=0 "Initial or guess value of state"
@@ -239,7 +242,7 @@ to use <b>limitAtInit</b> = <b>false</b>.
       parameter Real y_start=0 "Initial value of output (= state)"
         annotation(Dialog(enable=initType == Init.InitialOutput, group=
               "Initialization"));
-      extends Modelica_Blocks_Interfaces.SISO;
+      extends Interfaces.SISO;
 
       output Real x(start=x_start) "State of block";
 
@@ -336,15 +339,14 @@ If k=0, the block reduces to y=0.
     block FirstOrder "First order transfer function block (= 1 pole)"
       import Modelica_Blocks.Types.Init;
       parameter Real k(unit="1")=1 "Gain";
-      parameter Modelica_SIunits.Time T(start=1) "Time Constant";
-      parameter Modelica_Blocks.Types.Init initType=Init.NoInit
+      parameter SIunits.Time T(start=1) "Time Constant";
+      parameter Init initType=Init.NoInit
         "Type of initialization (1: no init, 2: steady state, 3/4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real y_start=0 "Initial or guess value of output (= state)"
         annotation (Dialog(group="Initialization"));
 
-      extends Modelica_Blocks_Interfaces.SISO(
-                              y(start=y_start));
+      extends Interfaces.SISO(y(start=y_start));
 
     initial equation
       if initType == Init.SteadyState then
@@ -436,7 +438,7 @@ Example:
       parameter Real k(unit="1")=1 "Gain";
       parameter Real w(start=1) "Angular frequency";
       parameter Real D(start=1) "Damping";
-      parameter Modelica_Blocks.Types.Init initType=Init.NoInit
+      parameter Init initType=Init.NoInit
         "Type of initialization (1: no init, 2: steady state, 3/4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real y_start=0 "Initial or guess value of output (= state)"
@@ -445,8 +447,7 @@ Example:
         "Initial or guess value of derivative of output (= state)"
         annotation (Dialog(group="Initialization"));
 
-      extends Modelica_Blocks_Interfaces.SISO(
-                              y(start=y_start));
+      extends Interfaces.SISO(y(start=y_start));
       output Real yd(start=yd_start) "Derivative of y";
 
     initial equation
@@ -571,9 +572,9 @@ Example:
     block PI "Proportional-Integral controller"
       import Modelica_Blocks.Types.Init;
       parameter Real k(unit="1")=1 "Gain";
-      parameter Modelica_SIunits.Time T(start=1, min=Modelica_Constants.small)
+      parameter SIunits.Time T(start=1, min=Modelica_Constants.small)
         "Time Constant (T>0 required)";
-      parameter Modelica_Blocks.Types.Init initType=Init.NoInit
+      parameter Init initType=Init.NoInit
         "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real x_start=0 "Initial or guess value of state"
@@ -582,7 +583,7 @@ Example:
         annotation(Dialog(enable=initType == Init.SteadyState or initType == Init.InitialOutput, group=
               "Initialization"));
 
-      extends Modelica_Blocks_Interfaces.SISO;
+      extends Interfaces.SISO;
       output Real x(start=x_start) "State of block";
 
     initial equation
@@ -683,16 +684,16 @@ This is discussed in the description of package
     block PID "PID-controller in additive description form"
       import Modelica_Blocks.Types.InitPID;
       import Modelica_Blocks.Types.Init;
-      extends Modelica_Blocks_Interfaces.SISO;
+      extends Interfaces.SISO;
 
       parameter Real k(unit="1")=1 "Gain";
-      parameter Modelica_SIunits.Time Ti(min=Modelica_Constants.small, start=
-            0.5) "Time Constant of Integrator";
-      parameter Modelica_SIunits.Time Td(min=0, start=0.1)
+      parameter SIunits.Time Ti(min=Modelica_Constants.small, start=0.5)
+        "Time Constant of Integrator";
+      parameter SIunits.Time Td(min=0, start=0.1)
         "Time Constant of Derivative block";
       parameter Real Nd(min=Modelica_Constants.small) = 10
         "The higher Nd, the more ideal the derivative block";
-      parameter Modelica_Blocks.Types.InitPID initType=InitPID.DoNotUse_InitialIntegratorState
+      parameter InitPID initType=InitPID.DoNotUse_InitialIntegratorState
         "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real xi_start=0
@@ -704,7 +705,7 @@ This is discussed in the description of package
       parameter Real y_start=0 "Initial value of output"
         annotation(Dialog(enable=initType == InitPID.InitialOutput, group=
               "Initialization"));
-      constant Modelica_SIunits.Time unitTime=1 annotation (HideResult=true);
+      constant SIunits.Time unitTime=1 annotation (HideResult=true);
 
       Math.Gain P(k=1) "Proportional part of PID controller" annotation (
           Placement(transformation(extent={{-60,60},{-20,100}}, rotation=0)));
@@ -867,21 +868,20 @@ to compute u by an algebraic equation.
       import Modelica_Blocks.Types.InitPID;
       import Modelica_Blocks.Types.Init;
       import Modelica_Blocks.Types.SimpleController;
-      extends Modelica_Blocks_Interfaces.SVcontrol;
+      extends Interfaces.SVcontrol;
       output Real controlError = u_s - u_m
         "Control error (set point - measurement)";
 
       parameter .Modelica_Blocks.Types.SimpleController controllerType=.Modelica_Blocks.Types.SimpleController.PID
         "Type of controller";
       parameter Real k(min=0, unit="1") = 1 "Gain of controller";
-      parameter Modelica_SIunits.Time Ti(min=Modelica_Constants.small) = 0.5
+      parameter SIunits.Time Ti(min=Modelica_Constants.small)=0.5
         "Time constant of Integrator block" annotation (Dialog(enable=
               controllerType == .Modelica.Blocks.Types.SimpleController.PI or
               controllerType == .Modelica.Blocks.Types.SimpleController.PID));
-      parameter Modelica_SIunits.Time Td(min=0) = 0.1
-        "Time constant of Derivative block" annotation (Dialog(enable=
-              controllerType == .Modelica.Blocks.Types.SimpleController.PD or
-              controllerType == .Modelica.Blocks.Types.SimpleController.PID));
+      parameter SIunits.Time Td(min=0)=0.1 "Time constant of Derivative block"
+        annotation (Dialog(enable=controllerType == .Modelica.Blocks.Types.SimpleController.PD
+               or controllerType == .Modelica.Blocks.Types.SimpleController.PID));
       parameter Real yMax(start=1) "Upper limit of output";
       parameter Real yMin=-yMax "Lower limit of output";
       parameter Real wp(min=0) = 1
@@ -920,7 +920,7 @@ to compute u by an algebraic equation.
       parameter Boolean strict=false
         "= true, if strict limits with noEvent(..)"
         annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
-      constant Modelica_SIunits.Time unitTime=1 annotation (HideResult=true);
+      constant SIunits.Time unitTime=1 annotation (HideResult=true);
       Math.Add addP(k1=wp, k2=-1) annotation (Placement(transformation(extent={
                 {-80,40},{-60,60}}, rotation=0)));
       Math.Add addD(k1=wd, k2=-1) if with_D annotation (Placement(
@@ -981,8 +981,9 @@ to compute u by an algebraic equation.
       assert(yMax >= yMin, "LimPID: Limits must be consistent. However, yMax (=" + String(yMax) +
                            ") < yMin (=" + String(yMin) + ")");
       if initType == InitPID.InitialOutput and (y_start < yMin or y_start > yMax) then
-          Modelica_Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) +
-             ") is outside of the limits of yMin (=" + String(yMin) +") and yMax (=" + String(yMax) + ")");
+        Modelica_Utilities.Streams.error("LimPID: Start value y_start (=" +
+          String(y_start) + ") is outside of the limits of yMin (=" + String(
+          yMin) + ") and yMax (=" + String(yMax) + ")");
       end if;
       assert(limitsAtInit or not limitsAtInit and y >= yMin and y <= yMax,
              "LimPID: During initialization the limits have been switched off.\n" +
@@ -1221,13 +1222,13 @@ to use <b>limitAtInit</b> = <b>false</b>.
 
     block TransferFunction "Linear transfer function"
       import Modelica_Blocks.Types.Init;
-      extends Modelica_Blocks_Interfaces.SISO;
+      extends Interfaces.SISO;
 
       parameter Real b[:]={1}
         "Numerator coefficients of transfer function (e.g., 2*s+3 is specified as {2,3})";
       parameter Real a[:]={1}
         "Denominator coefficients of transfer function (e.g., 5*s+6 is specified as {5,6})";
-      parameter Modelica_Blocks.Types.Init initType=Init.NoInit
+      parameter Init initType=Init.NoInit
         "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real x_start[size(a, 1) - 1]=zeros(nx)
@@ -1347,7 +1348,7 @@ results in the following transfer function:
         "Matrix C of state space model (e.g., C=[1, 1])";
       parameter Real D[size(C, 1), size(B, 2)]=zeros(size(C, 1), size(B, 2))
         "Matrix D of state space model";
-      parameter Modelica_Blocks.Types.Init initType=Init.NoInit
+      parameter Init initType=Init.NoInit
         "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real x_start[nx]=zeros(nx) "Initial or guess values of states"
@@ -1357,8 +1358,7 @@ results in the following transfer function:
         annotation(Dialog(enable=initType == Init.InitialOutput, group=
               "Initialization"));
 
-      extends Modelica_Blocks_Interfaces.MIMO(
-                              final nin=size(B, 2), final nout=size(C, 1));
+      extends Interfaces.MIMO(final nin=size(B, 2), final nout=size(C, 1));
       output Real x[size(A, 1)](start=x_start) "State vector";
 
     protected
@@ -1370,7 +1370,11 @@ results in the following transfer function:
       elseif initType == Init.InitialState then
         x = x_start;
       elseif initType == Init.InitialOutput then
-        x = Modelica_Math.Matrices.equalityLeastSquares(A, -B*u, C, y_start - D*u);
+        x = Modelica_Math.Matrices.equalityLeastSquares(
+              A,
+              -B*u,
+              C,
+              y_start - D*u);
       end if;
     equation
       der(x) = A*x + B*u;
@@ -1450,7 +1454,7 @@ results in the following equations:
     end StateSpace;
 
     block Der "Derivative of input (= analytic differentiations)"
-        extends Modelica_Blocks_Interfaces.SISO;
+        extends Interfaces.SISO;
 
     equation
       y = der(u);
@@ -1477,11 +1481,11 @@ the model.
 
       import Modelica_Blocks.Types.Init;
 
-      extends Modelica_Blocks_Interfaces.SISO;
+      extends Interfaces.SISO;
 
       parameter Integer n(min=1) = 2 "Order of filter";
-      parameter Modelica_SIunits.Frequency f(start=1) "Cut-off frequency";
-      parameter Modelica_Blocks.Types.Init initType=Init.NoInit
+      parameter SIunits.Frequency f(start=1) "Cut-off frequency";
+      parameter Init initType=Init.NoInit
         "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real x1_start[m]=zeros(m)
@@ -1656,13 +1660,13 @@ initType=Modelica.Blocks.Types.Init.SteadyState).
       "Output the input signal filtered with an n-th order filter with critical damping"
 
       import Modelica_Blocks.Types.Init;
-      extends Modelica_Blocks_Interfaces.SISO;
+      extends Interfaces.SISO;
 
       parameter Integer n=2 "Order of filter";
-      parameter Modelica_SIunits.Frequency f(start=1) "Cut-off frequency";
+      parameter SIunits.Frequency f(start=1) "Cut-off frequency";
       parameter Boolean normalized = true
         "= true, if amplitude at f_cut is 3 dB, otherwise unmodified filter";
-      parameter Modelica_Blocks.Types.Init initType=Init.NoInit
+      parameter Init initType=Init.NoInit
         "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
         annotation (Evaluate=true, Dialog(group="Initialization"));
       parameter Real x_start[n]=zeros(n) "Initial or guess values of states"
@@ -1806,26 +1810,26 @@ The critical damping filter is defined as
       "Continuous low pass, high pass, band pass or band stop IIR-filter of type CriticalDamping, Bessel, Butterworth or ChebyshevI"
       import Modelica_Blocks.Continuous.Internal;
 
-      extends Modelica_Blocks_Interfaces.SISO;
+      extends Interfaces.SISO;
 
-      parameter Modelica_Blocks.Types.AnalogFilter analogFilter=Types.AnalogFilter.CriticalDamping
+      parameter Types.AnalogFilter analogFilter=Types.AnalogFilter.CriticalDamping
         "Analog filter characteristics (CriticalDamping/Bessel/Butterworth/ChebyshevI)";
-      parameter Modelica_Blocks.Types.FilterType filterType=Types.FilterType.LowPass
+      parameter Types.FilterType filterType=Types.FilterType.LowPass
         "Type of filter (LowPass/HighPass/BandPass/BandStop)";
       parameter Integer order(min=1) = 2 "Order of filter";
-      parameter Modelica_SIunits.Frequency f_cut "Cut-off frequency";
+      parameter SIunits.Frequency f_cut "Cut-off frequency";
       parameter Real gain=1.0
         "Gain (= amplitude of frequency response at zero frequency)";
       parameter Real A_ripple(unit="dB") = 0.5
         "Pass band ripple for Chebyshev filter (otherwise not used); > 0 required"
         annotation(Dialog(enable=analogFilter==Modelica.Blocks.Types.AnalogFilter.ChebyshevI));
-      parameter Modelica_SIunits.Frequency f_min=0
+      parameter SIunits.Frequency f_min=0
         "Band of band pass/stop filter is f_min (A=-3db*gain) .. f_cut (A=-3db*gain)"
-        annotation(Dialog(enable=filterType == Modelica.Blocks.Types.FilterType.BandPass or
-                                 filterType == Modelica.Blocks.Types.FilterType.BandStop));
+        annotation (Dialog(enable=filterType == Modelica.Blocks.Types.FilterType.BandPass
+               or filterType == Modelica.Blocks.Types.FilterType.BandStop));
       parameter Boolean normalized=true
         "= true, if amplitude at f_cut = -3db, otherwise unmodified filter";
-      parameter Modelica_Blocks.Types.Init init=Types.Init.SteadyState
+      parameter Types.Init init=Types.Init.SteadyState
         "Type of initialization (no init/steady state/initial state/initial output)"
         annotation (Evaluate=true, Dialog(tab="Advanced"));
       final parameter Integer nx = if filterType ==Types.FilterType.LowPass                  or
@@ -1839,7 +1843,7 @@ The critical damping filter is defined as
       parameter Real u_nominal = 1.0
         "Nominal value of input (used for scaling the states)"
       annotation(Dialog(tab="Advanced"));
-      Modelica_Blocks_Interfaces.RealOutput x[nx] "Filter states";
+      Interfaces.RealOutput x[nx] "Filter states";
 
     protected
       parameter Integer ncr = if analogFilter ==Types.AnalogFilter.CriticalDamping                  then
@@ -1875,23 +1879,44 @@ The critical damping filter is defined as
 
     initial equation
       if analogFilter == Modelica_Blocks.Types.AnalogFilter.CriticalDamping then
-          cr = Internal.Filter.base.CriticalDamping(order, normalized);
+        cr = Internal.Filter.base.CriticalDamping(order, normalized);
       elseif analogFilter == Modelica_Blocks.Types.AnalogFilter.Bessel then
-          (cr,c0,c1) = Internal.Filter.base.Bessel(order, normalized);
+        (cr,c0,c1) = Internal.Filter.base.Bessel(order, normalized);
       elseif analogFilter == Modelica_Blocks.Types.AnalogFilter.Butterworth then
-          (cr,c0,c1) = Internal.Filter.base.Butterworth(order, normalized);
+        (cr,c0,c1) = Internal.Filter.base.Butterworth(order, normalized);
       elseif analogFilter == Modelica_Blocks.Types.AnalogFilter.ChebyshevI then
-          (cr,c0,c1) = Internal.Filter.base.ChebyshevI(order, A_ripple, normalized);
+        (cr,c0,c1) = Internal.Filter.base.ChebyshevI(
+              order,
+              A_ripple,
+              normalized);
        end if;
 
       if filterType == Modelica_Blocks.Types.FilterType.LowPass then
-          (r,a,b,ku) = Internal.Filter.roots.lowPass(cr,c0,c1,f_cut);
+        (r,a,b,ku) = Internal.Filter.roots.lowPass(
+              cr,
+              c0,
+              c1,
+              f_cut);
       elseif filterType == Modelica_Blocks.Types.FilterType.HighPass then
-          (r,a,b,ku,k1,k2) = Internal.Filter.roots.highPass(cr,c0,c1,f_cut);
+        (r,a,b,ku,k1,k2) = Internal.Filter.roots.highPass(
+              cr,
+              c0,
+              c1,
+              f_cut);
       elseif filterType == Modelica_Blocks.Types.FilterType.BandPass then
-          (a,b,ku,k1,k2) = Internal.Filter.roots.bandPass(cr,c0,c1,f_min,f_cut);
+        (a,b,ku,k1,k2) = Internal.Filter.roots.bandPass(
+              cr,
+              c0,
+              c1,
+              f_min,
+              f_cut);
       elseif filterType == Modelica_Blocks.Types.FilterType.BandStop then
-          (a,b,ku,k1,k2) = Internal.Filter.roots.bandStop(cr,c0,c1,f_min,f_cut);
+        (a,b,ku,k1,k2) = Internal.Filter.roots.bandStop(
+              cr,
+              c0,
+              c1,
+              f_min,
+              f_cut);
        end if;
 
       if init == Modelica_Blocks.Types.Init.InitialState then
@@ -2209,9 +2234,7 @@ The development of this block was partially funded by BMBF within the
           end for;
 
           // Determine polynomials with highest power of s equal to one
-            (cr,c0,c1) :=
-              Modelica_Blocks.Continuous.Internal.Filter.Utilities.toHighestPowerOne(
-              den1, den2);
+            (cr,c0,c1) := Utilities.toHighestPowerOne(den1, den2);
         end CriticalDamping;
 
         function Bessel
@@ -2235,9 +2258,7 @@ The development of this block was partially funded by BMBF within the
           Real den2[size(c0, 1),2]
               "[p^2, p] coefficients of denominator second order polynomials (b*p^2 + a*p + 1)";
         algorithm
-            (den1,den2,alpha) :=
-              Modelica_Blocks.Continuous.Internal.Filter.Utilities.BesselBaseCoefficients(
-              order);
+            (den1,den2,alpha) := Utilities.BesselBaseCoefficients(order);
           if not normalized then
              alpha2 := alpha*alpha;
              for i in 1:size(c0, 1) loop
@@ -2250,9 +2271,7 @@ The development of this block was partially funded by BMBF within the
              end if;
 
           // Determine polynomials with highest power of s equal to one
-            (cr,c0,c1) :=
-              Modelica_Blocks.Continuous.Internal.Filter.Utilities.toHighestPowerOne(
-              den1, den2);
+            (cr,c0,c1) := Utilities.toHighestPowerOne(den1, den2);
         end Bessel;
 
         function Butterworth
@@ -2304,9 +2323,7 @@ The development of this block was partially funded by BMBF within the
   */
 
           // Determine polynomials with highest power of s equal to one
-            (cr,c0,c1) :=
-              Modelica_Blocks.Continuous.Internal.Filter.Utilities.toHighestPowerOne(
-              den1, den2);
+            (cr,c0,c1) := Utilities.toHighestPowerOne(den1, den2);
         end Butterworth;
 
         function ChebyshevI
@@ -2356,9 +2373,7 @@ The development of this block was partially funded by BMBF within the
        -3 db at the cutoff frequency
     */
             if normalized then
-              alpha :=
-                Modelica_Blocks.Continuous.Internal.Filter.Utilities.normalizationFactor(
-                den1, den2);
+              alpha := Utilities.normalizationFactor(den1, den2);
               alpha2 := alpha*alpha;
               for i in 1:size(c0, 1) loop
                 den2[i, 1] := den2[i, 1]*alpha2;
@@ -2368,9 +2383,7 @@ The development of this block was partially funded by BMBF within the
             end if;
 
           // Determine polynomials with highest power of s equal to one
-            (cr,c0,c1) :=
-              Modelica_Blocks.Continuous.Internal.Filter.Utilities.toHighestPowerOne(
-              den1, den2);
+            (cr,c0,c1) := Utilities.toHighestPowerOne(den1, den2);
         end ChebyshevI;
         end base;
 
@@ -2385,7 +2398,7 @@ The development of this block was partially funded by BMBF within the
               "Coefficients of s^0 term if conjugate complex pole";
           input Real c1_in[size(c0_in,1)]
               "Coefficients of s^1 term if conjugate complex pole";
-          input Modelica_SIunits.Frequency f_cut "Cut-off frequency";
+          input SIunits.Frequency f_cut "Cut-off frequency";
 
           output Real cr[size(cr_in,1)] "Coefficient of real pole";
           output Real c0[size(c0_in,1)]
@@ -2395,8 +2408,7 @@ The development of this block was partially funded by BMBF within the
 
           protected
           constant Real pi=Modelica_Constants.pi;
-          Modelica_SIunits.AngularVelocity w_cut=2*pi*f_cut
-              "Cut-off angular frequency";
+          SIunits.AngularVelocity w_cut=2*pi*f_cut "Cut-off angular frequency";
           Real w_cut2=w_cut*w_cut;
 
         algorithm
@@ -2421,7 +2433,7 @@ The development of this block was partially funded by BMBF within the
               "Coefficients of s^0 term if conjugate complex pole";
           input Real c1_in[size(c0_in,1)]
               "Coefficients of s^1 term if conjugate complex pole";
-          input Modelica_SIunits.Frequency f_cut "Cut-off frequency";
+          input SIunits.Frequency f_cut "Cut-off frequency";
 
           output Real cr[size(cr_in,1)] "Coefficient of real pole";
           output Real c0[size(c0_in,1)]
@@ -2431,8 +2443,7 @@ The development of this block was partially funded by BMBF within the
 
           protected
           constant Real pi=Modelica_Constants.pi;
-          Modelica_SIunits.AngularVelocity w_cut=2*pi*f_cut
-              "Cut-off angular frequency";
+          SIunits.AngularVelocity w_cut=2*pi*f_cut "Cut-off angular frequency";
           Real w_cut2=w_cut*w_cut;
 
         algorithm
@@ -2471,9 +2482,9 @@ The development of this block was partially funded by BMBF within the
               "Coefficients of s^0 term if conjugate complex pole";
           input Real c1_in[size(c0_in,1)]
               "Coefficients of s^1 term if conjugate complex pole";
-          input Modelica_SIunits.Frequency f_min
+          input SIunits.Frequency f_min
               "Band of band pass filter is f_min (A=-3db) .. f_max (A=-3db)";
-          input Modelica_SIunits.Frequency f_max "Upper band frequency";
+          input SIunits.Frequency f_max "Upper band frequency";
 
           output Real cr[0] "Coefficient of real pole";
           output Real c0[size(cr_in,1) + 2*size(c0_in,1)]
@@ -2483,9 +2494,8 @@ The development of this block was partially funded by BMBF within the
           output Real cn "Numerator coefficient of the PT2 terms";
           protected
           constant Real pi=Modelica_Constants.pi;
-          Modelica_SIunits.Frequency f0 = sqrt(f_min*f_max);
-          Modelica_SIunits.AngularVelocity w_cut=2*pi*f0
-              "Cut-off angular frequency";
+          SIunits.Frequency f0=sqrt(f_min*f_max);
+          SIunits.AngularVelocity w_cut=2*pi*f0 "Cut-off angular frequency";
           Real w_band = (f_max - f_min) / f0;
           Real w_cut2=w_cut*w_cut;
           Real c;
@@ -2535,8 +2545,7 @@ The development of this block was partially funded by BMBF within the
             end for;
 
             for i in 1:size(c1_in,1) loop
-              alpha :=
-                Modelica_Blocks.Continuous.Internal.Filter.Utilities.bandPassAlpha(
+              alpha := Utilities.bandPassAlpha(
                         c1_in[i],
                         c0_in[i],
                         w_band);
@@ -2561,9 +2570,9 @@ The development of this block was partially funded by BMBF within the
               "Coefficients of s^0 term if conjugate complex pole";
           input Real c1_in[size(c0_in,1)]
               "Coefficients of s^1 term if conjugate complex pole";
-          input Modelica_SIunits.Frequency f_min
+          input SIunits.Frequency f_min
               "Band of band stop filter is f_min (A=-3db) .. f_max (A=-3db)";
-          input Modelica_SIunits.Frequency f_max "Upper band frequency";
+          input SIunits.Frequency f_max "Upper band frequency";
 
           output Real cr[0] "Coefficient of real pole";
           output Real c0[size(cr_in,1) + 2*size(c0_in,1)]
@@ -2572,9 +2581,8 @@ The development of this block was partially funded by BMBF within the
               "Coefficients of s^1 term if conjugate complex pole";
           protected
           constant Real pi=Modelica_Constants.pi;
-          Modelica_SIunits.Frequency f0 = sqrt(f_min*f_max);
-          Modelica_SIunits.AngularVelocity w_cut=2*pi*f0
-              "Cut-off angular frequency";
+          SIunits.Frequency f0=sqrt(f_min*f_max);
+          SIunits.AngularVelocity w_cut=2*pi*f0 "Cut-off angular frequency";
           Real w_band = (f_max - f_min) / f0;
           Real w_cut2=w_cut*w_cut;
           Real c;
@@ -2648,8 +2656,7 @@ The development of this block was partially funded by BMBF within the
 
             for i in 1:size(c1_in,1) loop
                ww      := w_band/c0_in[i];
-              alpha :=
-                Modelica_Blocks.Continuous.Internal.Filter.Utilities.bandPassAlpha(
+              alpha := Utilities.bandPassAlpha(
                         c1_in[i],
                         c0_in[i],
                         ww);
@@ -2676,7 +2683,7 @@ The development of this block was partially funded by BMBF within the
               "Coefficients of s^0 term of base filter if conjugate complex pole";
           input Real c1_in[size(c0_in,1)]
               "Coefficients of s^1 term of base filter if conjugate complex pole";
-          input Modelica_SIunits.Frequency f_cut "Cut-off frequency";
+          input SIunits.Frequency f_cut "Cut-off frequency";
 
           output Real r[size(cr_in,1)] "Real eigenvalues";
           output Real a[size(c0_in,1)]
@@ -2778,7 +2785,7 @@ This representation has the following transfer function:
               "Coefficients of s^0 term of base filter if conjugate complex pole";
           input Real c1_in[size(c0_in,1)]
               "Coefficients of s^1 term of base filter if conjugate complex pole";
-          input Modelica_SIunits.Frequency f_cut "Cut-off frequency";
+          input SIunits.Frequency f_cut "Cut-off frequency";
 
           output Real r[size(cr_in,1)] "Real eigenvalues";
           output Real a[size(c0_in,1)]
@@ -2893,9 +2900,9 @@ This representation has the following transfer function:
               "Coefficients of s^0 term of base filter if conjugate complex pole";
           input Real c1_in[size(c0_in,1)]
               "Coefficients of s^1 term of base filter if conjugate complex pole";
-          input Modelica_SIunits.Frequency f_min
+          input SIunits.Frequency f_min
               "Band of band pass filter is f_min (A=-3db) .. f_max (A=-3db)";
-          input Modelica_SIunits.Frequency f_max "Upper band frequency";
+          input SIunits.Frequency f_max "Upper band frequency";
 
           output Real a[size(cr_in,1) + 2*size(c0_in,1)]
               "Real parts of complex conjugate eigenvalues";
@@ -2990,9 +2997,9 @@ This representation has the following transfer function:
               "Coefficients of s^0 term of base filter if conjugate complex pole";
           input Real c1_in[size(c0_in,1)]
               "Coefficients of s^1 term of base filter if conjugate complex pole";
-          input Modelica_SIunits.Frequency f_min
+          input SIunits.Frequency f_min
               "Band of band stop filter is f_min (A=-3db) .. f_max (A=-3db)";
-          input Modelica_SIunits.Frequency f_max "Upper band frequency";
+          input SIunits.Frequency f_max "Upper band frequency";
 
           output Real a[size(cr_in,1) + 2*size(c0_in,1)]
               "Real parts of complex conjugate eigenvalues";
@@ -4834,7 +4841,7 @@ sample instant during the sample points.
     block FirstOrderHold "First order hold of a sampled-data system"
       extends Modelica_Blocks_Interfaces.DiscreteSISO;
     protected
-      Modelica_SIunits.Time tSample;
+      SI.Time tSample;
       Real uSample;
       Real pre_uSample;
       Real c;
@@ -5147,7 +5154,7 @@ results in the following equations:
     end StateSpace;
 
     block TriggeredSampler "Triggered sampling of continuous signals"
-      extends Modelica_Blocks.Icons.DiscreteBlock;
+      extends Icons.DiscreteBlock;
       parameter Real y_start=0 "initial value of output signal";
 
       Modelica_Blocks_Interfaces.RealInput u
@@ -5225,7 +5232,7 @@ the initial value defined via parameter <b>y0</b>.
     block TriggeredMax
       "Compute maximum, absolute value of continuous signal at trigger instants"
 
-      extends Modelica_Blocks.Icons.DiscreteBlock;
+      extends Icons.DiscreteBlock;
       Modelica_Blocks_Interfaces.RealInput u
         "Connector with a Real input signal" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
@@ -5563,7 +5570,6 @@ The usage is demonstrated, e.g., in example
             textString="0",
             lineColor={0,0,0})}));
   end Interaction;
-
 
   package Logical "Library of components with Boolean input and output signals"
     extends Modelica_Icons.Package;
@@ -6063,7 +6069,7 @@ u1, else it is set equal to u3.</p>
     end LogicalSwitch;
 
     block Switch "Switch between two Real signals"
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
+      extends Icons.PartialBooleanBlock;
       Modelica_Blocks_Interfaces.RealInput u1
         "Connector of first Real input signal" annotation (Placement(
             transformation(extent={{-140,60},{-100,100}}, rotation=0)));
@@ -6114,7 +6120,7 @@ u1, else it is set equal to u3.</p>
 
     block Hysteresis "Transform Real to Boolean signal with Hysteresis"
 
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
+      extends Icons.PartialBooleanBlock;
       parameter Real uLow(start=0) "if y=true and u<=uLow, switch to y=false";
       parameter Real uHigh(start=1) "if y=false and u>=uHigh, switch to y=true";
       parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
@@ -6240,13 +6246,13 @@ The default value of this parameter is <b>false</b>.
     end Hysteresis;
 
     block OnOffController "On-off controller"
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
+      extends Icons.PartialBooleanBlock;
       Modelica_Blocks_Interfaces.RealInput reference
         "Connector of Real input signal used as reference signal" annotation (
           Placement(transformation(extent={{-140,80},{-100,40}}, rotation=0)));
       Modelica_Blocks_Interfaces.RealInput u
-        "Connector of Real input signal used as measurement signal" annotation
-        (Placement(transformation(extent={{-140,-40},{-100,-80}}, rotation=0)));
+        "Connector of Real input signal used as measurement signal" annotation (
+         Placement(transformation(extent={{-140,-40},{-100,-80}}, rotation=0)));
       Modelica_Blocks_Interfaces.BooleanOutput y
         "Connector of Real output signal used as actuator signal" annotation (
           Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
@@ -6284,12 +6290,11 @@ signal <b>u</b> exceeds the <b>reference</b> signal plus half of the bandwidth.<
     end OnOffController;
 
     block TriggeredTrapezoid "Triggered trapezoid generator"
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
+      extends Icons.PartialBooleanBlock;
 
       parameter Real amplitude=1 "Amplitude of trapezoid";
-      parameter Modelica_SIunits.Time rising(final min=0) = 0
-        "Rising duration of trapezoid";
-      parameter Modelica_SIunits.Time falling(final min=0) = rising
+      parameter SI.Time rising(final min=0)=0 "Rising duration of trapezoid";
+      parameter SI.Time falling(final min=0)=rising
         "Falling duration of trapezoid";
       parameter Real offset=0 "Offset of output signal";
 
@@ -6303,8 +6308,7 @@ signal <b>u</b> exceeds the <b>reference</b> signal plus half of the bandwidth.<
     protected
       discrete Real endValue "Value of y at time of recent edge";
       discrete Real rate "Current rising/falling rate";
-      discrete Modelica_SIunits.Time T
-        "Predicted time of output reaching endValue";
+      discrete SI.Time T "Predicted time of output reaching endValue";
     equation
       y = if time < T then endValue - (T - time)*rate else endValue;
 
@@ -6450,7 +6454,7 @@ handled properly.</p>
     block Timer
       "Timer measuring the time from the time instant where the Boolean input became true"
 
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
+      extends Icons.PartialBooleanBlock;
       Modelica_Blocks_Interfaces.BooleanInput u
         "Connector of Boolean input signal" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
@@ -6459,8 +6463,7 @@ handled properly.</p>
               rotation=0)));
 
     protected
-      discrete Modelica_SIunits.Time entryTime
-        "Time instant when u became true";
+      discrete SI.Time entryTime "Time instant when u became true";
     initial equation
       pre(entryTime) = 0;
     equation
@@ -6529,18 +6532,18 @@ input becomes false.
     end Timer;
 
     block RSFlipFlop "A basic RS Flip Flop"
-      extends Modelica_Blocks.Icons.PartialBooleanBlock;
+      extends Icons.PartialBooleanBlock;
       parameter Boolean Qini=false "Start value of Q at initial time";
       Modelica_Blocks_Interfaces.BooleanOutput Q annotation (Placement(
             transformation(extent={{100,50},{120,70}}, rotation=0)));
       Modelica_Blocks_Interfaces.BooleanOutput QI annotation (Placement(
             transformation(extent={{100,-70},{120,-50}}, rotation=0)));
-      Modelica_Blocks.Logical.Nor nor annotation (Placement(transformation(
-              extent={{-20,20},{0,40}}, rotation=0)));
-      Modelica_Blocks.Logical.Nor nor1 annotation (Placement(transformation(
-              extent={{-20,-20},{0,0}}, rotation=0)));
-      Modelica_Blocks.Logical.Pre pre(pre_u_start=not (Qini)) annotation (
-          Placement(transformation(extent={{10,20},{30,40}}, rotation=0)));
+      Nor nor annotation (Placement(transformation(extent={{-20,20},{0,40}},
+              rotation=0)));
+      Nor nor1 annotation (Placement(transformation(extent={{-20,-20},{0,0}},
+              rotation=0)));
+      Pre pre(pre_u_start=not (Qini)) annotation (Placement(transformation(
+              extent={{10,20},{30,40}}, rotation=0)));
       Modelica_Blocks_Interfaces.BooleanInput S
         annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
       Modelica_Blocks_Interfaces.BooleanInput R
@@ -7757,7 +7760,7 @@ Example:
     end Add;
 
     block Add3 "Output the sum of the three inputs"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
 
       parameter Real k1=+1 "Gain of upper input";
       parameter Real k2=+1 "Gain of middle input";
@@ -9256,7 +9259,7 @@ zero or negative.
     end Log10;
 
     block RealToInteger "Convert Real to Integer signal"
-      extends Modelica_Blocks.Icons.IntegerBlock;
+      extends Icons.IntegerBlock;
     public
       Modelica_Blocks_Interfaces.RealInput u "Connector of Real input signal"
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
@@ -9295,7 +9298,7 @@ as <i>nearest integer value</i> of the input <b>u</b>:
     end RealToInteger;
 
     block IntegerToReal "Convert Integer to Real signals"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       Modelica_Blocks_Interfaces.IntegerInput u
         "Connector of Integer input signal" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
@@ -9495,7 +9498,7 @@ where <b>threshold</b> is a parameter.
 
     block RectangularToPolar
       "Convert rectangular coordinates to polar coordinates"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       Modelica_Blocks_Interfaces.RealInput u_re
         "Real part of rectangular representation" annotation (Placement(
             transformation(extent={{-140,40},{-100,80}}, rotation=0)));
@@ -9545,7 +9548,7 @@ the angle <code>y_arg</code> of the polar representation of this phasor.
 
     block PolarToRectangular
       "Convert polar coordinates to rectangular coordinates"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       Modelica_Blocks_Interfaces.RealInput u_abs
         "Length of polar representation" annotation (Placement(transformation(
               extent={{-140,40},{-100,80}}, rotation=0)));
@@ -9592,14 +9595,13 @@ This block calculates the components <code>y_re</code> and <code>y_im</code> of 
 
     block Mean "Calculate mean over period 1/f"
       extends Modelica_Blocks_Interfaces.SISO;
-      parameter Modelica_SIunits.Frequency f(start=50) "Base frequency";
+      parameter SIunits.Frequency f(start=50) "Base frequency";
       parameter Real x0=0 "Start value of integrator state";
       parameter Boolean yGreaterOrEqualZero=false
         "=true, if output y is guaranteed to be >= 0 for the exact solution"
         annotation (Evaluate=true, Dialog(tab="Advanced"));
     protected
-      parameter Modelica_SIunits.Time t0(fixed=false)
-        "Start time of simulation";
+      parameter SIunits.Time t0(fixed=false) "Start time of simulation";
       Real x "Integrator state";
     initial equation
       t0 = time;
@@ -9642,7 +9644,7 @@ explicitly set to 0.0, if the mean value results in a negative value.
 
     block RectifiedMean "Calculate rectified mean over period 1/f"
       extends Modelica_Blocks_Interfaces.SISO;
-      parameter Modelica_SIunits.Frequency f(start=50) "Base frequency";
+      parameter SIunits.Frequency f(start=50) "Base frequency";
       parameter Real x0=0 "Start value of integrator state";
       Mean mean(final f=f, final x0=x0)
         annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -9680,7 +9682,7 @@ Note: The output is updated after each period defined by 1/f.
 
     block RootMeanSquare "Calculate root mean square over period 1/f"
       extends Modelica_Blocks_Interfaces.SISO;
-      parameter Modelica_SIunits.Frequency f(start=50) "Base frequency";
+      parameter SIunits.Frequency f(start=50) "Base frequency";
       parameter Real x0=0 "Start value of integrator state";
       MultiProduct product(nu=2)
         annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -9731,8 +9733,8 @@ Note: The output is updated after each period defined by 1/f.
     end RootMeanSquare;
 
     block Harmonic "Calculate harmonic over period 1/f"
-      extends Modelica_Blocks.Icons.Block;
-      parameter Modelica_SIunits.Frequency f(start=50) "Base frequency";
+      extends Icons.Block;
+      parameter SIunits.Frequency f(start=50) "Base frequency";
       parameter Integer k(start=1) "Order of harmonic";
       parameter Real x0Cos=0 "Start value of cos integrator state";
       parameter Real x0Sin=0 "Start value of sin integrator state";
@@ -9878,7 +9880,7 @@ the two Real inputs <b>u1</b> and <b>u2</b>:
 
     block MinMax
       "Output the minimum and the maximum element of the input vector"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer nu(min=0) = 0 "Number of input connections"
         annotation (Dialog(connectorSizing=true), HideResult=true);
       Modelica_Blocks_Interfaces.RealVectorInput u[nu]
@@ -10741,11 +10743,11 @@ The usage is demonstrated, e.g., in example
     block OnDelay
       "Delay a rising edge of the input, but do not delay a falling edge."
           extends Modelica_Blocks_Interfaces.PartialBooleanSISO_small;
-          parameter Modelica_SIunits.Time delayTime "Delay time";
+          parameter SI.Time delayTime "Delay time";
 
     protected
           Boolean delaySignal(start=false,fixed=true);
-          discrete Modelica_SIunits.Time t_next;
+          discrete SI.Time t_next;
     initial equation
           pre(u) = false;
           pre(t_next) = time - 1;
@@ -10945,11 +10947,11 @@ as output.
         "= false, if limits are ignored during initialization (i.e., y=u)"
         annotation (Evaluate=true, choices(checkBox=true));
       Modelica_Blocks_Interfaces.RealInput limit1
-        "Connector of Real input signal used as maximum of input u" annotation
-        (Placement(transformation(extent={{-140,60},{-100,100}}, rotation=0)));
+        "Connector of Real input signal used as maximum of input u" annotation (
+         Placement(transformation(extent={{-140,60},{-100,100}}, rotation=0)));
       Modelica_Blocks_Interfaces.RealInput limit2
-        "Connector of Real input signal used as minimum of input u" annotation
-        (Placement(transformation(extent={{-140,-100},{-100,-60}}, rotation=0)));
+        "Connector of Real input signal used as minimum of input u" annotation (
+         Placement(transformation(extent={{-140,-100},{-100,-60}}, rotation=0)));
     protected
       Real uMax;
       Real uMin;
@@ -11059,12 +11061,11 @@ is passed as output.
     block SlewRateLimiter "Limits the slew rate of a signal"
       extends Modelica_Blocks_Interfaces.SISO;
       import Modelica_Constants.small;
-      parameter Modelica_SIunits.DampingCoefficient Rising( min= small) = 1
+      parameter SI.DampingCoefficient Rising(min=small)=1
         "Maximum rising slew rate [+small..+inf)";
-      parameter Modelica_SIunits.DampingCoefficient Falling(max=-small) = -Rising
+      parameter SI.DampingCoefficient Falling(max=-small)=-Rising
         "Maximum falling slew rate (-inf..-small]";
-      parameter Modelica_SIunits.Time Td(min=small) = 0.001
-        "Derivative time constant";
+      parameter SI.Time Td(min=small)=0.001 "Derivative time constant";
       parameter Boolean strict=false
         "= true, if strict limits with noEvent(..)"
         annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
@@ -11207,7 +11208,7 @@ function of the input with a slope of 1.
 
     block FixedDelay "Delay block with fixed DelayTime"
       extends Modelica_Blocks_Interfaces.SISO;
-      parameter Modelica_SIunits.Time delayTime(start=1)
+      parameter SI.Time delayTime(start=1)
         "Delay time of output with respect to input signal";
 
     equation
@@ -11299,7 +11300,7 @@ The Input signal is delayed by a given time instant, or more precisely:
 
     block PadeDelay "Pade approximation of delay block with fixed DelayTime"
       extends Modelica_Blocks_Interfaces.SISO;
-      parameter Modelica_SIunits.Time delayTime(start=1)
+      parameter SI.Time delayTime(start=1)
         "Delay time of output with respect to input signal";
       parameter Integer n(min=1) = 1 "Order of Pade approximation";
       parameter Integer m(
@@ -11621,7 +11622,7 @@ This block replicates the input signal to an array of <code>nout</code> identica
     end Replicator;
 
     block IntegerReplicator "Integer signal replicator"
-      extends Modelica_Blocks.Icons.IntegerBlock;
+      extends Icons.IntegerBlock;
       parameter Integer nout=1 "Number of outputs";
       Modelica_Blocks_Interfaces.IntegerInput u
         "Connector of Integer input signal" annotation (Placement(
@@ -11653,7 +11654,7 @@ This block replicates the Integer input signal to an array of <code>nout</code> 
     end IntegerReplicator;
 
     block BooleanReplicator "Boolean signal replicator"
-      extends Modelica_Blocks.Icons.BooleanBlock;
+      extends Icons.BooleanBlock;
       parameter Integer nout=1 "Number of outputs";
       Modelica_Blocks_Interfaces.BooleanInput u
         "Connector of Boolean input signal" annotation (Placement(
@@ -11996,7 +11997,7 @@ value of the additional u index:</p>
   end Extractor;
 
     block Multiplex2 "Multiplexer block for two input connectors"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer n1=1 "dimension of input signal connector 1";
       parameter Integer n2=1 "dimension of input signal connector 2";
       Modelica_Blocks_Interfaces.RealInput u1[n1]
@@ -12043,7 +12044,7 @@ explicitly defined via parameters n1 and n2.
     end Multiplex2;
 
     block Multiplex3 "Multiplexer block for three input connectors"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer n1=1 "dimension of input signal connector 1";
       parameter Integer n2=1 "dimension of input signal connector 2";
       parameter Integer n3=1 "dimension of input signal connector 3";
@@ -12095,7 +12096,7 @@ explicitly defined via parameters n1, n2 and n3.
     end Multiplex3;
 
     block Multiplex4 "Multiplexer block for four input connectors"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer n1=1 "dimension of input signal connector 1";
       parameter Integer n2=1 "dimension of input signal connector 2";
       parameter Integer n3=1 "dimension of input signal connector 3";
@@ -12154,7 +12155,7 @@ explicitly defined via parameters n1, n2, n3 and n4.
     end Multiplex4;
 
     block Multiplex5 "Multiplexer block for five input connectors"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer n1=1 "dimension of input signal connector 1";
       parameter Integer n2=1 "dimension of input signal connector 2";
       parameter Integer n3=1 "dimension of input signal connector 3";
@@ -12219,7 +12220,7 @@ explicitly defined via parameters n1, n2, n3, n4 and n5.
     end Multiplex5;
 
     block Multiplex6 "Multiplexer block for six input connectors"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer n1=1 "dimension of input signal connector 1";
       parameter Integer n2=1 "dimension of input signal connector 2";
       parameter Integer n3=1 "dimension of input signal connector 3";
@@ -12291,7 +12292,7 @@ explicitly defined via parameters n1, n2, n3, n4, n5 and n6.
     end Multiplex6;
 
     block DeMultiplex2 "DeMultiplexer block for two output connectors"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer n1=1 "dimension of output signal connector 1";
       parameter Integer n2=1 "dimension of output signal connector 2";
       Modelica_Blocks_Interfaces.RealInput u[n1 + n2]
@@ -12339,7 +12340,7 @@ explicitly defined via parameters n1 and n2.
     end DeMultiplex2;
 
     block DeMultiplex3 "DeMultiplexer block for three output connectors"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer n1=1 "dimension of output signal connector 1";
       parameter Integer n2=1 "dimension of output signal connector 2";
       parameter Integer n3=1 "dimension of output signal connector 3";
@@ -12393,7 +12394,7 @@ explicitly defined via parameters n1, n2 and n3.
 
     block DeMultiplex4 "DeMultiplexer block for four output connectors"
 
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer n1=1 "dimension of output signal connector 1";
       parameter Integer n2=1 "dimension of output signal connector 2";
       parameter Integer n3=1 "dimension of output signal connector 3";
@@ -12452,7 +12453,7 @@ explicitly defined via parameters n1, n2, n3 and n4.
 
     block DeMultiplex5 "DeMultiplexer block for five output connectors"
 
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer n1=1 "dimension of output signal connector 1";
       parameter Integer n2=1 "dimension of output signal connector 2";
       parameter Integer n3=1 "dimension of output signal connector 3";
@@ -12516,7 +12517,7 @@ explicitly defined via parameters n1, n2, n3, n4 and n5.
     end DeMultiplex5;
 
     block DeMultiplex6 "DeMultiplexer block for six output connectors"
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       parameter Integer n1=1 "dimension of output signal connector 1";
       parameter Integer n2=1 "dimension of output signal connector 2";
       parameter Integer n3=1 "dimension of output signal connector 3";
@@ -12587,7 +12588,7 @@ explicitly defined via parameters n1, n2, n3, n4, n5 and n6.
 
     model RealPassThrough "Pass a Real signal through without modification"
 
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
 
       Modelica_Blocks_Interfaces.RealInput u "Input signal" annotation (
           HideResult=true, Placement(transformation(extent={{-140,-20},{-100,20}},
@@ -12609,7 +12610,7 @@ Passes a Real signal through without modification.  Enables signals to be read o
 
     model IntegerPassThrough
       "Pass a Integer signal through without modification"
-      extends Modelica_Blocks.Icons.IntegerBlock;
+      extends Icons.IntegerBlock;
 
       Modelica_Blocks_Interfaces.IntegerInput u "Input signal" annotation (
           Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
@@ -12628,7 +12629,7 @@ Passes a Real signal through without modification.  Enables signals to be read o
 
     model BooleanPassThrough
       "Pass a Boolean signal through without modification"
-      extends Modelica_Blocks.Icons.BooleanBlock;
+      extends Icons.BooleanBlock;
 
       Modelica_Blocks_Interfaces.BooleanInput u "Input signal" annotation (
           Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
@@ -12792,9 +12793,8 @@ Variable <b>y</b> is both a variable and a connector.
     end BooleanExpression;
 
     block Clock "Generate actual time signal"
-      parameter Modelica_SIunits.Time offset=0 "Offset of output signal";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime";
+      parameter SIunits.Time offset=0 "Offset of output signal";
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime";
       extends Modelica_Blocks_Interfaces.SO;
 
     equation
@@ -13077,11 +13077,10 @@ The Real output y is a step signal:
 
     block Ramp "Generate ramp signal"
       parameter Real height=1 "Height of ramps";
-      parameter Modelica_SIunits.Time duration(min=0.0, start=2)
+      parameter SIunits.Time duration(min=0.0, start=2)
         "Duration of ramp (= 0.0 gives a Step)";
       parameter Real offset=0 "Offset of output signal";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime";
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime";
       extends Modelica_Blocks_Interfaces.SO;
 
     equation
@@ -13220,12 +13219,10 @@ If parameter duration is set to 0.0, the limiting case of a Step signal is achie
 
     block Sine "Generate sine signal"
       parameter Real amplitude=1 "Amplitude of sine wave";
-      parameter Modelica_SIunits.Frequency freqHz(start=1)
-        "Frequency of sine wave";
-      parameter Modelica_SIunits.Angle phase=0 "Phase of sine wave";
+      parameter SIunits.Frequency freqHz(start=1) "Frequency of sine wave";
+      parameter SIunits.Angle phase=0 "Phase of sine wave";
       parameter Real offset=0 "Offset of output signal";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime";
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime";
       extends Modelica_Blocks_Interfaces.SO;
     protected
       constant Real pi=Modelica_Constants.pi;
@@ -13334,12 +13331,10 @@ The Real output y is a sine signal:
 
     block Cosine "Generate cosine signal"
       parameter Real amplitude=1 "Amplitude of cosine wave";
-      parameter Modelica_SIunits.Frequency freqHz(start=1)
-        "Frequency of cosine wave";
-      parameter Modelica_SIunits.Angle phase=0 "Phase of cosine wave";
+      parameter SIunits.Frequency freqHz(start=1) "Frequency of cosine wave";
+      parameter SIunits.Angle phase=0 "Phase of cosine wave";
       parameter Real offset=0 "Offset of output signal";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime";
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime";
       extends Modelica_Blocks_Interfaces.SO;
     protected
       constant Real pi=Modelica_Constants.pi;
@@ -13440,14 +13435,12 @@ The Real output y is a cosine signal:
 
     block ExpSine "Generate exponentially damped sine signal"
       parameter Real amplitude=1 "Amplitude of sine wave";
-      parameter Modelica_SIunits.Frequency freqHz(start=2)
-        "Frequency of sine wave";
-      parameter Modelica_SIunits.Angle phase=0 "Phase of sine wave";
-      parameter Modelica_SIunits.Damping damping(start=1)
+      parameter SIunits.Frequency freqHz(start=2) "Frequency of sine wave";
+      parameter SIunits.Angle phase=0 "Phase of sine wave";
+      parameter SIunits.Damping damping(start=1)
         "Damping coefficient of sine wave";
       parameter Real offset=0 "Offset of output signal";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime";
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime";
       extends Modelica_Blocks_Interfaces.SO;
     protected
       constant Real pi=Modelica_Constants.pi;
@@ -13579,15 +13572,13 @@ The Real output y is a sine signal with exponentially changing amplitude:
     model Exponentials "Generate a rising and falling exponential signal"
 
       parameter Real outMax=1 "Height of output for infinite riseTime";
-      parameter Modelica_SIunits.Time riseTime(min=0, start=0.5) "Rise time";
-      parameter Modelica_SIunits.Time riseTimeConst(min=Modelica_Constants.small)=
-           0.1
+      parameter SIunits.Time riseTime(min=0, start=0.5) "Rise time";
+      parameter SIunits.Time riseTimeConst(min=Modelica_Constants.small)=0.1
         "Rise time constant; rising is defined as outMax*(1-exp(-riseTime/riseTimeConst))";
-      parameter Modelica_SIunits.Time fallTimeConst(min=Modelica_Constants.small)=
-           riseTimeConst "Fall time constant";
+      parameter SIunits.Time fallTimeConst(min=Modelica_Constants.small)=
+        riseTimeConst "Fall time constant";
       parameter Real offset=0 "Offset of output signal";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime";
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime";
       extends Modelica_Blocks_Interfaces.SO;
     protected
       Real y_riseTime;
@@ -13715,17 +13706,16 @@ by a falling exponential signal:
       parameter Real width(
         final min=Modelica_Constants.small,
         final max=100) = 50 "Width of pulse in % of period";
-      parameter Modelica_SIunits.Time period(final min=Modelica_Constants.small,
-          start=1) "Time for one period";
+      parameter SIunits.Time period(final min=Modelica_Constants.small, start=1)
+        "Time for one period";
       parameter Integer nperiod=-1
         "Number of periods (< 0 means infinite number of periods)";
       parameter Real offset=0 "Offset of output signals";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime";
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime";
       extends Modelica_Blocks_Interfaces.SO;
     protected
-      Modelica_SIunits.Time T_width=period*width/100;
-      Modelica_SIunits.Time T_start "Start time of current period";
+      SIunits.Time T_width=period*width/100;
+      SIunits.Time T_start "Start time of current period";
       Integer count "Period count";
     initial algorithm
       count := integer((time - startTime)/period);
@@ -13875,16 +13865,15 @@ The Real output y is a pulse signal:
 
     block SawTooth "Generate saw tooth signal"
       parameter Real amplitude=1 "Amplitude of saw tooth";
-      parameter Modelica_SIunits.Time period(final min=Modelica_Constants.small,
-          start=1) "Time for one period";
+      parameter SIunits.Time period(final min=Modelica_Constants.small, start=1)
+        "Time for one period";
       parameter Integer nperiod=-1
         "Number of periods (< 0 means infinite number of periods)";
       parameter Real offset=0 "Offset of output signals";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime";
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime";
       extends Modelica_Blocks_Interfaces.SO;
     protected
-      Modelica_SIunits.Time T_start(final start=startTime)
+      SIunits.Time T_start(final start=startTime)
         "Start time of current period";
       Integer count "Period count";
     initial algorithm
@@ -14013,28 +14002,27 @@ The Real output y is a saw tooth signal:
 
     block Trapezoid "Generate trapezoidal signal of type Real"
       parameter Real amplitude=1 "Amplitude of trapezoid";
-      parameter Modelica_SIunits.Time rising(final min=0) = 0
+      parameter SIunits.Time rising(final min=0)=0
         "Rising duration of trapezoid";
-      parameter Modelica_SIunits.Time width(final min=0) = 0.5
+      parameter SIunits.Time width(final min=0)=0.5
         "Width duration of trapezoid";
-      parameter Modelica_SIunits.Time falling(final min=0) = 0
+      parameter SIunits.Time falling(final min=0)=0
         "Falling duration of trapezoid";
-      parameter Modelica_SIunits.Time period(final min=Modelica_Constants.small,
-          start=1) "Time for one period";
+      parameter SIunits.Time period(final min=Modelica_Constants.small, start=1)
+        "Time for one period";
       parameter Integer nperiod=-1
         "Number of periods (< 0 means infinite number of periods)";
       parameter Real offset=0 "Offset of output signal";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime";
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime";
       extends Modelica_Blocks_Interfaces.SO;
     protected
-      parameter Modelica_SIunits.Time T_rising=rising
+      parameter SIunits.Time T_rising=rising
         "End time of rising phase within one period";
-      parameter Modelica_SIunits.Time T_width=T_rising + width
+      parameter SIunits.Time T_width=T_rising + width
         "End time of width phase within one period";
-      parameter Modelica_SIunits.Time T_falling=T_width + falling
+      parameter SIunits.Time T_falling=T_width + falling
         "End time of falling phase within one period";
-      Modelica_SIunits.Time T_start "Start time of current period";
+      SIunits.Time T_start "Start time of current period";
       Integer count "Period count";
     initial algorithm
       count := integer((time - startTime)/period);
@@ -14243,7 +14231,7 @@ The Real output y is a trapezoid signal:
         "Maximum velocities der(q)";
       parameter Real qdd_max[:](each final min=Modelica_Constants.small) = {1}
         "Maximum accelerations der(qd)";
-      parameter Modelica_SIunits.Time startTime=0
+      parameter SIunits.Time startTime=0
         "Time instant at which movement starts";
 
       extends Modelica_Blocks_Interfaces.MO(
@@ -14262,10 +14250,10 @@ The Real output y is a trapezoid signal:
       Real sdd;
       Real aux1[nout];
       Real aux2[nout];
-      Modelica_SIunits.Time Ta1;
-      Modelica_SIunits.Time Ta2;
-      Modelica_SIunits.Time Tv;
-      Modelica_SIunits.Time Te;
+      SIunits.Time Ta1;
+      SIunits.Time Ta2;
+      SIunits.Time Tv;
+      SIunits.Time Te;
       Boolean noWphase;
 
     equation
@@ -14409,15 +14397,14 @@ a flange according to a given acceleration.
         "Maximum velocities der(q)";
       parameter Real qdd_max[:](each final min=Modelica_Constants.small) = {1}
         "Maximum accelerations der(qd)";
-      parameter Modelica_SIunits.Time startTime=0
+      parameter SIunits.Time startTime=0
         "Time instant at which movement starts";
 
-      extends Modelica_Blocks.Icons.Block;
+      extends Icons.Block;
       final parameter Integer nout=max([size(q_begin, 1); size(q_end, 1); size(
           qd_max, 1); size(qdd_max, 1)])
         "Number of output signals (= dimension of q, qd, qdd, moving)";
-      output Modelica_SIunits.Time endTime
-        "Time instant at which movement stops";
+      output SIunits.Time endTime "Time instant at which movement stops";
 
       Modelica_Blocks_Interfaces.RealOutput q[nout]
         "Reference position of path planning" annotation (Placement(
@@ -14452,15 +14439,15 @@ a flange according to a given acceleration.
       Real sdd;
       Real aux1[nout];
       Real aux2[nout];
-      Modelica_SIunits.Time Ta1;
-      Modelica_SIunits.Time Ta2;
-      Modelica_SIunits.Time Tv;
-      Modelica_SIunits.Time Te;
+      SIunits.Time Ta1;
+      SIunits.Time Ta2;
+      SIunits.Time Tv;
+      SIunits.Time Te;
       Boolean noWphase;
-      Modelica_SIunits.Time Ta1s;
-      Modelica_SIunits.Time Ta2s;
-      Modelica_SIunits.Time Tvs;
-      Modelica_SIunits.Time Tes;
+      SIunits.Time Ta1s;
+      SIunits.Time Ta2s;
+      SIunits.Time Tvs;
+      SIunits.Time Tes;
       Real sd_max2;
       Real s1;
       Real s2;
@@ -14670,18 +14657,15 @@ a flange according to a given acceleration.
       parameter Real table[:, 2] = fill(0.0, 0, 2)
         "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])";
       parameter Real offset=0 "Offset of output signal";
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime";
-      parameter Modelica_SIunits.Time timeScale(
-        min=Modelica_Constants.eps)=1 "Time scale of first table column"
-        annotation (Evaluate=true);
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime";
+      parameter SIunits.Time timeScale(min=Modelica_Constants.eps)=1
+        "Time scale of first table column" annotation (Evaluate=true);
       extends Modelica_Blocks_Interfaces.SO;
     protected
       Real a "Interpolation coefficients a of actual interval (y=a*x+b)";
       Real b "Interpolation coefficients b of actual interval (y=a*x+b)";
       Integer last(start=1) "Last used lower grid index";
-      discrete Modelica_SIunits.Time nextEvent(start=0, fixed=true)
-        "Next event instant";
+      discrete SIunits.Time nextEvent(start=0, fixed=true) "Next event instant";
       discrete Real nextEventScaled(start=0, fixed=true)
         "Next scaled event instant";
       Real timeScaled "Scaled time";
@@ -14949,23 +14933,22 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
       parameter Integer columns[:]=2:size(table, 2)
         "Columns of table to be interpolated"
         annotation (Dialog(group="Table data interpretation"));
-      parameter Modelica_Blocks.Types.Smoothness smoothness=Types.Smoothness.LinearSegments
+      parameter Types.Smoothness smoothness=Types.Smoothness.LinearSegments
         "Smoothness of table interpolation"
         annotation (Dialog(group="Table data interpretation"));
-      parameter Modelica_Blocks.Types.Extrapolation extrapolation=Types.Extrapolation.LastTwoPoints
+      parameter Types.Extrapolation extrapolation=Types.Extrapolation.LastTwoPoints
         "Extrapolation of data outside the definition range"
         annotation (Dialog(group="Table data interpretation"));
       parameter Real offset[:]={0} "Offsets of output signals"
         annotation (Dialog(group="Table data interpretation"));
-      parameter Modelica_SIunits.Time startTime=0
-        "Output = offset for time < startTime"
+      parameter SIunits.Time startTime=0 "Output = offset for time < startTime"
         annotation (Dialog(group="Table data interpretation"));
-      parameter Modelica_SIunits.Time timeScale(
-        min=Modelica_Constants.eps)=1 "Time scale of first table column"
+      parameter SIunits.Time timeScale(min=Modelica_Constants.eps)=1
+        "Time scale of first table column"
         annotation (Dialog(group="Table data interpretation"), Evaluate=true);
-      final parameter Modelica_SIunits.Time t_min(fixed=false)
+      final parameter SIunits.Time t_min(fixed=false)
         "Minimum abscissa value defined in table";
-      final parameter Modelica_SIunits.Time t_max(fixed=false)
+      final parameter SIunits.Time t_max(fixed=false)
         "Maximum abscissa value defined in table";
       final parameter Real t_minScaled(fixed=false)
         "Minimum (scaled) abscissa value defined in table";
@@ -14974,8 +14957,7 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
     protected
       final parameter Real p_offset[nout]=(if size(offset, 1) == 1 then ones(nout)*offset[1] else offset)
         "Offsets of output signals";
-      Modelica_Blocks.Types.ExternalCombiTimeTable tableID=
-          Types.ExternalCombiTimeTable(
+      Types.ExternalCombiTimeTable tableID=Types.ExternalCombiTimeTable(
               if tableOnFile then tableName else "NoName",
               if tableOnFile and fileName <> "NoName" and not
             Modelica_Utilities.Strings.isEmpty(fileName) then fileName else
@@ -14985,7 +14967,7 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
               columns,
               smoothness,
               extrapolation) "External table object";
-      discrete Modelica_SIunits.Time nextTimeEvent(start=0, fixed=true)
+      discrete SIunits.Time nextTimeEvent(start=0, fixed=true)
         "Next time event instant";
       discrete Real nextTimeEventScaled(start=0, fixed=true)
         "Next scaled time event instant";
@@ -14997,7 +14979,7 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
       function readTableData
         "Read table data from ASCII text or MATLAB MAT-file"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTimeTable tableID;
+        input Types.ExternalCombiTimeTable tableID;
         input Boolean forceRead = false
           "= true: Force reading of table data; = false: Only read, if not yet read.";
         output Real readSuccess "Table read success";
@@ -15010,11 +14992,11 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
       function getTableValue
         "Interpolate 1-dim. table where first column is time"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTimeTable tableID;
+        input Types.ExternalCombiTimeTable tableID;
         input Integer icol;
-        input Modelica_SIunits.Time timeIn;
-        discrete input Modelica_SIunits.Time nextTimeEvent;
-        discrete input Modelica_SIunits.Time pre_nextTimeEvent;
+        input SIunits.Time timeIn;
+        discrete input SIunits.Time nextTimeEvent;
+        discrete input SIunits.Time pre_nextTimeEvent;
         input Real tableAvailable
           "Dummy input to ensure correct sorting of function calls";
         output Real y;
@@ -15029,11 +15011,11 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
       function getTableValueNoDer
         "Interpolate 1-dim. table where first column is time (but do not provide a derivative function)"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTimeTable tableID;
+        input Types.ExternalCombiTimeTable tableID;
         input Integer icol;
-        input Modelica_SIunits.Time timeIn;
-        discrete input Modelica_SIunits.Time nextTimeEvent;
-        discrete input Modelica_SIunits.Time pre_nextTimeEvent;
+        input SIunits.Time timeIn;
+        discrete input SIunits.Time nextTimeEvent;
+        discrete input SIunits.Time pre_nextTimeEvent;
         input Real tableAvailable
           "Dummy input to ensure correct sorting of function calls";
         output Real y;
@@ -15044,11 +15026,11 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
       function getDerTableValue
         "Derivative of interpolated 1-dim. table where first column is time"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTimeTable tableID;
+        input Types.ExternalCombiTimeTable tableID;
         input Integer icol;
-        input Modelica_SIunits.Time timeIn;
-        discrete input Modelica_SIunits.Time nextTimeEvent;
-        discrete input Modelica_SIunits.Time pre_nextTimeEvent;
+        input SIunits.Time timeIn;
+        discrete input SIunits.Time nextTimeEvent;
+        discrete input SIunits.Time pre_nextTimeEvent;
         input Real tableAvailable
           "Dummy input to ensure correct sorting of function calls";
         input Real der_timeIn;
@@ -15060,10 +15042,10 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
       function getTableTimeTmin
         "Return minimum time value of 1-dim. table where first column is time"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTimeTable tableID;
+        input Types.ExternalCombiTimeTable tableID;
         input Real tableAvailable
           "Dummy input to ensure correct sorting of function calls";
-        output Modelica_SIunits.Time timeMin "Minimum time value in table";
+        output SIunits.Time timeMin "Minimum time value in table";
         external"C" timeMin = ModelicaStandardTables_CombiTimeTable_minimumTime(tableID)
           annotation (Library={"ModelicaStandardTables"});
       end getTableTimeTmin;
@@ -15071,10 +15053,10 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
       function getTableTimeTmax
         "Return maximum time value of 1-dim. table where first column is time"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTimeTable tableID;
+        input Types.ExternalCombiTimeTable tableID;
         input Real tableAvailable
           "Dummy input to ensure correct sorting of function calls";
-        output Modelica_SIunits.Time timeMax "Maximum time value in table";
+        output SIunits.Time timeMax "Maximum time value in table";
         external"C" timeMax = ModelicaStandardTables_CombiTimeTable_maximumTime(tableID)
           annotation (Library={"ModelicaStandardTables"});
       end getTableTimeTmax;
@@ -15082,11 +15064,11 @@ If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
       function getNextTimeEvent
         "Return next time event value of 1-dim. table where first column is time"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTimeTable tableID;
-        input Modelica_SIunits.Time timeIn;
+        input Types.ExternalCombiTimeTable tableID;
+        input SIunits.Time timeIn;
         input Real tableAvailable
           "Dummy input to ensure correct sorting of function calls";
-        output Modelica_SIunits.Time nextTimeEvent "Next time event in table";
+        output SIunits.Time nextTimeEvent "Next time event in table";
         external"C" nextTimeEvent = ModelicaStandardTables_CombiTimeTable_nextTimeEvent(tableID, timeIn)
           annotation (Library={"ModelicaStandardTables"});
       end getNextTimeEvent;
@@ -15450,7 +15432,7 @@ The Boolean output y is a constant signal:
     end BooleanConstant;
 
     block BooleanStep "Generate step signal of type Boolean"
-      parameter Modelica_SIunits.Time startTime=0 "Time instant of step start";
+      parameter SIunits.Time startTime=0 "Time instant of step start";
       parameter Boolean startValue=false "Output before startTime";
 
       extends Modelica_Blocks_Interfaces.partialBooleanSource;
@@ -15506,15 +15488,15 @@ The Boolean output y is a step signal:
       parameter Real width(
         final min=Modelica_Constants.small,
         final max=100) = 50 "Width of pulse in % of period";
-      parameter Modelica_SIunits.Time period(final min=Modelica_Constants.small,
-          start=1) "Time for one period";
-      parameter Modelica_SIunits.Time startTime=0 "Time instant of first pulse";
+      parameter SIunits.Time period(final min=Modelica_Constants.small, start=1)
+        "Time for one period";
+      parameter SIunits.Time startTime=0 "Time instant of first pulse";
       extends Modelica_Blocks_Interfaces.partialBooleanSource;
 
     protected
-      parameter Modelica_SIunits.Time Twidth=period*width/100
-        "width of one pulse" annotation (HideResult=true);
-      discrete Modelica_SIunits.Time pulsStart "Start time of pulse"
+      parameter SIunits.Time Twidth=period*width/100 "width of one pulse"
+        annotation (HideResult=true);
+      discrete SIunits.Time pulsStart "Start time of pulse"
         annotation (HideResult=true);
     initial equation
       pulsStart = startTime;
@@ -15598,10 +15580,9 @@ The Boolean output y is a pulse signal:
     end BooleanPulse;
 
     block SampleTrigger "Generate sample trigger signal"
-      parameter Modelica_SIunits.Time period(final min=Modelica_Constants.small,
-          start=0.01) "Sample period";
-      parameter Modelica_SIunits.Time startTime=0
-        "Time instant of first sample trigger";
+      parameter SIunits.Time period(final min=Modelica_Constants.small, start=
+            0.01) "Sample period";
+      parameter SIunits.Time startTime=0 "Time instant of first sample trigger";
       extends Modelica_Blocks_Interfaces.partialBooleanSource;
 
     equation
@@ -15686,7 +15667,7 @@ at sample times (defined by parameter <b>period</b>) and is otherwise
 
       parameter Boolean startValue=false
         "Start value of y. At time = table[1], y changes to 'not startValue'";
-      parameter Modelica_SIunits.Time table[:]={0,1}
+      parameter SIunits.Time table[:]={0,1}
         "Vector of time points. At every time point, the output y gets its opposite value (e.g., table={0,1})";
       extends Modelica_Blocks_Interfaces.partialBooleanSource;
 
@@ -15694,13 +15675,13 @@ at sample times (defined by parameter <b>period</b>) and is otherwise
       function getFirstIndex "Get first index of table and check table"
         extends Modelica_Icons.Function;
         input Real table[:] "Vector of time instants";
-        input Modelica_SIunits.Time simulationStartTime "Simulation start time";
+        input SIunits.Time simulationStartTime "Simulation start time";
         input Boolean startValue "Value of y for y < table[1]";
         output Integer index "First index to be used";
-        output Modelica_SIunits.Time nextTime "Time instant of first event";
+        output SIunits.Time nextTime "Time instant of first event";
         output Boolean y "Value of y at simulationStartTime";
       protected
-        Modelica_SIunits.Time t_last;
+        SIunits.Time t_last;
         Integer j;
         Integer n=size(table, 1) "Number of table points";
       algorithm
@@ -15751,7 +15732,7 @@ at sample times (defined by parameter <b>period</b>) and is otherwise
       end getFirstIndex;
 
       parameter Integer n=size(table, 1) "Number of table points";
-      Modelica_SIunits.Time nextTime;
+      SIunits.Time nextTime;
       Integer index "Index of actual table entry";
     initial algorithm
       (index,nextTime,y) := getFirstIndex(
@@ -15805,7 +15786,7 @@ changes its value to the negated value of the previous one.
 
     block RadioButtonSource "Boolean signal source that mimics a radio button"
 
-      parameter Modelica_SIunits.Time buttonTimeTable[:]={0,1}
+      parameter SIunits.Time buttonTimeTable[:]={0,1}
         "Time instants where button is pressed";
       input Boolean reset[:]={false}
         "Reset button to false, if an element of reset becomes true"
@@ -15815,7 +15796,7 @@ changes its value to the negated value of the previous one.
         annotation (Placement(transformation(extent={{100,-15},{130,15}},
               rotation=0)));
     protected
-      Modelica_Blocks.Sources.BooleanTable table(table=buttonTimeTable);
+      BooleanTable table(table=buttonTimeTable);
       parameter Integer nReset=size(reset, 1);
       Boolean pre_reset[nReset];
     initial equation
@@ -16044,12 +16025,12 @@ The Integer output y is a step signal:
       function getFirstIndex "Get first index of table and check table"
         extends Modelica_Icons.Function;
         input Real table[:, 2] "Table matrix";
-        input Modelica_SIunits.Time simulationStartTime "Simulation start time";
+        input SIunits.Time simulationStartTime "Simulation start time";
         output Integer index "First index to be used";
-        output Modelica_SIunits.Time nextTime "Time instant of first event";
+        output SIunits.Time nextTime "Time instant of first event";
         output Integer y "Value of y at simulationStartTime";
       protected
-        Modelica_SIunits.Time t_last;
+        SIunits.Time t_last;
         Integer j;
         Integer n=size(table, 1) "Number of table points";
       algorithm
@@ -16097,7 +16078,7 @@ The Integer output y is a step signal:
       end getFirstIndex;
 
       parameter Integer n=size(table, 1) "Number of table points";
-      Modelica_SIunits.Time nextTime;
+      SIunits.Time nextTime;
       Integer index "Index of actual table entry";
     initial algorithm
       (index,nextTime,y) := getFirstIndex(table, time);
@@ -16287,12 +16268,11 @@ usually requires a trimming calculation.
       parameter Integer columns[:]=2:size(table, 2)
         "Columns of table to be interpolated"
         annotation (Dialog(group="Table data interpretation"));
-      parameter Modelica_Blocks.Types.Smoothness smoothness=Types.Smoothness.LinearSegments
+      parameter Types.Smoothness smoothness=Types.Smoothness.LinearSegments
         "Smoothness of table interpolation"
         annotation (Dialog(group="Table data interpretation"));
     protected
-      Modelica_Blocks.Types.ExternalCombiTable1D tableID=
-          Types.ExternalCombiTable1D(
+      Types.ExternalCombiTable1D tableID=Types.ExternalCombiTable1D(
               if tableOnFile then tableName else "NoName",
               if tableOnFile and fileName <> "NoName" and not
             Modelica_Utilities.Strings.isEmpty(fileName) then fileName else
@@ -16306,7 +16286,7 @@ usually requires a trimming calculation.
       function readTableData
         "Read table data from ASCII text or MATLAB MAT-file"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable1D tableID;
+        input Types.ExternalCombiTable1D tableID;
         input Boolean forceRead = false
           "= true: Force reading of table data; = false: Only read, if not yet read.";
         input Boolean verboseRead
@@ -16318,7 +16298,7 @@ usually requires a trimming calculation.
 
       function getTableValue "Interpolate 1-dim. table defined by matrix"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable1D tableID;
+        input Types.ExternalCombiTable1D tableID;
         input Integer icol;
         input Real u;
         input Real tableAvailable
@@ -16332,7 +16312,7 @@ usually requires a trimming calculation.
       function getTableValueNoDer
         "Interpolate 1-dim. table defined by matrix (but do not provide a derivative function)"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable1D tableID;
+        input Types.ExternalCombiTable1D tableID;
         input Integer icol;
         input Real u;
         input Real tableAvailable
@@ -16345,7 +16325,7 @@ usually requires a trimming calculation.
       function getDerTableValue
         "Derivative of interpolated 1-dim. table defined by matrix"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable1D tableID;
+        input Types.ExternalCombiTable1D tableID;
         input Integer icol;
         input Real u;
         input Real tableAvailable
@@ -16592,12 +16572,11 @@ MATLAB is a registered trademark of The MathWorks, Inc.
       parameter Integer columns[:]=2:size(table, 2)
         "Columns of table to be interpolated"
         annotation (Dialog(group="Table data interpretation"));
-      parameter Modelica_Blocks.Types.Smoothness smoothness=Types.Smoothness.LinearSegments
+      parameter Types.Smoothness smoothness=Types.Smoothness.LinearSegments
         "Smoothness of table interpolation"
         annotation (Dialog(group="Table data interpretation"));
     protected
-      Modelica_Blocks.Types.ExternalCombiTable1D tableID=
-          Types.ExternalCombiTable1D(
+      Types.ExternalCombiTable1D tableID=Types.ExternalCombiTable1D(
               if tableOnFile then tableName else "NoName",
               if tableOnFile and fileName <> "NoName" and not
             Modelica_Utilities.Strings.isEmpty(fileName) then fileName else
@@ -16611,7 +16590,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
       function readTableData
         "Read table data from ASCII text or MATLAB MAT-file"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable1D tableID;
+        input Types.ExternalCombiTable1D tableID;
         input Boolean forceRead = false
           "= true: Force reading of table data; = false: Only read, if not yet read.";
         input Boolean verboseRead
@@ -16623,7 +16602,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
 
       function getTableValue "Interpolate 1-dim. table defined by matrix"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable1D tableID;
+        input Types.ExternalCombiTable1D tableID;
         input Integer icol;
         input Real u;
         input Real tableAvailable
@@ -16637,7 +16616,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
       function getTableValueNoDer
         "Interpolate 1-dim. table defined by matrix (but do not provide a derivative function)"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable1D tableID;
+        input Types.ExternalCombiTable1D tableID;
         input Integer icol;
         input Real u;
         input Real tableAvailable
@@ -16650,7 +16629,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
       function getDerTableValue
         "Derivative of interpolated 1-dim. table defined by matrix"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable1D tableID;
+        input Types.ExternalCombiTable1D tableID;
         input Integer icol;
         input Real u;
         input Real tableAvailable
@@ -16893,12 +16872,11 @@ MATLAB is a registered trademark of The MathWorks, Inc.
       parameter Boolean verboseRead=true
         "= true, if info message that file is loading is to be printed"
         annotation (Dialog(group="Table data definition",enable=tableOnFile));
-      parameter Modelica_Blocks.Types.Smoothness smoothness=Types.Smoothness.LinearSegments
+      parameter Types.Smoothness smoothness=Types.Smoothness.LinearSegments
         "Smoothness of table interpolation"
         annotation (Dialog(group="Table data interpretation"));
     protected
-      Modelica_Blocks.Types.ExternalCombiTable2D tableID=
-          Types.ExternalCombiTable2D(
+      Types.ExternalCombiTable2D tableID=Types.ExternalCombiTable2D(
               if tableOnFile then tableName else "NoName",
               if tableOnFile and fileName <> "NoName" and not
             Modelica_Utilities.Strings.isEmpty(fileName) then fileName else
@@ -16911,7 +16889,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
       function readTableData
         "Read table data from ASCII text or MATLAB MAT-file"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable2D tableID;
+        input Types.ExternalCombiTable2D tableID;
         input Boolean forceRead = false
           "= true: Force reading of table data; = false: Only read, if not yet read.";
         input Boolean verboseRead
@@ -16923,7 +16901,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
 
       function getTableValue "Interpolate 2-dim. table defined by matrix"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable2D tableID;
+        input Types.ExternalCombiTable2D tableID;
         input Real u1;
         input Real u2;
         input Real tableAvailable
@@ -16937,7 +16915,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
       function getTableValueNoDer
         "Interpolate 2-dim. table defined by matrix (but do not provide a derivative function)"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable2D tableID;
+        input Types.ExternalCombiTable2D tableID;
         input Real u1;
         input Real u2;
         input Real tableAvailable
@@ -16950,7 +16928,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
       function getDerTableValue
         "Derivative of interpolated 2-dim. table defined by matrix"
         extends Modelica_Icons.Function;
-        input Modelica_Blocks.Types.ExternalCombiTable2D tableID;
+        input Types.ExternalCombiTable2D tableID;
         input Real u1;
         input Real u2;
         input Real tableAvailable
@@ -17385,10 +17363,10 @@ initialization definition.
         input String tableName "Table name";
         input String fileName "File name";
         input Real table[:, :];
-        input Modelica_SIunits.Time startTime;
+        input SI.Time startTime;
         input Integer columns[:];
-        input Modelica_Blocks.Types.Smoothness smoothness;
-        input Modelica_Blocks.Types.Extrapolation extrapolation;
+        input Smoothness smoothness;
+        input Extrapolation extrapolation;
         output ExternalCombiTimeTable externalCombiTimeTable;
       external"C" externalCombiTimeTable =
           ModelicaStandardTables_CombiTimeTable_init(
@@ -17423,7 +17401,7 @@ initialization definition.
         input String fileName "File name";
         input Real table[:, :];
         input Integer columns[:];
-        input Modelica_Blocks.Types.Smoothness smoothness;
+        input Smoothness smoothness;
         output ExternalCombiTable1D externalCombiTable1D;
       external"C" externalCombiTable1D = ModelicaStandardTables_CombiTable1D_init(
               tableName,
@@ -17454,7 +17432,7 @@ initialization definition.
         input String tableName "Table name";
         input String fileName "File name";
         input Real table[:, :];
-        input Modelica_Blocks.Types.Smoothness smoothness;
+        input Smoothness smoothness;
         output ExternalCombiTable2D externalCombiTable2D;
       external"C" externalCombiTable2D = ModelicaStandardTables_CombiTable2D_init(
               tableName,
@@ -17676,5 +17654,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
        of Dieter Moormann and Hilding Elmqvist.</li>
 </ul>
 </html>"),
-    uses(Modelica_Icons));
+    uses(Modelica_Icons, Modelica(version="3.2.1")));
 end Modelica_Blocks;

@@ -1,6 +1,11 @@
 within ;
-package Modelica_Thermal_FluidHeatFlow_Interfaces
+encapsulated package Modelica_Thermal_FluidHeatFlow_Interfaces
   "Connectors and partial models"
+  import Modelica_Icons;
+  import Modelica_Thermal_FluidHeatFlow;
+  import Modelica_SIunits;
+  import Modelica_Constants;
+  import Modelica_Blocks_Interfaces;
   extends Modelica_Icons.InterfacesPackage;
 
   connector FlowPort "Connector flow port"
@@ -277,9 +282,8 @@ Partial model of (Infinite) ambient, defines pressure and temperature.
         annotation (choicesAllMatching=true);
       FlowPort_a flowPort(final medium=medium) annotation (Placement(
             transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-      Modelica_Blocks_Interfaces.RealOutput y
-        annotation (Placement(transformation(extent={{100,-10},{120,10}},
-              rotation=0)));
+      Modelica_Blocks_Interfaces.RealOutput y annotation (Placement(
+            transformation(extent={{100,-10},{120,10}}, rotation=0)));
     equation
       // no mass exchange
       flowPort.m_flow = 0;
@@ -413,5 +417,5 @@ annotation (Documentation(info="<HTML>
   <li> v1.50 2005/09/07 Anton Haumer<br>
        semiLinear works fine</li>
   </ul>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Thermal_FluidHeatFlow_Interfaces;

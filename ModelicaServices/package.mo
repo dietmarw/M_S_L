@@ -1,5 +1,8 @@
 within ;
-package ModelicaServices "ModelicaServices (Default implementation) - Models and functions used in the Modelica Standard Library requiring a tool specific implementation"
+encapsulated package ModelicaServices "ModelicaServices (Default implementation) - Models and functions used in the Modelica Standard Library requiring a tool specific implementation"
+import Modelica_Icons;
+import Modelica_Utilities;
+
 extends Modelica_Icons.Package;
 constant String target="Default"
   "Target of this ModelicaServices implementation";
@@ -758,7 +761,7 @@ annotation (
   versionDate="2013-08-14",
   dateModified = "2013-08-14 08:44:41Z",
   revisionId="$Id::                                       $",
-  uses(Modelica_Icons),
+  uses(Modelica_Icons, Modelica(version="3.2.1")),
   conversion(
     noneFromVersion="1.0",
     noneFromVersion="1.1",

@@ -1,5 +1,9 @@
 within ;
-package Modelica_Media_Interfaces "Interfaces for media models"
+encapsulated package Modelica_Media_Interfaces "Interfaces for media models"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Constants;
+  import Modelica_Math;
   extends Modelica_Icons.InterfacesPackage;
 
   partial package TemplateMedium "Template for media models"
@@ -11,7 +15,7 @@ package Modelica_Media_Interfaces "Interfaces for media models"
      constants (such as nX, nXi) are automatically defined by
      definitions given in the base class Interfaces.PartialMedium"
   */
-    extends Modelica_Media_Interfaces.PartialMedium(
+    extends PartialMedium(
       final mediumName="NameOfMedium",
       final substanceNames={mediumName},
       final singleState=false,
@@ -23,7 +27,7 @@ package Modelica_Media_Interfaces "Interfaces for media models"
         start=323));
 
     // Provide medium constants here
-    constant SpecificHeatCapacity cp_const=123456
+    constant Types.SpecificHeatCapacity cp_const=123456
       "Constant specific heat capacity at constant pressure";
 
     /* The vector substanceNames is mandatory, as the number of
@@ -89,8 +93,8 @@ package Modelica_Media_Interfaces "Interfaces for media models"
     redeclare replaceable record ThermodynamicState
       "A selection of variables that uniquely defines the thermodynamic state"
       extends Modelica_Icons.Record;
-      AbsolutePressure p "Absolute pressure of medium";
-      Temperature T "Temperature of medium";
+      Types.AbsolutePressure p "Absolute pressure of medium";
+      Types.Temperature T "Temperature of medium";
       annotation (Documentation(info="<html>
 
 </html>"));
@@ -170,7 +174,8 @@ Modelica source.
 
   partial package PartialMedium
     "Partial medium properties (base package of all media packages)"
-    extends Modelica_Media_Interfaces.Types;
+    import Modelica_Media_Interfaces;
+    extends Types;
     extends Modelica_Icons.MaterialPropertiesPackage;
 
     // Constants to be set in Medium
@@ -1452,8 +1457,8 @@ to the above list of assumptions</li>
 
   partial package PartialRealCondensingGases
     "Base class for mixtures of real condensing and non-condensing gases"
-    extends Modelica_Media_Interfaces.PartialMixtureMedium(redeclare
-        replaceable record FluidConstants = Types.TwoPhase.FluidConstants);
+    extends PartialMixtureMedium(redeclare replaceable record FluidConstants =
+          Types.TwoPhase.FluidConstants);
 
     replaceable partial function saturationPressure
       "Return saturation pressure of condensing fluid"
@@ -2412,7 +2417,6 @@ This function computes the specific internal energy of the fluid, but neglects t
 
     extends PartialPureSubstance(
       redeclare replaceable record FluidConstants = Types.Basic.FluidConstants,
-
       ThermoStates=Modelica_Media_Interfaces.Choices.IndependentVariables.pT,
       final singleState=false);
 
@@ -2965,7 +2969,7 @@ Note: Reference enthalpy might have to be extended with enthalpy of formation.
       extends Modelica_Icons.Package;
 
       record FluidConstants "Extended fluid constants"
-        extends Modelica_Media_Interfaces.Types.Basic.FluidConstants;
+        extends Basic.FluidConstants;
         Temperature criticalTemperature "Critical temperature";
         AbsolutePressure criticalPressure "Critical pressure";
         MolarVolume criticalMolarVolume "Critical molar Volume";
@@ -3009,7 +3013,7 @@ Note: Reference enthalpy might have to be extended with enthalpy of formation.
       extends Modelica_Icons.Package;
 
       record FluidConstants "Extended fluid constants"
-        extends Modelica_Media_Interfaces.Types.Basic.FluidConstants;
+        extends Basic.FluidConstants;
         Temperature criticalTemperature "Critical temperature";
         AbsolutePressure criticalPressure "Critical pressure";
         MolarVolume criticalMolarVolume "Critical molar Volume";
@@ -3054,5 +3058,5 @@ Note: Reference enthalpy might have to be extended with enthalpy of formation.
 This package provides basic interfaces definitions of media models for different
 kind of media.
 </p>
-</HTML>"));
+</HTML>"), uses(Modelica(version="3.2.1")));
 end Modelica_Media_Interfaces;

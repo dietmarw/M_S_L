@@ -1,6 +1,11 @@
 within ;
-package Modelica_StateGraph
+encapsulated package Modelica_StateGraph
   "Library of hierarchical state machine components to model discrete event and reactive systems"
+  import Modelica_Icons;
+  import Modelica_StateGraph_Interfaces;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_SIunits;
+  import Modelica_Blocks;
 
 extends Modelica_Icons.Package;
 
@@ -794,7 +799,6 @@ the library and has the following content:
 </html>"));
 end UsersGuide;
 
-
 block InitialStep "Initial step (= step that is active when simulation starts)"
 
   output Boolean active
@@ -833,8 +837,8 @@ block InitialStepWithSignal
 
   extends Modelica_StateGraph_Interfaces.PartialStep;
 
-  Modelica_Blocks_Interfaces.BooleanOutput active
-    annotation (Placement(transformation(
+  Modelica_Blocks_Interfaces.BooleanOutput active annotation (Placement(
+          transformation(
           origin={0,-110},
           extent={{-10,-10},{10,10}},
           rotation=270)));
@@ -1784,5 +1788,6 @@ Copyright &copy; 1998-2013, Modelica Association and DLR
         pattern=LinePattern.None,
         fillPattern=FillPattern.Solid,
         points={{-3.3333,10.0},{16.667,0.0},{-3.3333,-10.0}}),
-      Line(origin={15.0,-0.0},  points={{15.0,0.0},{-15.0,-0.0}})}));
+      Line(origin={15.0,-0.0},  points={{15.0,0.0},{-15.0,-0.0}})}),
+    uses(Modelica(version="3.2.1")));
 end Modelica_StateGraph;

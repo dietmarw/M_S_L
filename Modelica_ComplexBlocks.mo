@@ -1,6 +1,14 @@
 within ;
-package Modelica_ComplexBlocks
+encapsulated package Modelica_ComplexBlocks
   "Library of basic input/output control blocks with Complex signals"
+  import Modelica_Icons;
+  import Modelica_ComplexBlocks_Interfaces;
+  import Complex;
+  import Modelica_ComplexMath;
+  import Modelica_Blocks;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Math;
+  import Modelica_SIunits;
 extends Modelica_Icons.Package;
 
   package UsersGuide "User's Guide"
@@ -63,7 +71,6 @@ This library contains blocks for processing complex signals.
 </html>"));
   end UsersGuide;
 
-
   package ComplexMath
     "Library of mathematical functions as input/output blocks"
     extends Modelica_Icons.Package;
@@ -123,7 +130,7 @@ This block computes output <code>y</code> as
                 {100,-10},{120,10}}, rotation=0)));
 
         equation
-          y = k * (if useConjugateInput then Modelica_ComplexMath.conj(u) else u);
+      y = k*(if useConjugateInput then Modelica_ComplexMath.conj(u) else u);
           annotation (
             Documentation(info="<html>
 <p>
@@ -1861,7 +1868,8 @@ zero or negative.
         "If true, input is processed conjugate complex";
     equation
       len=(u.re^2 + u.im^2)^0.5;
-      phi=(if useConjugateInput then Modelica_Math.atan2(-u.im,u.re) else Modelica_Math.atan2(u.im,u.re));
+      phi = (if useConjugateInput then Modelica_Math.atan2(-u.im, u.re) else
+        Modelica_Math.atan2(u.im, u.re));
 
       annotation ( Icon(graphics={
             Text(
@@ -2217,6 +2225,7 @@ The output y is a complex phasor with constant magnitude, spinning with constant
                  pattern=LinePattern.None,
                  fillPattern=FillPattern.Solid,
                  points={{-10.0,0.0},{5.0,5.0},{5.0,-5.0}})}),
-    uses(Complex(version="3.2.2"), Modelica_Icons),
+    uses(Complex(version="3.2.2"), Modelica_Icons,
+      Modelica(version="3.2.1")),
     version="3.2.2");
 end Modelica_ComplexBlocks;

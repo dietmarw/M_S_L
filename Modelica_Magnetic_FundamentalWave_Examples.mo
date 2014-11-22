@@ -1,6 +1,16 @@
 within ;
-package Modelica_Magnetic_FundamentalWave_Examples
+encapsulated package Modelica_Magnetic_FundamentalWave_Examples
   "Examples of electric machines based on the FundamentalWave concept"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Electrical_Analog;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_Magnetic_FundamentalWave;
+  import Complex;
+  import Modelica_Constants;
+  import Modelica_Blocks;
+  import Modelica_Electrical_Machines;
+  import Modelica_Mechanics_Rotational;
   extends Modelica_Icons.ExamplesPackage;
   package Components "Examples of components of the FundamentalWave library"
     extends Modelica_Icons.ExamplesPackage;
@@ -493,10 +503,10 @@ In this example the eddy current losses are implemented in two different ways. C
             extent={{-10,10},{10,-10}},
             rotation=270)));
       Modelica_Blocks.Sources.BooleanStep booleanStep[m](each startTime=tOn,
-          each startValue=false) annotation (Placement(transformation(extent=
-                {{-60,50},{-40,70}}, rotation=0)));
-      Modelica_Electrical_Machines.Sensors.CurrentQuasiRMSSensor
-        currentRMSsensorM annotation (Placement(transformation(
+          each startValue=false) annotation (Placement(transformation(extent={{
+                -60,50},{-40,70}}, rotation=0)));
+      Modelica_Electrical_Machines.Sensors.CurrentQuasiRMSSensor currentRMSsensorM
+        annotation (Placement(transformation(
             origin={0,30},
             extent={{-10,10},{10,-10}},
             rotation=270)));
@@ -3347,5 +3357,5 @@ Simulate for 1.5 seconds and plot (versus time):
 <a href=\"modelica://Modelica.Electrical.Machines.BasicMachines\">Electrical.Machines.BasicMachines</a> with
 <a href=\"modelica://Modelica.Magnetic.FundamentalWave.BasicMachines\">Magnetic.FundamentalWave.BasicMachines</a>.
 </p>
-</html>"), uses(Complex(version="3.2.2")));
+</html>"), uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
 end Modelica_Magnetic_FundamentalWave_Examples;

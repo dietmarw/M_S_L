@@ -1,5 +1,6 @@
 within ;
-package Modelica_Electrical_Digital_Interfaces "Basic definitions"
+encapsulated package Modelica_Electrical_Digital_Interfaces "Basic definitions"
+  import Modelica_Icons;
   extends Modelica_Icons.InterfacesPackage;
 
   type Logic = enumeration(
@@ -138,12 +139,10 @@ package Modelica_Electrical_Digital_Interfaces "Basic definitions"
 </html>"));
 
   partial block SISO "Single input, single output"
-    Modelica_Electrical_Digital_Interfaces.DigitalInput x "Connector of Digital input signal"
-                 annotation (Placement(transformation(extent={{-70,-10},{-50,
-              10}}, rotation=0)));
-    Modelica_Electrical_Digital_Interfaces.DigitalOutput y "Connector of Digital output signal"
-                  annotation (Placement(transformation(extent={{90,-10},{110,
-              10}}, rotation=0)));
+    DigitalInput x "Connector of Digital input signal" annotation (Placement(
+          transformation(extent={{-70,-10},{-50,10}}, rotation=0)));
+    DigitalOutput y "Connector of Digital output signal" annotation (Placement(
+          transformation(extent={{90,-10},{110,10}}, rotation=0)));
     annotation (                                        Icon(
           coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
           {100,100}}), graphics={Rectangle(
@@ -160,12 +159,10 @@ package Modelica_Electrical_Digital_Interfaces "Basic definitions"
 
   partial block MISO "Multiple input - single output"
     parameter Integer n(final min=2) = 2 "Number of inputs";
-    Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] "Connector of Digital input signal vector"
-                                   annotation (Placement(transformation(
-            extent={{-70,-80},{-50,80}}, rotation=0)));
-    Modelica_Electrical_Digital_Interfaces.DigitalOutput y "Connector of Digital output signal"
-                  annotation (Placement(transformation(extent={{90,-10},{110,
-              10}}, rotation=0)));
+    DigitalInput x[n] "Connector of Digital input signal vector" annotation (
+        Placement(transformation(extent={{-70,-80},{-50,80}}, rotation=0)));
+    DigitalOutput y "Connector of Digital output signal" annotation (Placement(
+          transformation(extent={{90,-10},{110,10}}, rotation=0)));
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
           -100},{100,100}}), graphics={Rectangle(
         extent={{-50,100},{50,-100}},
@@ -182,12 +179,10 @@ package Modelica_Electrical_Digital_Interfaces "Basic definitions"
   partial block MIMO "Multiple input - multiple output"
 
     parameter Integer n(final min=1) = 1 "Number of inputs = Number of outputs";
-    Modelica_Electrical_Digital_Interfaces.DigitalInput x[n] "Connector of Digital input signal vector"
-                                   annotation (Placement(transformation(
-            extent={{-70,-80},{-50,80}}, rotation=0)));
-    Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] "Connector of Digital output signal vector"
-                  annotation (Placement(transformation(extent={{90,-10},{110,
-              10}}, rotation=0)));
+    DigitalInput x[n] "Connector of Digital input signal vector" annotation (
+        Placement(transformation(extent={{-70,-80},{-50,80}}, rotation=0)));
+    DigitalOutput y[n] "Connector of Digital output signal vector" annotation (
+        Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
           -100},{100,100}}), graphics={
       Rectangle(
@@ -209,5 +204,5 @@ package Modelica_Electrical_Digital_Interfaces "Basic definitions"
 
   annotation (                                Documentation(info="<html>
 <p>This package contains basic definitions: Type definitions of Logic and Strength,  interface definitions (connectors) for digital electrical components, and partial models for connection patterns which are often used.</p>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_Digital_Interfaces;

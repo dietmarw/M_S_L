@@ -1,5 +1,8 @@
 within ;
-package ModelicaTest "Library to test components of package Modelica - Version 3.2.2 development"
+encapsulated package ModelicaTest "Library to test components of package Modelica - Version 3.2.2 development"
+import Modelica;
+import Complex;
+
 extends Modelica.Icons.Package;
 
 
@@ -29,15 +32,15 @@ algorithm
 
   print("--- Test functions of ModelicaTest library");
   print("--- Test functions of ModelicaTest library", logFile);
-  result := ModelicaTest.Math.ScalarFunctions(logFile);
-  result := ModelicaTest.Math.BooleanFunctions(logFile);
-  result := ModelicaTest.Math.Polynomials(logFile);
-  result := ModelicaTest.Math.Matrices(logFile);
-  result := ModelicaTest.Math.Matrices2();
-  result := ModelicaTest.Math.Vectors();
-  result := ModelicaTest.Utilities.testAll(logFile);
-  result := ModelicaTest.ComplexMath.ComplexFunctions(logFile);
-  result := ModelicaTest.ComplexMath.ComplexOperations();
+  result := Math.ScalarFunctions(logFile);
+  result := Math.BooleanFunctions(logFile);
+  result := Math.Polynomials(logFile);
+  result := Math.Matrices(logFile);
+  result := Math.Matrices2();
+  result := Math.Vectors();
+  result := Utilities.testAll(logFile);
+  result := ComplexMath.ComplexFunctions(logFile);
+  result := ComplexMath.ComplexOperations();
 
   ok := true;
 end testAllFunctions;
@@ -49,7 +52,9 @@ end testAllFunctions;
        versionDate="2013-08-14",
        dateModified = "2013-08-14 08:44:41Z",
        revisionId="$Id::                                       $",
-       uses(Modelica_Icons),
+       uses(Modelica_Icons,
+    Modelica(version="3.2.1"),
+    Complex(version="3.2.2")),
     Documentation(info="<html>
 <p>
 This library provides models and functions to test components of

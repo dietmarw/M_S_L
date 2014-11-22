@@ -1,5 +1,12 @@
 within ;
-package Modelica_Electrical_QuasiStationary_MultiPhase_Examples "Test examples"
+encapsulated package Modelica_Electrical_QuasiStationary_MultiPhase_Examples
+  "Test examples"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Constants;
+  import Modelica_Electrical_QuasiStationary;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_ComplexBlocks;
   extends Modelica_Icons.ExamplesPackage;
 
   model BalancingStar "Balancing an unsymmetrical star-connected load"
@@ -8,8 +15,7 @@ package Modelica_Electrical_QuasiStationary_MultiPhase_Examples "Test examples"
     parameter Modelica_SIunits.Voltage V=100 "Source Voltage";
     parameter Modelica_SIunits.Frequency f=50 "Source frequency";
     parameter Modelica_SIunits.Resistance R=10 "Load resistance";
-    parameter Modelica_SIunits.Inductance L=(R*sqrt(3))/(2*
-        Modelica_Constants.pi
+    parameter Modelica_SIunits.Inductance L=(R*sqrt(3))/(2*Modelica_Constants.pi
         *f) "Load inductance";
     parameter Modelica_SIunits.Capacitance C=1/(R*sqrt(3))/(2*
         Modelica_Constants.pi
@@ -47,8 +53,8 @@ package Modelica_Electrical_QuasiStationary_MultiPhase_Examples "Test examples"
       annotation (Placement(transformation(extent={{-40,0},{-20,20}}, rotation=
               0)));
     Modelica_Electrical_QuasiStationary.SinglePhase.Basic.Resistor resistor(R_ref=R)
-      annotation (Placement(transformation(extent={{20,-40},{40,-20}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{20,-40},{40,-20}}, rotation=
+             0)));
     Modelica_Electrical_QuasiStationary.SinglePhase.Basic.Capacitor capacitor(C=C)
       annotation (Placement(transformation(extent={{20,0},{40,20}}, rotation=0)));
     Modelica_Electrical_QuasiStationary.SinglePhase.Basic.Inductor inductor(L=L)
@@ -166,8 +172,8 @@ P.Vaske, Berechnung von Drehstromschaltungen (German, Calculation of polyphase c
     Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p2(k=2, m=m)
       annotation (Placement(transformation(extent={{10,0},{30,20}}, rotation=0)));
     Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p3(k=3, m=m)
-      annotation (Placement(transformation(extent={{10,-70},{30,-50}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{10,-70},{30,-50}}, rotation=
+             0)));
     Modelica_Electrical_QuasiStationary.MultiPhase.Sensors.PowerSensor powerSensor(m=m)
       annotation (Placement(transformation(extent={{-60,0},{-40,20}}, rotation=
               0)));
@@ -264,5 +270,6 @@ P.Vaske, Berechnung von Drehstromschaltungen (German, Calculation of polyphase c
 
   annotation (Documentation(info="<html>
 Examples to demonstrate the usage of quasistationary electric components.
-</html>"), uses(Modelica_ComplexBlocks(version="3.2.2")));
+</html>"), uses(Modelica_ComplexBlocks(version="3.2.2"), Modelica(version=
+            "3.2.1")));
 end Modelica_Electrical_QuasiStationary_MultiPhase_Examples;

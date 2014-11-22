@@ -1,6 +1,21 @@
 within ;
-package Modelica_Electrical_Machines_Interfaces
+encapsulated package Modelica_Electrical_Machines_Interfaces
   "SpacePhasor connector and PartialMachines"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Electrical_Machines;
+  import Modelica_Constants;
+  import Modelica_Mechanics_Rotational_Interfaces;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Electrical_MultiPhase_Interfaces;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_Electrical_Analog;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
+  import Modelica_Thermal_HeatTransfer;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Blocks;
+  import Modelica_Electrical_Analog_Interfaces;
+  import Modelica_Utilities;
   extends Modelica_Icons.InterfacesPackage;
   connector SpacePhasor "Connector for Space Phasors"
     Modelica_SIunits.Voltage v_[2] "1=real, 2=imaginary part";
@@ -53,8 +68,8 @@ Connector for Space Phasors:
       "Electromagnetic torque";
     output Modelica_SIunits.Torque tauShaft=-flange.tau "Shaft torque";
     Modelica_Mechanics_Rotational_Interfaces.Flange_a flange "Shaft"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
+            =0)));
     Modelica_Mechanics_Rotational.Components.Inertia inertiaRotor(final J=Jr)
       annotation (Placement(transformation(
           origin={80,0},
@@ -222,10 +237,10 @@ One may also fix the the shaft and let rotate the stator; parameter Js is only o
       final R=fill(Rs, m),
       final T_ref=fill(TsRef, m),
       final alpha=fill(Modelica_Electrical_Machines.Thermal.convertAlpha(
-                                                     alpha20s, TsRef), m),
+          alpha20s, TsRef), m),
       final useHeatPort=true,
-      final T=fill(TsRef, m)) annotation (Placement(transformation(extent={{
-              60,70},{40,90}}, rotation=0)));
+      final T=fill(TsRef, m)) annotation (Placement(transformation(extent={{60,
+              70},{40,90}}, rotation=0)));
     Modelica_Electrical_Machines.BasicMachines.Components.Inductor lssigma(final L=
           fill(Lssigma, 2)) annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
@@ -347,8 +362,8 @@ Partial model for induction machine models
     connector PartialThermalPortInductionMachines
       "Partial thermal port of induction machines"
       parameter Integer m=3 "Number of stator phases";
-      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a
-        heatPortStatorWinding[m] "Heat port of stator windings"
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPortStatorWinding[m]
+        "Heat port of stator windings"
         annotation (Placement(transformation(extent={{-20,10},{0,30}})));
       Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPortStatorCore
         "Heat port of (optional) stator core losses"
@@ -413,8 +428,8 @@ Partial thermal port for induction machines
         "Heat flow rate of friction losses";
       replaceable PartialThermalPortInductionMachines thermalPort(final m=m)
         annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-      Modelica_Thermal_HeatTransfer.Sources.PrescribedTemperature
-        temperatureStatorWinding annotation (Placement(transformation(
+      Modelica_Thermal_HeatTransfer.Sources.PrescribedTemperature temperatureStatorWinding
+        annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=90,
             origin={-80,30})));
@@ -735,8 +750,8 @@ Interfaces and partial models for induction machines
     output Modelica_SIunits.Voltage va=pin_ap.v - pin_an.v "Armature voltage";
     output Modelica_SIunits.Current ia(start=0) = pin_ap.i "Armature current";
     Modelica_Electrical_Analog_Interfaces.PositivePin pin_ap
-      "Positive armature pin" annotation (Placement(transformation(extent={{
-              50,110},{70,90}}, rotation=0)));
+      "Positive armature pin" annotation (Placement(transformation(extent={{50,
+              110},{70,90}}, rotation=0)));
     Modelica_Electrical_Analog_Interfaces.NegativePin pin_an
       "Negative armature pin" annotation (Placement(transformation(extent={{-70,
               110},{-50,90}}, rotation=0)));
@@ -1483,5 +1498,5 @@ This package contains the space phasor connector and partial models for machine 
   <li> v2.2.0 2011/02/10 Anton Haumer<br>
        conditional ThermalPort for all machines</li>
   </ul>
-</HTML>"));
+</HTML>"), uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_Machines_Interfaces;

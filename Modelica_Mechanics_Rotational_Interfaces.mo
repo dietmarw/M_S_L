@@ -1,6 +1,12 @@
 within ;
-package Modelica_Mechanics_Rotational_Interfaces
+encapsulated package Modelica_Mechanics_Rotational_Interfaces
   "Connectors and partial models for 1D rotational mechanical components"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Constants;
+  import Modelica_Mechanics_Translational_Interfaces;
+  import Modelica_Mechanics_Translational;
 
   extends Modelica_Icons.InterfacesPackage;
 
@@ -780,8 +786,8 @@ and instead the component is internally fixed to ground.
     Flange_a flangeR "Flange of rotational shaft" annotation (Placement(
           transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
     Modelica_Mechanics_Translational_Interfaces.Flange_b flangeT
-      "Flange of translational rod" annotation (Placement(transformation(
-            extent={{90,10},{110,-10}}, rotation=0)));
+      "Flange of translational rod" annotation (Placement(transformation(extent
+            ={{90,10},{110,-10}}, rotation=0)));
     Support supportR if useSupportR "Rotational support/housing of component"
       annotation (Placement(transformation(extent={{-110,-110},{-90,-90}},
             rotation=0), iconTransformation(extent={{-110,-110},{-90,-90}})));
@@ -799,8 +805,7 @@ and instead the component is internally fixed to ground.
       annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
     Modelica_Mechanics_Rotational.Components.Fixed fixedR if not useSupportR
       annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
-    Modelica_Mechanics_Translational.Components.Fixed fixedT if
-                                             not useSupportT
+    Modelica_Mechanics_Translational.Components.Fixed fixedT if not useSupportT
       annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
   equation
     connect(internalSupportR.flange, supportR) annotation (Line(
@@ -888,8 +893,7 @@ and instead the translational part is internally fixed to ground.
 
   partial model PartialTorque
     "Partial model of a torque acting at the flange (accelerates the flange)"
-    extends
-      Modelica_Mechanics_Rotational_Interfaces.PartialElementaryOneFlangeAndSupport2;
+    extends PartialElementaryOneFlangeAndSupport2;
     Modelica_SIunits.Angle phi
       "Angle of flange with respect to support (= flange.phi - support.phi)";
 
@@ -1103,5 +1107,5 @@ This package contains connectors and partial models for 1-dim.
 rotational mechanical components. The components of this package can
 only be used as basic building elements for models.
 </p>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Mechanics_Rotational_Interfaces;

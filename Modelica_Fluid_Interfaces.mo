@@ -1,6 +1,12 @@
 within ;
-package Modelica_Fluid_Interfaces
+encapsulated package Modelica_Fluid_Interfaces
   "Interfaces for steady state and unsteady, mixed-phase, multi-substance, incompressible and compressible flow"
+  import Modelica_Icons;
+  import Modelica_Media_Interfaces;
+  import Modelica_Fluid;
+  import Modelica_Constants;
+  import Modelica_SIunits;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
 
   extends Modelica_Icons.InterfacesPackage;
 
@@ -226,13 +232,13 @@ package Modelica_Fluid_Interfaces
       "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
       annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-    Modelica_Fluid_Interfaces.FluidPort_a port_a(redeclare package Medium =
-          Medium, m_flow(min=if allowFlowReversal then -Constants.inf else 0))
+    FluidPort_a port_a(redeclare package Medium = Medium, m_flow(min=if
+            allowFlowReversal then -Constants.inf else 0))
       "Fluid connector a (positive design flow direction is from port_a to port_b)"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
             rotation=0)));
-    Modelica_Fluid_Interfaces.FluidPort_b port_b(redeclare package Medium =
-          Medium, m_flow(max=if allowFlowReversal then +Constants.inf else 0))
+    FluidPort_b port_b(redeclare package Medium = Medium, m_flow(max=if
+            allowFlowReversal then +Constants.inf else 0))
       "Fluid connector b (positive design flow direction is from port_a to port_b)"
       annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation
             =0), iconTransformation(extent={{110,-10},{90,10}})));
@@ -492,10 +498,9 @@ end PartialTwoPortTransport;
     outer Modelica_Fluid.System system "System wide properties";
 
     // Heat ports
-    Modelica_Fluid_Interfaces.HeatPorts_a[n] heatPorts
-      "Heat port to component boundary" annotation (Placement(transformation(
-            extent={{-10,60},{10,80}}, rotation=0), iconTransformation(extent={
-              {-20,60},{20,80}})));
+    HeatPorts_a[n] heatPorts "Heat port to component boundary" annotation (
+        Placement(transformation(extent={{-10,60},{10,80}}, rotation=0),
+          iconTransformation(extent={{-20,60},{20,80}})));
 
     // Variables
     Modelica_SIunits.Temperature[n] Ts=Medium.temperature(states)
@@ -1119,7 +1124,7 @@ The lengths along the flow path <code><b>pathLengths[m]</b></code> are an input 
 
   partial model PartialPressureLoss
     "Base flow model for pressure loss functions with the same area at port_a and at port_b"
-    extends Modelica_Fluid_Interfaces.PartialTwoPortTransport;
+    extends PartialTwoPortTransport;
   protected
     parameter Medium.ThermodynamicState state_dp_small=Medium.setState_pTX(
                          Medium.reference_p,
@@ -1186,6 +1191,6 @@ The lengths along the flow path <code><b>pathLengths[m]</b></code> are an input 
        for elementary two port transport elements, whereas PartialTwoPort
        is a component for a container component.</li>
 </ul>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 
 end Modelica_Fluid_Interfaces;

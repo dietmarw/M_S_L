@@ -1,6 +1,13 @@
 within ;
-package Modelica_Mechanics_Rotational
+encapsulated package Modelica_Mechanics_Rotational
   "Library to model 1-dimensional, rotational mechanical systems"
+  import Modelica_Icons;
+  import Modelica_Mechanics_Rotational_Interfaces;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
+  import Modelica_Constants;
+  import Modelica_Math;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Blocks;
   extends Modelica_Icons.Package;
   import SI = Modelica_SIunits;
 
@@ -548,7 +555,7 @@ drive trains with frictional losses.
     extends Modelica_Icons.Package;
 
     model Fixed "Flange fixed in housing at a given angle"
-      parameter Modelica_SIunits.Angle phi0=0 "Fixed offset angle of housing";
+      parameter SI.Angle phi0=0 "Fixed offset angle of housing";
 
       Modelica_Mechanics_Rotational_Interfaces.Flange_b flange
         "(right) flange fixed in housing" annotation (Placement(transformation(
@@ -599,17 +606,17 @@ at an angle phi0 in the <b>housing</b>. May be used:
       Modelica_Mechanics_Rotational_Interfaces.Flange_b flange_b
         "Right flange of shaft" annotation (Placement(transformation(extent={{
                 90,-10},{110,10}}, rotation=0)));
-      parameter Modelica_SIunits.Inertia J(min=0, start=1) "Moment of inertia";
+      parameter SI.Inertia J(min=0, start=1) "Moment of inertia";
       parameter StateSelect stateSelect=StateSelect.default
         "Priority to use phi and w as states"
         annotation (HideResult=true, Dialog(tab="Advanced"));
-      Modelica_SIunits.Angle phi(stateSelect=stateSelect)
+      SI.Angle phi(stateSelect=stateSelect)
         "Absolute rotation angle of component"
         annotation (Dialog(group="Initialization", showStartAttribute=true));
-      Modelica_SIunits.AngularVelocity w(stateSelect=stateSelect)
+      SI.AngularVelocity w(stateSelect=stateSelect)
         "Absolute angular velocity of component (= der(phi))"
         annotation (Dialog(group="Initialization", showStartAttribute=true));
-      Modelica_SIunits.AngularAcceleration a
+      SI.AngularAcceleration a
         "Absolute angular acceleration of component (= der(w))"
         annotation (Dialog(group="Initialization", showStartAttribute=true));
 
@@ -657,18 +664,18 @@ Rotational component with <b>inertia</b> and two rigidly connected flanges.
         Text(extent={{-150.0,-120.0},{150.0,-80.0}},
           textString="J=%J"),
         Rectangle(
-          lineColor = {64,64,64},
-          fillColor = {255,255,255},
-          extent = {{-50,-50},{50,50}},
-          radius = 10)}));
+          lineColor=  {64,64,64},
+          fillColor=  {255,255,255},
+          extent=  {{-50,-50},{50,50}},
+          radius=  10)}));
     end Inertia;
 
     model Disc
       "1-dim. rotational rigid component without inertia, where right flange is rotated by a fixed angle with respect to left flange"
       extends Modelica_Mechanics_Rotational_Interfaces.PartialTwoFlanges;
-      parameter Modelica_SIunits.Angle deltaPhi=0
+      parameter SI.Angle deltaPhi=0
         "Fixed rotation of left flange with respect to right flange (= flange_b.phi - flange_a.phi)";
-      Modelica_SIunits.Angle phi "Absolute rotation angle of component";
+      SI.Angle phi "Absolute rotation angle of component";
 
     equation
       flange_a.phi = phi - deltaPhi/2;
@@ -711,9 +718,9 @@ flange.
 
     model Spring "Linear 1D rotational spring"
       extends Modelica_Mechanics_Rotational_Interfaces.PartialCompliant;
-      parameter Modelica_SIunits.RotationalSpringConstant c(final min=0, start=
-            1.0e5) "Spring constant";
-      parameter Modelica_SIunits.Angle phi_rel0=0 "Unstretched spring angle";
+      parameter SI.RotationalSpringConstant c(final min=0, start=1.0e5)
+        "Spring constant";
+      parameter SI.Angle phi_rel0=0 "Unstretched spring angle";
 
     equation
       tau = c*(phi_rel - phi_rel0);
@@ -763,8 +770,8 @@ a coupling of the element with the housing via a spring.
     model Damper "Linear 1D rotational damper"
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialCompliantWithRelativeStates;
-      parameter Modelica_SIunits.RotationalDampingConstant d(final min=0, start=
-           0) "Damping constant";
+      parameter SI.RotationalDampingConstant d(final min=0, start=0)
+        "Damping constant";
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT;
     equation
@@ -839,18 +846,18 @@ in the User's Guide of the Rotational library.
     end Damper;
 
     model SpringDamper "Linear 1D rotational spring and damper in parallel"
-      parameter Modelica_SIunits.RotationalSpringConstant c(final min=0, start=
-            1.0e5) "Spring constant";
-      parameter Modelica_SIunits.RotationalDampingConstant d(final min=0, start=
-           0) "Damping constant";
-      parameter Modelica_SIunits.Angle phi_rel0=0 "Unstretched spring angle";
+      parameter SI.RotationalSpringConstant c(final min=0, start=1.0e5)
+        "Spring constant";
+      parameter SI.RotationalDampingConstant d(final min=0, start=0)
+        "Damping constant";
+      parameter SI.Angle phi_rel0=0 "Unstretched spring angle";
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialCompliantWithRelativeStates;
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT;
     protected
-      Modelica_SIunits.Torque tau_c "Spring torque";
-      Modelica_SIunits.Torque tau_d "Damping torque";
+      SI.Torque tau_c "Spring torque";
+      SI.Torque tau_d "Damping torque";
     equation
       tau_c = c*(phi_rel - phi_rel0);
       tau_d = d*w_rel;
@@ -953,30 +960,29 @@ in the User's Guide of the Rotational library.
     model ElastoBacklash
       "Backlash connected in series to linear spring and damper (backlash is modeled with elasticity)"
 
-      parameter Modelica_SIunits.RotationalSpringConstant c(final min=
-            Modelica_Constants.small, start=1.0e5)
-        "Spring constant (c > 0 required)";
-      parameter Modelica_SIunits.RotationalDampingConstant d(final min=0, start=
-           0) "Damping constant";
-      parameter Modelica_SIunits.Angle b(final min=0) = 0 "Total backlash";
-      parameter Modelica_SIunits.Angle phi_rel0=0 "Unstretched spring angle";
+      parameter SI.RotationalSpringConstant c(final min=Modelica_Constants.small,
+          start=1.0e5) "Spring constant (c > 0 required)";
+      parameter SI.RotationalDampingConstant d(final min=0, start=0)
+        "Damping constant";
+      parameter SI.Angle b(final min=0)=0 "Total backlash";
+      parameter SI.Angle phi_rel0=0 "Unstretched spring angle";
 
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialCompliantWithRelativeStates;
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT;
     protected
-      final parameter Modelica_SIunits.Angle bMax=b/2
+      final parameter SI.Angle bMax=b/2
         "Backlash in range bMin <= phi_rel - phi_rel0 <= bMax";
-      final parameter Modelica_SIunits.Angle bMin=-bMax
+      final parameter SI.Angle bMin=-bMax
         "Backlash in range bMin <= phi_rel - phi_rel0 <= bMax";
-      Modelica_SIunits.Torque tau_c;
-      Modelica_SIunits.Torque tau_d;
-      Modelica_SIunits.Angle phi_diff=phi_rel - phi_rel0;
+      SI.Torque tau_c;
+      SI.Torque tau_d;
+      SI.Angle phi_diff=phi_rel - phi_rel0;
 
       // A minimum backlash is defined in order to avoid an infinite
       // number of state events if backlash b is set to zero.
-      constant Modelica_SIunits.Angle bEps=1e-10 "Minimum backlash";
+      constant SI.Angle bEps=1e-10 "Minimum backlash";
 
     equation
       if initial() then
@@ -1316,17 +1322,20 @@ in the User's Guide of the Rotational library.
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT;
 
-      Modelica_SIunits.Angle phi
+      SI.Angle phi
         "Angle between shaft flanges (flange_a, flange_b) and support";
-      Modelica_SIunits.Torque tau "Friction torque";
-      Modelica_SIunits.AngularVelocity w
-        "Absolute angular velocity of flange_a and flange_b";
-      Modelica_SIunits.AngularAcceleration a
+      SI.Torque tau "Friction torque";
+      SI.AngularVelocity w "Absolute angular velocity of flange_a and flange_b";
+      SI.AngularAcceleration a
         "Absolute angular acceleration of flange_a and flange_b";
 
     equation
       // Constant auxiliary variables
-      tau0 = Modelica_Math.Vectors.interpolate(tau_pos[:,1], tau_pos[:,2], 0, 1);
+      tau0 = Modelica_Math.Vectors.interpolate(
+            tau_pos[:, 1],
+            tau_pos[:, 2],
+            0,
+            1);
       tau0_max = peak*tau0;
       free = false;
 
@@ -1493,23 +1502,21 @@ following references, especially (Armstrong and Canudas de Witt 1996):
         "peak*mue_pos[1,2] = maximum value of mue for w_rel==0";
       parameter Real cgeo(final min=0) = 1
         "Geometry constant containing friction distribution assumption";
-      parameter Modelica_SIunits.Force fn_max(final min=0, start=1)
-        "Maximum normal force";
+      parameter SI.Force fn_max(final min=0, start=1) "Maximum normal force";
 
       extends Modelica_Mechanics_Rotational_Interfaces.PartialFriction;
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT;
 
-      Modelica_SIunits.Angle phi
+      SI.Angle phi
         "Angle between shaft flanges (flange_a, flange_b) and support";
-      Modelica_SIunits.Torque tau "Brake friction torque";
-      Modelica_SIunits.AngularVelocity w
-        "Absolute angular velocity of flange_a and flange_b";
-      Modelica_SIunits.AngularAcceleration a
+      SI.Torque tau "Brake friction torque";
+      SI.AngularVelocity w "Absolute angular velocity of flange_a and flange_b";
+      SI.AngularAcceleration a
         "Absolute angular acceleration of flange_a and flange_b";
 
       Real mue0 "Friction coefficient for w=0 and forward sliding";
-      Modelica_SIunits.Force fn "Normal force (=fn_max*f_normalized)";
+      SI.Force fn "Normal force (=fn_max*f_normalized)";
 
       // Constant auxiliary variable
       Modelica_Blocks_Interfaces.RealInput f_normalized
@@ -1693,7 +1700,7 @@ in the User's Guide of the Rotational library.
     end Brake;
 
     model Clutch "Clutch based on Coulomb friction"
-      extends Modelica_Mechanics_Rotational.Icons.Clutch;
+      extends Icons.Clutch;
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialCompliantWithRelativeStates;
 
@@ -1703,15 +1710,14 @@ in the User's Guide of the Rotational library.
         "peak*mue_pos[1,2] = maximum value of mue for w_rel==0";
       parameter Real cgeo(final min=0) = 1
         "Geometry constant containing friction distribution assumption";
-      parameter Modelica_SIunits.Force fn_max(final min=0, start=1)
-        "Maximum normal force";
+      parameter SI.Force fn_max(final min=0, start=1) "Maximum normal force";
 
       extends Modelica_Mechanics_Rotational_Interfaces.PartialFriction;
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT;
 
       Real mue0 "Friction coefficient for w=0 and forward sliding";
-      Modelica_SIunits.Force fn "Normal force (fn=fn_max*f_normalized)";
+      SI.Force fn "Normal force (fn=fn_max*f_normalized)";
       Modelica_Blocks_Interfaces.RealInput f_normalized
         "Normalized force signal 0..1 (normal force = fn_max*f_normalized; clutch is engaged if > 0)"
         annotation (Placement(transformation(
@@ -1851,7 +1857,7 @@ in the User's Guide of the Rotational library.
     end Clutch;
 
     model OneWayClutch "Series connection of freewheel and clutch"
-      extends Modelica_Mechanics_Rotational.Icons.Clutch;
+      extends Icons.Clutch;
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialCompliantWithRelativeStates;
 
@@ -1861,34 +1867,32 @@ in the User's Guide of the Rotational library.
         "peak*mue_pos[1,2] = maximum value of mue for w_rel==0";
       parameter Real cgeo(final min=0) = 1
         "Geometry constant containing friction distribution assumption";
-      parameter Modelica_SIunits.Force fn_max(final min=0, start=1)
-        "Maximum normal force";
-      parameter Modelica_SIunits.AngularVelocity w_small=1e10
+      parameter SI.Force fn_max(final min=0, start=1) "Maximum normal force";
+      parameter SI.AngularVelocity w_small=1e10
         "Relative angular velocity near to zero if jumps due to a reinit(..) of the velocity can occur (set to low value only if such impulses can occur)"
         annotation (Dialog(tab="Advanced"));
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT;
 
       Real u "Normalized force input signal (0..1)";
-      Modelica_SIunits.Force fn "Normal force (fn=fn_max*inPort.signal)";
+      SI.Force fn "Normal force (fn=fn_max*inPort.signal)";
       Boolean startForward(start=false)
         "true, if w_rel=0 and start of forward sliding or w_rel > w_small";
       Boolean locked(start=false) "true, if w_rel=0 and not sliding";
       Boolean stuck(start=false) "w_rel=0 (locked or start forward sliding)";
 
     protected
-      Modelica_SIunits.Torque tau0 "Friction torque for w=0 and sliding";
-      Modelica_SIunits.Torque tau0_max
-        "Maximum friction torque for w=0 and locked";
+      SI.Torque tau0 "Friction torque for w=0 and sliding";
+      SI.Torque tau0_max "Maximum friction torque for w=0 and locked";
       Real mue0 "Friction coefficient for w=0 and sliding";
       Boolean free "true, if frictional element is not active";
       Real sa(final unit="1")
         "Path parameter of tau = f(a_rel) Friction characteristic";
       constant Real eps0=1.0e-4 "Relative hysteresis epsilon";
-      Modelica_SIunits.Torque tau0_max_low "Lowest value for tau0_max";
+      SI.Torque tau0_max_low "Lowest value for tau0_max";
       parameter Real peak2=max([peak, 1 + eps0]);
-      constant Modelica_SIunits.AngularAcceleration unitAngularAcceleration=1;
-      constant Modelica_SIunits.Torque unitTorque=1;
+      constant SI.AngularAcceleration unitAngularAcceleration=1;
+      constant SI.Torque unitTorque=1;
     public
       Modelica_Blocks_Interfaces.RealInput f_normalized
         "Normalized force signal 0..1 (normal force = fn_max*f_normalized; clutch is engaged if > 0)"
@@ -2036,15 +2040,13 @@ in the User's Guide of the Rotational library.
     end OneWayClutch;
 
     model IdealGear "Ideal gear without inertia"
-      extends Modelica_Mechanics_Rotational.Icons.Gear;
+      extends Icons.Gear;
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialElementaryTwoFlangesAndSupport2;
       parameter Real ratio(start=1)
         "Transmission ratio (flange_a.phi/flange_b.phi)";
-      Modelica_SIunits.Angle phi_a
-        "Angle between left shaft flange and support";
-      Modelica_SIunits.Angle phi_b
-        "Angle between right shaft flange and support";
+      SI.Angle phi_a "Angle between left shaft flange and support";
+      SI.Angle phi_b "Angle between right shaft flange and support";
 
     equation
       phi_a = flange_a.phi - phi_support;
@@ -2075,7 +2077,7 @@ connected to other elements in an appropriate way.
     model LossyGear
       "Gear with mesh efficiency and bearing friction (stuck/rolling possible)"
 
-      extends Modelica_Mechanics_Rotational.Icons.Gear;
+      extends Icons.Gear;
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialElementaryTwoFlangesAndSupport2;
 
@@ -2085,15 +2087,13 @@ connected to other elements in an appropriate way.
         "Array for mesh efficiencies and bearing friction depending on speed";
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT;
-      Modelica_SIunits.Angle phi_a
-        "Angle between left shaft flange and support";
-      Modelica_SIunits.Angle phi_b
-        "Angle between right shaft flange and support";
+      SI.Angle phi_a "Angle between left shaft flange and support";
+      SI.Angle phi_b "Angle between right shaft flange and support";
 
       Real sa(final unit="1") "Path parameter for acceleration and torque loss";
-      Modelica_SIunits.AngularVelocity w_a
+      SI.AngularVelocity w_a
         "Angular velocity of flange_a with respect to support";
-      Modelica_SIunits.AngularAcceleration a_a
+      SI.AngularAcceleration a_a
         "Angular acceleration of flange_a with respect to support";
 
       Real interpolation_result[1, 4];
@@ -2121,13 +2121,13 @@ connected to other elements in an appropriate way.
       Real quadrant4_m;
       // w=0-
 
-      Modelica_SIunits.Torque tauLoss
+      SI.Torque tauLoss
         "Torque loss due to friction in the gear teeth and in the bearings";
-      Modelica_SIunits.Torque tauLossMax "Torque loss for positive speed";
-      Modelica_SIunits.Torque tauLossMin "Torque loss for negative speed";
+      SI.Torque tauLossMax "Torque loss for positive speed";
+      SI.Torque tauLossMin "Torque loss for negative speed";
 
-      Modelica_SIunits.Torque tauLossMax_p "Torque loss for positive speed";
-      Modelica_SIunits.Torque tauLossMin_m "Torque loss for negative speed";
+      SI.Torque tauLossMax_p "Torque loss for positive speed";
+      SI.Torque tauLossMin_m "Torque loss for negative speed";
 
       Boolean tau_aPos(start=true)
         "Only for backwards compatibility (was previously: true, if torque of flange_a is not negative)";
@@ -2150,11 +2150,11 @@ connected to other elements in an appropriate way.
         start=Free,
         fixed=true);
 
-      Modelica_SIunits.Torque tau_eta_p "tau_eta assuming positive omega";
-      Modelica_SIunits.Torque tau_eta_m "tau_eta assuming negative omega";
+      SI.Torque tau_eta_p "tau_eta assuming positive omega";
+      SI.Torque tau_eta_m "tau_eta assuming negative omega";
     protected
-      constant Modelica_SIunits.AngularAcceleration unitAngularAcceleration=1;
-      constant Modelica_SIunits.Torque unitTorque=1;
+      constant SI.AngularAcceleration unitAngularAcceleration=1;
+      constant SI.Torque unitTorque=1;
 
       // get friction and eta information for omega=0
       parameter Real eta_mf1_0=Modelica_Math.Vectors.interpolate(lossTable[:,1], lossTable[:,2], 0, 1);
@@ -2755,7 +2755,7 @@ in the flanges, are along the axis vector displayed in the icon.
     end IdealPlanetary;
 
     model Gearbox "Realistic model of a gearbox (based on LossyGear)"
-      extends Modelica_Mechanics_Rotational.Icons.Gearbox;
+      extends Icons.Gearbox;
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialTwoFlangesAndSupport;
 
@@ -2763,28 +2763,27 @@ in the flanges, are along the axis vector displayed in the icon.
         "Transmission ratio (flange_a.phi/flange_b.phi)";
       parameter Real lossTable[:, 5]=[0, 1, 1, 0, 0]
         "Array for mesh efficiencies and bearing friction depending on speed (see docu of LossyGear)";
-      parameter Modelica_SIunits.RotationalSpringConstant c(final min=
-            Modelica_Constants.small, start=1.0e5)
-        "Gear elasticity (spring constant)";
-      parameter Modelica_SIunits.RotationalDampingConstant d(final min=0, start=
-           0) "(relative) gear damping";
-      parameter Modelica_SIunits.Angle b(final min=0) = 0 "Total backlash";
+      parameter SI.RotationalSpringConstant c(final min=Modelica_Constants.small,
+          start=1.0e5) "Gear elasticity (spring constant)";
+      parameter SI.RotationalDampingConstant d(final min=0, start=0)
+        "(relative) gear damping";
+      parameter SI.Angle b(final min=0)=0 "Total backlash";
       parameter StateSelect stateSelect=StateSelect.prefer
         "Priority to use phi_rel and w_rel as states"
         annotation (HideResult=true, Dialog(tab="Advanced"));
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialConditionalHeatPort(
           final T=293.15);
-      Modelica_SIunits.Angle phi_rel(
+      SI.Angle phi_rel(
         start=0,
         stateSelect=stateSelect,
-        nominal=1e-4) = flange_b.phi - lossyGear.flange_b.phi
+        nominal=1e-4)=flange_b.phi - lossyGear.flange_b.phi
         "Relative rotation angle over gear elasticity (= flange_b.phi - lossyGear.flange_b.phi)";
-      Modelica_SIunits.AngularVelocity w_rel(
+      SI.AngularVelocity w_rel(
         start=0,
-        stateSelect=stateSelect) = der(phi_rel)
+        stateSelect=stateSelect)=der(phi_rel)
         "Relative angular velocity over gear elasticity (= der(phi_rel))";
-      Modelica_SIunits.AngularAcceleration a_rel(start=0) = der(w_rel)
+      SI.AngularAcceleration a_rel(start=0)=der(w_rel)
         "Relative angular acceleration over gear elasticity (= der(w_rel))";
 
       LossyGear lossyGear(
@@ -2934,7 +2933,7 @@ This component defines the kinematic constraint:
 
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialElementaryRotationalToTranslational;
-      parameter Modelica_SIunits.Distance radius(start=0.3) "Wheel radius";
+      parameter SI.Distance radius(start=0.3) "Wheel radius";
 
     equation
       (flangeR.phi - internalSupportR.phi)*radius = (flangeT.s -
@@ -3043,10 +3042,9 @@ no rolling resistance. This component defines the kinematic constraint:
         "Flange that is initialized" annotation (Placement(transformation(
               extent={{90,-10},{110,10}}, rotation=0)));
 
-      Modelica_SIunits.Angle phi_flange(stateSelect=stateSelect) = flange.phi
-        "Flange angle";
-      Modelica_SIunits.AngularVelocity w_flange(stateSelect=stateSelect) = der(
-        phi_flange) "= der(phi_flange)";
+      SI.Angle phi_flange(stateSelect=stateSelect)=flange.phi "Flange angle";
+      SI.AngularVelocity w_flange(stateSelect=stateSelect)=der(phi_flange)
+        "= der(phi_flange)";
 
     protected
       encapsulated model Set_phi_start "Set phi_start"
@@ -3206,19 +3204,18 @@ provided via a signal bus.
       extends Modelica_Mechanics_Rotational_Interfaces.PartialTwoFlanges;
       parameter StateSelect stateSelect=StateSelect.prefer
         "Priority to use the relative angle and relative speed as states";
-      parameter Modelica_SIunits.Angle phi_nominal(
+      parameter SI.Angle phi_nominal(
         displayUnit="rad",
-        min=0.0) = 1.0 "Nominal value of the relative angle (used for scaling)";
+        min=0.0)=1.0 "Nominal value of the relative angle (used for scaling)";
 
-      Modelica_SIunits.Angle phi_rel(
+      SI.Angle phi_rel(
         start=0,
         stateSelect=stateSelect,
         nominal=if phi_nominal >= Modelica_Constants.eps then phi_nominal else
             1) "Relative rotation angle used as state variable";
-      Modelica_SIunits.AngularVelocity w_rel(start=0, stateSelect=stateSelect)
+      SI.AngularVelocity w_rel(start=0, stateSelect=stateSelect)
         "Relative angular velocity used as state variable";
-      Modelica_SIunits.AngularAcceleration a_rel(start=0)
-        "Relative angular acceleration";
+      SI.AngularAcceleration a_rel(start=0) "Relative angular acceleration";
 
     equation
       phi_rel = flange_b.phi - flange_a.phi;
@@ -3448,11 +3445,11 @@ This adaptor has torque as input and angle, angular velocity and angular acceler
             iconTransformation(extent={{-20,-90},{-40,-70}})));
 
     protected
-      Modelica_Mechanics_Rotational.Sources.Move move if use_a
+      Sources.Move move if use_a
         annotation (Placement(transformation(extent={{10,-10},{30,10}})));
       Modelica_Blocks.Routing.Multiplex3 multiplex3 if use_a
         annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-      Modelica_Mechanics_Rotational.Sensors.TorqueSensor torqueSensor
+      Sensors.TorqueSensor torqueSensor
         annotation (Placement(transformation(extent={{36,-10},{56,10}})));
 
       Modelica_Blocks.Routing.Multiplex2 multiplex2 if use_w and not use_a
@@ -3519,8 +3516,7 @@ blocks of the block library Modelica.Blocks.Sources.
         extends
           Modelica_Mechanics_Rotational_Interfaces.PartialElementaryOneFlangeAndSupport2;
 
-        Modelica_SIunits.Angle phi
-          "Rotation angle of flange with respect to support";
+        SI.Angle phi "Rotation angle of flange with respect to support";
         Modelica_Blocks_Interfaces.RealInput u[2]
           "Angle and angular velocity of flange with respect to support as input signals"
           annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
@@ -3780,7 +3776,7 @@ way and provides the result as output signal <b>w</b>
       "Ideal sensor to measure the absolute flange angular acceleration"
 
       extends Modelica_Mechanics_Rotational_Interfaces.PartialAbsoluteSensor;
-      Modelica_SIunits.AngularVelocity w "Absolute angular velocity of flange";
+      SI.AngularVelocity w "Absolute angular velocity of flange";
       Modelica_Blocks_Interfaces.RealOutput a(unit="rad/s2")
         "Absolute angular acceleration of flange as output signal" annotation (
           Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
@@ -3838,7 +3834,7 @@ in an ideal way and provides the result as output signal <b>phi_rel</b>
 
       extends Modelica_Mechanics_Rotational_Interfaces.PartialRelativeSensor;
 
-      Modelica_SIunits.Angle phi_rel
+      SI.Angle phi_rel
         "Relative angle between two flanges (flange_b.phi - flange_a.phi)";
       Modelica_Blocks_Interfaces.RealOutput w_rel(unit="rad/s")
         "Relative angular velocity between two flanges (= der(flange_b.phi) - der(flange_a.phi)) as output signal"
@@ -3873,10 +3869,9 @@ in an ideal way and provides the result as output signal <b>w_rel</b>
 
       extends Modelica_Mechanics_Rotational_Interfaces.PartialRelativeSensor;
 
-      Modelica_SIunits.Angle phi_rel
+      SI.Angle phi_rel
         "Relative angle between two flanges (flange_b.phi - flange_a.phi)";
-      Modelica_SIunits.AngularVelocity w_rel
-        "Relative angular velocity between two flanges";
+      SI.AngularVelocity w_rel "Relative angular velocity between two flanges";
       Modelica_Blocks_Interfaces.RealOutput a_rel(unit="rad/s2")
         "Relative angular acceleration between two flanges as output signal"
         annotation (Placement(transformation(
@@ -4034,16 +4029,16 @@ Modelica.Blocks library.
         Modelica_Mechanics_Rotational_Interfaces.PartialElementaryOneFlangeAndSupport2;
       parameter Boolean exact=false
         "true/false exact treatment/filtering the input signal";
-      parameter Modelica_SIunits.Frequency f_crit=50
+      parameter SI.Frequency f_crit=50
         "if exact=false, critical frequency of filter to filter input signal"
         annotation (Dialog(enable=not exact));
-      Modelica_SIunits.Angle phi(stateSelect=if exact then StateSelect.default
-             else StateSelect.prefer)
+      SI.Angle phi(stateSelect=if exact then StateSelect.default else
+            StateSelect.prefer)
         "Rotation angle of flange with respect to support";
-      Modelica_SIunits.AngularVelocity w(start=0, stateSelect=if exact then
-            StateSelect.default else StateSelect.prefer)
+      SI.AngularVelocity w(start=0, stateSelect=if exact then StateSelect.default
+             else StateSelect.prefer)
         "If exact=false, Angular velocity of flange with respect to support else dummy";
-      Modelica_SIunits.AngularAcceleration a(start=0)
+      SI.AngularAcceleration a(start=0)
         "If exact=false, Angular acceleration of flange with respect to support else dummy";
       Modelica_Blocks_Interfaces.RealInput phi_ref(
         final quantity="Angle",
@@ -4054,8 +4049,8 @@ Modelica.Blocks library.
               rotation=0)));
 
     protected
-      parameter Modelica_SIunits.AngularFrequency w_crit=2*Modelica_Constants.pi
-          *f_crit "Critical frequency";
+      parameter SI.AngularFrequency w_crit=2*Modelica_Constants.pi*f_crit
+        "Critical frequency";
       constant Real af=1.3617 "s coefficient of Bessel filter";
       constant Real bf=0.6180 "s*s coefficient of Bessel filter";
     initial equation
@@ -4139,18 +4134,18 @@ blocks of the block library Modelica.Blocks.Sources.
         Modelica_Mechanics_Rotational_Interfaces.PartialElementaryOneFlangeAndSupport2;
       parameter Boolean exact=false
         "true/false exact treatment/filtering the input signal";
-      parameter Modelica_SIunits.Frequency f_crit=50
+      parameter SI.Frequency f_crit=50
         "if exact=false, critical frequency of filter to filter input signal"
         annotation (Dialog(enable=not exact));
-      Modelica_SIunits.Angle phi(
+      SI.Angle phi(
         start=0,
         fixed=true,
         stateSelect=StateSelect.prefer)
         "Rotation angle of flange with respect to support";
-      Modelica_SIunits.AngularVelocity w(stateSelect=if exact then StateSelect.default
-             else StateSelect.prefer)
+      SI.AngularVelocity w(stateSelect=if exact then StateSelect.default else
+            StateSelect.prefer)
         "Angular velocity of flange with respect to support";
-      Modelica_SIunits.AngularAcceleration a
+      SI.AngularAcceleration a
         "If exact=false, angular acceleration of flange with respect to support else dummy";
       Modelica_Blocks_Interfaces.RealInput w_ref(unit="rad/s")
         "Reference angular velocity of flange with respect to support as input signal"
@@ -4158,8 +4153,8 @@ blocks of the block library Modelica.Blocks.Sources.
               rotation=0)));
 
     protected
-      parameter Modelica_SIunits.AngularFrequency w_crit=2*Modelica_Constants.pi
-          *f_crit "Critical frequency";
+      parameter SI.AngularFrequency w_crit=2*Modelica_Constants.pi*f_crit
+        "Critical frequency";
     initial equation
       if not exact then
         w = w_ref;
@@ -4238,17 +4233,17 @@ blocks of the block library Modelica.Blocks.Sources.
       "Forced movement of a flange according to an acceleration signal"
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialElementaryOneFlangeAndSupport2;
-      Modelica_SIunits.Angle phi(
+      SI.Angle phi(
         start=0,
         fixed=true,
         stateSelect=StateSelect.prefer)
         "Rotation angle of flange with respect to support";
-      Modelica_SIunits.AngularVelocity w(
+      SI.AngularVelocity w(
         start=0,
         fixed=true,
         stateSelect=StateSelect.prefer)
         "Angular velocity of flange with respect to support";
-      Modelica_SIunits.AngularAcceleration a
+      SI.AngularAcceleration a
         "Angular acceleration of flange with respect to support";
 
       Modelica_Blocks_Interfaces.RealInput a_ref(unit="rad/s2")
@@ -4305,8 +4300,7 @@ blocks of the block library Modelica.Blocks.Sources.
       extends
         Modelica_Mechanics_Rotational_Interfaces.PartialElementaryOneFlangeAndSupport2;
 
-      Modelica_SIunits.Angle phi
-        "Rotation angle of flange with respect to support";
+      SI.Angle phi "Rotation angle of flange with respect to support";
       Modelica_Blocks_Interfaces.RealInput u[3]
         "Angle, angular velocity and angular acceleration of flange with respect to support as input signals"
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
@@ -4569,16 +4563,15 @@ blocks of Modelica.Blocks.Sources.
 
     model LinearSpeedDependentTorque "Linear dependency of torque versus speed"
       extends Modelica_Mechanics_Rotational_Interfaces.PartialTorque;
-      parameter Modelica_SIunits.Torque tau_nominal
+      parameter SI.Torque tau_nominal
         "Nominal torque (if negative, torque is acting as load)";
       parameter Boolean TorqueDirection=true
         "Same direction of torque in both directions of rotation";
-      parameter Modelica_SIunits.AngularVelocity w_nominal(min=
-            Modelica_Constants.eps) "Nominal speed";
-      Modelica_SIunits.AngularVelocity w
+      parameter SI.AngularVelocity w_nominal(min=Modelica_Constants.eps)
+        "Nominal speed";
+      SI.AngularVelocity w
         "Angular velocity of flange with respect to support (= der(phi))";
-      Modelica_SIunits.Torque tau
-        "Accelerating torque acting at flange (= -flange.tau)";
+      SI.Torque tau "Accelerating torque acting at flange (= -flange.tau)";
     equation
       w = der(phi);
       tau = -flange.tau;
@@ -4600,16 +4593,15 @@ Parameter TorqueDirection chooses whether direction of torque is the same in bot
     model QuadraticSpeedDependentTorque
       "Quadratic dependency of torque versus speed"
       extends Modelica_Mechanics_Rotational_Interfaces.PartialTorque;
-      parameter Modelica_SIunits.Torque tau_nominal
+      parameter SI.Torque tau_nominal
         "Nominal torque (if negative, torque is acting as load)";
       parameter Boolean TorqueDirection=true
         "Same direction of torque in both directions of rotation";
-      parameter Modelica_SIunits.AngularVelocity w_nominal(min=
-            Modelica_Constants.eps) "Nominal speed";
-      Modelica_SIunits.AngularVelocity w
+      parameter SI.AngularVelocity w_nominal(min=Modelica_Constants.eps)
+        "Nominal speed";
+      SI.AngularVelocity w
         "Angular velocity of flange with respect to support (= der(phi))";
-      Modelica_SIunits.Torque tau
-        "Accelerating torque acting at flange (= -flange.tau)";
+      SI.Torque tau "Accelerating torque acting at flange (= -flange.tau)";
     equation
       w = der(phi);
       tau = -flange.tau;
@@ -4641,10 +4633,9 @@ Parameter TorqueDirection chooses whether direction of torque is the same in bot
 
     model ConstantTorque "Constant torque, not dependent on speed"
       extends Modelica_Mechanics_Rotational_Interfaces.PartialTorque;
-      parameter Modelica_SIunits.Torque tau_constant
+      parameter SI.Torque tau_constant
         "Constant torque (if negative, torque is acting as load)";
-      Modelica_SIunits.Torque tau
-        "Accelerating torque acting at flange (= -flange.tau)";
+      SI.Torque tau "Accelerating torque acting at flange (= -flange.tau)";
     equation
       tau = -flange.tau;
       tau = tau_constant;
@@ -4668,9 +4659,9 @@ Positive torque acts accelerating.
 
     model ConstantSpeed "Constant speed, not dependent on torque"
       extends Modelica_Mechanics_Rotational_Interfaces.PartialTorque;
-      Modelica_SIunits.AngularVelocity w
+      SI.AngularVelocity w
         "Angular velocity of flange with respect to support (= der(phi))";
-      parameter Modelica_SIunits.AngularVelocity w_fixed "Fixed speed";
+      parameter SI.AngularVelocity w_fixed "Fixed speed";
     equation
       w = der(phi);
       w = w_fixed;
@@ -4686,14 +4677,11 @@ Model of <b>fixed</b> angular velocity of flange, not dependent on torque.
 
     model TorqueStep "Constant torque, not dependent on speed"
       extends Modelica_Mechanics_Rotational_Interfaces.PartialTorque;
-      parameter Modelica_SIunits.Torque stepTorque(start=1)
+      parameter SI.Torque stepTorque(start=1)
         "Height of torque step (if negative, torque is acting as load)";
-      parameter Modelica_SIunits.Torque offsetTorque(start=0)
-        "Offset of torque";
-      parameter Modelica_SIunits.Time startTime=0
-        "Torque = offset for time < startTime";
-      Modelica_SIunits.Torque tau
-        "Accelerating torque acting at flange (= -flange.tau)";
+      parameter SI.Torque offsetTorque(start=0) "Offset of torque";
+      parameter SI.Time startTime=0 "Torque = offset for time < startTime";
+      SI.Torque tau "Accelerating torque acting at flange (= -flange.tau)";
 
     equation
       tau = -flange.tau;
@@ -4717,7 +4705,6 @@ This package contains ideal sources to drive 1D mechanical rotational drive trai
 </p>
 </html>"));
   end Sources;
-
 
   package Icons "Icons for Rotational package"
     extends Modelica_Icons.IconsPackage;
@@ -5098,5 +5085,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
       fillColor={192,192,192},
       fillPattern=FillPattern.HorizontalCylinder,
       extent={{27.6923,-80.0},{67.6923,-60.0}})}),
-    uses(Modelica_Icons));
+    uses(Modelica_Icons, Modelica(version="3.2.1")));
 end Modelica_Mechanics_Rotational;

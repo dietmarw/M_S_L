@@ -1,6 +1,13 @@
 within ;
-package Modelica_Thermal_FluidHeatFlow_Examples
+encapsulated package Modelica_Thermal_FluidHeatFlow_Examples
   "Examples that demonstrate the usage of the FluidHeatFlow components"
+  import Modelica_Icons;
+  import Modelica_Thermal_FluidHeatFlow;
+  import Modelica_SIunits;
+  import Modelica_Thermal_HeatTransfer;
+  import Modelica_Blocks;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Constants;
   extends Modelica_Icons.ExamplesPackage;
 
   model SimpleCooling "Example: simple cooling circuit"
@@ -44,9 +51,8 @@ package Modelica_Thermal_FluidHeatFlow_Examples
       medium=medium,
       constantAmbientPressure=0) annotation (Placement(transformation(extent={{
               40,-10},{60,10}}, rotation=0)));
-    Modelica_Thermal_HeatTransfer.Components.HeatCapacitor heatCapacitor(
-                     C=0.1, T(start=TAmb, fixed=true))
-      annotation (Placement(transformation(
+    Modelica_Thermal_HeatTransfer.Components.HeatCapacitor heatCapacitor(C=0.1, T(
+          start=TAmb, fixed=true)) annotation (Placement(transformation(
           origin={40,-50},
           extent={{-10,10},{10,-10}},
           rotation=90)));
@@ -54,9 +60,8 @@ package Modelica_Thermal_FluidHeatFlow_Examples
       prescribedHeatFlow
       annotation (Placement(transformation(extent={{-30,-40},{-10,-60}},
             rotation=0)));
-    Modelica_Blocks.Sources.Constant volumeFlow(k=1)
-      annotation (Placement(transformation(extent={{-60,10},{-40,30}},
-            rotation=0)));
+    Modelica_Blocks.Sources.Constant volumeFlow(k=1) annotation (Placement(
+          transformation(extent={{-60,10},{-40,30}}, rotation=0)));
     Modelica_Blocks.Sources.Constant heatFlow(k=10)
       annotation (Placement(transformation(extent={{-60,-60},{-40,-40}},
             rotation=0)));
@@ -641,8 +646,7 @@ Inner coolant's temperature rise near the source is the same as temperature drop
       annotation (Placement(transformation(extent={{-30,-40},{-10,-20}},
             rotation=0)));
     Modelica_Mechanics_Rotational.Sources.Speed speed(exact=true, useSupport=
-          false)
-      annotation (Placement(transformation(
+          false) annotation (Placement(transformation(
           origin={-50,30},
           extent={{-10,-10},{10,10}},
           rotation=270)));
@@ -1331,5 +1335,5 @@ annotation (Documentation(info="<HTML>
        <i>new test example: OneMass</i><br>
        <i>new test example: TwoMass</i></li>
   </ul>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Thermal_FluidHeatFlow_Examples;

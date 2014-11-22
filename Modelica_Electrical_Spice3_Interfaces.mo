@@ -1,6 +1,9 @@
 within ;
-package Modelica_Electrical_Spice3_Interfaces
+encapsulated package Modelica_Electrical_Spice3_Interfaces
   "Connectors, Interfaces, and partial models"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Electrical_Analog_Interfaces;
 
   extends Modelica_Icons.InterfacesPackage;
 
@@ -13,7 +16,7 @@ package Modelica_Electrical_Spice3_Interfaces
     Modelica_SIunits.Current i2
       "Current flowing from pos. to neg. pin of the controlled port";
     Modelica_Electrical_Analog_Interfaces.PositivePin p1
-      "Positive pin of the controlling port"       annotation (Placement(
+      "Positive pin of the controlling port" annotation (Placement(
           transformation(extent={{-110,40},{-90,60}}, rotation=0)));
     Modelica_Electrical_Analog_Interfaces.NegativePin n1
       "Negative pin of the controlling port"       annotation (Placement(
@@ -107,5 +110,6 @@ on the model behaviour.
   annotation(preferredView="info",
       Documentation(info="<html>
 <p>The SPICE3 package uses the Modelica.Electrical.Analog interfaces. Only special partial models used in the SPICE3 package are located in this Interfaces package.</p>
-</html>"));
+</html>"),
+    uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_Spice3_Interfaces;

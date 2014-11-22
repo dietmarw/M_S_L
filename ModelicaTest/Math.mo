@@ -665,9 +665,9 @@ extends Modelica.Icons.ExamplesPackage;
      extends Modelica.Icons.Example;
   equation
      when initial() then
-        ModelicaTest.Math.Matrices();
-        ModelicaTest.Math.Matrices2();
-        ModelicaTest.Math.Matrices2b();
+      Matrices();
+      Matrices2();
+      Matrices2b();
      end when;
     annotation (experiment(StopTime=0));
   end MatricesInModel;

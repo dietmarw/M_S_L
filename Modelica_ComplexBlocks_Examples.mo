@@ -1,12 +1,16 @@
 within ;
-package Modelica_ComplexBlocks_Examples
+encapsulated package Modelica_ComplexBlocks_Examples
   "Library of examples to demonstrate the usage of package Blocks"
+  import Modelica_Icons;
+  import Modelica_Blocks;
+  import Modelica_Constants;
+  import Modelica_ComplexBlocks;
   extends Modelica_Icons.ExamplesPackage;
 
   model TestConversionBlock "Test the conversion blocks"
     extends Modelica_Icons.Example;
-    Modelica_Blocks.Sources.Ramp len(duration=1, offset=1E-6)
-      annotation (Placement(transformation(extent={{-80,10},{-60,30}}, rotation=0)));
+    Modelica_Blocks.Sources.Ramp len(duration=1, offset=1E-6) annotation (
+        Placement(transformation(extent={{-80,10},{-60,30}}, rotation=0)));
     Modelica_Blocks.Sources.Ramp phi(height=4*Modelica_Constants.pi, duration=1)
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}}, rotation=
              0)));
@@ -36,5 +40,6 @@ Plotting the imaginary part versus the real part, you will see an Archimedean sp
   end TestConversionBlock;
   annotation(Documentation(info="<html>
 <p>This library demonstrates the usage of Complex blocks.</p>
-</html>"), uses(Modelica_ComplexBlocks(version="3.2.2")));
+</html>"), uses(Modelica_ComplexBlocks(version="3.2.2"), Modelica(version=
+            "3.2.1")));
 end Modelica_ComplexBlocks_Examples;

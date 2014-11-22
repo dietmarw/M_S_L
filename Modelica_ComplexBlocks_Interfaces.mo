@@ -1,6 +1,11 @@
 within ;
-package Modelica_ComplexBlocks_Interfaces
+encapsulated package Modelica_ComplexBlocks_Interfaces
   "Library of connectors and partial models for input/output blocks"
+  import Modelica_Icons;
+  import Complex;
+  import Modelica_Blocks;
+  import Modelica_ComplexMath;
+  import Modelica_SIunits;
   extends Modelica_Icons.InterfacesPackage;
 
 connector ComplexInput = input Complex "'input Complex' as connector"
@@ -265,5 +270,5 @@ generated signal.
     end ComplexSignalSource;
 annotation(Documentation(info="<html>
 <p>This library defines Complex input and output signals, as well as partial blocks.</p>
-</html>"), uses(Complex(version="3.2.2")));
+</html>"), uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
 end Modelica_ComplexBlocks_Interfaces;

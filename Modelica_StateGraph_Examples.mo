@@ -1,6 +1,10 @@
 within ;
-package Modelica_StateGraph_Examples
+encapsulated package Modelica_StateGraph_Examples
   "Examples to demonstrate the usage of the components of the StateGraph library"
+  import Modelica_Icons;
+  import Modelica_StateGraph;
+  import Modelica_Blocks;
+  import Modelica_Constants;
   extends Modelica_Icons.ExamplesPackage;
 
   model FirstExample "A first simple StateGraph example"
@@ -43,7 +47,7 @@ package Modelica_StateGraph_Examples
     Modelica_StateGraph.TransitionWithSignal transition2 annotation (Placement(
           transformation(extent={{52,0},{72,20}}, rotation=0)));
     Modelica_Blocks.Logical.Timer timer annotation (Placement(transformation(
-              extent={{6,-40},{26,-20}}, rotation=0)));
+            extent={{6,-40},{26,-20}}, rotation=0)));
     Modelica_Blocks.Logical.GreaterEqualThreshold greaterEqual(threshold=1)
       annotation (Placement(transformation(extent={{36,-40},{56,-20}}, rotation=
                0)));
@@ -134,8 +138,8 @@ package Modelica_StateGraph_Examples
       annotation (Placement(transformation(extent={{-42,80},{-22,100}},
             rotation=0)));
     Modelica_StateGraph.Transition transition4(enableTimer=true, waitTime=1)
-      annotation (Placement(transformation(extent={{-42,40},{-22,60}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-42,40},{-22,60}}, rotation=
+             0)));
     Modelica_StateGraph.Step step3 annotation (Placement(transformation(extent=
               {{-8,80},{12,100}}, rotation=0)));
     Modelica_StateGraph.Step step4 annotation (Placement(transformation(extent=
@@ -158,8 +162,8 @@ package Modelica_StateGraph_Examples
     Modelica_StateGraph.Transition transition4a(enableTimer=true, waitTime=1)
       annotation (Placement(transformation(extent={{-42,0},{-22,20}}, rotation=
               0)));
-    Modelica_StateGraph.Step step4a annotation (Placement(transformation(extent
-            ={{-8,0},{12,20}}, rotation=0)));
+    Modelica_StateGraph.Step step4a annotation (Placement(transformation(extent=
+             {{-8,0},{12,20}}, rotation=0)));
     Modelica_StateGraph.Transition transition6a(enableTimer=true, waitTime=2)
       annotation (Placement(transformation(extent={{26,0},{46,20}}, rotation=0)));
     Modelica_StateGraph.Temporary.NumericValue NumericValue1 annotation (
@@ -321,8 +325,8 @@ is that the alternative paths are included in a \"CompositeStep\".
     Modelica_StateGraph.InitialStep initialStep annotation (Placement(
           transformation(extent={{-80,30},{-60,50}}, rotation=0)));
     Modelica_StateGraph.Transition transition1(enableTimer=true, waitTime=1)
-      annotation (Placement(transformation(extent={{-50,30},{-30,50}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-50,30},{-30,50}}, rotation=
+             0)));
     Modelica_StateGraph.Transition transition2(enableTimer=true, waitTime=1)
       annotation (Placement(transformation(extent={{20,30},{40,50}}, rotation=0)));
     Modelica_StateGraph.Transition transition3(enableTimer=true, waitTime=2)
@@ -331,8 +335,8 @@ is that the alternative paths are included in a \"CompositeStep\".
     Modelica_StateGraph.Step step1 annotation (Placement(transformation(extent=
               {{-24,-30},{-4,-10}}, rotation=0)));
     Modelica_StateGraph.Transition transition4(enableTimer=true, waitTime=1)
-      annotation (Placement(transformation(extent={{10,-30},{30,-10}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{10,-30},{30,-10}}, rotation=
+             0)));
       inner Modelica_StateGraph.StateGraphRoot stateGraphRoot
       annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   equation
@@ -731,7 +735,7 @@ buttons:
 
         import Units = Modelica_SIunits;
 
-        input Modelica_SIunits.VolumeFlowRate Fi "inflow";
+        input Units.VolumeFlowRate Fi "inflow";
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}), graphics={Polygon(
                 points={{-100,-100},{0,100},{100,-100},{-100,-100}},
@@ -746,7 +750,7 @@ buttons:
 
         import Units = Modelica_SIunits;
 
-        output Modelica_SIunits.VolumeFlowRate Fi "inflow";
+        output Units.VolumeFlowRate Fi "inflow";
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}), graphics={Polygon(
                 points={{-100,-100},{0,100},{100,-100},{-100,-100}},
@@ -761,7 +765,7 @@ buttons:
 
         import Units = Modelica_SIunits;
 
-        output Modelica_SIunits.VolumeFlowRate Fo "outflow";
+        output Units.VolumeFlowRate Fo "outflow";
       input Boolean open "valve open";
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}), graphics={Polygon(
@@ -777,7 +781,7 @@ buttons:
 
         import Units = Modelica_SIunits;
 
-        input Modelica_SIunits.VolumeFlowRate Fo "outflow";
+        input Units.VolumeFlowRate Fo "outflow";
       output Boolean open "valve open";
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}), graphics={Polygon(
@@ -796,13 +800,11 @@ buttons:
               origin={0,-80},
               extent={{-20,-20},{20,20}},
               rotation=90)));
-      Modelica_StateGraph_Examples.Utilities.Inflow2 inflow1 annotation (
-          Placement(transformation(
+      Inflow2 inflow1 annotation (Placement(transformation(
             origin={50,0},
             extent={{-50,-50},{50,50}},
             rotation=90)));
-      Modelica_StateGraph_Examples.Utilities.Outflow2 outflow1 annotation (
-          Placement(transformation(
+      Outflow2 outflow1 annotation (Placement(transformation(
             origin={-50,0},
             extent={{-50,-50},{50,50}},
             rotation=90)));
@@ -833,10 +835,10 @@ buttons:
         annotation (Placement(transformation(extent={{-61,-30},{-81,-10}},
                 rotation=0)));
 
-      Modelica_StateGraph_Examples.Utilities.Inflow1 inflow1 annotation (
-          Placement(transformation(extent={{-55,60},{-45,70}}, rotation=0)));
-      Modelica_StateGraph_Examples.Utilities.Outflow1 outflow1 annotation (
-          Placement(transformation(extent={{55,-50},{65,-40}}, rotation=0)));
+      Inflow1 inflow1 annotation (Placement(transformation(extent={{-55,60},{-45,
+                70}}, rotation=0)));
+      Outflow1 outflow1 annotation (Placement(transformation(extent={{55,-50},{
+                65,-40}}, rotation=0)));
       Real level(start=0,fixed=true) "Tank level in % of max height";
       parameter Real A=1 "Ground area of tank in m^2";
       parameter Real a=0.2 "Area of drain hole in m^2";
@@ -875,8 +877,8 @@ buttons:
     model Source
       "Simple source model (this is a copy from Isolde Dressler's master thesis project)"
 
-      Modelica_StateGraph_Examples.Utilities.Outflow1 outflow1 annotation (
-          Placement(transformation(extent={{-10,-60},{10,-40}}, rotation=0)));
+      Outflow1 outflow1 annotation (Placement(transformation(extent={{-10,-60},
+                {10,-40}}, rotation=0)));
       parameter Real maxflow=1 "maximal flow out of source";
     equation
       if outflow1.open then
@@ -910,8 +912,8 @@ buttons:
       Modelica_StateGraph.Step step4 annotation (Placement(transformation(
               extent={{-10,-10},{10,10}}, rotation=0)));
       Modelica_StateGraph.Transition transition5(enableTimer=true, waitTime=2)
-        annotation (Placement(transformation(extent={{36,50},{56,70}}, rotation
-              =0)));
+        annotation (Placement(transformation(extent={{36,50},{56,70}}, rotation=
+               0)));
       Modelica_StateGraph.Transition transition6(enableTimer=true, waitTime=2)
         annotation (Placement(transformation(extent={{36,-10},{56,10}},
               rotation=0)));
@@ -992,8 +994,8 @@ buttons:
         waitTime=0) annotation (Placement(transformation(extent={{-61,-40},{-41,
                 -20}}, rotation=0)));
       Modelica_StateGraph.Transition transition3(enableTimer=false, waitTime=0)
-        annotation (Placement(transformation(extent={{29,20},{49,40}}, rotation
-              =0)));
+        annotation (Placement(transformation(extent={{29,20},{49,40}}, rotation=
+               0)));
       Modelica_StateGraph.Transition transition4(enableTimer=false, waitTime=0)
         annotation (Placement(transformation(extent={{29,-40},{49,-20}},
               rotation=0)));
@@ -1053,4 +1055,5 @@ buttons:
     end CompositeStep2;
 
   end Utilities;
+  annotation (uses(Modelica(version="3.2.1")));
 end Modelica_StateGraph_Examples;

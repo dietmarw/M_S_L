@@ -1,5 +1,13 @@
 within ;
-package Modelica_Electrical_MultiPhase_Examples "Multiphase test examples"
+encapsulated package Modelica_Electrical_MultiPhase_Examples
+  "Multiphase test examples"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_Electrical_Analog;
+  import Modelica_Math;
+  import Modelica_Constants;
+  import Modelica_Blocks;
   extends Modelica_Icons.ExamplesPackage;
 
   model TransformerYY "Test example with multiphase components"
@@ -493,5 +501,5 @@ This package contains test examples of analog electrical multiphase circuits.
   and the accompanying <b>disclaimer</b> in the documentation of package
   Modelica in file \"Modelica/package.mo\".</i></dd>
 </dl>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_MultiPhase_Examples;

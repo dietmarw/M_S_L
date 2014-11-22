@@ -1,6 +1,9 @@
 within ;
-package Modelica_Thermal_HeatTransfer_Interfaces
+encapsulated package Modelica_Thermal_HeatTransfer_Interfaces
   "Connectors and partial models"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Thermal_HeatTransfer;
 
   extends Modelica_Icons.InterfacesPackage;
 
@@ -121,8 +124,8 @@ constitutive equations for many types of heat transfer components.
     parameter Modelica_SIunits.Temperature T=293.15
       "Fixed device temperature if useHeatPort = false"
       annotation(Dialog(enable=not useHeatPort));
-    Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort(final T=
-          TheatPort, final Q_flow=-lossPower) if useHeatPort
+    HeatPort_a heatPort(final T=TheatPort, final Q_flow=-lossPower) if
+      useHeatPort
       "Optional port to which dissipated losses are transported in form of heat"
       annotation (Placement(transformation(extent={{-110,-110},{-90,-90}}),
           iconTransformation(extent={{-110,-110},{-90,-90}})));
@@ -153,8 +156,7 @@ If this model is used, the loss power has to be provided by an equation in the m
     "Partial model to include a conditional HeatPort in order to dissipate losses, used for textual modeling, i.e., for elementary models"
     parameter Boolean useHeatPort = false "=true, if heatPort is enabled"
       annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
-    Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort(final Q_flow=-
-          lossPower) if useHeatPort
+    HeatPort_a heatPort(final Q_flow=-lossPower) if useHeatPort
       "Optional port to which dissipated losses are transported in form of heat"
       annotation (Placement(transformation(extent={{-110,-110},{-90,-90}}),
           iconTransformation(extent={{-110,-110},{-90,-90}})));
@@ -187,12 +189,12 @@ Note, this partial model is used in cases, where heatPort.T (that is the device 
     parameter Modelica_SIunits.Temperature T=293.15
       "Fixed device temperature if useHeatPort = false"
       annotation(Dialog(enable=not useHeatPort));
-    Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort if useHeatPort
+    HeatPort_a heatPort if useHeatPort
       "Optional port to which dissipated losses are transported in form of heat"
       annotation (Placement(transformation(extent={{-110,-110},{-90,-90}}),
           iconTransformation(extent={{-110,-110},{-90,-90}})));
-    Modelica_Thermal_HeatTransfer.Sources.FixedTemperature fixedTemperature(final T=T) if
-         not useHeatPort
+    Modelica_Thermal_HeatTransfer.Sources.FixedTemperature fixedTemperature(final T=T)
+      if not useHeatPort
       annotation (Placement(transformation(extent={{-60,-90},{-80,-70}})));
   protected
     HeatPort_a internalHeatPort
@@ -222,4 +224,5 @@ The device temperature <b>internalHeatPort.T</b> can be used to describe the inf
 </html>"));
   end PartialConditionalHeatPort;
 
+  annotation (uses(Modelica(version="3.2.1")));
 end Modelica_Thermal_HeatTransfer_Interfaces;

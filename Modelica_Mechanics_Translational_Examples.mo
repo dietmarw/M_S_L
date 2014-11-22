@@ -1,6 +1,11 @@
 within ;
-package Modelica_Mechanics_Translational_Examples
+encapsulated package Modelica_Mechanics_Translational_Examples
   "Demonstration examples of the components of this package"
+  import Modelica_Icons;
+  import Modelica_Mechanics_Translational;
+  import Modelica_Blocks;
+  import Modelica_SIunits;
+  import Modelica_Thermal_HeatTransfer;
 
   extends Modelica_Icons.ExamplesPackage;
 
@@ -14,9 +19,8 @@ package Modelica_Mechanics_Translational_Examples
             rotation=0)));
     Modelica_Mechanics_Translational.Sources.Force force1 annotation (Placement(
           transformation(extent={{-4,60},{16,80}}, rotation=0)));
-    Modelica_Blocks.Sources.Constant constant1(k=1)
-                               annotation (Placement(transformation(extent={{
-              -44,60},{-24,80}}, rotation=0)));
+    Modelica_Blocks.Sources.Constant constant1(k=1) annotation (Placement(
+          transformation(extent={{-44,60},{-24,80}}, rotation=0)));
     Modelica_Mechanics_Translational.Components.Mass mass2(
       L=1,
       s(fixed=true),
@@ -118,8 +122,8 @@ the two other examples).
     Modelica_Mechanics_Translational.Components.Fixed fixed2(s0=1) annotation (
         Placement(transformation(extent={{-100,60},{-80,80}}, rotation=0)));
     Modelica_Mechanics_Translational.Components.Spring s2(s_rel0=2, c=1e3)
-      annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation=
+             0)));
     Modelica_Mechanics_Translational.Components.Mass m3(
       L=3,
       s(start=4.5, fixed=true),
@@ -138,8 +142,8 @@ the two other examples).
       m=1) annotation (Placement(transformation(extent={{60,60},{80,80}},
             rotation=0)));
 
-    Modelica_Mechanics_Translational.Components.Fixed fixed1(s0=-1) annotation
-      (Placement(transformation(extent={{-100,-20},{-80,0}}, rotation=0)));
+    Modelica_Mechanics_Translational.Components.Fixed fixed1(s0=-1) annotation (
+       Placement(transformation(extent={{-100,-20},{-80,0}}, rotation=0)));
     Modelica_Mechanics_Translational.Components.Spring s1(
       s_rel0=1,
       c=1e3,
@@ -358,8 +362,8 @@ problems.
     extends Modelica_Icons.Example;
     Modelica_Mechanics_Translational.Sources.Accelerate accelerate annotation (
         Placement(transformation(extent={{-40,20},{-20,40}}, rotation=0)));
-    Modelica_Mechanics_Translational.Components.Mass mass(L=1, m=1) annotation
-      (Placement(transformation(extent={{0,20},{20,40}}, rotation=0)));
+    Modelica_Mechanics_Translational.Components.Mass mass(L=1, m=1) annotation (
+       Placement(transformation(extent={{0,20},{20,40}}, rotation=0)));
     Modelica_Blocks.Sources.Constant constantAcc(k=1)
                                                annotation (Placement(transformation(extent={{-80,20},
               {-60,40}},          rotation=0)));
@@ -411,8 +415,8 @@ with a predefined acceleration.
       m=1) annotation (Placement(transformation(extent={{-80,-60},{-60,-40}},
             rotation=0)));
     Modelica_Mechanics_Translational.Components.Fixed fixed3(s0=4.5)
-      annotation (Placement(transformation(extent={{20,-60},{40,-40}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{20,-60},{40,-40}}, rotation=
+             0)));
     Modelica_Mechanics_Translational.Components.Spring spring2(s_rel0=1, c=1)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}}, rotation=0)));
     Modelica_Mechanics_Translational.Components.SpringDamper springDamper3(
@@ -486,8 +490,8 @@ Demonstrate usage of damper components in different variants.
     Modelica_Blocks.Sources.Sine sine2(freqHz=15.9155) annotation (Placement(transformation(
             extent={{-100,-60},{-80,-40}}, rotation=0)));
     Modelica_Mechanics_Translational.Components.Damper damper1(d=10)
-      annotation (Placement(transformation(extent={{20,-36},{40,-16}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{20,-36},{40,-16}}, rotation=
+             0)));
   equation
     connect(mass1.flange_b, spring1.flange_a)        annotation (Line(points=
             {{0,50},{20,50}}, color={0,191,0}));
@@ -805,12 +809,12 @@ to see the difference.
     Modelica_Mechanics_Translational.Sources.Force force annotation (Placement(
           transformation(extent={{-38,-30},{-18,-10}}, rotation=0)));
     Modelica_Mechanics_Translational.Components.Rod housing(L=0.0305)
-      annotation (Placement(transformation(extent={{-10,80},{10,100}}, rotation
-            =0)));
-    Modelica_Mechanics_Translational.Components.Rod rod3(L=0.00575) annotation
-      (Placement(transformation(extent={{-40,-2},{-20,18}}, rotation=0)));
-    Modelica_Mechanics_Translational.Components.Rod rod4(L=0.00575) annotation
-      (Placement(transformation(extent={{20,-2},{40,18}}, rotation=0)));
+      annotation (Placement(transformation(extent={{-10,80},{10,100}}, rotation=
+             0)));
+    Modelica_Mechanics_Translational.Components.Rod rod3(L=0.00575) annotation (
+       Placement(transformation(extent={{-40,-2},{-20,18}}, rotation=0)));
+    Modelica_Mechanics_Translational.Components.Rod rod4(L=0.00575) annotation (
+       Placement(transformation(extent={{20,-2},{40,18}}, rotation=0)));
     Modelica_Mechanics_Translational.Components.Rod rod2(L=0.007) annotation (
         Placement(transformation(extent={{20,30},{40,50}}, rotation=0)));
     Modelica_Blocks.Sources.Sine sineForce(amplitude=150, freqHz=0.01)
@@ -1082,8 +1086,8 @@ one where the brake is implicitly grounded and one where it is explicitly ground
       d=10,
       useHeatPort=true)
       annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
-    Modelica_Mechanics_Translational.Components.Damper damper(d=10, useHeatPort
-        =true) annotation (Placement(transformation(
+    Modelica_Mechanics_Translational.Components.Damper damper(d=10, useHeatPort=
+         true) annotation (Placement(transformation(
           extent={{-10,10},{10,-10}},
           rotation=-90,
           origin={-60,-10})));
@@ -1308,5 +1312,5 @@ Translational package. Open the models and
 simulate them according to the provided description in the models.
 </p>
 
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Mechanics_Translational_Examples;

@@ -1,5 +1,17 @@
 within ;
-package Modelica_Magnetic_QuasiStatic_FundamentalWave_Examples "Examples"
+encapsulated package Modelica_Magnetic_QuasiStatic_FundamentalWave_Examples
+  "Examples"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Electrical_QuasiStationary;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_Magnetic_QuasiStatic_FundamentalWave;
+  import Modelica_Blocks;
+  import Modelica_Electrical_Analog;
+  import Modelica_Electrical_Machines;
+  import Modelica_Magnetic_FundamentalWave;
+  import Modelica_Mechanics_Rotational;
+  import Complex;
   extends Modelica_Icons.ExamplesPackage;
   package Components
     "Examples for testing quasi static fundamental wave components"
@@ -351,7 +363,7 @@ In this example the eddy current losses are implemented in two different ways. C
         parameter Modelica_SIunits.Time tOn=0.1 "Start time of machine";
         parameter Modelica_SIunits.Torque T_Load=161.4 "Nominal load torque";
         parameter Modelica_SIunits.AngularVelocity w_Load(displayUnit="1/min")=
-             1440.45*2*Modelica_Constants.pi/60 "Nominal load speed";
+             1440.45*2*pi                   /60 "Nominal load speed";
         parameter Modelica_SIunits.Inertia J_Load=0.5 "Load inertia";
         parameter Integer p=2 "Number of pole pairs";
         Modelica_Electrical_QuasiStationary.MultiPhase.Sources.VoltageSource
@@ -388,9 +400,9 @@ In this example the eddy current losses are implemented in two different ways. C
               origin={-60,70},
               extent={{10,10},{-10,-10}},
               rotation=270)));
-        Modelica_Blocks.Sources.BooleanStep booleanStepQS[m](each startTime=
-              tOn, each startValue=false) annotation (Placement(
-              transformation(extent={{-96,60},{-76,80}}, rotation=0)));
+        Modelica_Blocks.Sources.BooleanStep booleanStepQS[m](each startTime=tOn,
+            each startValue=false) annotation (Placement(transformation(extent=
+                  {{-96,60},{-76,80}}, rotation=0)));
         Modelica_Electrical_Analog.Basic.Ground ground annotation (Placement(
               transformation(
               origin={-90,-80},
@@ -422,8 +434,8 @@ In this example the eddy current losses are implemented in two different ways. C
               extent={{-10,-10},{10,10}},
               rotation=0)));
         Modelica_Electrical_Machines.Utilities.TerminalBox terminalBoxM(m=m,
-            terminalConnection="Y") annotation (Placement(transformation(
-                extent={{20,-60},{40,-40}}, rotation=0)));
+            terminalConnection="Y") annotation (Placement(transformation(extent
+                ={{20,-60},{40,-40}}, rotation=0)));
         Modelica_Magnetic_FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage
           imc(
           Jr=imcData.Jr,
@@ -447,8 +459,8 @@ In this example the eddy current losses are implemented in two different ways. C
           TrRef=imcData.TrRef,
           m=m,
           TsOperational=293.15,
-          TrOperational=293.15) annotation (Placement(transformation(extent={
-                  {20,-80},{40,-60}}, rotation=0)));
+          TrOperational=293.15) annotation (Placement(transformation(extent={{
+                  20,-80},{40,-60}}, rotation=0)));
         Modelica_Mechanics_Rotational.Components.Inertia loadInertia(J=J_Load)
           annotation (Placement(transformation(extent={{50,-80},{70,-60}},
                 rotation=0)));
@@ -524,7 +536,7 @@ In this example the eddy current losses are implemented in two different ways. C
               transformation(extent={{20,40},{40,60}}, rotation=0)));
       initial equation
         imc.is[1:2] = zeros(2);
-        imc.rotorCage.electroMagneticConverter.Phi = Complex(0,0);
+        imc.rotorCage.electroMagneticConverter.Phi = Complex(0, 0);
 
       equation
         connect(groundQS.pin, starQS.pin_n)
@@ -699,7 +711,7 @@ In this example the eddy current losses are implemented in two different ways. C
           final m=m,
           VNominal=VNominal,
           fNominal=fNominal,
-          BasePhase=+Modelica_Constants.pi/2) annotation (Placement(
+          BasePhase=+pi                   /2) annotation (Placement(
               transformation(extent={{-38,-30},{-18,-10}}, rotation=0)));
         Modelica_Electrical_MultiPhase.Sources.SignalVoltage signalVoltage(
             final m=m) annotation (Placement(transformation(
@@ -807,7 +819,7 @@ In this example the eddy current losses are implemented in two different ways. C
           final m=m,
           VNominal=VNominal,
           fNominal=fNominal,
-          BasePhase=+Modelica_Constants.pi/2) annotation (Placement(
+          BasePhase=+pi                   /2) annotation (Placement(
               transformation(extent={{-40,74},{-20,94}}, rotation=0)));
       initial equation
         imc.is[1:2] = zeros(2);
@@ -1376,7 +1388,6 @@ Simulate for 1.5 seconds and plot (versus time):
           TrRef=smpmData.TrRef,
           VsOpenCircuit=smpmData.VsOpenCircuit,
           permanentMagnetLossParameters=smpmData.permanentMagnetLossParameters,
-
           gammar(start=pi/2, fixed=true),
           gamma(start=-pi/2, fixed=true),
           wMechanical(fixed=true, start=2*pi*smpmData.fsNominal/smpmData.p),
@@ -1620,7 +1631,6 @@ Simulate for 1.5 seconds and plot (versus time):
           Rrq=smpmData.Rrq,
           TrRef=smpmData.TrRef,
           permanentMagnetLossParameters=smpmData.permanentMagnetLossParameters,
-
           phiMechanical(start=0),
           m=m,
           TsOperational=293.15,
@@ -1892,7 +1902,6 @@ Simulate for 1.5 seconds and plot (versus time):
           Rrq=smpmData.Rrq,
           TrRef=smpmData.TrRef,
           permanentMagnetLossParameters=smpmData.permanentMagnetLossParameters,
-
           TsOperational=293.15,
           alpha20s=smpmData.alpha20s,
           phiMechanical(fixed=true, start=0),
@@ -2168,7 +2177,7 @@ Default machine parameters of model <a href=\"modelica://Modelica.Electrical.Mac
                 extent={{-10,-60},{10,-40}}, rotation=0)));
         Modelica_Magnetic_FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcited
           smee(
-          phiMechanical(start=-(Modelica_Constants.pi + gamma0)/smee.p, fixed=
+          phiMechanical(start=-(pi                    + gamma0)/smee.p, fixed=
                true),
           Jr=0.29,
           Js=0.29,
@@ -2861,5 +2870,5 @@ Default machine parameters of model <a href=\"modelica://Modelica.Electrical.Mac
       end SMR_CurrentSource;
     end SynchronousMachines;
   end BasicMachines;
-  annotation (uses(Complex(version="3.2.2")));
+  annotation (uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
 end Modelica_Magnetic_QuasiStatic_FundamentalWave_Examples;

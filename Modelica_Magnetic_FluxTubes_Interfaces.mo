@@ -1,6 +1,11 @@
 within ;
-package Modelica_Magnetic_FluxTubes_Interfaces
+encapsulated package Modelica_Magnetic_FluxTubes_Interfaces
   "Interfaces of magnetic network components"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Magnetic_FluxTubes;
+  import Modelica_Constants;
+  import Modelica_Mechanics_Translational_Interfaces;
   extends Modelica_Icons.InterfacesPackage;
 
   connector MagneticPort "Generic magnetic port"
@@ -12,7 +17,7 @@ package Modelica_Magnetic_FluxTubes_Interfaces
   end MagneticPort;
 
   connector PositiveMagneticPort "Positive magnetic port"
-    extends Modelica_Magnetic_FluxTubes_Interfaces.MagneticPort;
+    extends MagneticPort;
 
     annotation (
       defaultComponentName="port_p",
@@ -35,7 +40,7 @@ package Modelica_Magnetic_FluxTubes_Interfaces
   end PositiveMagneticPort;
 
   connector NegativeMagneticPort "Negative magnetic port"
-    extends Modelica_Magnetic_FluxTubes_Interfaces.MagneticPort;
+    extends MagneticPort;
 
     annotation (
       defaultComponentName="port_n",
@@ -60,12 +65,10 @@ package Modelica_Magnetic_FluxTubes_Interfaces
   partial model PartialTwoPortsElementary
     "Partial component with two magnetic ports p and n for textual programming"
 
-    Modelica_Magnetic_FluxTubes_Interfaces.PositiveMagneticPort port_p
-      "Positive magnetic port" annotation (Placement(transformation(extent={{-110,
-              -10},{-90,10}}, rotation=0)));
-    Modelica_Magnetic_FluxTubes_Interfaces.NegativeMagneticPort port_n
-      "Negative magnetic port" annotation (Placement(transformation(extent={{90,
-              -10},{110,10}}, rotation=0)));
+    PositiveMagneticPort port_p "Positive magnetic port" annotation (Placement(
+          transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+    NegativeMagneticPort port_n "Negative magnetic port" annotation (Placement(
+          transformation(extent={{90,-10},{110,10}}, rotation=0)));
 
     annotation (Documentation(info="<html>
 <p>
@@ -79,7 +82,7 @@ connector port_n.
   partial model PartialTwoPorts
     "Partial component with magnetic potential difference between two magnetic ports p and n and magnetic flux Phi from p to n"
 
-    extends Modelica_Magnetic_FluxTubes_Interfaces.PartialTwoPortsElementary;
+    extends PartialTwoPortsElementary;
     Modelica_SIunits.MagneticPotentialDifference V_m
       "Magnetic potential difference between both ports";
     Modelica_SIunits.MagneticFlux Phi(start=0)
@@ -101,7 +104,7 @@ This magnetic flux is provided explicitly as flux Phi.
   partial model PartialFixedShape
     "Base class for flux tubes with fixed shape during simulation; linear or non-linear material characteristics"
 
-    extends Modelica_Magnetic_FluxTubes_Interfaces.PartialTwoPorts;
+    extends PartialTwoPorts;
 
     parameter Boolean nonLinearPermeability=true
       "= true, if non-linear rel. permeability is used, otherwise constant rel. permeability"
@@ -162,7 +165,7 @@ Please refer to the description of  the sub-package <a href=\"modelica://Modelic
   partial model PartialForce
     "Base class for flux tubes with reluctance force generation; constant permeability"
 
-    extends Modelica_Magnetic_FluxTubes_Interfaces.PartialTwoPorts;
+    extends PartialTwoPorts;
 
     parameter Boolean useSupport=false
       "= true, if support flange enabled, otherwise implicitly grounded"
@@ -240,7 +243,7 @@ Please refer to the description of  the sub-package <a href=\"modelica://Modelic
   partial model PartialLeakage
     "Base class for leakage flux tubes with position-independent permeance and hence no force generation; mu_r=1"
 
-    extends Modelica_Magnetic_FluxTubes_Interfaces.PartialTwoPorts;
+    extends PartialTwoPorts;
 
     Modelica_SIunits.Reluctance R_m "Magnetic reluctance";
     Modelica_SIunits.Permeance G_m "Magnetic permeance";
@@ -273,5 +276,5 @@ Please refer to the description of  the sub-package <a href=\"modelica://Modelic
 This package contains connectors for the magnetic domain and partial models for lumped magnetic network components.
 </p>
 
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Magnetic_FluxTubes_Interfaces;

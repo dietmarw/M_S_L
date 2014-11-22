@@ -1,6 +1,10 @@
 within ;
-package Modelica_Mechanics_Translational_Interfaces
+encapsulated package Modelica_Mechanics_Translational_Interfaces
   "Interfaces for 1-dim. translational mechanical components"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Mechanics_Translational;
+  import Modelica_Mechanics_Rotational_Interfaces;
     extends Modelica_Icons.InterfacesPackage;
 
   connector Flange_a
@@ -901,8 +905,8 @@ with the Modelica.Blocks blocks.
             rotation=0)));
     Flange_b flange_b
       "(right) driven flange (flange axis directed out of cut plane)"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
+             0)));
 
   equation
     0 = flange_a.f + flange_b.f;
@@ -1020,5 +1024,5 @@ translational mechanical components. The components of this package can
 only be used as basic building elements for models.
 </p>
 
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Mechanics_Translational_Interfaces;

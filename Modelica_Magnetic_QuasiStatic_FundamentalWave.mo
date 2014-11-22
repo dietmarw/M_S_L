@@ -1,6 +1,28 @@
 within ;
-package Modelica_Magnetic_QuasiStatic_FundamentalWave
+encapsulated package Modelica_Magnetic_QuasiStatic_FundamentalWave
   "Quasi static fundamental wave electric machines"
+  import Modelica_Icons;
+  import Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces;
+  import Complex;
+  import Modelica_Magnetic_FundamentalWave;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
+  import Modelica_SIunits;
+  import Modelica_ComplexMath;
+  import Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_Electrical_Analog_Interfaces;
+  import Modelica_Electrical_Machines;
+  import Modelica_Electrical_Machines_Interfaces;
+  import Modelica_Electrical_QuasiStationary;
+  import Modelica_Constants;
+  import Modelica_ComplexBlocks_Interfaces;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Electrical_Analog;
+  import Modelica_Mechanics_Rotational_Interfaces;
+  import Modelica_Thermal_HeatTransfer;
+  import Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces;
+  import Modelica_Blocks;
+  import Modelica_ComplexBlocks;
   extends Modelica_Icons.Package;
   package UsersGuide "User's Guide"
     extends Modelica_Icons.Information;
@@ -268,8 +290,8 @@ Grounding of the complex magnetic potential. Each magnetic circuit has to be gro
       import Modelica_Constants.pi;
       extends
         Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces.PartialTwoPortElementary;
-      parameter Modelica_Magnetic_FundamentalWave.Types.SalientReluctance R_m(d(
-            start=1), q(start=1)) "Magnetic reluctance in d=re and q=im axis";
+      parameter Modelica_Magnetic_FundamentalWave.Types.SalientReluctance R_m(d(start=1),
+          q(start=1)) "Magnetic reluctance in d=re and q=im axis";
     equation
       (pi/2)*V_m.re = R_m.d*Phi.re;
       (pi/2)*V_m.im = R_m.q*Phi.im;
@@ -447,8 +469,8 @@ relationship of the voltage and current space phasor.
       "Multi phase electro magnetic converter"
       import Modelica_Constants.pi;
       constant Complex j=Complex(0, 1);
-      Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
-        plug_p(final m=m) "Positive plug" annotation (Placement(transformation(
+      Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug plug_p(final m=m)
+        "Positive plug" annotation (Placement(transformation(
             origin={-100,100},
             extent={{-10,-10},{10,10}},
             rotation=180)));
@@ -1823,6 +1845,7 @@ Magnetic.FundamentalWave.BasicMachines.SM_ReluctanceRotor</a>,
       extends Modelica_Icons.Package;
       model SymmetricMultiPhaseWinding
         "Symmetric winding model coupling electrical and magnetic domain"
+        import Modelica_Magnetic_QuasiStatic_FundamentalWave;
         // Orientation changed
         Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
           plug_p(final m=m) "Positive plug" annotation (Placement(
@@ -2314,6 +2337,7 @@ Magnetic.FundamentalWave.BasicMachines.Components.RotorSaliencyAirGap</a>
 
       model SymmetricMultiPhaseCageWinding "Symmetrical rotor cage"
         import Modelica_Constants.pi;
+        import Modelica_Magnetic_QuasiStatic_FundamentalWave;
         extends
           Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces.PartialTwoPortExtended;
         parameter Integer m=3 "Number of phases";
@@ -2367,9 +2391,8 @@ Magnetic.FundamentalWave.BasicMachines.Components.RotorSaliencyAirGap</a>
         Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPortWinding if
           useHeatPort "Heat ports of winding resistor"
           annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-        Modelica_Thermal_HeatTransfer.Components.ThermalCollector
-          thermalCollector(final m=m) if useHeatPort
-          "Connector of thermal rotor resistance heat ports"
+        Modelica_Thermal_HeatTransfer.Components.ThermalCollector thermalCollector(final m=m)
+          if useHeatPort "Connector of thermal rotor resistance heat ports"
           annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
         Modelica_Electrical_QuasiStationary.MultiPhase.Basic.Star starAuxiliary(
             final m=m) annotation (Placement(transformation(extent={{30,-90},{
@@ -2488,6 +2511,7 @@ Magnetic.FundamentalWave.BasicMachines.Components.RotorSaliencyAirGap</a>
       end SymmetricMultiPhaseCageWinding;
 
       model SaliencyCageWinding "Rotor cage with saliency in d- and q-axis"
+        import Modelica_Magnetic_QuasiStatic_FundamentalWave;
         extends
           Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces.PartialTwoPortExtended;
         parameter Boolean useHeatPort=false
@@ -3201,7 +3225,6 @@ This package provides sensors for the magnetic potential difference and the magn
 </html>"));
   end Sensors;
 
-
   package Utilities "Utilities for quasi static fundamental wave machines"
     extends Modelica_Icons.Package;
     block VfController "Voltage-Frequency-Controller"
@@ -3302,8 +3325,8 @@ The output voltages may serve as inputs for complex voltage sources with phase i
         plugSupply(final m=m) "To grid" annotation (Placement(transformation(
               extent={{-10,-70},{10,-90}}, rotation=0)));
       Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.NegativePin starpoint if (
-        terminalConnection <> "D") annotation (Placement(transformation(
-              extent={{-100,-90},{-80,-70}}, rotation=0)));
+        terminalConnection <> "D") annotation (Placement(transformation(extent=
+                {{-100,-90},{-80,-70}}, rotation=0)));
     equation
       connect(star.plug_p, plug_sn) annotation (Line(
           points={{-60,-80},{-60,-100}},
@@ -3615,5 +3638,6 @@ Copyright &copy; 2013-2014, <a href=\"modelica://Modelica.Magnetic.FundamentalWa
 </p>
 </html>"), uses(
       Complex(version="3.2.2"),
-      Modelica_ComplexBlocks(version="3.2.2")));
+      Modelica_ComplexBlocks(version="3.2.2"),
+      Modelica(version="3.2.1")));
 end Modelica_Magnetic_QuasiStatic_FundamentalWave;

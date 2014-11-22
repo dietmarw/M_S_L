@@ -1,5 +1,21 @@
 within ;
-package Modelica_Electrical_Machines "Library for electric machines"
+encapsulated package Modelica_Electrical_Machines
+  "Library for electric machines"
+  import Modelica_Icons;
+  import Modelica_Electrical_Machines_Interfaces;
+  import Modelica_SIunits;
+  import Modelica_Constants;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_Electrical_MultiPhase_Interfaces;
+  import Modelica_Electrical_Analog;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Electrical_Analog_Interfaces;
+  import Modelica_Mechanics_Rotational_Interfaces;
+  import Modelica_Blocks;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Math;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
+  import Modelica_Thermal_HeatTransfer;
   extends Modelica_Icons.Package;
   package UsersGuide "User's Guide"
     extends Modelica_Icons.Information;
@@ -644,15 +660,15 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
           final m=m,
           final R=fill(Rr, m),
           final T_ref=fill(TrRef, m),
-          final alpha=fill(Thermal.convertAlpha(         alpha20r, TrRef), m),
+          final alpha=fill(Thermal.convertAlpha(alpha20r, TrRef), m),
           final useHeatPort=true,
           final T=fill(TrRef, m)) annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
               rotation=90,
               origin={-80,40})));
-        Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_rp(final m=
-              m) "Positive rotor plug" annotation (Placement(transformation(
-                extent={{-110,70},{-90,50}}, rotation=0)));
+        Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_rp(final m=m)
+          "Positive rotor plug" annotation (Placement(transformation(extent={{-110,
+                  70},{-90,50}}, rotation=0)));
         Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_rn(final m=
               m) "Negative rotor plug" annotation (Placement(transformation(
                 extent={{-110,-50},{-90,-70}}, rotation=0)));
@@ -1408,8 +1424,8 @@ Resistance and stray inductance of stator is modeled directly in stator phases, 
               rotation=90,
               origin={-80,-20})));
         Modelica_Electrical_Analog_Interfaces.PositivePin pin_ep
-          "Positive excitation pin" annotation (Placement(transformation(extent=
-                 {{-110,70},{-90,50}}, rotation=0)));
+          "Positive excitation pin" annotation (Placement(transformation(extent
+                ={{-110,70},{-90,50}}, rotation=0)));
         Modelica_Electrical_Analog_Interfaces.NegativePin pin_en
           "Negative excitation pin" annotation (Placement(transformation(extent=
                  {{-90,-50},{-110,-70}}, rotation=0)));
@@ -2216,8 +2232,8 @@ Armature resistance resp. inductance include resistance resp. inductance of comm
             internalThermalPort,
           redeclare final
             Modelica_Electrical_Machines_Interfaces.DCMachines.PowerBalanceDCEE
-            powerBalance(final powerExcitation=ve*ie, final lossPowerExcitation
-              =re.LossPower),
+            powerBalance(final powerExcitation=ve*ie, final lossPowerExcitation=
+               re.LossPower),
           core(final w=airGapDC.w));
 
         parameter Modelica_SIunits.Current IeNominal(start=1)
@@ -5567,13 +5583,12 @@ The induction machine models use package SpacePhasors.
             origin={0,-70},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.ToSpacePhasor ToSpacePhasor1
-        annotation (Placement(transformation(
+      SpacePhasors.Blocks.ToSpacePhasor ToSpacePhasor1 annotation (Placement(
+            transformation(
             origin={0,10},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.ToPolar ToPolar1
-        annotation (Placement(transformation(
+      SpacePhasors.Blocks.ToPolar ToPolar1 annotation (Placement(transformation(
             origin={0,-30},
             extent={{-10,-10},{10,10}},
             rotation=270)));
@@ -5632,13 +5647,12 @@ output is length of the space phasor divided by sqrt(2), thus giving in sinusoid
             origin={0,-70},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.ToSpacePhasor ToSpacePhasor1
-        annotation (Placement(transformation(
+      SpacePhasors.Blocks.ToSpacePhasor ToSpacePhasor1 annotation (Placement(
+            transformation(
             origin={0,10},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.ToPolar ToPolar1
-        annotation (Placement(transformation(
+      SpacePhasors.Blocks.ToPolar ToPolar1 annotation (Placement(transformation(
             origin={0,-30},
             extent={{-10,-10},{10,10}},
             rotation=270)));
@@ -5821,9 +5835,8 @@ Calculates (mechanical) power from torque times angular speed.
             origin={-80,-10},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.ToSpacePhasor ToSpacePhasorVS
-        annotation (Placement(transformation(extent={{-60,-20},{-40,0}},
-              rotation=0)));
+      SpacePhasors.Blocks.ToSpacePhasor ToSpacePhasorVS annotation (Placement(
+            transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
       Modelica_Mechanics_Rotational_Interfaces.Flange_a flange annotation (
           Placement(transformation(extent={{-10,90},{10,110}}, rotation=0)));
       Modelica_Mechanics_Rotational.Sensors.RelAngleSensor relativeAngleSensor
@@ -5837,12 +5850,10 @@ Calculates (mechanical) power from torque times angular speed.
             origin={-10,20},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.Rotator rotatorVS2R
-        annotation (Placement(transformation(extent={{-20,0},{0,-20}}, rotation=
-               0)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.ToPolar ToPolarVSR
-        annotation (Placement(transformation(extent={{20,-20},{40,0}}, rotation=
-               0)));
+      SpacePhasors.Blocks.Rotator rotatorVS2R annotation (Placement(
+            transformation(extent={{-20,0},{0,-20}}, rotation=0)));
+      SpacePhasors.Blocks.ToPolar ToPolarVSR annotation (Placement(
+            transformation(extent={{20,-20},{40,0}}, rotation=0)));
       Modelica_Blocks.Routing.DeMultiplex2 deMultiplex2(final n1=1, final n2=1)
         annotation (Placement(transformation(extent={{60,-20},{80,0}}, rotation=
                0)));
@@ -6365,7 +6376,7 @@ Converts a space phasor from polar coordinates to rectangular coordinates.
 
       block QuasiRMS
         extends Modelica_Blocks_Interfaces.MISO(final nin=2);
-        Modelica_Electrical_Machines.SpacePhasors.Blocks.ToPolar toPolar
+        ToPolar toPolar
           annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
         Modelica_Blocks.Math.Gain gain(final k=1/sqrt(2))
           annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -7592,8 +7603,8 @@ where <code>RRef</code> is the resistance at the reference temperature <code>TRe
         output Modelica_SIunits.HeatFlowRate Q_flowTotal=Q_flowStatorWinding +
             Q_flowRotorWinding + Q_flowStatorCore + Q_flowRotorCore +
             Q_flowStrayLoad + Q_flowFriction;
-        Modelica_Thermal_HeatTransfer.Sources.PrescribedTemperature
-          temperatureRotorWinding annotation (Placement(transformation(
+        Modelica_Thermal_HeatTransfer.Sources.PrescribedTemperature temperatureRotorWinding
+          annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-50,30})));
@@ -8544,7 +8555,6 @@ In sub-package <a href=\"modelica://Modelica.Electrical.Machines.Thermal.Constan
 </HTML>"));
   end Thermal;
 
-
   package Icons "Icons for electrical machines"
     extends Modelica_Icons.IconsPackage;
     partial model TransientMachine
@@ -9254,17 +9264,15 @@ Phase shifts between sine-waves may be chosen by the user; default values are <i
             origin={0,-50},
             extent={{10,-10},{-10,10}},
             rotation=270)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.Rotator rotator
-        annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-              rotation=0)));
+      SpacePhasors.Blocks.Rotator rotator annotation (Placement(transformation(
+              extent={{-10,-10},{10,10}}, rotation=0)));
       Modelica_Blocks_Interfaces.RealInput phi annotation (Placement(
             transformation(
             origin={0,-120},
             extent={{20,-20},{-20,20}},
             rotation=270)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.ToSpacePhasor toSpacePhasor(final m=m)
-        annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
-              rotation=0)));
+      SpacePhasors.Blocks.ToSpacePhasor toSpacePhasor(final m=m) annotation (
+          Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=0)));
     equation
       connect(phi, toGamma.u) annotation (Line(points={{0,-120},{0,
               -120},{0,-62}}, color={0,0,127}));
@@ -9306,12 +9314,11 @@ using the provided mechanical rotor angle phi. The ouput are the resulting d and
             origin={0,-50},
             extent={{10,-10},{-10,10}},
             rotation=270)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.Rotator rotator
-        annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-              rotation=0)));
+      SpacePhasors.Blocks.Rotator rotator annotation (Placement(transformation(
+              extent={{-10,-10},{10,10}}, rotation=0)));
       Modelica_Blocks.Sources.Constant i0(final k=0) annotation (Placement(
             transformation(extent={{20,-20},{40,-40}}, rotation=0)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.FromSpacePhasor fromSpacePhasor(final m=m)
+      SpacePhasors.Blocks.FromSpacePhasor fromSpacePhasor(final m=m)
         annotation (Placement(transformation(extent={{60,-10},{80,10}},
               rotation=0)));
       Modelica_Blocks_Interfaces.RealInput phi annotation (Placement(
@@ -9374,14 +9381,12 @@ using the provided mechanical rotor angle phi. The output are the instantaneous 
             origin={0,-50},
             extent={{10,-10},{-10,10}},
             rotation=270)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.Rotator rotator
-        annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-              rotation=0)));
+      SpacePhasors.Blocks.Rotator rotator annotation (Placement(transformation(
+              extent={{-10,-10},{10,10}}, rotation=0)));
       Modelica_Blocks.Sources.Constant i0(k=0) annotation (Placement(
             transformation(extent={{-10,50},{10,30}}, rotation=0)));
-      Modelica_Electrical_Machines.SpacePhasors.Blocks.FromSpacePhasor fromSpacePhasor
-        annotation (Placement(transformation(extent={{40,10},{60,-10}},
-              rotation=0)));
+      SpacePhasors.Blocks.FromSpacePhasor fromSpacePhasor annotation (Placement(
+            transformation(extent={{40,10},{60,-10}}, rotation=0)));
     equation
       connect(iq_rms, toPeak_q.u)
         annotation (Line(points={{-120,-60},{-62,-60}}, color={0,0,127}));
@@ -10195,5 +10200,6 @@ Copyright &copy; 1998-2014, Modelica Association, Anton Haumer, Christian Kral a
           origin={2.835,10},
           fillPattern=FillPattern.Solid,
           points={{-70,-90},{-60,-90},{-30,-20},{20,-20},{50,-90},{60,-90},{60,
-              -100},{-70,-100},{-70,-90}})}));
+              -100},{-70,-100},{-70,-90}})}),
+    uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_Machines;

@@ -1,6 +1,19 @@
 within ;
-package Modelica_Magnetic_FundamentalWave_Interfaces
+encapsulated package Modelica_Magnetic_FundamentalWave_Interfaces
   "Interfaces and partial models"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_ComplexMath;
+  import Complex;
+  import Modelica_Electrical_Machines;
+  import Modelica_Constants;
+  import Modelica_Magnetic_FundamentalWave;
+  import Modelica_Electrical_Machines_Interfaces;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_Mechanics_Rotational_Interfaces;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Electrical_MultiPhase_Interfaces;
+  import Modelica_Math;
   extends Modelica_Icons.InterfacesPackage;
   connector MagneticPort "Complex magnetic port"
     Modelica_SIunits.ComplexMagneticPotentialDifference V_m
@@ -21,7 +34,7 @@ The potential quantity of the magnetic port is the complex magnetic potential di
   end MagneticPort;
 
   connector NegativeMagneticPort "Negative complex magnetic port"
-    extends Modelica_Magnetic_FundamentalWave_Interfaces.MagneticPort;
+    extends MagneticPort;
     annotation (
       defaultComponentName="port_n",
       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
@@ -53,7 +66,7 @@ Negative magnetic <a href=\"modelica://Modelica.Magnetic.FundamentalWave.Interfa
   end NegativeMagneticPort;
 
   connector PositiveMagneticPort "Positive complex magnetic port"
-    extends Modelica_Magnetic_FundamentalWave_Interfaces.MagneticPort;
+    extends MagneticPort;
     annotation (
       defaultComponentName="port_p",
       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
@@ -111,7 +124,7 @@ considers the flux balance of the two ports. Additionally the magnetic potential
 
   partial model PartialTwoPortExtended
     "Two magnetic ports for graphical modeling with additonal variables"
-    extends Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPort;
+    extends PartialTwoPort;
     annotation (Documentation(info="<html>
 <p>
 This magnetic two port element consists of a
@@ -133,7 +146,7 @@ considers the flux balance of the two ports. Additionally the magnetic potential
 
   partial model PartialTwoPortElementary
     "Two magnetic ports for textual modeling"
-    extends Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPort;
+    extends PartialTwoPort;
     Modelica_SIunits.ComplexMagneticPotentialDifference V_m
       "Complex magnetic potential difference";
     Modelica_SIunits.MagneticPotentialDifference abs_V_m = Modelica_ComplexMath.'abs'(V_m)
@@ -238,11 +251,11 @@ This model is mainly used to extend from in order build more complex - equation 
     replaceable output
       Modelica_Electrical_Machines_Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
       powerBalance(
-      final powerStator=
-          Modelica_Electrical_MultiPhase.Functions.activePower(
-          vs, is),
+      final powerStator=Modelica_Electrical_MultiPhase.Functions.activePower(vs,
+          is),
       final powerMechanical=wMechanical*tauShaft,
       final powerInertiaStator=inertiaStator.J*inertiaStator.a*inertiaStator.w,
+
       final powerInertiaRotor=inertiaRotor.J*inertiaRotor.a*inertiaRotor.w,
       final lossPowerStatorWinding=sum(stator.resistor.resistor.LossPower),
       final lossPowerStatorCore=stator.core.lossPower,
@@ -254,8 +267,8 @@ This model is mainly used to extend from in order build more complex - equation 
     output Modelica_SIunits.Current is[m]=plug_sp.pin.i
       "Stator instantaneous currents";
     Modelica_Mechanics_Rotational_Interfaces.Flange_a flange "Shaft"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
+            =0)));
     Modelica_Mechanics_Rotational.Components.Inertia inertiaRotor(final J=Jr)
       annotation (Placement(transformation(
           origin={80,0},
@@ -275,8 +288,8 @@ This model is mainly used to extend from in order build more complex - equation 
           rotation=180,
           origin={70,-90})));
     Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_sp(final m=m)
-      "Positive plug of stator" annotation (Placement(transformation(extent={
-              {50,90},{70,110}}, rotation=0)));
+      "Positive plug of stator" annotation (Placement(transformation(extent={{
+              50,90},{70,110}}, rotation=0)));
     Modelica_Electrical_MultiPhase_Interfaces.NegativePlug plug_sn(final m=m)
       "Negative plug of stator" annotation (Placement(transformation(extent={
               {-70,90},{-50,110}}, rotation=0)));
@@ -541,5 +554,5 @@ i.e., with small derivatives.
 <p>
 This package contains interface definitions of the magnetic ports as well as partial models.
 </p>
-</html>"), uses(Complex(version="3.2.2")));
+</html>"), uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
 end Modelica_Magnetic_FundamentalWave_Interfaces;

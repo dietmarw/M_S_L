@@ -1,6 +1,10 @@
 within ;
-package Modelica_Electrical_MultiPhase_Interfaces
+encapsulated package Modelica_Electrical_MultiPhase_Interfaces
   "Interfaces for electrical multiphase models"
+  import Modelica_Icons;
+  import Modelica_Electrical_Analog_Interfaces;
+  import Modelica_SIunits;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
   extends Modelica_Icons.InterfacesPackage;
 
   connector Plug "Plug with m pins for an electric component"
@@ -91,9 +95,9 @@ Connector Plug is a composite connector containing m Pins (Modelica.Electrical.A
       "Fixed device temperatures if useHeatPort = false"
       annotation (Dialog(enable=not useHeatPort));
     Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort[mh] if
-      useHeatPort "Conditional heat ports" annotation (Placement(
-          transformation(extent={{-10,-110},{10,-90}}), iconTransformation(
-            extent={{-10,-110},{10,-90}})));
+      useHeatPort "Conditional heat ports" annotation (Placement(transformation(
+            extent={{-10,-110},{10,-90}}), iconTransformation(extent={{-10,-110},
+              {10,-90}})));
     annotation (Documentation(revisions="<html>
 <ul>
 <li><i>August 26, 2009 </i>by Anton Haumer initially implemented</li>
@@ -223,5 +227,5 @@ electrical multiphase components, based on Modelica.Electrical.Analog.
   and the accompanying <b>disclaimer</b> in the documentation of package
   Modelica in file \"Modelica/package.mo\".</i></dd>
 </dl>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_MultiPhase_Interfaces;

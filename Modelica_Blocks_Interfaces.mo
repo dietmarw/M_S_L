@@ -1,7 +1,10 @@
 within ;
-package Modelica_Blocks_Interfaces
+encapsulated package Modelica_Blocks_Interfaces
   "Library of connectors and partial models for input/output blocks"
   import SIunits = Modelica_SIunits;
+  import Modelica_Icons;
+  import Modelica_Blocks;
+  import Modelica_Constants;
   extends Modelica_Icons.InterfacesPackage;
 
   connector RealInput = input Real "'input Real' as connector" annotation (
@@ -365,9 +368,9 @@ one continuous Real output signal.
       annotation (Dialog(tab="Advanced"));
     parameter Integer nu(min=0) = 0 "Number of input connections"
       annotation (Dialog(connectorSizing=true), HideResult=true);
-    Modelica_Blocks_Interfaces.RealVectorInput u[nu]
+    RealVectorInput u[nu]
       annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
-    Modelica_Blocks_Interfaces.RealOutput y
+    RealOutput y
       annotation (Placement(transformation(extent={{100,-17},{134,17}})));
     annotation (Icon(coordinateSystem(
           preserveAspectRatio=true,
@@ -450,8 +453,7 @@ All vectors have the same number of elements.
   partial block SignalSource "Base class for continuous signal source"
     extends SO;
     parameter Real offset=0 "Offset of output signal y";
-    parameter Modelica_SIunits.Time startTime=0
-      "Output y = offset for time < startTime";
+    parameter SIunits.Time startTime=0 "Output y = offset for time < startTime";
     annotation (Documentation(info="<html>
 <p>
 Basic block for Real sources of package Blocks.Sources.
@@ -532,9 +534,9 @@ to be used as base class for a corresponding controller.
   partial block DiscreteBlock "Base class of discrete control blocks"
     extends Modelica_Blocks.Icons.DiscreteBlock;
 
-    parameter Modelica_SIunits.Time samplePeriod(min=100*Modelica_Constants.eps,
-        start=0.1) "Sample period of component";
-    parameter Modelica_SIunits.Time startTime=0 "First sample time instant";
+    parameter SIunits.Time samplePeriod(min=100*Modelica_Constants.eps, start=
+          0.1) "Sample period of component";
+    parameter SIunits.Time startTime=0 "First sample time instant";
   protected
     output Boolean sampleTrigger "True, if sample time instant";
     output Boolean firstTrigger "Rising edge signals first sample instant";
@@ -556,12 +558,10 @@ Blocks.Discrete.
 
     extends DiscreteBlock;
 
-    Modelica_Blocks_Interfaces.RealInput u "Continuous input signal"
-      annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-            rotation=0)));
-    Modelica_Blocks_Interfaces.RealOutput y "Continuous output signal"
-      annotation (Placement(transformation(extent={{100,-10},{120,10}},
-            rotation=0)));
+    RealInput u "Continuous input signal" annotation (Placement(transformation(
+            extent={{-140,-20},{-100,20}}, rotation=0)));
+    RealOutput y "Continuous output signal" annotation (Placement(
+          transformation(extent={{100,-10},{120,10}}, rotation=0)));
     annotation (Documentation(info="<html>
 <p>
 Block has one continuous input and one continuous output signal
@@ -577,12 +577,10 @@ which are sampled due to the defined <b>samplePeriod</b> parameter.
     parameter Integer nin=1 "Number of inputs";
     parameter Integer nout=1 "Number of outputs";
 
-    Modelica_Blocks_Interfaces.RealInput u[nin] "Continuous input signals"
-      annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-            rotation=0)));
-    Modelica_Blocks_Interfaces.RealOutput y[nout] "Continuous output signals"
-      annotation (Placement(transformation(extent={{100,-10},{120,10}},
-            rotation=0)));
+    RealInput u[nin] "Continuous input signals" annotation (Placement(
+          transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+    RealOutput y[nout] "Continuous output signals" annotation (Placement(
+          transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
     annotation (Documentation(info="<html>
 <p>
@@ -597,12 +595,10 @@ which are sampled due to the defined <b>samplePeriod</b> parameter.
     parameter Integer n=1 "Number of inputs (= number of outputs)";
     extends DiscreteBlock;
 
-    Modelica_Blocks_Interfaces.RealInput u[n] "Continuous input signals"
-      annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-            rotation=0)));
-    Modelica_Blocks_Interfaces.RealOutput y[n] "Continuous output signals"
-      annotation (Placement(transformation(extent={{100,-10},{120,10}},
-            rotation=0)));
+    RealInput u[n] "Continuous input signals" annotation (Placement(
+          transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+    RealOutput y[n] "Continuous output signals" annotation (Placement(
+          transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
     annotation (Documentation(info="<html>
 <p>
@@ -625,18 +621,15 @@ These signals are sampled due to the defined <b>samplePeriod</b> parameter.
           origin={0,-90},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-    Modelica_Blocks_Interfaces.RealInput u_s
-      "Continuous scalar setpoint input signal" annotation (Placement(
-          transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
-    Modelica_Blocks_Interfaces.RealInput u_m
-      "Continuous scalar measurement input signal" annotation (Placement(
-          transformation(
+    RealInput u_s "Continuous scalar setpoint input signal" annotation (
+        Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+    RealInput u_m "Continuous scalar measurement input signal" annotation (
+        Placement(transformation(
           origin={0,-120},
           extent={{20,-20},{-20,20}},
           rotation=270)));
-    Modelica_Blocks_Interfaces.RealOutput y
-      "Continuous scalar actuator output signal" annotation (Placement(
-          transformation(extent={{100,-10},{120,10}}, rotation=0)));
+    RealOutput y "Continuous scalar actuator output signal" annotation (
+        Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
   equation
     connect(u_s, sampler_s.u) annotation (Line(points={{-120,0},{-102,0}}));
     connect(u_m, sampler_m.u)
@@ -676,18 +669,15 @@ to be used as base class for a corresponding controller.
           origin={0,-80},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-    Modelica_Blocks_Interfaces.RealInput u_s[nu_s]
-      "Continuous setpoint input signals" annotation (Placement(transformation(
-            extent={{-140,-20},{-100,20}}, rotation=0)));
-    Modelica_Blocks_Interfaces.RealInput u_m[nu_m]
-      "Continuous measurement input signals" annotation (Placement(
-          transformation(
+    RealInput u_s[nu_s] "Continuous setpoint input signals" annotation (
+        Placement(transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
+    RealInput u_m[nu_m] "Continuous measurement input signals" annotation (
+        Placement(transformation(
           origin={0,-120},
           extent={{20,-20},{-20,20}},
           rotation=270)));
-    Modelica_Blocks_Interfaces.RealOutput y[ny]
-      "Continuous actuator output signals" annotation (Placement(transformation(
-            extent={{100,-10},{120,10}}, rotation=0)));
+    RealOutput y[ny] "Continuous actuator output signals" annotation (Placement(
+          transformation(extent={{100,-10},{120,10}}, rotation=0)));
   equation
     connect(u_s, sampler_s.u) annotation (Line(points={{-120,0},{-92,0}}));
     connect(u_m, sampler_m.u)
@@ -842,8 +832,7 @@ Block has one continuous Integer output signal vector.
     "Base class for continuous Integer signal source"
     extends IntegerSO;
     parameter Integer offset=0 "Offset of output signal y";
-    parameter Modelica_SIunits.Time startTime=0
-      "Output y = offset for time < startTime";
+    parameter SIunits.Time startTime=0 "Output y = offset for time < startTime";
     annotation (Documentation(info="<html>
 <p>
 Basic block for Integer sources of package Blocks.Sources.
@@ -889,9 +878,9 @@ where the signal sizes of the input and output vector are identical.
   partial block PartialIntegerSISO
     "Partial block with a IntegerInput and an IntegerOutput signal"
 
-    Modelica_Blocks_Interfaces.IntegerInput u "Integer input signal"
+    IntegerInput u "Integer input signal"
       annotation (Placement(transformation(extent={{-180,-40},{-100,40}})));
-    Modelica_Blocks_Interfaces.IntegerOutput y "Integer output signal"
+    IntegerOutput y "Integer output signal"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
     annotation (Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -922,10 +911,9 @@ where the signal sizes of the input and output vector are identical.
 
     parameter Integer nu(min=0) = 0 "Number of input connections"
       annotation (Dialog(connectorSizing=true), HideResult=true);
-    Modelica_Blocks_Interfaces.IntegerVectorInput u[nu]
-      "Vector of Integer input signals"
+    IntegerVectorInput u[nu] "Vector of Integer input signals"
       annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
-    Modelica_Blocks_Interfaces.IntegerOutput y "Integer output signal"
+    IntegerOutput y "Integer output signal"
       annotation (Placement(transformation(extent={{100,-15},{130,15}})));
     annotation (Icon(coordinateSystem(
           preserveAspectRatio=true,
@@ -1253,9 +1241,9 @@ has a 3D icon (e.g., used in Blocks.Logical library).
   partial block PartialBooleanSISO_small
     "Partial block with a BooleanInput and a BooleanOutput signal and a small block icon"
 
-    Modelica_Blocks_Interfaces.BooleanInput u "Boolean input signal"
+    BooleanInput u "Boolean input signal"
       annotation (Placement(transformation(extent={{-180,-40},{-100,40}})));
-    Modelica_Blocks_Interfaces.BooleanOutput y "Boolean output signal"
+    BooleanOutput y "Boolean output signal"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
     annotation (Icon(coordinateSystem(
           preserveAspectRatio=true,
@@ -1286,10 +1274,9 @@ has a 3D icon (e.g., used in Blocks.Logical library).
 
     parameter Integer nu(min=0) = 0 "Number of input connections"
       annotation (Dialog(connectorSizing=true), HideResult=true);
-    Modelica_Blocks_Interfaces.BooleanVectorInput u[nu]
-      "Vector of Boolean input signals"
+    BooleanVectorInput u[nu] "Vector of Boolean input signals"
       annotation (Placement(transformation(extent={{-120,70},{-80,-70}})));
-    Modelica_Blocks_Interfaces.BooleanOutput y "Boolean output signal"
+    BooleanOutput y "Boolean output signal"
       annotation (Placement(transformation(extent={{100,-15},{130,15}})));
     annotation (Icon(coordinateSystem(
           preserveAspectRatio=true,
@@ -1709,5 +1696,5 @@ partial models for continuous and discrete blocks.
        Realized a first version, based on an existing Dymola library
        of Dieter Moormann and Hilding Elmqvist.</li>
 </ul>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Blocks_Interfaces;

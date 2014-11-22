@@ -1,6 +1,13 @@
 within ;
-package Modelica_Mechanics_MultiBody_Interfaces
+encapsulated package Modelica_Mechanics_MultiBody_Interfaces
   "Connectors and partial models for 3-dim. mechanical components"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Mechanics_MultiBody;
+  import Modelica_Mechanics_Rotational_Interfaces;
+  import Modelica_Math;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Blocks;
 
   extends Modelica_Icons.InterfacesPackage;
 
@@ -154,8 +161,7 @@ end Frame_resolve;
       "= true, if bearing frame connector is present, otherwise not present";
     Modelica_Mechanics_Rotational_Interfaces.Flange_a flange
       "1-dim. rotational flange";
-    Modelica_Mechanics_MultiBody_Interfaces.Frame bearingFrame if
-      includeBearingConnector
+    Frame bearingFrame if includeBearingConnector
       "3-dim. frame in which the 1-dim. shaft is mounted";
 
     annotation (
@@ -234,8 +240,8 @@ to the FlangeWithBearing connector.
     parameter Boolean includeBearingConnector=false
       "= true, if bearing frame connector is present, otherwise not present";
 
-    Modelica_Mechanics_MultiBody_Interfaces.FlangeWithBearing flangeAndFrame(
-        includeBearingConnector=includeBearingConnector)
+    FlangeWithBearing flangeAndFrame(includeBearingConnector=
+          includeBearingConnector)
       "Compound connector consisting of 1-dim. rotational flange and 3-dim. frame mounting"
       annotation (Placement(transformation(extent={{-130,-30},{-70,30}},
             rotation=0)));
@@ -296,8 +302,8 @@ connector.
             rotation=0)));
     Frame_b frame_b
       "Coordinate system fixed to the component with one cut-force and cut-torque"
-      annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
+             0)));
   protected
     outer Modelica_Mechanics_MultiBody.World world;
   equation
@@ -395,8 +401,8 @@ needed and if this connector should be connected for a correct model.
 
     Frame_b frame_b
       "Coordinate system fixed to the component with one cut-force and cut-torque"
-      annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
+             0)));
   protected
     outer Modelica_Mechanics_MultiBody.World world;
   equation
@@ -428,8 +434,8 @@ needed and if this connector should be connected for a correct model.
             rotation=0)));
     Frame_b frame_b
       "Coordinate system fixed to the joint with one cut-force and cut-torque"
-      annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
+             0)));
 
   protected
     outer Modelica_Mechanics_MultiBody.World world;
@@ -468,8 +474,8 @@ object and an assert to check that both frame connectors are connected.
             rotation=0)));
     Frame_b frame_b
       "Coordinate system fixed to the joint with one cut-force and cut-torque"
-      annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
+             0)));
 
     Modelica_SIunits.Position r_rel_b[3]
       "Position vector from origin of frame_a to origin of frame_b, resolved in frame_b";
@@ -559,8 +565,8 @@ to which this force element is connected.
             rotation=0)));
     Frame_b frame_b
       "Coordinate system fixed to the force element with one cut-force and cut-torque"
-      annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{84,-16},{116,16}}, rotation=
+             0)));
     Modelica_SIunits.Force f
       "Line force acting on frame_a and on frame_b (positive, if acting on frame_b and directed from frame_a to frame_b)";
     Modelica_SIunits.Position s
@@ -580,8 +586,7 @@ to which this force element is connected.
     // Determine distance s and n_a
     r_rel_a = Modelica_Mechanics_MultiBody.Frames.resolve2(frame_a.R, frame_b.r_0
        - frame_a.r_0);
-    s = noEvent(max(Modelica_Math.Vectors.length(
-                                  r_rel_a), s_small));
+    s = noEvent(max(Modelica_Math.Vectors.length(r_rel_a), s_small));
     e_a = r_rel_a/s;
 
     /* Determine forces and torques at frame_a and frame_b */
@@ -655,9 +660,8 @@ has to be defined. Example:
             rotation=0)));
 
     Modelica_Blocks_Interfaces.RealOutput y[n_out]
-      "Measured data as signal vector"
-      annotation (Placement(transformation(extent={{100,-10},{120,10}},
-            rotation=0)));
+      "Measured data as signal vector" annotation (Placement(transformation(
+            extent={{100,-10},{120,10}}, rotation=0)));
   protected
     outer Modelica_Mechanics_MultiBody.World world;
 
@@ -825,5 +829,5 @@ a color map. Predefined color map functions are defined in package
 This package contains connectors and partial models (i.e., models
 that are only used to build other models) of the MultiBody library.
 </p>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Mechanics_MultiBody_Interfaces;

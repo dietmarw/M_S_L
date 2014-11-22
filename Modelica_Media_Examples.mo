@@ -1,6 +1,10 @@
 within ;
-package Modelica_Media_Examples
+encapsulated package Modelica_Media_Examples
   "Demonstrate usage of property models (currently: simple tests)"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Media;
+  import Modelica_Math;
 
   extends Modelica_Icons.ExamplesPackage;
 
@@ -420,15 +424,15 @@ points, e.g., when an isentropic reference state is computed.
 
     model DryAir1 "Example 1 for dry air"
       extends Modelica_Icons.Example;
-      extends Modelica_Media_Examples.Tests.Components.PartialTestModel(
-          redeclare package Medium = Modelica_Media.Air.ReferenceAir.Air_pT);
+      extends Tests.Components.PartialTestModel(redeclare package Medium =
+            Modelica_Media.Air.ReferenceAir.Air_pT);
       annotation (experiment(StopTime=1.01));
     end DryAir1;
 
     model DryAir2 "Example 2 for dry air"
       extends Modelica_Icons.Example;
-      extends Modelica_Media_Examples.Tests.Components.PartialTestModel2(
-          redeclare package Medium = Modelica_Media.Air.ReferenceAir.Air_pT);
+      extends Tests.Components.PartialTestModel2(redeclare package Medium =
+            Modelica_Media.Air.ReferenceAir.Air_pT);
       annotation (experiment(StopTime=1.01));
     end DryAir2;
 
@@ -478,15 +482,15 @@ points, e.g., when an isentropic reference state is computed.
 
     model MoistAir1 "Example 1 for moist air"
       extends Modelica_Icons.Example;
-      extends Modelica_Media_Examples.Tests.Components.PartialTestModel(
-          redeclare package Medium = Modelica_Media.Air.ReferenceMoistAir);
+      extends Tests.Components.PartialTestModel(redeclare package Medium =
+            Modelica_Media.Air.ReferenceMoistAir);
       annotation (experiment(StopTime=1.01));
     end MoistAir1;
 
     model MoistAir2 "Example 2 for moist air"
       extends Modelica_Icons.Example;
-      extends Modelica_Media_Examples.Tests.Components.PartialTestModel2(
-          redeclare package Medium = Modelica_Media.Air.ReferenceMoistAir);
+      extends Tests.Components.PartialTestModel2(redeclare package Medium =
+            Modelica_Media.Air.ReferenceMoistAir);
       annotation (experiment(StopTime=1.01));
     end MoistAir2;
 
@@ -1538,8 +1542,8 @@ no mass or energy is stored in the pipe.
           extends Modelica_Icons.Example;
           extends Modelica_Media.Examples.Tests.Components.PartialTestModel(
                 redeclare package Medium =
-
                 Modelica_Media.IdealGases.MixtureGases.SimpleNaturalGasFixedComposition);
+
           annotation (experiment(StopTime=1.01));
         end SimpleNaturalGasFixedComposition;
       end IdealGases;
@@ -1652,8 +1656,7 @@ no mass or energy is stored in the pipe.
         model LinearColdWater
           "Test Modelica_Media.Incompressible.Examples.Glycol47"
           extends Modelica_Icons.Example;
-          extends Modelica_Media_Examples.Tests.Components.PartialTestModel(
-              redeclare package Medium =
+          extends Components.PartialTestModel(redeclare package Medium =
                 Modelica_Media.CompressibleLiquids.LinearColdWater);
           annotation (Documentation(info="<html>
 
@@ -1663,8 +1666,7 @@ no mass or energy is stored in the pipe.
         model LinearWater_pT
           "Test Modelica_Media.Incompressible.Examples.Essotherm65"
           extends Modelica_Icons.Example;
-          extends Modelica_Media_Examples.Tests.Components.PartialTestModel(
-              redeclare package Medium =
+          extends Components.PartialTestModel(redeclare package Medium =
                 Modelica_Media.CompressibleLiquids.LinearWater_pT_Ambient);
           annotation (Documentation(info="<html>
 
@@ -2003,5 +2005,5 @@ how fluid components should be implemented that are using Modelica_Media
 models. This library is also used to test all media models in
 Modelica_Media.Examples.Tests.MediaTestModels.
 </p>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Media_Examples;

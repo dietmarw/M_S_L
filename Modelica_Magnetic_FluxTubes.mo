@@ -1,6 +1,12 @@
 within ;
-package Modelica_Magnetic_FluxTubes
+encapsulated package Modelica_Magnetic_FluxTubes
   "Library for modelling of electromagnetic devices with lumped magnetic networks"
+  import Modelica_Icons;
+  import Modelica_Magnetic_FluxTubes_Interfaces;
+  import Modelica_Electrical_Analog_Interfaces;
+  import Modelica_Constants;
+  import Modelica_Math;
+  import Modelica_Blocks_Interfaces;
 
   import SI = Modelica_SIunits;
   import Modelica_Constants.pi;
@@ -331,20 +337,16 @@ The magnetic potential at the magnetic ground node is zero. Every magnetic netwo
       Modelica_Electrical_Analog_Interfaces.NegativePin n
         "Negative electric pin" annotation (Placement(transformation(extent={{-110,
                 -70},{-90,-50}}, rotation=0)));
-      Modelica_SIunits.Voltage v "Voltage";
-      Modelica_SIunits.Current i(start=0, stateSelect=StateSelect.prefer)
-        "Current";
-      Modelica_SIunits.MagneticPotentialDifference V_m
-        "Magnetic potential difference";
-      Modelica_SIunits.MagneticFlux Phi
-        "Magnetic flux coupled into magnetic circuit";
+      SI.Voltage v "Voltage";
+      SI.Current i(start=0, stateSelect=StateSelect.prefer) "Current";
+      SI.MagneticPotentialDifference V_m "Magnetic potential difference";
+      SI.MagneticFlux Phi "Magnetic flux coupled into magnetic circuit";
 
       parameter Real N=1 "Number of turns";
 
       //for information only:
-      Modelica_SIunits.MagneticFlux Psi "Flux linkage for information only";
-      Modelica_SIunits.Inductance L_stat
-        "Static inductance abs(Psi/i) for information only";
+      SI.MagneticFlux Psi "Flux linkage for information only";
+      SI.Inductance L_stat "Static inductance abs(Psi/i) for information only";
 
     protected
       Real eps=100*Modelica_Constants.eps;
@@ -500,7 +502,7 @@ The flux linkage &Psi; and the static inductance L_stat = |&Psi;/i| are calculat
 
       extends Modelica_Magnetic_FluxTubes_Interfaces.PartialTwoPorts;
 
-      parameter Modelica_SIunits.Reluctance R_m=1 "Magnetic reluctance";
+      parameter SI.Reluctance R_m=1 "Magnetic reluctance";
 
     equation
       V_m = Phi*R_m;
@@ -529,7 +531,7 @@ This constant reluctance is provided for test purposes and simple magnetic netwo
 
       extends Modelica_Magnetic_FluxTubes_Interfaces.PartialTwoPorts;
 
-      parameter Modelica_SIunits.Permeance G_m=1 "Magnetic permeance";
+      parameter SI.Permeance G_m=1 "Magnetic permeance";
 
     equation
       G_m * V_m = Phi;
@@ -565,10 +567,10 @@ This constant permeance is provided for test purposes and simple magnetic networ
 
       extends Modelica_Magnetic_FluxTubes_Interfaces.PartialLeakage;
 
-      parameter Modelica_SIunits.CouplingCoefficient c_usefulFlux=0.7
+      parameter SI.CouplingCoefficient c_usefulFlux=0.7
         "Ratio useful flux/(leakage flux + useful flux) = useful flux/total flux";
 
-      input Modelica_SIunits.Reluctance R_mUsefulTot
+      input SI.Reluctance R_mUsefulTot
         "Total reluctance of useful flux path as reference" annotation (Dialog(
             group="Reference reluctance", groupImage=
               "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Basic/LeakageWithCoefficient.png"));
@@ -601,20 +603,18 @@ This element must <b>not</b> be used <b>for dynamic simulation of</b> electro-ma
       parameter Boolean useConductance = false
         "Use conductance instead of geometry data and rho"
         annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
-      parameter Modelica_SIunits.Conductance G(min=0) = 1/0.098e-6
+      parameter SI.Conductance G(min=0)=1/0.098e-6
         "Equivalent loss conductance G=A/rho/l"
-        annotation(Dialog(enable=useConductance),Evaluate=true);
-      parameter Modelica_SIunits.Resistivity rho=0.098e-6
+        annotation (Dialog(enable=useConductance), Evaluate=true);
+      parameter SI.Resistivity rho=0.098e-6
         "Resistivity of flux tube material (default: Iron at 20degC)"
         annotation (Dialog(enable=not useConductance));
-      parameter Modelica_SIunits.Length l=1
-        "Average length of eddy current path"
+      parameter SI.Length l=1 "Average length of eddy current path"
         annotation (Dialog(enable=not useConductance));
-      parameter Modelica_SIunits.Area A=1
-        "Cross sectional area of eddy current path"
+      parameter SI.Area A=1 "Cross sectional area of eddy current path"
         annotation (Dialog(enable=not useConductance));
 
-      final parameter Modelica_SIunits.Resistance R=rho*l/A
+      final parameter SI.Resistance R=rho*l/A
         "Electrical resistance of eddy current path"
         annotation (Dialog(enable=not useConductance));
 
@@ -807,11 +807,11 @@ This is a simple crossing of two branches. The ports <code>port_p1</code> and <c
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialFixedShape;
 
-        parameter Modelica_SIunits.Length l=0.01 "Length in direction of flux"
-          annotation (Dialog(group="Fixed geometry", groupImage=
+        parameter SI.Length l=0.01 "Length in direction of flux" annotation (
+            Dialog(group="Fixed geometry", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/GenericFluxTube.png"));
-        parameter Modelica_SIunits.CrossSection area=0.0001
-          "Area of cross section" annotation (Dialog(group="Fixed geometry"));
+        parameter SI.CrossSection area=0.0001 "Area of cross section"
+          annotation (Dialog(group="Fixed geometry"));
       equation
         A=area;
         G_m = (mu_0*mu_r*A)/l;
@@ -834,14 +834,12 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialFixedShape;
 
-        parameter Modelica_SIunits.Length l=0.01 "Length in direction of flux"
-          annotation (Dialog(group="Fixed geometry", groupImage=
+        parameter SI.Length l=0.01 "Length in direction of flux" annotation (
+            Dialog(group="Fixed geometry", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/CuboidParallelFlux.png"));
-        parameter Modelica_SIunits.Length a=0.01
-          "Width of rectangular cross-section"
+        parameter SI.Length a=0.01 "Width of rectangular cross-section"
           annotation (Dialog(group="Fixed geometry"));
-        parameter Modelica_SIunits.Length b=0.01
-          "Height of rectangular cross-section"
+        parameter SI.Length b=0.01 "Height of rectangular cross-section"
           annotation (Dialog(group="Fixed geometry"));
 
       equation
@@ -860,15 +858,13 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialFixedShape;
 
-        parameter Modelica_SIunits.Length l=0.01
-          "Axial length (in direction of flux)" annotation (Dialog(group=
-                "Fixed geometry", groupImage=
+        parameter SI.Length l=0.01 "Axial length (in direction of flux)"
+          annotation (Dialog(group="Fixed geometry", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/HollowCylinderAxialFlux.png"));
-        parameter Modelica_SIunits.Radius r_i=0
+        parameter SI.Radius r_i=0
           "Inner radius of hollow cylinder (zero for cylinder)"
           annotation (Dialog(group="Fixed geometry"));
-        parameter Modelica_SIunits.Radius r_o=0.01
-          "Outer radius of (hollow) cylinder"
+        parameter SI.Radius r_o=0.01 "Outer radius of (hollow) cylinder"
           annotation (Dialog(group="Fixed geometry"));
 
       equation
@@ -891,15 +887,12 @@ Set the inner radius r_i=0 for modelling of a solid cylindric flux tube.
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialFixedShape;
 
-        parameter Modelica_SIunits.Length l=0.01
-          "Width (orthogonal to flux direction)" annotation (Dialog(group=
-                "Fixed geometry", groupImage=
+        parameter SI.Length l=0.01 "Width (orthogonal to flux direction)"
+          annotation (Dialog(group="Fixed geometry", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/HollowCylinderRadialFlux.png"));
-        parameter Modelica_SIunits.Radius r_i=0.01
-          "Inner radius of hollow cylinder"
+        parameter SI.Radius r_i=0.01 "Inner radius of hollow cylinder"
           annotation (Dialog(group="Fixed geometry"));
-        parameter Modelica_SIunits.Radius r_o=0.02
-          "Outer radius of hollow cylinder"
+        parameter SI.Radius r_o=0.02 "Outer radius of hollow cylinder"
           annotation (Dialog(group="Fixed geometry"));
 
       equation
@@ -945,18 +938,16 @@ For initial design of magnetic circuits, the relative permeability of possibly n
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialForce;
 
-        Modelica_SIunits.Length l=s "Axial length (in direction of flux)"
-          annotation (Dialog(group="Variable geometry", groupImage=
+        SI.Length l=s "Axial length (in direction of flux)" annotation (Dialog(
+              group="Variable geometry", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/HollowCylinderAxialFlux.png"));
-        parameter Modelica_SIunits.Radius r_i=0
-          "Inner radius of (hollow) cylinder";
-        parameter Modelica_SIunits.Radius r_o=0.01
-          "Outer radius of (hollow) cylinder";
+        parameter SI.Radius r_i=0 "Inner radius of (hollow) cylinder";
+        parameter SI.Radius r_o=0.01 "Outer radius of (hollow) cylinder";
 
-        Modelica_SIunits.MagneticFluxDensity B "Homogeneous flux density";
+        SI.MagneticFluxDensity B "Homogeneous flux density";
 
       protected
-        parameter Modelica_SIunits.Area A=pi*(r_o^2 - r_i^2)
+        parameter SI.Area A=pi*(r_o^2 - r_i^2)
           "Cross-sectional area orthogonal to direction of flux";
 
       equation
@@ -978,20 +969,17 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialForce;
 
-        Modelica_SIunits.Length l=s
-          "Axial length (orthogonal to direction of flux)" annotation (Dialog(
-              group="Variable geometry", groupImage=
+        SI.Length l=s "Axial length (orthogonal to direction of flux)"
+          annotation (Dialog(group="Variable geometry", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/HollowCylinderRadialFlux.png"));
-        parameter Modelica_SIunits.Radius r_i=0.01
-          "Inner radius of hollow cylinder";
-        parameter Modelica_SIunits.Radius r_o=0.015
-          "Outer radius of hollow cylinder";
+        parameter SI.Radius r_i=0.01 "Inner radius of hollow cylinder";
+        parameter SI.Radius r_o=0.015 "Outer radius of hollow cylinder";
 
-        Modelica_SIunits.MagneticFluxDensity B_avg
+        SI.MagneticFluxDensity B_avg
           "Average flux density (at arithmetic mean radius)";
 
       protected
-        Modelica_SIunits.Area A_avg
+        SI.Area A_avg
           "Average cross-sectional area orthogonal to direction of flux (at arithmetic mean radius)";
 
       equation
@@ -1014,18 +1002,16 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialForce;
 
-        Modelica_SIunits.Length l=s "Axial length (in direction of flux)"
-          annotation (Dialog(group="Variable geometry", groupImage=
+        SI.Length l=s "Axial length (in direction of flux)" annotation (Dialog(
+              group="Variable geometry", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/CuboidParallelFlux.png"));
-        parameter Modelica_SIunits.Length a=0.01
-          "Width of rectangular cross-section";
-        parameter Modelica_SIunits.Length b=0.01
-          "Height of rectangular cross-section";
+        parameter SI.Length a=0.01 "Width of rectangular cross-section";
+        parameter SI.Length b=0.01 "Height of rectangular cross-section";
 
-        Modelica_SIunits.MagneticFluxDensity B "Homogeneous flux density";
+        SI.MagneticFluxDensity B "Homogeneous flux density";
 
       protected
-        parameter Modelica_SIunits.Area A=a*b
+        parameter SI.Area A=a*b
           "Cross-sectional area orthogonal to direction of flux";
 
       equation
@@ -1047,20 +1033,17 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialForce;
 
-        Modelica_SIunits.Length l=s
-          "Length in direction of motion (orthogonal to flux)" annotation (
-            Dialog(group="Variable geometry", groupImage=
+        SI.Length l=s "Length in direction of motion (orthogonal to flux)"
+          annotation (Dialog(group="Variable geometry", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/CuboidOrthogonalFlux.png"));
-        parameter Modelica_SIunits.Length a=0.01
-          "Width of rectangular cross-section";
-        parameter Modelica_SIunits.Length b=0.01
+        parameter SI.Length a=0.01 "Width of rectangular cross-section";
+        parameter SI.Length b=0.01
           "Height of rectangular cross-section (in flux direction)";
 
-        Modelica_SIunits.MagneticFluxDensity B "Homogeneous flux density";
+        SI.MagneticFluxDensity B "Homogeneous flux density";
 
       protected
-        Modelica_SIunits.Area A
-          "Cross-sectional area orthogonal to direction of flux";
+        SI.Area A "Cross-sectional area orthogonal to direction of flux";
 
       equation
         A = a*l;
@@ -1081,12 +1064,12 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
         "Leakage flux tube around cylindrical or prismatic poles"
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialForce;
-        Modelica_SIunits.Length l=s "Axial length (in direction of flux)"
-          annotation (Dialog(group="Variable geometry", groupImage=
+        SI.Length l=s "Axial length (in direction of flux)" annotation (Dialog(
+              group="Variable geometry", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/LeakageAroundPoles.png"));
-        parameter Modelica_SIunits.Length w=0.1
+        parameter SI.Length w=0.1
           "Width orthogonal to flux; mean circumference of flux tube in case of cylindrical poles";
-        parameter Modelica_SIunits.Radius r=0.01 "Radius of leakage field";
+        parameter SI.Radius r=0.01 "Radius of leakage field";
 
       equation
         //adapted from [Ka08], but corrected
@@ -1146,7 +1129,7 @@ The shapes of the flux tubes defined in this package are rather simple. Only one
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialLeakage;
 
-        parameter Modelica_SIunits.Length l=0.1
+        parameter SI.Length l=0.1
           "Axial length orthogonal to flux (=2*pi*r for cylindrical pole and r>>distance between edge and plane)"
           annotation (Dialog(group="Parameters", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/Leakage/QuarterCylinder.png"));
@@ -1165,7 +1148,7 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialLeakage;
 
-        parameter Modelica_SIunits.Length l=0.1
+        parameter SI.Length l=0.1
           "Axial length orthogonal to flux (=2*pi*r for cylindrical pole and r>>r_i)"
           annotation (Dialog(group="Parameters", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/Leakage/QuarterHollowCylinder.png"));
@@ -1185,7 +1168,7 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialLeakage;
 
-        parameter Modelica_SIunits.Length l=0.1
+        parameter SI.Length l=0.1
           "Axial length orthogonal to flux (=2*pi*r for cylindrical pole and r>>distance between edges)"
           annotation (Dialog(group="Parameters", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/Leakage/HalfCylinder.png"));
@@ -1205,7 +1188,7 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialLeakage;
 
-        parameter Modelica_SIunits.Length l=0.1
+        parameter SI.Length l=0.1
           "Axial length orthogonal to flux (=2*pi*r for cylindrical pole and r>>r_i)"
           annotation (Dialog(group="Parameters", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/Leakage/HalfHollowCylinder.png"));
@@ -1226,8 +1209,8 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialLeakage;
 
-        parameter Modelica_SIunits.Radius r=0.005 "Radius of quarter sphere"
-          annotation (Dialog(group="Parameters", groupImage=
+        parameter SI.Radius r=0.005 "Radius of quarter sphere" annotation (
+            Dialog(group="Parameters", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/Leakage/QuarterSphere.png"));
 
       equation
@@ -1245,9 +1228,8 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialLeakage;
 
-        parameter Modelica_SIunits.Length t(start=0.01)
-          "Thickness of spherical shell" annotation (Dialog(group="Parameters",
-              groupImage=
+        parameter SI.Length t(start=0.01) "Thickness of spherical shell"
+          annotation (Dialog(group="Parameters", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/Leakage/QuarterHollowSphere.png"));
 
       equation
@@ -1265,8 +1247,8 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialLeakage;
 
-        parameter Modelica_SIunits.Radius r=0.01 "Radius of eighth of sphere"
-          annotation (Dialog(group="Parameters", groupImage=
+        parameter SI.Radius r=0.01 "Radius of eighth of sphere" annotation (
+            Dialog(group="Parameters", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/Leakage/EighthOfSphere.png"));
 
       equation
@@ -1284,9 +1266,8 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialLeakage;
 
-        parameter Modelica_SIunits.Length t(start=0.01)
-          "Thickness of spherical shell" annotation (Dialog(group="Parameters",
-              groupImage=
+        parameter SI.Length t(start=0.01) "Thickness of spherical shell"
+          annotation (Dialog(group="Parameters", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/Leakage/EighthOfHollowSphere.png"));
 
       equation
@@ -1304,18 +1285,15 @@ Please refer to the enclosing sub-package <a href=\"modelica://Modelica.Magnetic
 
         extends Modelica_Magnetic_FluxTubes_Interfaces.PartialLeakage;
 
-        parameter Modelica_SIunits.Radius r_0=10e-3
-          "Radius of inner solid cylinder" annotation (Dialog(group=
-                "Parameters", groupImage=
+        parameter SI.Radius r_0=10e-3 "Radius of inner solid cylinder"
+          annotation (Dialog(group="Parameters", groupImage=
                 "modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/Leakage/CoaxCylindersEndFaces.png"));
-        parameter Modelica_SIunits.Radius r_1=17e-3
-          "Inner radius of outer hollow cylinder";
-        parameter Modelica_SIunits.Radius r_2=20e-3
-          "Outer radius of outer hollow cylinder";
+        parameter SI.Radius r_1=17e-3 "Inner radius of outer hollow cylinder";
+        parameter SI.Radius r_2=20e-3 "Outer radius of outer hollow cylinder";
 
-        final parameter Modelica_SIunits.Distance l_g=r_1 - r_0
+        final parameter SI.Distance l_g=r_1 - r_0
           "Radial gap length between both cylinders";
-        final parameter Modelica_SIunits.Length t=r_2 - r_1
+        final parameter SI.Length t=r_2 - r_1
           "Radial thickness of outer hollow cylinder";
 
       equation
@@ -1360,9 +1338,9 @@ All dimensions are defined as parameters. As a result, the shape of these elemen
 
         extends Modelica_Icons.Record;
 
-        parameter Modelica_SIunits.RelativePermeability mu_i=1
+        parameter SI.RelativePermeability mu_i=1
           "Initial relative permeability at B=0";
-        parameter Modelica_SIunits.MagneticFluxDensity B_myMax=1
+        parameter SI.MagneticFluxDensity B_myMax=1
           "Flux density at maximum relative permeability";
         parameter Real c_a=1 "Coefficient of approximation function";
         parameter Real c_b=1 "Coefficient of approximation function";
@@ -1378,7 +1356,7 @@ The parameters needed for <a href=\"modelica://Modelica.Magnetic.FluxTubes.Mater
       package Steel "Various ferromagnetic steels"
         extends Modelica_Icons.MaterialPropertiesPackage;
         record Steel_9SMnPb28 "9SMnPb28 (1.0718)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=400,
             B_myMax=1.488,
             c_a=1200,
@@ -1392,7 +1370,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
         end Steel_9SMnPb28;
 
         record Steel_9SMn28K "9SMn28k (1.0715)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=500,
             B_myMax=1.036,
             c_a=43414,
@@ -1406,7 +1384,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
         end Steel_9SMn28K;
 
         record DC01 "DC01 (1.0330, previously St2)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=5,
             B_myMax=1.1,
             c_a=6450,
@@ -1420,7 +1398,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
         end DC01;
 
         record DC03 "DC03 (1.0347, previously St3)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=0,
             B_myMax=1.05,
             c_a=27790,
@@ -1434,7 +1412,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
         end DC03;
 
         record X6Cr17 "X6Cr17 (1.4016)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=274,
             B_myMax=1.1,
             c_a=970,
@@ -1448,7 +1426,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
         end X6Cr17;
 
         record AISI_1008 "AISI 1008 (1.0204)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=200,
             B_myMax=1.17,
             c_a=8100,
@@ -1462,7 +1440,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
         end AISI_1008;
 
         record AISI_12L14 "AISI 12L14 (1.0718)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=10,
             B_myMax=0.94,
             c_a=5900,
@@ -1485,7 +1463,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
         extends Modelica_Icons.MaterialPropertiesPackage;
 
         record M330_50A "M330-50A (1.0809) @ 50Hz"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=500,
             B_myMax=0.7,
             c_a=24000,
@@ -1502,7 +1480,7 @@ Sample: complete core after machining and packet assembling<br>
         end M330_50A;
 
         record M350_50A "M350-50A (1.0810) @ 50Hz"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=1210,
             B_myMax=1.16,
             c_a=24630,
@@ -1520,7 +1498,7 @@ Measurement: Epstein frame
         end M350_50A;
 
         record M530_50A "M530-50A (1.0813) @ 50Hz"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=2120,
             B_myMax=1.25,
             c_a=12400,
@@ -1538,7 +1516,7 @@ Measurement: Epstein frame
         end M530_50A;
 
         record M700_100A "M700-100A (1.0826) @ 50Hz"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=1120,
             B_myMax=1.2,
             c_a=20750,
@@ -1556,7 +1534,7 @@ Measurement: Epstein frame
         end M700_100A;
 
         record M940_100A "M940-100A @ 50Hz"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=680,
             B_myMax=1.26,
             c_a=17760,
@@ -1584,7 +1562,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
         extends Modelica_Icons.MaterialPropertiesPackage;
 
         record RFe80 "Hyperm 0 (RFe80)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=123,
             B_myMax=1.27,
             c_a=44410,
@@ -1601,7 +1579,7 @@ Source of B(H) characteristics: Product catalogue <i>Magnequench</i>, 2000
         end RFe80;
 
         record VacoferS2 "VACOFER S2 (99.95% Fe)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=2666,
             B_myMax=1.15,
             c_a=187000,
@@ -1624,7 +1602,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
         extends Modelica_Icons.MaterialPropertiesPackage;
 
         record Vacoflux50 "Vacoflux 50 (50% CoFe)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=3850,
             B_myMax=1.75,
             c_a=11790,
@@ -1645,7 +1623,7 @@ Source of B(H) characteristics: VACUUMSCHMELZE GmbH &amp; Co. KG, Germany
         extends Modelica_Icons.MaterialPropertiesPackage;
 
         record MuMetall "MUMETALL (77% NiFe)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=27300,
             B_myMax=0.46,
             c_a=1037500,
@@ -1665,7 +1643,7 @@ Source of B(H) characteristics:
         end MuMetall;
 
         record Permenorm3601K3 "PERMENORM 3601 K3 (36% NiFe)"
-          extends Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.BaseData(
+          extends BaseData(
             mu_i=3000,
             B_myMax=0.67,
             c_a=50000,
@@ -1690,18 +1668,18 @@ Source of B(H) characteristics:
 
         extends Modelica_Icons.Function;
 
-        input Modelica_SIunits.MagneticFluxDensity B
+        input SI.MagneticFluxDensity B
           "Flux density in ferromagnetic flux tube element";
         //Material specific parameter set:
-        input Modelica_SIunits.RelativePermeability mu_i
+        input SI.RelativePermeability mu_i
           "Initial relative permeability at B=0";
-        input Modelica_SIunits.MagneticFluxDensity B_myMax
+        input SI.MagneticFluxDensity B_myMax
           "Flux density at maximum relative permeability";
         input Real c_a "Coefficient of approximation function";
         input Real c_b "Coefficient of approximation function";
         input Real n "Exponent of approximation function";
 
-        output Modelica_SIunits.RelativePermeability mu_r
+        output SI.RelativePermeability mu_r
           "Relative magnetic permeability of ferromagnetic flux tube element";
 
       protected
@@ -1758,24 +1736,22 @@ Additional user-specific materials can be defined as needed. This requires deter
       record BaseData "Record for permanent magnetic material data"
         extends Modelica_Icons.Record;
 
-        parameter Modelica_SIunits.MagneticFieldStrength H_cBRef=1
+        parameter SI.MagneticFieldStrength H_cBRef=1
           "Coercivity at reference temperature";
-        parameter Modelica_SIunits.MagneticFluxDensity B_rRef=1
+        parameter SI.MagneticFluxDensity B_rRef=1
           "Remanence at reference temperature";
-        parameter Modelica_SIunits.Temperature T_ref=293.15
-          "Reference temperature";
-        parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_Br=0
+        parameter SI.Temperature T_ref=293.15 "Reference temperature";
+        parameter SI.LinearTemperatureCoefficient alpha_Br=0
           "Temperature coefficient of remanence at reference temperature";
 
-        parameter Modelica_SIunits.Temperature T_op=293.15
-          "Operating temperature";
+        parameter SI.Temperature T_op=293.15 "Operating temperature";
 
-        final parameter Modelica_SIunits.MagneticFluxDensity B_r=B_rRef*(1 +
-            alpha_Br*(T_op - T_ref)) "Remanence at operating temperature";
-        final parameter Modelica_SIunits.MagneticFieldStrength H_cB=H_cBRef*(1
-             + alpha_Br*(T_op - T_ref)) "Coercivity at operating temperature";
-        final parameter Modelica_SIunits.RelativePermeability mu_r=B_r/(mu_0*
-            H_cB) "Relative permeability";
+        final parameter SI.MagneticFluxDensity B_r=B_rRef*(1 + alpha_Br*(T_op
+             - T_ref)) "Remanence at operating temperature";
+        final parameter SI.MagneticFieldStrength H_cB=H_cBRef*(1 + alpha_Br*(
+            T_op - T_ref)) "Coercivity at operating temperature";
+        final parameter SI.RelativePermeability mu_r=B_r/(mu_0*H_cB)
+          "Relative permeability";
 
         annotation (Documentation(info="<html>
 <p>
@@ -1785,7 +1761,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
       end BaseData;
 
       record NdFeB "NdFeB sintered; exemplary values"
-        extends Modelica_Magnetic_FluxTubes.Material.HardMagnetic.BaseData(
+        extends BaseData(
           H_cBRef=900000,
           B_rRef=1.2,
           T_ref=20 + 273.15,
@@ -1798,7 +1774,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
       end NdFeB;
 
       record Sm2Co17 "Sm2Co17 sintered, exemplary values"
-        extends Modelica_Magnetic_FluxTubes.Material.HardMagnetic.BaseData(
+        extends BaseData(
           H_cBRef=750000,
           B_rRef=1.02,
           T_ref=20 + 273.15,
@@ -1811,7 +1787,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
       end Sm2Co17;
 
       record SmCo5 "SmCo5 sintered, exemplary values"
-        extends Modelica_Magnetic_FluxTubes.Material.HardMagnetic.BaseData(
+        extends BaseData(
           H_cBRef=720000,
           B_rRef=0.95,
           T_ref=20 + 273.15,
@@ -1824,7 +1800,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
       end SmCo5;
 
       record PlasticNdFeB "Plastic-bonded NdFeB, exemplary values"
-        extends Modelica_Magnetic_FluxTubes.Material.HardMagnetic.BaseData(
+        extends BaseData(
           H_cBRef=400000,
           B_rRef=0.58,
           T_ref=20 + 273.15,
@@ -1837,7 +1813,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
       end PlasticNdFeB;
 
       record PlasticSmCo "Plastic-bonded Sm-Co, exemplary values"
-        extends Modelica_Magnetic_FluxTubes.Material.HardMagnetic.BaseData(
+        extends BaseData(
           H_cBRef=385000,
           B_rRef=0.57,
           T_ref=20 + 273.15,
@@ -1850,7 +1826,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
       end PlasticSmCo;
 
       record HardFerrite "Hard ferrite sintered, exemplary values"
-        extends Modelica_Magnetic_FluxTubes.Material.HardMagnetic.BaseData(
+        extends BaseData(
           H_cBRef=170000,
           B_rRef=0.38,
           T_ref=20 + 273.15,
@@ -1863,7 +1839,7 @@ Please refer to the description of  the enclosing package <a href=\"modelica://M
       end HardFerrite;
 
       record PlasticHardFerrite "Plastic-bonded hard ferrite, exemplary values"
-        extends Modelica_Magnetic_FluxTubes.Material.HardMagnetic.BaseData(
+        extends BaseData(
           H_cBRef=130000,
           B_rRef=0.21,
           T_ref=20 + 273.15,
@@ -1895,7 +1871,6 @@ Additional user-specific materials can be defined as needed.
 </html>"));
   end Material;
 
-
   package Sources
     "Sources of different complexity of magnetomotive force and magnetic flux"
     extends Modelica_Icons.SourcesPackage;
@@ -1903,9 +1878,9 @@ Additional user-specific materials can be defined as needed.
     model ConstantMagneticPotentialDifference "Constant magnetomotive force"
 
       extends Modelica_Magnetic_FluxTubes_Interfaces.PartialTwoPortsElementary;
-      parameter Modelica_SIunits.MagneticPotentialDifference V_m
+      parameter SI.MagneticPotentialDifference V_m
         "Magnetic potential difference";
-      Modelica_SIunits.MagneticFlux Phi "Magnetic flux from port_p to port_n";
+      SI.MagneticFlux Phi "Magnetic flux from port_p to port_n";
 
     equation
       V_m = port_p.V_m - port_n.V_m;
@@ -1956,12 +1931,11 @@ For modelling of reluctance actuators with this source component it is assumed t
 
       extends Modelica_Magnetic_FluxTubes_Interfaces.PartialTwoPortsElementary;
       Modelica_Blocks_Interfaces.RealInput V_m(unit="A")
-        "Magnetic potential difference"
-        annotation (Placement(transformation(
+        "Magnetic potential difference" annotation (Placement(transformation(
             origin={0,90},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_SIunits.MagneticFlux Phi "Magnetic flux from port_p to port_n";
+      SI.MagneticFlux Phi "Magnetic flux from port_p to port_n";
 
     equation
       V_m = port_p.V_m - port_n.V_m;
@@ -2015,8 +1989,8 @@ In these cases, the magnetic potential difference or magnetomotive force imposed
     model ConstantMagneticFlux "Source of constant magnetic flux"
 
       extends Modelica_Magnetic_FluxTubes_Interfaces.PartialTwoPortsElementary;
-      parameter Modelica_SIunits.MagneticFlux Phi=1 "Magnetic flux";
-      Modelica_SIunits.MagneticPotentialDifference V_m
+      parameter SI.MagneticFlux Phi=1 "Magnetic flux";
+      SI.MagneticPotentialDifference V_m
         "Magnetic potential difference between both ports";
 
     equation
@@ -2065,7 +2039,7 @@ Sources of a constant magnetic flux are useful for modelling of permanent magnet
             origin={0,90},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_SIunits.MagneticPotentialDifference V_m
+      SI.MagneticPotentialDifference V_m
         "Magnetic potential difference between both ports";
 
     equation
@@ -2124,7 +2098,7 @@ This package contains sources of a magnetic potential difference or a magnetic f
             origin={0,-100},
             extent={{10,-10},{-10,10}},
             rotation=90)));
-      Modelica_SIunits.MagneticFlux Phi "Magnetic flux from port_p to port_n";
+      SI.MagneticFlux Phi "Magnetic flux from port_p to port_n";
 
     equation
       V_m = port_p.V_m - port_n.V_m;
@@ -2239,5 +2213,6 @@ See <a href=\"modelica://Modelica.Magnetic.FluxTubes.UsersGuide.ReleaseNotes\">r
       origin={62.5,0.0},
       fillColor={160,160,164},
       fillPattern=FillPattern.Solid,
-      extent={{-12.5,-50.0},{12.5,50.0}})}));
+      extent={{-12.5,-50.0},{12.5,50.0}})}),
+    uses(Modelica(version="3.2.1")));
 end Modelica_Magnetic_FluxTubes;

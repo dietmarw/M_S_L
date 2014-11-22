@@ -503,8 +503,8 @@ package CombiTimeTable
 
   model Test40 "Two time events (Ticket #628), periodic"
     extends Modelica.Icons.Example;
-    extends Test0(t_new(table=[0, 0; 2.5, 0; 2.5, 1; 3, 1; 3, 0], extrapolation
-          =Modelica.Blocks.Types.Extrapolation.Periodic));
+    extends Test0(t_new(table=[0, 0; 2.5, 0; 2.5, 1; 3, 1; 3, 0], extrapolation=
+           Modelica.Blocks.Types.Extrapolation.Periodic));
     annotation (experiment(StartTime=0, StopTime=100));
   end Test40;
 

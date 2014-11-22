@@ -107,7 +107,7 @@ package Blocks "Test models for Modelica.Blocks"
   end Continuous;
 
   model Continuous_SteadyState
-    extends ModelicaTest.Blocks.Continuous(
+    extends Continuous(
       derivative(initType=Modelica.Blocks.Types.Init.SteadyState),
       firstOrder(initType=Modelica.Blocks.Types.Init.SteadyState),
       secondOrder(initType=Modelica.Blocks.Types.Init.SteadyState),
@@ -117,9 +117,9 @@ package Blocks "Test models for Modelica.Blocks"
         b={1}),
       stateSpace(
         initType=Modelica.Blocks.Types.Init.SteadyState,
-        A=[1, 0; 0, 1],
+        A=[1,0; 0,1],
         B=[1; 1],
-        C=[1, 1]),
+        C=[1,1]),
       lowpassButterworth(initType=Modelica.Blocks.Types.Init.SteadyState),
       criticalDamping(initType=Modelica.Blocks.Types.Init.SteadyState,
           normalized=false));
@@ -127,7 +127,7 @@ package Blocks "Test models for Modelica.Blocks"
   end Continuous_SteadyState;
 
   model Continuous_InitialState
-    extends ModelicaTest.Blocks.Continuous(
+    extends Continuous(
       integrator(initType=Modelica.Blocks.Types.Init.InitialState),
       limIntegrator(initType=Modelica.Blocks.Types.Init.InitialState),
       derivative(initType=Modelica.Blocks.Types.Init.InitialState),
@@ -142,9 +142,9 @@ package Blocks "Test models for Modelica.Blocks"
         b={1}),
       stateSpace(
         initType=Modelica.Blocks.Types.Init.InitialState,
-        A=[1, 0; 0, 1],
+        A=[1,0; 0,1],
         B=[1; 1],
-        C=[1, 1]),
+        C=[1,1]),
       lowpassButterworth(initType=Modelica.Blocks.Types.Init.InitialState),
       criticalDamping(initType=Modelica.Blocks.Types.Init.InitialState,
           normalized=false));
@@ -152,13 +152,17 @@ package Blocks "Test models for Modelica.Blocks"
   end Continuous_InitialState;
 
   model Continuous_InitialOutput
-    extends ModelicaTest.Blocks.Continuous(
+    extends Continuous(
       integrator(initType=Modelica.Blocks.Types.Init.InitialOutput, y_start=2),
+
       limIntegrator(initType=Modelica.Blocks.Types.Init.InitialOutput, y_start=
             0.5),
       derivative(initType=Modelica.Blocks.Types.Init.InitialOutput, y_start=2),
+
       firstOrder(initType=Modelica.Blocks.Types.Init.InitialOutput, y_start=2),
+
       secondOrder(initType=Modelica.Blocks.Types.Init.InitialOutput, y_start=2),
+
       pI(initType=Modelica.Blocks.Types.Init.InitialOutput, y_start=2),
       pID(initType=Modelica.Blocks.Types.InitPID.InitialOutput, y_start=2),
       limPID(
@@ -173,9 +177,9 @@ package Blocks "Test models for Modelica.Blocks"
       stateSpace(
         initType=Modelica.Blocks.Types.Init.InitialOutput,
         y_start={2},
-        A=[1, 0; 0, 1],
+        A=[1,0; 0,1],
         B=[1; 1],
-        C=[1, 1]),
+        C=[1,1]),
       lowpassButterworth(initType=Modelica.Blocks.Types.Init.InitialOutput,
           y_start=2),
       criticalDamping(

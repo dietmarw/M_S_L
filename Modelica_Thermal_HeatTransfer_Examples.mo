@@ -1,6 +1,11 @@
 within ;
-package Modelica_Thermal_HeatTransfer_Examples
+encapsulated package Modelica_Thermal_HeatTransfer_Examples
   "Example models to demonstrate the usage of package Modelica.Thermal.HeatTransfer"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Thermal_HeatTransfer;
+  import Modelica_Electrical_Analog;
+  import Modelica_Blocks;
   extends Modelica_Icons.ExamplesPackage;
 
   model TwoMasses "Simple conduction demo"
@@ -14,14 +19,14 @@ package Modelica_Thermal_HeatTransfer_Examples
             273.15, fixed=true)) annotation (Placement(transformation(extent={{
               40,20},{100,80}}, rotation=0)));
     Modelica_Thermal_HeatTransfer.Components.ThermalConductor conduction(G=10)
-      annotation (Placement(transformation(extent={{-30,-20},{30,40}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-30,-20},{30,40}}, rotation=
+             0)));
     Modelica_Thermal_HeatTransfer.Celsius.TemperatureSensor Tsensor1
       annotation (Placement(transformation(extent={{-60,-80},{-20,-40}},
             rotation=0)));
     Modelica_Thermal_HeatTransfer.Celsius.TemperatureSensor Tsensor2
-      annotation (Placement(transformation(extent={{60,-80},{20,-40}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{60,-80},{20,-40}}, rotation=
+             0)));
   equation
     connect(mass1.port, conduction.port_a) annotation (Line(points={{-70,20},
             {-70,10},{-30,10}}, color={191,0,0}));
@@ -60,9 +65,8 @@ Tsensor1.T, Tsensor2.T, T_final_degC
       "Error in Temperature";
     output Modelica_SIunits.Temperature TRes(displayUnit="degC") = heatingResistor.T_heatPort
       "Resulting Temperature";
-    Modelica_Electrical_Analog.Basic.Ground ground
-                                annotation (Placement(transformation(extent={
-              {-100,-100},{-80,-80}}, rotation=0)));
+    Modelica_Electrical_Analog.Basic.Ground ground annotation (Placement(
+          transformation(extent={{-100,-100},{-80,-80}}, rotation=0)));
     Modelica_Electrical_Analog.Sources.ConstantVoltage constantVoltage(V=10)
                                                           annotation (Placement(
           transformation(
@@ -88,8 +92,8 @@ Tsensor1.T, Tsensor2.T, T_final_degC
           extent={{-10,-10},{10,10}},
           rotation=90)));
     Modelica_Thermal_HeatTransfer.Components.ThermalConductor thermalConductor(G=0.1)
-      annotation (Placement(transformation(extent={{40,-60},{60,-40}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{40,-60},{60,-40}}, rotation=
+             0)));
     Modelica_Electrical_Analog.Ideal.IdealOpeningSwitch idealSwitch
           annotation (Placement(transformation(extent={{-70,-50},{-50,-30}},
             rotation=0)));
@@ -177,8 +181,8 @@ An appropriate simulating time would be 10 seconds.
           extent={{-10,-10},{10,10}},
           rotation=270)));
     Modelica_Thermal_HeatTransfer.Components.ThermalConductor winding2core(G=10)
-      annotation (Placement(transformation(extent={{-50,-20},{-30,0}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-50,-20},{-30,0}}, rotation=
+             0)));
     Modelica_Thermal_HeatTransfer.Sources.PrescribedHeatFlow coreLosses
       annotation (Placement(transformation(
           origin={0,10},
@@ -268,5 +272,5 @@ Simulate for 7200 s; plot Twinding.T and Tcore.T.
   end Motor;
   annotation (                              Documentation(info="<html>
 
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Thermal_HeatTransfer_Examples;

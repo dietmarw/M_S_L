@@ -1,8 +1,13 @@
 within ;
-package Modelica_ComplexMath
+encapsulated package Modelica_ComplexMath
   "Library of complex mathematical functions (e.g., sin, cos) and of functions operating on complex vectors and matrices"
+  import Modelica_Icons;
+  import Complex;
+  import Modelica_Constants;
+  import Modelica_Math;
+  import Modelica_SIunits;
   extends Modelica_Icons.Package;
-  final constant Complex j = Complex(0,1) "Imaginary unit";
+  final constant Complex j=Complex(0, 1) "Imaginary unit";
 
 package Vectors "Library of functions operating on complex vectors"
   extends Modelica_Icons.Package;
@@ -17,7 +22,7 @@ function norm "Returns the p-norm of a complex vector"
 algorithm
   if p == 2 then
     result:= sqrt(sum(v[i].re^2 + v[i].im^2 for i in 1:size(v,1)));
-  elseif p ==Modelica_Constants.inf then
+      elseif p == Modelica_Constants.inf then
         result := 'abs'('max'(v));
   elseif p == 1 then
         result := sum('abs'(v[i]) for i in 1:size(v, 1));
@@ -678,6 +683,6 @@ as well as functions operating on vectors of complex numbers.
           points={{-50,-75},{-5,-30}},
           color={0,0,0},
           smooth=Smooth.None)}),
-    uses(Complex(version="3.2.2")));
+    uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
 
 end Modelica_ComplexMath;

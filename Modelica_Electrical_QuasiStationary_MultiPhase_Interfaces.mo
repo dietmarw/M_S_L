@@ -1,6 +1,14 @@
 within ;
-package Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces
+encapsulated package Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces
   "Interfaces for AC multiphase models"
+  import Modelica_Icons;
+  import Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces;
+  import Modelica_Electrical_QuasiStationary;
+  import Modelica_SIunits;
+  import Modelica_ComplexMath;
+  import Complex;
+  import Modelica_ComplexBlocks_Interfaces;
+  import Modelica_Constants;
   extends Modelica_Icons.InterfacesPackage;
 
   connector Plug "Basic multiphase plug"
@@ -255,8 +263,8 @@ The absolute sensor partial model relies on the a
   partial model RelativeSensor "Partial voltage / current sensor"
     extends Modelica_Icons.RotationalSensor;
     extends TwoPlug;
-    Modelica_ComplexBlocks_Interfaces.ComplexOutput y[m] annotation (
-        Placement(transformation(
+    Modelica_ComplexBlocks_Interfaces.ComplexOutput y[m] annotation (Placement(
+          transformation(
           origin={0,-110},
           extent={{-10,-10},{10,10}},
           rotation=270)));
@@ -332,7 +340,7 @@ The source partial model relies on the
 
   partial model ReferenceSource
     "Partial of voltage or current source with reference input"
-    extends Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.OnePort;
+    extends OnePort;
     import Modelica_Constants.pi;
   equation
     Connections.root(plug_p.reference);
@@ -370,5 +378,5 @@ The source partial model relies on the
 </p>
 </html>"));
   end ReferenceSource;
-  annotation (uses(Complex(version="3.2.2")));
+  annotation (uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
 end Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces;

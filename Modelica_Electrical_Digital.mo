@@ -1,6 +1,12 @@
 within ;
-package Modelica_Electrical_Digital
+encapsulated package Modelica_Electrical_Digital
   "Library for digital electrical components based on the VHDL standard with 9-valued logic and conversion to 2-,3-,4-valued logic"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Electrical_Digital_Interfaces;
+  import Modelica_Constants;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Utilities;
   extends Modelica_Icons.Package;
 
     package UsersGuide "User's Guide"
@@ -154,7 +160,6 @@ the library and has the following content:
 </html>"));
     end UsersGuide;
 
-
   package Tables "Truth tables for all components of package Digital"
     extends Modelica_Icons.Package;
 
@@ -163,60 +168,55 @@ the library and has the following content:
     import R = Modelica_Electrical_Digital_Interfaces.UX01;
     import S = Modelica_Electrical_Digital_Interfaces.Strength;
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic AndTable[L,L]=[L.'U',
-        L.'U',L.'0',L.'U',L.'U',L.'U',L.'0',L.'U',L.'U'; L.'U',L.'X',L.'0',L.
-        'X',L.'X',L.'X',L.'0',L.'X',L.'X'; L.'0',L.'0',L.'0',L.'0',L.'0',L.'0',
-        L.'0',L.'0',L.'0'; L.'U',L.'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.
-        'X'; L.'U',L.'X',L.'0',L.'X',L.'X',L.'X',L.'0',L.'X',L.'X'; L.'U',L.'X',
-        L.'0',L.'X',L.'X',L.'X',L.'0',L.'X',L.'X'; L.'0',L.'0',L.'0',L.'0',L.
-        '0',L.'0',L.'0',L.'0',L.'0'; L.'U',L.'X',L.'0',L.'1',L.'X',L.'X',L.'0',
-        L.'1',L.'X'; L.'U',L.'X',L.'0',L.'X',L.'X',L.'X',L.'0',L.'X',L.'X']
-      "9-value logic for 'and'";
+    constant L AndTable[L,L]=[L.'U',L.'U',L.'0',L.'U',L.'U',L.'U',L.'0',L.'U',L.
+        'U'; L.'U',L.'X',L.'0',L.'X',L.'X',L.'X',L.'0',L.'X',L.'X'; L.'0',L.'0',
+        L.'0',L.'0',L.'0',L.'0',L.'0',L.'0',L.'0'; L.'U',L.'X',L.'0',L.'1',L.
+        'X',L.'X',L.'0',L.'1',L.'X'; L.'U',L.'X',L.'0',L.'X',L.'X',L.'X',L.'0',
+        L.'X',L.'X'; L.'U',L.'X',L.'0',L.'X',L.'X',L.'X',L.'0',L.'X',L.'X'; L.
+        '0',L.'0',L.'0',L.'0',L.'0',L.'0',L.'0',L.'0',L.'0'; L.'U',L.'X',L.'0',
+        L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'; L.'U',L.'X',L.'0',L.'X',L.'X',L.
+        'X',L.'0',L.'X',L.'X'] "9-value logic for 'and'";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic OrTable[L,L]=[L.'U',L.
-        'U',L.'U',L.'1',L.'U',L.'U',L.'U',L.'1',L.'U'; L.'U',L.'X',L.'X',L.'1',
-        L.'X',L.'X',L.'X',L.'1',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'X',L.'X',L.
-        '0',L.'1',L.'X'; L.'1',L.'1',L.'1',L.'1',L.'1',L.'1',L.'1',L.'1',L.'1';
-        L.'U',L.'X',L.'X',L.'1',L.'X',L.'X',L.'X',L.'1',L.'X'; L.'U',L.'X',L.
-        'X',L.'1',L.'X',L.'X',L.'X',L.'1',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'X',
-        L.'X',L.'0',L.'1',L.'X'; L.'1',L.'1',L.'1',L.'1',L.'1',L.'1',L.'1',L.
-        '1',L.'1'; L.'U',L.'X',L.'X',L.'1',L.'X',L.'X',L.'X',L.'1',L.'X']
-      "9-value logic for 'or'";
+    constant L OrTable[L,L]=[L.'U',L.'U',L.'U',L.'1',L.'U',L.'U',L.'U',L.'1',L.
+        'U'; L.'U',L.'X',L.'X',L.'1',L.'X',L.'X',L.'X',L.'1',L.'X'; L.'U',L.'X',
+        L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'; L.'1',L.'1',L.'1',L.'1',L.
+        '1',L.'1',L.'1',L.'1',L.'1'; L.'U',L.'X',L.'X',L.'1',L.'X',L.'X',L.'X',
+        L.'1',L.'X'; L.'U',L.'X',L.'X',L.'1',L.'X',L.'X',L.'X',L.'1',L.'X'; L.
+        'U',L.'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'; L.'1',L.'1',L.'1',
+        L.'1',L.'1',L.'1',L.'1',L.'1',L.'1'; L.'U',L.'X',L.'X',L.'1',L.'X',L.
+        'X',L.'X',L.'1',L.'X'] "9-value logic for 'or'";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic NotTable[L]={L.'U',L.
-        'X',L.'1',L.'0',L.'X',L.'X',L.'1',L.'0',L.'X'}
-      "9-value logic for 'not'";
+    constant L NotTable[L]={L.'U',L.'X',L.'1',L.'0',L.'X',L.'X',L.'1',L.'0',L.
+        'X'} "9-value logic for 'not'";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic XorTable[L,L]=[L.'U',
-        L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'X',L.'X',L.
-        'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'X',L.'X',
-        L.'0',L.'1',L.'X'; L.'U',L.'X',L.'1',L.'0',L.'X',L.'X',L.'1',L.'0',L.
-        'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',
-        L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',L.'0',L.'1',L.
-        'X',L.'X',L.'0',L.'1',L.'X'; L.'U',L.'X',L.'1',L.'0',L.'X',L.'X',L.'1',
-        L.'0',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X']
-      "9-value logic for 'xor'";
+    constant L XorTable[L,L]=[L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.
+        'U'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',
+        L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'; L.'U',L.'X',L.'1',L.'0',L.
+        'X',L.'X',L.'1',L.'0',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',
+        L.'X',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.
+        'U',L.'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'; L.'U',L.'X',L.'1',
+        L.'0',L.'X',L.'X',L.'1',L.'0',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.
+        'X',L.'X',L.'X',L.'X'] "9-value logic for 'xor'";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic ResolutionTable[L,L]=
-        [L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'X',L.
-        'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',L.'0',L.'X',L.'0',
-        L.'0',L.'0',L.'0',L.'X'; L.'U',L.'X',L.'X',L.'1',L.'1',L.'1',L.'1',L.
-        '1',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'Z',L.'W',L.'L',L.'H',L.'X'; L.'U',
-        L.'X',L.'0',L.'1',L.'W',L.'W',L.'W',L.'W',L.'X'; L.'U',L.'X',L.'0',L.
-        '1',L.'L',L.'W',L.'L',L.'W',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'H',L.'W',
-        L.'W',L.'H',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.
-        'X'] "9-value logic for 'wiredX'";
-    constant Modelica_Electrical_Digital_Interfaces.Logic X01Table[L]={L.'X',L.
-        'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'};
+    constant L ResolutionTable[L,L]=[L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',
+        L.'U',L.'U'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.
+        'U',L.'X',L.'0',L.'X',L.'0',L.'0',L.'0',L.'0',L.'X'; L.'U',L.'X',L.'X',
+        L.'1',L.'1',L.'1',L.'1',L.'1',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'Z',L.
+        'W',L.'L',L.'H',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'W',L.'W',L.'W',L.'W',
+        L.'X'; L.'U',L.'X',L.'0',L.'1',L.'L',L.'W',L.'L',L.'W',L.'X'; L.'U',L.
+        'X',L.'0',L.'1',L.'H',L.'W',L.'W',L.'H',L.'X'; L.'U',L.'X',L.'X',L.'X',
+        L.'X',L.'X',L.'X',L.'X',L.'X'] "9-value logic for 'wiredX'";
+    constant L X01Table[L]={L.'X',L.'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.
+        'X'};
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic X01ZTable[L]={L.'X',L.
-        'X',L.'0',L.'1',L.'Z',L.'X',L.'0',L.'1',L.'Z'};
+    constant L X01ZTable[L]={L.'X',L.'X',L.'0',L.'1',L.'Z',L.'X',L.'0',L.'1',L.
+        'Z'};
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic UX01Table[L]={L.'U',L.
-        'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.'X'};
+    constant L UX01Table[L]={L.'U',L.'X',L.'0',L.'1',L.'X',L.'X',L.'0',L.'1',L.
+        'X'};
 
-    constant Modelica_Electrical_Digital_Interfaces.UX01 UX01Conv[L]={R.'U',R.
-        'X',R.'0',R.'1',R.'X',R.'X',R.'0',R.'1',R.'X'};
+    constant R UX01Conv[L]={R.'U',R.'X',R.'0',R.'1',R.'X',R.'X',R.'0',R.'1',R.
+        'X'};
 
     constant Integer DelayTable[L, L]=[
          0,  0, -1,  1,  0,  0, -1,  1,  0;
@@ -246,100 +246,95 @@ the library and has the following content:
     1: rising edge  |
     2: X-Transition";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic StrengthMap[L,S]=[L.
-        'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'X',L.'X',
-        L.'X',L.'X',L.'X',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'0',L.'0',L.'L',L.
-        '0',L.'Z',L.'L',L.'L',L.'Z',L.'0',L.'L'; L.'1',L.'H',L.'1',L.'Z',L.'1',
-        L.'H',L.'Z',L.'H',L.'H',L.'1'; L.'X',L.'X',L.'X',L.'X',L.'X',L.'W',L.
-        'W',L.'W',L.'W',L.'W'; L.'X',L.'X',L.'X',L.'X',L.'X',L.'W',L.'W',L.'W',
-        L.'W',L.'W'; L.'0',L.'0',L.'L',L.'0',L.'Z',L.'L',L.'L',L.'Z',L.'0',L.
-        'L'; L.'1',L.'H',L.'1',L.'Z',L.'1',L.'H',L.'Z',L.'H',L.'H',L.'1'; L.'X',
-        L.'X',L.'X',L.'X',L.'X',L.'W',L.'W',L.'W',L.'W',L.'W']
-      "Output strength conversion by [signal, strength] reading";
+    constant L StrengthMap[L,S]=[L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.
+        'U',L.'U',L.'U'; L.'X',L.'X',L.'X',L.'X',L.'X',L.'W',L.'W',L.'W',L.'W',
+        L.'W'; L.'0',L.'0',L.'L',L.'0',L.'Z',L.'L',L.'L',L.'Z',L.'0',L.'L'; L.
+        '1',L.'H',L.'1',L.'Z',L.'1',L.'H',L.'Z',L.'H',L.'H',L.'1'; L.'X',L.'X',
+        L.'X',L.'X',L.'X',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'X',L.'X',L.'X',L.
+        'X',L.'X',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'0',L.'0',L.'L',L.'0',L.'Z',
+        L.'L',L.'L',L.'Z',L.'0',L.'L'; L.'1',L.'H',L.'1',L.'Z',L.'1',L.'H',L.
+        'Z',L.'H',L.'H',L.'1'; L.'X',L.'X',L.'X',L.'X',L.'X',L.'W',L.'W',L.'W',
+        L.'W',L.'W'] "Output strength conversion by [signal, strength] reading";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic NXferTable[L,L]=[L.
-        'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'X',L.'X',
-        L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.
-        'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'X',L.'0',L.'1',L.'Z',L.'W',L.'L',L.'H',
-        L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.
-        'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'Z',L.'Z',L.'Z',L.'Z',
-        L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'X',L.'0',L.'1',L.'Z',L.'W',L.
-        'L',L.'H',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X']
-      "NX Transfer by [enable, input] reading";
+    constant L NXferTable[L,L]=[L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',
+        L.'U'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'Z',L.
+        'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'X',L.'0',L.'1',
+        L.'Z',L.'W',L.'L',L.'H',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.
+        'X',L.'X',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X';
+        L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'X',L.
+        '0',L.'1',L.'Z',L.'W',L.'L',L.'H',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',
+        L.'X',L.'X',L.'X',L.'X'] "NX Transfer by [enable, input] reading";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic NRXferTable[L,L]=[L.
-        'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'W',L.'W',
-        L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.
-        'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'W',L.'L',L.'H',L.'Z',L.'W',L.'L',L.'H',
-        L.'W'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'U',L.
-        'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'Z',L.'Z',L.'Z',L.'Z',
-        L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'W',L.'L',L.'H',L.'Z',L.'W',L.
-        'L',L.'H',L.'W'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W']
-      "NRX Transfer by [enable, input] reading";
+    constant L NRXferTable[L,L]=[L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.
+        'U',L.'U'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'Z',
+        L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'W',L.'L',L.
+        'H',L.'Z',L.'W',L.'L',L.'H',L.'W'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',
+        L.'W',L.'W',L.'W'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.
+        'W'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'W',
+        L.'L',L.'H',L.'Z',L.'W',L.'L',L.'H',L.'W'; L.'U',L.'W',L.'W',L.'W',L.
+        'W',L.'W',L.'W',L.'W',L.'W'] "NRX Transfer by [enable, input] reading";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic PXferTable[L,L]=[L.
-        'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'X',L.'X',
-        L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',L.'0',L.'1',L.'Z',L.
-        'W',L.'L',L.'H',L.'X'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',
-        L.'Z'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.
-        'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.'X',L.'0',L.'1',
-        L.'Z',L.'W',L.'L',L.'H',L.'X'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.
-        'Z',L.'Z',L.'Z'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X']
-      "PX Transfer by [enable, input] reading";
+    constant L PXferTable[L,L]=[L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',
+        L.'U'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X'; L.'U',L.
+        'X',L.'0',L.'1',L.'Z',L.'W',L.'L',L.'H',L.'X'; L.'Z',L.'Z',L.'Z',L.'Z',
+        L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.
+        'X',L.'X',L.'X'; L.'U',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X',L.'X';
+        L.'U',L.'X',L.'0',L.'1',L.'Z',L.'W',L.'L',L.'H',L.'X'; L.'Z',L.'Z',L.
+        'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'X',L.'X',L.'X',L.'X',
+        L.'X',L.'X',L.'X',L.'X'] "PX Transfer by [enable, input] reading";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic PRXferTable[L,L]=[L.
-        'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U'; L.'U',L.'W',L.'W',
-        L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'U',L.'W',L.'L',L.'H',L.'Z',L.
-        'W',L.'L',L.'H',L.'W'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',
-        L.'Z'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'U',L.
-        'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'U',L.'W',L.'L',L.'H',
-        L.'Z',L.'W',L.'L',L.'H',L.'W'; L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.
-        'Z',L.'Z',L.'Z'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W']
-      "PRX Transfer by [enable, input] reading";
+    constant L PRXferTable[L,L]=[L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.'U',L.
+        'U',L.'U'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W'; L.'U',
+        L.'W',L.'L',L.'H',L.'Z',L.'W',L.'L',L.'H',L.'W'; L.'Z',L.'Z',L.'Z',L.
+        'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',
+        L.'W',L.'W',L.'W'; L.'U',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.'W',L.
+        'W'; L.'U',L.'W',L.'L',L.'H',L.'Z',L.'W',L.'L',L.'H',L.'W'; L.'Z',L.'Z',
+        L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z',L.'Z'; L.'U',L.'W',L.'W',L.'W',L.
+        'W',L.'W',L.'W',L.'W',L.'W'] "PRX Transfer by [enable, input] reading";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic Buf3sTable[S,R,R]=[{{
-        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',
-        L.'Z'},{L.'U',L.'X',L.'0',L.'1'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
-        'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'0',L.'H'}},{
-        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',
-        L.'Z'},{L.'U',L.'X',L.'L',L.'1'}},{{L.'U',L.'U',L.'U',L.'Z'},{L.'U',L.
-        'X',L.'X',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'0',L.'Z'}},{
-        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',
-        L.'Z'},{L.'U',L.'X',L.'Z',L.'1'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
-        'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'L',L.'H'}},{
-        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'Z'},{L.'Z',L.'Z',L.'Z',
-        L.'Z'},{L.'U',L.'W',L.'L',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
-        'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'Z',L.'H'}},{
-        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',
-        L.'Z'},{L.'U',L.'W',L.'0',L.'H'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
-        'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'L',L.'1'}}}]
+    constant L Buf3sTable[S,R,R]=[{{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.
+        'X',L.'X'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'0',L.'1'}},{{L.'U',
+        L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'Z',L.'Z',L.'Z',L.'Z'},
+        {L.'U',L.'X',L.'0',L.'H'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.
+        'X',L.'X'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'L',L.'1'}},{{L.'U',
+        L.'U',L.'U',L.'Z'},{L.'U',L.'X',L.'X',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'},
+        {L.'U',L.'X',L.'0',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.
+        'X',L.'X'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'X',L.'Z',L.'1'}},{{L.'U',
+        L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},
+        {L.'U',L.'W',L.'L',L.'H'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.
+        'W',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'L',L.'Z'}},{{L.'U',
+        L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},
+        {L.'U',L.'W',L.'Z',L.'H'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.
+        'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},{L.'U',L.'W',L.'0',L.'H'}},{{L.'U',
+        L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'Z',L.'Z',L.'Z',L.'Z'},
+        {L.'U',L.'W',L.'L',L.'1'}}}]
       "Tristate Table by [strength, enable, input] reading, high-active enable";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic Buf3slTable[S,R,R]=[{
-        {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',
-        L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
-        'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{
-        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'L',
-        L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'Z'},{L.'U',L.
-        'X',L.'X',L.'Z'},{L.'U',L.'X',L.'0',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{
-        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'Z',
-        L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
-        'W',L.'W',L.'W'},{L.'U',L.'W',L.'L',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{
-        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'Z'},{L.'U',L.'W',L.'L',
-        L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
-        'W',L.'W',L.'W'},{L.'U',L.'W',L.'Z',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{
-        {L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'U',L.'W',L.'0',
-        L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.
-        'W',L.'W',L.'W'},{L.'U',L.'W',L.'L',L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}}}]
+    constant L Buf3slTable[S,R,R]=[{{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.
+        'X',L.'X'},{L.'U',L.'X',L.'0',L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',
+        L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',L.'H'},
+        {L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.
+        'X',L.'X'},{L.'U',L.'X',L.'L',L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',
+        L.'U',L.'U',L.'Z'},{L.'U',L.'X',L.'X',L.'Z'},{L.'U',L.'X',L.'0',L.'Z'},
+        {L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.
+        'X',L.'X'},{L.'U',L.'X',L.'Z',L.'1'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',
+        L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'U',L.'W',L.'L',L.'H'},
+        {L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.
+        'W',L.'Z'},{L.'U',L.'W',L.'L',L.'Z'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',
+        L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'U',L.'W',L.'Z',L.'H'},
+        {L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'W',L.
+        'W',L.'W'},{L.'U',L.'W',L.'0',L.'H'},{L.'Z',L.'Z',L.'Z',L.'Z'}},{{L.'U',
+        L.'U',L.'U',L.'U'},{L.'U',L.'W',L.'W',L.'W'},{L.'U',L.'W',L.'L',L.'1'},
+        {L.'Z',L.'Z',L.'Z',L.'Z'}}}]
       "Tristate Table by [strength, enable, input] reading, low-active enable";
 
-    constant Modelica_Electrical_Digital_Interfaces.Logic MUX2x1Table[R,R,R]=[{
-        {{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'X',L.'0',
-        L.'1'},{L.'U',L.'U',L.'U',L.'U'}},{{L.'U',L.'X',L.'U',L.'U'},{L.'U',L.
-        'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',L.'1'},{L.'X',L.'X',L.'X',L.'X'}},{
-        {L.'U',L.'U',L.'0',L.'U'},{L.'U',L.'X',L.'0',L.'X'},{L.'U',L.'X',L.'0',
-        L.'1'},{L.'0',L.'0',L.'0',L.'0'}},{{L.'U',L.'U',L.'U',L.'1'},{L.'U',L.
-        'X',L.'X',L.'1'},{L.'U',L.'X',L.'0',L.'1'},{L.'1',L.'1',L.'1',L.'1'}}}]
+    constant L MUX2x1Table[R,R,R]=[{{{L.'U',L.'U',L.'U',L.'U'},{L.'U',L.'U',L.
+        'U',L.'U'},{L.'U',L.'X',L.'0',L.'1'},{L.'U',L.'U',L.'U',L.'U'}},{{L.'U',
+        L.'X',L.'U',L.'U'},{L.'U',L.'X',L.'X',L.'X'},{L.'U',L.'X',L.'0',L.'1'},
+        {L.'X',L.'X',L.'X',L.'X'}},{{L.'U',L.'U',L.'0',L.'U'},{L.'U',L.'X',L.
+        '0',L.'X'},{L.'U',L.'X',L.'0',L.'1'},{L.'0',L.'0',L.'0',L.'0'}},{{L.'U',
+        L.'U',L.'U',L.'1'},{L.'U',L.'X',L.'X',L.'1'},{L.'U',L.'X',L.'0',L.'1'},
+        {L.'1',L.'1',L.'1',L.'1'}}}]
       "Multiplexer Table by [select, input1, input0] reading";
 
     annotation (                            Documentation(info="<html>
@@ -363,8 +358,8 @@ the library and has the following content:
         model TransportDelay "Transport delay with initial parameter"
           import D = Modelica_Electrical_Digital;
           import L = Modelica_Electrical_Digital_Interfaces.Logic;
-          extends Modelica_Electrical_Digital_Interfaces.SISO(
-                                    x(start=L.'U',fixed=true));
+          extends Modelica_Electrical_Digital_Interfaces.SISO(x(start=L.'U',
+            fixed=true));
           parameter Modelica_SIunits.Time delayTime(start=0) "delay time";
       parameter Modelica_Electrical_Digital_Interfaces.Logic y0=L.'U'
         "initial value of output";
@@ -507,7 +502,7 @@ If time is less than <i>Tdel</i> the initial value <i>initout</i> holds.
             lh := delayTable[y_old, x];
             delayTime := if (lh > 0) then tLH else (if (lh < 0) then tHL else 0);
             t_next := time + delayTime;
-            if (lh == 0 or abs(delayTime) <Modelica_Constants.small) then
+        if (lh == 0 or abs(delayTime) < Modelica_Constants.small) then
               y_auxiliary := x;
             end if;
          elsewhen time >= t_next then
@@ -978,11 +973,10 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
           extends Modelica_Electrical_Digital_Interfaces.SISO;
-          D.Basic.Not G1         annotation (Placement(transformation(extent={{-60,
-                    -20},{-20,20}}, rotation=0)));
-          D.Delay.InertialDelaySensitive G2(tLH=tLH, tHL=tHL)
-            annotation (Placement(transformation(extent={{20,-20},{60,20}},
-                  rotation=0)));
+          D.Basic.Not G1 annotation (Placement(transformation(extent={{-60,-20},
+                {-20,20}}, rotation=0)));
+          D.Delay.InertialDelaySensitive G2(tLH=tLH, tHL=tHL) annotation (
+          Placement(transformation(extent={{20,-20},{60,20}}, rotation=0)));
         equation
           connect(G2.y, y)                      annotation (Line(points={{60,0},{
                   100,0}}, color={127,0,127}));
@@ -1034,13 +1028,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
       import D = Modelica_Electrical_Digital;
           extends Modelica_Electrical_Digital_Interfaces.MISO;
           extends D.Delay.DelayParams;
-          D.Basic.And G1(final n=n)     annotation (Placement(transformation(extent={
-                    {-40,-20},{0,20}}, rotation=0)));
+          D.Basic.And G1(final n=n) annotation (Placement(transformation(extent
+              ={{-40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
-            tLH=tLH,
-            tHL=tHL,
-            y0=y0)     annotation (Placement(transformation(extent={{20,-20},{60,20}},
-                  rotation=0)));
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0) annotation (Placement(transformation(extent={{20,-20},{60,20}},
+              rotation=0)));
         equation
           connect(x, G1.x)
             annotation (Line(points={{-60,0},{-32,0}}, color={127,0,127}));
@@ -1089,13 +1083,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
           extends Modelica_Electrical_Digital_Interfaces.MISO;
-          D.Basic.Nand G1(final n=n)      annotation (Placement(transformation(extent=
-                   {{-40,-20},{0,20}}, rotation=0)));
+          D.Basic.Nand G1(final n=n) annotation (Placement(transformation(
+              extent={{-40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
-            tLH=tLH,
-            tHL=tHL,
-            y0=y0)     annotation (Placement(transformation(extent={{20,-20},{60,20}},
-                  rotation=0)));
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0) annotation (Placement(transformation(extent={{20,-20},{60,20}},
+              rotation=0)));
         equation
           connect(x, G1.x)
             annotation (Line(points={{-60,0},{-32,0}}, color={127,0,127}));
@@ -1149,13 +1143,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
           extends Modelica_Electrical_Digital_Interfaces.MISO;
-          D.Basic.Or G1(final n=n)    annotation (Placement(transformation(extent={{
-                    -40,-20},{0,20}}, rotation=0)));
+          D.Basic.Or G1(final n=n) annotation (Placement(transformation(extent=
+                {{-40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
-            tLH=tLH,
-            tHL=tHL,
-            y0=y0)     annotation (Placement(transformation(extent={{20,-20},{60,20}},
-                  rotation=0)));
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0) annotation (Placement(transformation(extent={{20,-20},{60,20}},
+              rotation=0)));
         equation
           connect(G1.y, G2.x)
             annotation (Line(points={{0,0},{28,0}}, color={127,0,127}));
@@ -1204,13 +1198,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
           extends Modelica_Electrical_Digital_Interfaces.MISO;
-          D.Basic.Nor G1(final n=n)     annotation (Placement(transformation(extent={
-                    {-40,-20},{0,20}}, rotation=0)));
+          D.Basic.Nor G1(final n=n) annotation (Placement(transformation(extent
+              ={{-40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
-            tLH=tLH,
-            tHL=tHL,
-            y0=y0)     annotation (Placement(transformation(extent={{20,-20},{60,20}},
-                  rotation=0)));
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0) annotation (Placement(transformation(extent={{20,-20},{60,20}},
+              rotation=0)));
         equation
           connect(G1.y, G2.x)
             annotation (Line(points={{0,0},{28,0}}, color={127,0,127}));
@@ -1265,13 +1259,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
           extends Modelica_Electrical_Digital_Interfaces.MISO;
-          D.Basic.Xor G1(final n=n)     annotation (Placement(transformation(extent={
-                    {-40,-20},{0,20}}, rotation=0)));
+          D.Basic.Xor G1(final n=n) annotation (Placement(transformation(extent
+              ={{-40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
-            tLH=tLH,
-            tHL=tHL,
-            y0=y0)     annotation (Placement(transformation(extent={{20,-20},{60,20}},
-                  rotation=0)));
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0) annotation (Placement(transformation(extent={{20,-20},{60,20}},
+              rotation=0)));
         equation
           connect(x, G1.x)
             annotation (Line(points={{-60,0},{-32,0}}, color={127,0,127}));
@@ -1320,13 +1314,13 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
           extends Modelica_Electrical_Digital_Interfaces.MISO;
-          D.Basic.Xnor G1(final n=n)      annotation (Placement(transformation(extent=
-                   {{-40,-20},{0,20}}, rotation=0)));
+          D.Basic.Xnor G1(final n=n) annotation (Placement(transformation(
+              extent={{-40,-20},{0,20}}, rotation=0)));
           D.Delay.InertialDelaySensitive G2(
-            tLH=tLH,
-            tHL=tHL,
-            y0=y0)     annotation (Placement(transformation(extent={{20,-20},{60,20}},
-                  rotation=0)));
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0) annotation (Placement(transformation(extent={{20,-20},{60,20}},
+              rotation=0)));
         equation
           connect(x, G1.x)
             annotation (Line(points={{-60,0},{-32,0}}, color={127,0,127}));
@@ -1376,9 +1370,8 @@ The parameters <i>tLH</i> and <i>tHL</i> are valid for each of the n signals.
       import D = Modelica_Electrical_Digital;
           extends D.Delay.DelayParams;
           extends Modelica_Electrical_Digital_Interfaces.SISO;
-          D.Delay.InertialDelaySensitive G1(tLH=tLH, tHL=tHL)
-            annotation (Placement(transformation(extent={{-30,-20},{10,20}},
-                  rotation=0)));
+          D.Delay.InertialDelaySensitive G1(tLH=tLH, tHL=tHL) annotation (
+          Placement(transformation(extent={{-30,-20},{10,20}}, rotation=0)));
         equation
           connect(G1.y, y)                      annotation (Line(points={{10,0},{
                   100,0}}, color={127,0,127}));
@@ -2019,9 +2012,8 @@ If the signal width is greater than 1 this conversion is done for each signal.
 
         block BooleanToLogic "Boolean to Logic converter"
       import L = Modelica_Electrical_Digital_Interfaces.Logic;
-          Modelica_Blocks_Interfaces.BooleanInput x[n]
-            annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
-                  rotation=0)));
+          Modelica_Blocks_Interfaces.BooleanInput x[n] annotation (Placement(
+            transformation(extent={{-60,-10},{-40,10}}, rotation=0)));
           parameter Integer n(final min=1, start=1) "signal width";
           Modelica_Electrical_Digital_Interfaces.DigitalOutput y[n] annotation (
          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
@@ -2646,7 +2638,7 @@ Clock transition definitions:
               // 4: output := U-0X
 
     public
-          Modelica_Electrical_Digital.Delay.InertialDelaySensitiveVector delay(
+          D.Delay.InertialDelaySensitiveVector delay(
         tHL=tHL,
         tLH=tLH,
         n=n) annotation (Placement(transformation(extent={{22,11},{79,69}})));
@@ -2661,10 +2653,11 @@ Clock transition definitions:
         annotation (Placement(transformation(extent={{84,32},{100,48}}),
             iconTransformation(extent={{84,32},{100,48}})));
 
-          D.Registers.DFFR dFFR(n=n,
-            ResetMap=ResetMap,
-            strength=strength)
-            annotation (Placement(transformation(extent={{-78,-23},{18,74}})));
+          D.Registers.DFFR dFFR(
+        n=n,
+        ResetMap=ResetMap,
+        strength=strength)
+        annotation (Placement(transformation(extent={{-78,-23},{18,74}})));
         equation
           connect(delay.y, dataOut) annotation (Line(
               points={{75.01,40},{92,40}},
@@ -3111,16 +3104,20 @@ Clock transition definitions:
 
     protected
           D.Delay.InertialDelaySensitiveVector delay(
-            tHL=tHL,
-            tLH=tLH,
-            n=n,inertialDelaySensitive(each y(start=L.'U', fixed= true)))
-          annotation (Placement(transformation(extent={{23,12},{79,68}})));
+        tHL=tHL,
+        tLH=tLH,
+        n=n,
+        inertialDelaySensitive(each y(start=L.'U', fixed=true)))
+        annotation (Placement(transformation(extent={{23,12},{79,68}})));
 
           D.Registers.DFFSR dFFSR(
-            strength=strength,
-            n=n,
-            ResetSetMap=ResetSetMap, clock( start=L.'U', fixed=true), reset( start=L.'U', fixed=true), set( start=L.'U', fixed=true))
-            annotation (Placement(transformation(extent={{-80,-25},{20,75}})));
+        strength=strength,
+        n=n,
+        ResetSetMap=ResetSetMap,
+        clock(start=L.'U', fixed=true),
+        reset(start=L.'U', fixed=true),
+        set(start=L.'U', fixed=true))
+        annotation (Placement(transformation(extent={{-80,-25},{20,75}})));
     public
       Modelica_Electrical_Digital_Interfaces.DigitalInput set
         annotation (Placement(transformation(extent={{-100,72},{-84,88}})));
@@ -3541,10 +3538,9 @@ Clock transition definitions:
 
     public
           D.Delay.InertialDelaySensitiveVector delay(
-            tHL=tHL,
-            tLH=tLH,
-            n=n)
-          annotation (Placement(transformation(extent={{20,12},{76,68}})));
+        tHL=tHL,
+        tLH=tLH,
+        n=n) annotation (Placement(transformation(extent={{20,12},{76,68}})));
       Modelica_Electrical_Digital_Interfaces.DigitalInput reset
         annotation (Placement(transformation(extent={{-100,-68},{-84,-52}})));
       Modelica_Electrical_Digital_Interfaces.DigitalInput enable
@@ -3554,10 +3550,11 @@ Clock transition definitions:
       Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n]
         annotation (Placement(transformation(extent={{84,32},{100,48}}),
             iconTransformation(extent={{84,32},{100,48}})));
-          D.Registers.DLATR dLATR(n=n,
-            strength=strength,
-            ResetMap=ResetMap)
-            annotation (Placement(transformation(extent={{-78,-23},{18,74}})));
+          D.Registers.DLATR dLATR(
+        n=n,
+        strength=strength,
+        ResetMap=ResetMap)
+        annotation (Placement(transformation(extent={{-78,-23},{18,74}})));
         equation
 
           connect(delay.y, dataOut) annotation (Line(
@@ -4006,10 +4003,9 @@ Clock transition definitions:
 
     public
           D.Delay.InertialDelaySensitiveVector delay(
-            tHL=tHL,
-            tLH=tLH,
-            n=n)
-          annotation (Placement(transformation(extent={{20,12},{76,68}})));
+        tHL=tHL,
+        tLH=tLH,
+        n=n) annotation (Placement(transformation(extent={{20,12},{76,68}})));
       Modelica_Electrical_Digital_Interfaces.DigitalInput set
         annotation (Placement(transformation(extent={{-100,72},{-84,88}})));
       Modelica_Electrical_Digital_Interfaces.DigitalInput reset
@@ -4021,10 +4017,11 @@ Clock transition definitions:
       Modelica_Electrical_Digital_Interfaces.DigitalOutput dataOut[n]
         annotation (Placement(transformation(extent={{84,32},{100,48}}),
             iconTransformation(extent={{84,32},{100,48}})));
-          D.Registers.DLATSR dLATSR(n=n,
-            ResetSetMap=ResetSetMap,
-            strength=strength)
-            annotation (Placement(transformation(extent={{-78,-23},{18,74}})));
+          D.Registers.DLATSR dLATSR(
+        n=n,
+        ResetSetMap=ResetSetMap,
+        strength=strength)
+        annotation (Placement(transformation(extent={{-78,-23},{18,74}})));
         equation
 
           connect(delay.y, dataOut) annotation (Line(
@@ -4240,7 +4237,10 @@ Clock transition definitions:
     protected
       Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
-              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL,y(start=L.'U', fixed=true));
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(
+        tLH=tLH,
+        tHL=tHL,
+        y(start=L.'U', fixed=true));
     algorithm
       nextstate := T.NXferTable[enable, x];
       yy := nextstate;
@@ -4328,7 +4328,10 @@ Clock transition definitions:
     protected
       Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
-              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL, y(start=L.'U', fixed=true));
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(
+        tLH=tLH,
+        tHL=tHL,
+        y(start=L.'U', fixed=true));
     algorithm
       nextstate := T.NRXferTable[enable, x];
       yy := nextstate;
@@ -4416,7 +4419,8 @@ Clock transition definitions:
     protected
       Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
-              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL);
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH,
+          tHL=tHL);
     algorithm
       nextstate := T.PXferTable[enable, x];
       yy := nextstate;
@@ -4504,7 +4508,8 @@ Clock transition definitions:
     protected
       Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
-              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL);
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH,
+          tHL=tHL);
     algorithm
       nextstate := T.PRXferTable[enable, x];
       yy := nextstate;
@@ -4593,7 +4598,10 @@ Clock transition definitions:
     protected
       Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
-              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL, y(start=L.'U', fixed=true));
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(
+        tLH=tLH,
+        tHL=tHL,
+        y(start=L.'U', fixed=true));
     algorithm
       nextstate := T.Buf3sTable[strength, T.UX01Conv[enable], T.UX01Conv[x]];
       yy := nextstate;
@@ -4679,7 +4687,8 @@ Clock transition definitions:
     protected
       Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
-              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL);
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH,
+          tHL=tHL);
     algorithm
       nextstate := T.Buf3slTable[strength, T.UX01Conv[enable], T.UX01Conv[x]];
       yy := nextstate;
@@ -4765,7 +4774,10 @@ Clock transition definitions:
     protected
       Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
-              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL, y(start=L.'U',fixed=true));
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(
+        tLH=tLH,
+        tHL=tHL,
+        y(start=L.'U', fixed=true));
     algorithm
       nextstate := T.Buf3sTable[strength, T.UX01Conv[enable], T.UX01Conv[T.NotTable[x]]];
       yy := nextstate;
@@ -4856,7 +4868,8 @@ Clock transition definitions:
     protected
       Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
-              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL);
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH,
+          tHL=tHL);
     algorithm
       nextstate := T.Buf3sTable[strength, T.UX01Conv[T.NotTable[enable]], T.UX01Conv[T.NotTable[x]]];
       yy := nextstate;
@@ -5033,8 +5046,8 @@ Wires n input signals in one output signal, without delay.
     end getMemory;
 
     public
-      Modelica_Electrical_Digital_Interfaces.Logic mem[integer(2^n_addr),n_data]
-        (start=fill(
+      Modelica_Electrical_Digital_Interfaces.Logic mem[integer(2^n_addr),n_data](
+         start=fill(
                 L.'U',
                 integer(2^n_addr),
                 n_data));
@@ -5048,7 +5061,8 @@ Wires n input signals in one output signal, without delay.
 
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy[n_data](start=
             fill(L.'U', n_data));
-      D.Delay.InertialDelaySensitive inertialDelaySensitive[n_data](each tLH=tLH, each tHL=tHL);
+      D.Delay.InertialDelaySensitive inertialDelaySensitive[n_data](each tLH=
+            tLH, each tHL=tHL);
 
     function address
       // compute memory address
@@ -5307,7 +5321,8 @@ Firstly Write is carried out, then Read.</b></p>
 
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy[n_data](start=
             fill(L.'U', n_data));
-      D.Delay.InertialDelaySensitive inertialDelaySensitive[n_data](each tLH=tLH, each tHL=tHL);
+      D.Delay.InertialDelaySensitive inertialDelaySensitive[n_data](each tLH=
+            tLH, each tHL=tHL);
 
     algorithm
     if initial() then
@@ -5447,7 +5462,10 @@ Description in VHDL is given by <a href=\"http://www.cs.sfu.ca/~ggbaker/referenc
     protected
       Modelica_Electrical_Digital_Interfaces.Logic nextstate(start=L.'U');
       Modelica_Electrical_Digital_Interfaces.DigitalOutput yy(start=L.'U');
-              D.Delay.InertialDelaySensitive inertialDelaySensitive(tLH=tLH, tHL=tHL, y(start=L.'U',fixed=true));
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(
+        tLH=tLH,
+        tHL=tHL,
+        y(start=L.'U', fixed=true));
 
     algorithm
       nextstate := T.MUX2x1Table[T.UX01Conv[in1], T.UX01Conv[sel], T.UX01Conv[in0]];
@@ -5651,5 +5669,6 @@ Copyright &copy; 1998-2013, Modelica Association and Fraunhofer-Gesellschaft.
         Line(
           points={{42,-12},{17,-12},{17,-54},{-71,-54}},
           color={0,0,0},
-          smooth=Smooth.None)})));
+          smooth=Smooth.None)})),
+    uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_Digital;

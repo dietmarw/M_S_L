@@ -1,7 +1,9 @@
 within ;
-package Modelica_Math
+encapsulated package Modelica_Math
   "Library of mathematical functions (e.g., sin, cos) and of functions operating on vectors and matrices"
 import SI = Modelica_SIunits;
+  import Modelica_Icons;
+  import Modelica_Constants;
 
 extends Modelica_Icons.Package;
 
@@ -388,8 +390,9 @@ function normalizeWithAssert
   output Real result[size(v, 1)] "Input vector v normalized to length=1";
 
 algorithm
-  assert(length(v) > 0.0, "Vector v={0,0,0} shall be normalized (= v/sqrt(v*v)), but this results in a division by zero.\nProvide a non-zero vector!");
-  result := v/length(v);
+      assert(length(v) > 0.0,
+        "Vector v={0,0,0} shall be normalized (= v/sqrt(v*v)), but this results in a division by zero.\nProvide a non-zero vector!");
+      result := v/length(v);
   annotation (
     Inline=true,
     Documentation(info="<html>
@@ -733,8 +736,8 @@ at the left and at the right side of the pipe), see next figure:
         "Vector b in function householderVector is zero vector, but at least one element should be different from zero");
       assert(norm_a > 0,
         "Vector a in function householderVector is zero vector, but at least one element should be different from zero");
-      alpha := if norm(a + norm_a/norm_b*b, 2) > norm(a - norm_a/norm_b*b, 2)
-         then norm_a/norm_b else -norm_a/norm_b;
+        alpha := if norm(a + norm_a/norm_b*b, 2) > norm(a - norm_a/norm_b*b, 2)
+           then norm_a/norm_b else -norm_a/norm_b;
       u := (a + alpha*b)/length(a + alpha*b);
 
       annotation (Documentation(info="<HTML>
@@ -1014,20 +1017,20 @@ package Matrices "Library of functions operating on matrices"
       print("\nDemonstrate how to solve linear equation systems:\n");
 
       // Solve regular linear equation with a right hand side vector
-        x1 := Modelica_Math.Matrices.solve(A1, b1);
+        x1 := solve(A1, b1);
       print("diff1 = " + String(Vectors.norm(x1 - x1_ref)));
 
       // Solve regular linear equation with a right hand side matrix
-        X2 := Modelica_Math.Matrices.solve2(A1, B2);
+        X2 := solve2(A1, B2);
       print("diff2 = " + String(Matrices.norm(X2 - [x1_ref, 2*x1_ref, -3*x1_ref])));
 
       // Solve singular linear equation with a right hand side vector
-        (x3,rank) := Modelica_Math.Matrices.leastSquares(A3, b3);
+        (x3,rank) := leastSquares(A3, b3);
       print("diff3 = " + String(Vectors.norm(A3*x3 - b3)) + ", n = " + String(
         size(A3, 1)) + ", rank = " + String(rank));
 
       // Solve singular linear equation with a right hand side matrix
-        (X3,rank) := Modelica_Math.Matrices.leastSquares2(A3, B3);
+        (X3,rank) := leastSquares2(A3, B3);
       print("diff4 = " + String(Matrices.norm(A3*X3 - B3)) + ", n = " + String(
         size(A3, 1)) + ", rank = " + String(rank));
 
@@ -1873,7 +1876,7 @@ matrix A was interchanged with row pivots[i].
 \"Matrices.LU_solve2\" is not possible, since the LU decomposition
 is singular, i.e., no unique solution exists.");
     end for;
-      X := Modelica_Math.Matrices.LAPACK.dgetrs(
+      X := LAPACK.dgetrs(
           LU,
           pivots,
           B);
@@ -2107,7 +2110,7 @@ are used to construct a 2 by 2 diagonal block of <b>J</b>:
     Integer n=min(size(A, 1), size(A, 2)) "Number of singular values";
   algorithm
     if n > 0 then
-        (sigma,U,VT,info) := Modelica_Math.Matrices.LAPACK.dgesvd(A);
+        (sigma,U,VT,info) := LAPACK.dgesvd(A);
       assert(info == 0, "The numerical algorithm to compute the
 singular value decomposition did not converge");
     end if;
@@ -2179,7 +2182,7 @@ This is not allowed when calling Modelica.Matrices.QR(A).");
     if pivoting then
       (Q,tau,p) := LAPACK.dgeqpf(A);
     else
-        (Q,tau) := Modelica_Math.Matrices.LAPACK.dgeqrf(A);
+        (Q,tau) := LAPACK.dgeqrf(A);
       p := 1:ncol;
     end if;
 
@@ -2275,11 +2278,11 @@ called as: <code>(,R,p) = QR(A)</code>.
         "Scalar factors of the elementary reflectors";
 
   algorithm
-    (H,V,tau) := Matrices.Utilities.toUpperHessenberg(
+      (H,V,tau) := Matrices.Utilities.toUpperHessenberg(
           A,
           1,
           size(A, 1));
-    U := Matrices.LAPACK.dorghr(
+      U := Matrices.LAPACK.dorghr(
           V,
           1,
           size(A, 1),
@@ -2359,7 +2362,7 @@ by function \"Utilities.toUpperHessenberg()\". The transformation matrix <b>U</b
 
   algorithm
     if size(A, 1) > 1 then
-      (S,QZ,alphaReal,alphaImag,info) := Matrices.LAPACK.dgees(A);
+        (S,QZ,alphaReal,alphaImag,info) := Matrices.LAPACK.dgees(A);
       assert(info == 0, "The output info of LAPACK.dgees should be zero, else if\n
      info < 0:  if info = -i, the i-th argument of dgees had an illegal value\n
      info > 0:  if INFO = i, and i is
@@ -2451,7 +2454,7 @@ The calculation in lapack.dgees is performed stepwise, i.e., using the internal 
 
   algorithm
     if size(A, 1) > 0 then
-      (H,info) := LAPACK.dpotrf(A, upper);
+        (H,info) := LAPACK.dpotrf(A, upper);
     else
       H := fill(
             0,
@@ -2944,7 +2947,7 @@ x = inv(A)*b, because this is much more efficient and much more reliable.
   algorithm
     result := 0;
     if n > 0 then
-        sigma := Modelica_Math.Matrices.singularValues(A);
+        sigma := singularValues(A);
       eps2 := if eps > 0 then eps else max(size(A))*sigma[1]*Modelica_Constants.eps;
       while i > 0 loop
         if sigma[i] > eps2 then
@@ -2997,15 +3000,14 @@ To be more precise:
   algorithm
     if min(size(A)) > 0 then
       if p >= 2-eps2 and p <= 2+eps2 then
-          s := Modelica_Math.Matrices.singularValues(A);
+          s := singularValues(A);
         if min(s) < eps then
           result :=Modelica_Constants.inf;
         else
           result := max(s)/min(s);
         end if;
       else
-          result := Modelica_Math.Matrices.norm(A, p)*
-            Modelica_Math.Matrices.norm(Modelica_Math.Matrices.inv(A), p);
+          result := norm(A, p)*norm(inv(A), p);
       end if;
     end if;
 
@@ -3061,9 +3063,9 @@ For more details, see <a href=\"http://en.wikipedia.org/wiki/Condition_number\">
 
   algorithm
     if min(size(A)) > 0 then
-        (LU,,info) := Modelica_Math.Matrices.LAPACK.dgetrf(A);
-        anorm := Modelica_Math.Matrices.LAPACK.dlange(A, normspec);
-        (rcond,info) := Modelica_Math.Matrices.LAPACK.dgecon(
+        (LU,,info) := LAPACK.dgetrf(A);
+        anorm := LAPACK.dlange(A, normspec);
+        (rcond,info) := LAPACK.dgecon(
             LU,
             inf,
             anorm);
@@ -3243,7 +3245,7 @@ This function computes the Frobenius norm of a general real matrix <b>A</b>, i.e
     Integer i=n;
 
   algorithm
-      (sigma,,V) := Modelica_Math.Matrices.singularValues(A);
+      (sigma,,V) := singularValues(A);
     V := transpose(V);
     // rank computation
     eps := max(size(A, 1), size(A, 2))*max(sigma)*Modelica_Constants.eps;
@@ -3783,7 +3785,7 @@ is, e.g., described in
         U := identity(n);
         D := C;
       else
-          (R,U) := Modelica_Math.Matrices.realSchur(transpose(A));
+          (R,U) := Matrices.realSchur(transpose(A));
         D := transpose(U)*C*U;
       end if;
 
@@ -3795,7 +3797,7 @@ is, e.g., described in
         R22[i1, i1] := R[i1, i1] + R[n, n];
       end for;
       if abs(R[n, n - 1]) < eps then
-        X[:, n] := Matrices.solve(R22, D[:, n]);
+          X[:, n] := Matrices.solve(R22, D[:, n]);
         k := n - 1;
       else
         R11 := R;
@@ -3813,7 +3815,7 @@ is, e.g., described in
               1,
               D[:, n - 1],
               D[:, n]);
-        y := Matrices.solve(R2, c);
+          y := Matrices.solve(R2, c);
         X[:, n - 1] := y[1:n];
         X[:, n] := y[n + 1:2*n];
         k := n - 2;
@@ -3827,8 +3829,8 @@ is, e.g., described in
         end for;
         if abs(R[k, k - 1]) < eps then
           //real eigenvalue
-          X[:, k] := Matrices.solve(R22, D[:, k] - vector(X[:, k + 1:n]*matrix(
-            R[k, k + 1:n])));
+            X[:, k] := Matrices.solve(R22, D[:, k] - vector(X[:, k + 1:n]*
+              matrix(R[k, k + 1:n])));
           k := k - 1;
         else
           // conjugated complex eigenvalues
@@ -3846,7 +3848,7 @@ is, e.g., described in
                 1,
                 CC[:, 1],
                 CC[:, 2]);
-          y := Matrices.solve(R2, c);
+            y := Matrices.solve(R2, c);
           X[:, k - 1] := y[1:n];
           X[:, k] := y[n + 1:2*n];
 
@@ -3861,8 +3863,8 @@ is, e.g., described in
         for i1 in 1:n loop
           R22[i1, i1] := R[i1, i1] + R[1, 1];
         end for;
-        X[:, 1] := Matrices.solve(R22, D[:, 1] - vector(X[:, 2:n]*matrix(R[1, 2
-          :n])));
+          X[:, 1] := Matrices.solve(R22, D[:, 1] - vector(X[:, 2:n]*matrix(R[1,
+            2:n])));
       end if;
 
       // transform X corresponding to the original form
@@ -3988,18 +3990,18 @@ The Boolean input \"ATisSchur\" indicates to omit the transformation to Schur in
         S := A;
         U := identity(n);
       else
-          (S,U) := Modelica_Math.Matrices.realSchur(A);
+          (S,U) := Matrices.realSchur(A);
       end if;
       if BisSchur then
         T := B;
         V := identity(m);
       else
-          (T,V) := Modelica_Math.Matrices.realSchur(B);
+          (T,V) := Matrices.realSchur(B);
       end if;
 
       Chat := if AisSchur and BisSchur then C else if AisSchur then C*V else
         if BisSchur then transpose(U)*C else transpose(U)*C*V;
-      (X,scale,info) := Matrices.LAPACK.dtrsyl(
+        (X,scale,info) := Matrices.LAPACK.dtrsyl(
             S,
             T,
             Chat);
@@ -4139,8 +4141,8 @@ for more information.
         "Imaginary parts of eigenvalue=alphaReal+i*alphaImag";
   algorithm
     if n > 1 then
-        (H_RSF,Z,alphaReal,alphaImag) := Modelica_Math.Matrices.realSchur(H);
-      (H_RSF,Z,alphaReal,alphaImag) := Matrices.Utilities.reorderRSF(
+        (H_RSF,Z,alphaReal,alphaImag) := Matrices.realSchur(H);
+        (H_RSF,Z,alphaReal,alphaImag) := Matrices.Utilities.reorderRSF(
             H_RSF,
             Z,
             alphaReal,
@@ -4151,14 +4153,14 @@ for more information.
       Z21 := Z[n + 1:2*n, 1:n];
       if size(Z11, 1) > 0 then
 
-        (X,info) := Matrices.LAPACK.dgesvx(Z11, transpose(Z21));
+          (X,info) := Matrices.LAPACK.dgesvx(Z11, transpose(Z21));
         //this function does not need to transpose Z11 as solve2 does with //  X := transpose(Matrices.solve2(transpose(Z11), transpose(Z21)));
         assert(info == 0,
           "Solving a linear system of equations with function \"Matrices.LAPACK.dgesvx\" is not possible, because the system has either no or infinitely many solutions (input A is singular).");
         X := transpose(X);
 
         if refine then
-            X := Modelica_Math.Matrices.Utilities.continuousRiccatiIterative(
+            X := Matrices.Utilities.continuousRiccatiIterative(
                 A,
                 B,
                 R,
@@ -4342,7 +4344,7 @@ X = [2.0, 1.0;
         U := identity(n);
         D := C;
       else
-          (R,U) := Modelica_Math.Matrices.realSchur(transpose(A));
+          (R,U) := Matrices.realSchur(transpose(A));
         D := transpose(U)*C*U;
       end if;
 
@@ -4354,7 +4356,7 @@ X = [2.0, 1.0;
           for i in 1:n loop
             R22[i, i] := R22[i, i] + sgn;
           end for;
-          X[:, k] := Matrices.solve(R22, w);
+            X[:, k] := Matrices.solve(R22, w);
           k := k - 1;
         else
           g := D[:, k - 1] - R*X[:, k + 1:n]*R[k - 1, k + 1:n];
@@ -4364,7 +4366,7 @@ X = [2.0, 1.0;
             R11[i, i] := R11[i, i] + sgn;
             R22[i, i] := R22[i, i] + sgn;
           end for;
-          y := Matrices.solve([R11, R[k - 1, k]*R; R[k, k - 1]*R, R22], cat(
+            y := Matrices.solve([R11,R[k - 1, k]*R; R[k, k - 1]*R,R22], cat(
                 1,
                 g,
                 w));
@@ -4528,18 +4530,18 @@ The Boolean input \"ATisSchur\" indicates to omit the transformation to Schur in
           Z := identity(m);
           F := C;
         else
-          (S,Z) := Matrices.realSchur(transpose(B));
+            (S,Z) := Matrices.realSchur(transpose(B));
           S := transpose(S);
           F := C*Z;
         end if;
       else
-        (H,U) := Matrices.hessenberg(A);
+          (H,U) := Matrices.hessenberg(A);
         if BTisSchur then
           S := B;
           Z := identity(m);
           F := transpose(U)*C;
         else
-          (S,Z) := Matrices.realSchur(transpose(B));
+            (S,Z) := Matrices.realSchur(transpose(B));
           S := transpose(S);
           F := transpose(U)*C*Z;
         end if;
@@ -4556,7 +4558,7 @@ The Boolean input \"ATisSchur\" indicates to omit the transformation to Schur in
           for i in 1:n loop
             R22[i, i] := R22[i, i] + sgn;
           end for;
-          X[:, k] := Matrices.solve(R22, w);
+            X[:, k] := Matrices.solve(R22, w);
           // solve one column in X for one real eigenvalue
           k := k - 1;
         else
@@ -4568,7 +4570,7 @@ The Boolean input \"ATisSchur\" indicates to omit the transformation to Schur in
             R11[i, i] := R11[i, i] + sgn;
             R22[i, i] := R22[i, i] + sgn;
           end for;
-          y := Matrices.solve([R11, S[k, k - 1]*H; S[k - 1, k]*H, R22], cat(
+            y := Matrices.solve([R11,S[k, k - 1]*H; S[k - 1, k]*H,R22], cat(
                 1,
                 g,
                 w));
@@ -4719,26 +4721,26 @@ The Boolean inputs \"AisHess\" and \"BTisSchur\" indicate to omit one or both of
     output Real alphaImag[size(H, 1)]
         "Imaginary part of eigenvalue=alphaReal+i*alphaImag";
   algorithm
-      (LU,p) := Modelica_Math.Matrices.LU(AT);
-      H21 := Modelica_Math.Matrices.LU_solve2(
+      (LU,p) := Matrices.LU(AT);
+      H21 := Matrices.LU_solve2(
           LU,
           p,
           -Q);
-      H22 := Modelica_Math.Matrices.LU_solve2(
+      H22 := Matrices.LU_solve2(
           LU,
           p,
           identity(n));
-      (LU,p) := Modelica_Math.Matrices.LU(A);
-      H12 := Modelica_Math.Matrices.LU_solve2(
+      (LU,p) := Matrices.LU(A);
+      H12 := Matrices.LU_solve2(
           LU,
           p,
           -G);
     H12 := transpose(H12);
     H11 := A - H12*Q;
     H := [H11, H12; H21, H22];
-      (H_RSF,Z,alphaReal,alphaImag) := Modelica_Math.Matrices.realSchur(H);
+      (H_RSF,Z,alphaReal,alphaImag) := Matrices.realSchur(H);
     // put H to Schur form
-    (H_RSF,Z,alphaReal,alphaImag) := Matrices.Utilities.reorderRSF(
+      (H_RSF,Z,alphaReal,alphaImag) := Matrices.Utilities.reorderRSF(
           H_RSF,
           Z,
           alphaReal,
@@ -4749,7 +4751,7 @@ The Boolean inputs \"AisHess\" and \"BTisSchur\" indicate to omit one or both of
     Z21 := Z[n + 1:2*n, 1:n];
     if size(Z11, 1) > 0 then
       //  X := transpose(Matrices.solve2(transpose(Z11), transpose(Z21)));
-      (X,info) := Matrices.LAPACK.dgesvx(Z11, transpose(Z21));
+        (X,info) := Matrices.LAPACK.dgesvx(Z11, transpose(Z21));
       //function does not need to transpose Z11 as solve2 does
       X := transpose(X);
       assert(info == 0, "Solving a linear system of equations with function
@@ -4757,7 +4759,7 @@ The Boolean inputs \"AisHess\" and \"BTisSchur\" indicate to omit one or both of
 no or infinitely many solutions (input A is singular).");
 
       if refine then
-          X := Modelica_Math.Matrices.Utilities.discreteRiccatiIterative(
+          X := Matrices.Utilities.discreteRiccatiIterative(
               A,
               B,
               R,
@@ -10556,15 +10558,15 @@ This package contains a direct interface to the LAPACK subroutines
           k := k + 1;
           Ak := A - G*Xk;
           Rk := transpose(A)*Xk + Xk*A + Q - Xk*G*Xk;
-          Nk := Matrices.continuousLyapunov(Ak, -Rk);
+            Nk := Matrices.continuousLyapunov(Ak, -Rk);
           Vk := Nk*G*Nk;
-          tk := Matrices.Utilities.findLocal_tk(Rk, Vk);
-          stop := eps > Matrices.frobeniusNorm(tk*Nk)/Matrices.frobeniusNorm(Xk)
-             or k >= maxSteps;
+            tk := Matrices.Utilities.findLocal_tk(Rk, Vk);
+            stop := eps > Matrices.frobeniusNorm(tk*Nk)/Matrices.frobeniusNorm(
+              Xk) or k >= maxSteps;
           Xk := Xk + tk*Nk;
         end while;
         X := Xk;
-        r := Matrices.frobeniusNorm(X*A + transpose(A)*X - X*G*X + Q);
+          r := Matrices.frobeniusNorm(X*A + transpose(A)*X - X*G*X + Q);
 
       elseif n == 1 then
         // exact calculation
@@ -10721,22 +10723,22 @@ The algorithm is taken from [1] and [2].
         Xk := X0;
         while (not stop) loop
           k := k + 1;
-          Hk := Matrices.solve2(R + BT*Xk*B, BT);
+            Hk := Matrices.solve2(R + BT*Xk*B, BT);
           Ak := A - B*Hk*Xk*A;
           Rk := AT*Xk*A - Xk + Q - AT*Xk*B*Hk*Xk*A;
-            Nk := Modelica_Math.Matrices.discreteLyapunov(
+            Nk := Matrices.discreteLyapunov(
                   A=Ak,
                   C=-Rk,
                   sgn=-1);
           Vk := transpose(Ak)*Nk*B*Hk*Nk*Ak;
-            tk := Modelica_Math.Matrices.Utilities.findLocal_tk(Rk, Vk);
-          stop := eps > Matrices.frobeniusNorm(tk*Nk)/Matrices.frobeniusNorm(Xk)
-             or k >= maxSteps;
+            tk := Matrices.Utilities.findLocal_tk(Rk, Vk);
+            stop := eps > Matrices.frobeniusNorm(tk*Nk)/Matrices.frobeniusNorm(
+              Xk) or k >= maxSteps;
           Xk := Xk + tk*Nk;
         end while;
         X := Xk;
-        r := Matrices.frobeniusNorm(AT*X*A - X + Q - AT*X*B*Matrices.solve2(R
-           + BT*X*B, BT)*X*A);
+          r := Matrices.frobeniusNorm(AT*X*A - X + Q - AT*X*B*Matrices.solve2(R
+             + BT*X*B, BT)*X*A);
       else
         X := fill(
                 0,
@@ -10931,8 +10933,8 @@ Householder reflection is widely used in numerical linear algebra, e.g., to perf
       Integer i;
     algorithm
       if na > 0 then
-        S := -2*matrix(u)*transpose(matrix(u))/(Vectors.length(u)*
-          Vectors.length(u));
+          S := -2*matrix(u)*transpose(matrix(u))/(Vectors.length(u)*
+            Vectors.length(u));
         for i in 1:na loop
           S[i, i] := 1.0 + S[i, i];
         end for;
@@ -11026,7 +11028,7 @@ This transformation is widely used for transforming non-symmetric matrices to a 
 
     algorithm
       if n > 0 then
-        (Aout,tau,info) := LAPACK.dgehrd(
+          (Aout,tau,info) := LAPACK.dgehrd(
                 A,
                 ilo,
                 ihi);
@@ -11099,7 +11101,7 @@ See <a href=\"modelica://Modelica.Math.Matrices.LAPACK.dgehrd\">Matrices.LAPACK.
           "Imaginary part of alpha (eigenvalue=(alphaReal+i*alphaImag))";
     algorithm
       if size(H, 1) > 0 then
-        (alphaReal,alphaImag,info) := LAPACK.dhseqr(H);
+          (alphaReal,alphaImag,info) := LAPACK.dhseqr(H);
       else
         alphaReal := fill(0, size(H, 1));
         alphaImag := fill(0, size(H, 1));
@@ -11193,7 +11195,7 @@ See <a href=\"modelica://Modelica.Math.Matrices.LAPACK.dhseqr\">Matrices.LAPACK.
         end for;
       end if;
 
-      (To,Qo,wr,wi) := LAPACK.dtrsen(
+        (To,Qo,wr,wi) := LAPACK.dtrsen(
               "E",
               "V",
               select,
@@ -11264,13 +11266,13 @@ See also <a href=\"modelica://Modelica.Math.Matrices.realSchur\">Matrices.realSc
       Boolean h;
 
     algorithm
-      alpha_k := Matrices.trace(Rk*Rk);
-      beta_k := Matrices.trace(Rk*Vk);
-      gamma_k := Matrices.trace(Vk*Vk);
+        alpha_k := Matrices.trace(Rk*Rk);
+        beta_k := Matrices.trace(Rk*Vk);
+        gamma_k := Matrices.trace(Vk*Vk);
 
       if gamma_k >Modelica_Constants.eps then
-        p := Vectors.Utilities.roots({4*gamma_k,6*beta_k,2*(alpha_k - 2*beta_k),
-          -2*alpha_k});
+          p := Vectors.Utilities.roots({4*gamma_k,6*beta_k,2*(alpha_k - 2*
+            beta_k),-2*alpha_k});
         h := false;
         for i1 in 1:3 loop
           if abs(p[i1, 2]) <Modelica_Constants.eps then
@@ -11526,24 +11528,22 @@ end Matrices;
           "Absolute errors between numerical and analytical integral values";
 
       algorithm
-        I_numerical[1] := Modelica_Math.Nonlinear.quadratureLobatto(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun4(),
+        I_numerical[1] := quadratureLobatto(
+                function UtilityFunctions.fun4(),
                 0,
                 1,
                 tolerance);
         I_analytical[1] := -cos(1) + cos(0);
 
-        I_numerical[2] := Modelica_Math.Nonlinear.quadratureLobatto(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun5(
-             w=5),
+        I_numerical[2] := quadratureLobatto(
+                function UtilityFunctions.fun5(w=5),
                 0,
                 13,
                 tolerance);
         I_analytical[2] := -cos(5*13)/5 + cos(5*0)/5;
 
-        I_numerical[3] := Modelica_Math.Nonlinear.quadratureLobatto(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun6(
-             k=1/sqrt(2)),
+        I_numerical[3] := quadratureLobatto(
+                function UtilityFunctions.fun6(k=1/sqrt(2)),
                 0,
                 Modelica_Constants.pi/2,
                 tolerance);
@@ -11619,22 +11619,20 @@ The following integrals are computed:
         Real I[3] "Numerical integral values";
 
       algorithm
-        I[1] := Modelica_Math.Nonlinear.quadratureLobatto(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun4(),
+        I[1] := quadratureLobatto(
+                function UtilityFunctions.fun4(),
                 a1,
                 b1,
                 Tolerance);
 
-        I[2] := Modelica_Math.Nonlinear.quadratureLobatto(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun5(
-             w=w),
+        I[2] := quadratureLobatto(
+                function UtilityFunctions.fun5(w=w),
                 a2,
                 b2,
                 Tolerance);
 
-        I[3] := Modelica_Math.Nonlinear.quadratureLobatto(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun6(
-             k=k),
+        I[3] := quadratureLobatto(
+                function UtilityFunctions.fun6(k=k),
                 a3,
                 b3,
                 Tolerance);
@@ -11683,24 +11681,22 @@ The following integrals are computed:
         Real u_err[3];
 
       algorithm
-        u_numerical[1] := Modelica_Math.Nonlinear.solveOneNonlinearEquation(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun1(),
+        u_numerical[1] := solveOneNonlinearEquation(
+                function UtilityFunctions.fun1(),
                 -0.5,
                 10,
                 tolerance);
         u_analytical[1] := 1.0;
 
-        u_numerical[2] := Modelica_Math.Nonlinear.solveOneNonlinearEquation(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun2(
-             w=3),
+        u_numerical[2] := solveOneNonlinearEquation(
+                function UtilityFunctions.fun2(w=3),
                 0,
                 5,
                 tolerance);
         u_analytical[2] := 0.6448544035840080891877538;
 
-        u_numerical[3] := Modelica_Math.Nonlinear.solveOneNonlinearEquation(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun3(
-             p={5,1}, m=1),
+        u_numerical[3] := solveOneNonlinearEquation(
+                function UtilityFunctions.fun3(p={5,1}, m=1),
                 1,
                 8,
                 tolerance);
@@ -11775,22 +11771,20 @@ The following nonlinear equations are solved:
         Real u[3];
 
       algorithm
-        u[1] := Modelica_Math.Nonlinear.solveOneNonlinearEquation(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun1(),
+        u[1] := solveOneNonlinearEquation(
+                function UtilityFunctions.fun1(),
                 u_min1,
                 u_max1,
                 tolerance);
 
-        u[2] := Modelica_Math.Nonlinear.solveOneNonlinearEquation(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun2(
-             w=w),
+        u[2] := solveOneNonlinearEquation(
+                function UtilityFunctions.fun2(w=w),
                 u_min2,
                 u_max2,
                 tolerance);
 
-        u[3] := Modelica_Math.Nonlinear.solveOneNonlinearEquation(
-                function Modelica_Math.Nonlinear.Examples.UtilityFunctions.fun3(
-             p=p, m=m),
+        u[3] := solveOneNonlinearEquation(
+                function UtilityFunctions.fun3(p=p, m=m),
                 u_min3,
                 u_max3,
                 tolerance);
@@ -11855,13 +11849,13 @@ to a function in a model.
         extends Modelica_Icons.UtilitiesPackage;
 
         function fun1 "y = u^2 - 1"
-          extends Modelica_Math.Nonlinear.Interfaces.partialScalarFunction;
+          extends Interfaces.partialScalarFunction;
         algorithm
           y := u^2 - 1;
         end fun1;
 
         function fun2 "y = 3*u - sin(w*u) - 1"
-          extends Modelica_Math.Nonlinear.Interfaces.partialScalarFunction;
+          extends Interfaces.partialScalarFunction;
           input Real w "Angular velocity";
         algorithm
           y := 3*u - sin(w*u) - 1;
@@ -11869,7 +11863,7 @@ to a function in a model.
         end fun2;
 
         function fun3 "y = p[1] + log(p[2]*u) - m*u"
-          extends Modelica_Math.Nonlinear.Interfaces.partialScalarFunction;
+          extends Interfaces.partialScalarFunction;
           input Real p[2];
           input Real m;
         algorithm
@@ -11878,27 +11872,27 @@ to a function in a model.
         end fun3;
 
         function fun4 "y = sin(u)"
-          extends Modelica_Math.Nonlinear.Interfaces.partialScalarFunction;
+          extends Interfaces.partialScalarFunction;
         algorithm
           y := sin(u);
         end fun4;
 
         function fun5 "y = sin(w*u)"
-          extends Modelica_Math.Nonlinear.Interfaces.partialScalarFunction;
+          extends Interfaces.partialScalarFunction;
           input Real w "Angular velocity";
         algorithm
           y := sin(w*u);
         end fun5;
 
         function fun6 "y = sqrt(1/(1 - k^2*sin(u)^2))"
-          extends Modelica_Math.Nonlinear.Interfaces.partialScalarFunction;
+          extends Interfaces.partialScalarFunction;
           input Real k "Modul";
         algorithm
           y := sqrt(1/(1 - k^2*sin(u)^2));
         end fun6;
 
         function fun7 "y = A*sin(w*u)*q(t)"
-          extends Modelica_Math.Nonlinear.Interfaces.partialScalarFunction;
+          extends Interfaces.partialScalarFunction;
           input Real A "Amplitude";
           input Real w "Angular frequency";
         algorithm
@@ -11948,8 +11942,7 @@ to a function, see, .e.g.,
     function quadratureLobatto
       "Return the integral of an integrand function using an adaptive Lobatto rule"
       extends Modelica_Icons.Function;
-      input Modelica_Math.Nonlinear.Interfaces.partialScalarFunction f
-        "Integrand function";
+      input Interfaces.partialScalarFunction f "Integrand function";
       input Real a "Lower limit of integration interval";
       input Real b "Upper limit of integration interval";
       input Real tolerance = 100*Modelica_Constants.eps
@@ -11979,7 +11972,7 @@ to a function, see, .e.g.,
       Integer s;
 
       function quadStep "Recursive function used by quadrature"
-        input Modelica_Math.Nonlinear.Interfaces.partialScalarFunction f;
+        input Interfaces.partialScalarFunction f;
         input Real a "Right interval end";
         input Real b "Left interval end";
         input Real fa "Function value at a";
@@ -12141,7 +12134,7 @@ See the examples in <a href=\"modelica://Modelica.Math.Nonlinear.Examples\">Mode
       extends Modelica_Icons.Function;
       import Modelica_Utilities.Streams.error;
 
-      input Modelica_Math.Nonlinear.Interfaces.partialScalarFunction f
+      input Interfaces.partialScalarFunction f
         "Function y = f(u); u is computed so that y=0";
       input Real u_min "Lower bound of search interval";
       input Real u_max "Upper bound of search interval";
@@ -12747,8 +12740,8 @@ returns <b>false</b>. The Integer input has to be &gt;=1.
   end isPowerOf2;
 
 function sin "Sine"
-  extends Modelica_Math.Icons.AxisLeft;
-  input Modelica_SIunits.Angle u;
+  extends Icons.AxisLeft;
+  input SI.Angle u;
   output Real y;
 
 external "builtin" y = sin(u);
@@ -12816,8 +12809,8 @@ This function returns y = sin(u), with -&infin; &lt; u &lt; &infin;:
 end sin;
 
 function cos "Cosine"
-  extends Modelica_Math.Icons.AxisLeft;
-    input Modelica_SIunits.Angle u;
+  extends Icons.AxisLeft;
+    input SI.Angle u;
   output Real y;
 
 external "builtin" y = cos(u);
@@ -12882,8 +12875,8 @@ This function returns y = cos(u), with -&infin; &lt; u &lt; &infin;:
 end cos;
 
 function tan "Tangent (u shall not be -pi/2, pi/2, 3*pi/2, ...)"
-  extends Modelica_Math.Icons.AxisCenter;
-    input Modelica_SIunits.Angle u;
+  extends Icons.AxisCenter;
+    input SI.Angle u;
   output Real y;
 
 external "builtin" y = tan(u);
@@ -12950,9 +12943,9 @@ This function returns y = tan(u), with -&infin; &lt; u &lt; &infin;
 end tan;
 
 function asin "Inverse sine (-1 <= u <= 1)"
-  extends Modelica_Math.Icons.AxisCenter;
+  extends Icons.AxisCenter;
   input Real u;
-    output Modelica_SIunits.Angle y;
+    output SI.Angle y;
 
 external "builtin" y = asin(u);
   annotation (
@@ -13018,9 +13011,9 @@ This function returns y = asin(u), with -1 &le; u &le; +1:
 end asin;
 
 function acos "Inverse cosine (-1 <= u <= 1)"
-  extends Modelica_Math.Icons.AxisCenter;
+  extends Icons.AxisCenter;
   input Real u;
-    output Modelica_SIunits.Angle y;
+    output SI.Angle y;
 
 external "builtin" y = acos(u);
   annotation (
@@ -13083,9 +13076,9 @@ This function returns y = acos(u), with -1 &le; u &le; +1:
 end acos;
 
 function atan "Inverse tangent"
-  extends Modelica_Math.Icons.AxisCenter;
+  extends Icons.AxisCenter;
   input Real u;
-    output Modelica_SIunits.Angle y;
+    output SI.Angle y;
 
 external "builtin" y = atan(u);
   annotation (
@@ -13144,10 +13137,10 @@ This function returns y = atan(u), with -&infin; &lt; u &lt; &infin;:
 end atan;
 
 function atan2 "Four quadrant inverse tangent"
-  extends Modelica_Math.Icons.AxisCenter;
+  extends Icons.AxisCenter;
   input Real u1;
   input Real u2;
-    output Modelica_SIunits.Angle y;
+    output SI.Angle y;
 
 external "builtin" y = atan2(u1, u2);
   annotation (
@@ -13232,18 +13225,18 @@ end atan2;
 function atan3
     "Four quadrant inverse tangent (select solution that is closest to given angle y0)"
   import Math = Modelica_Math;
-  extends Modelica_Math.Icons.AxisCenter;
+  extends Math.Icons.AxisCenter;
   input Real u1;
   input Real u2;
-  input Modelica_SIunits.Angle y0=0 "y shall be in the range: -pi < y-y0 <= pi";
-  output Modelica_SIunits.Angle y;
+  input SI.Angle y0=0 "y shall be in the range: -pi < y-y0 <= pi";
+  output SI.Angle y;
 
   protected
   constant Real pi=Modelica_Constants.pi;
   constant Real pi2=2*pi;
   Real w;
 algorithm
-  w := Math.atan2(u1, u2);
+    w := Math.atan2(u1, u2);
   if y0 == 0 then
     // For the default (y0 = 0), exactly the same result as with atan2(..) is returned
     y := w;
@@ -13336,7 +13329,7 @@ is returned.
 end atan3;
 
 function sinh "Hyperbolic sine"
-  extends Modelica_Math.Icons.AxisCenter;
+  extends Icons.AxisCenter;
   input Real u;
   output Real y;
 
@@ -13406,7 +13399,7 @@ This function returns y = sinh(u), with -&infin; &lt; u &lt; &infin;:
 end sinh;
 
 function cosh "Hyperbolic cosine"
-  extends Modelica_Math.Icons.AxisCenter;
+  extends Icons.AxisCenter;
   input Real u;
   output Real y;
 
@@ -13476,7 +13469,7 @@ This function returns y = cosh(u), with -&infin; &lt; u &lt; &infin;:
 end cosh;
 
 function tanh "Hyperbolic tangent"
-  extends Modelica_Math.Icons.AxisCenter;
+  extends Icons.AxisCenter;
   input Real u;
   output Real y;
 
@@ -13537,12 +13530,12 @@ This function returns y = tanh(u), with -&infin; &lt; u &lt; &infin;:
 end tanh;
 
 function asinh "Inverse of sinh (area hyperbolic sine)"
-  extends Modelica_Math.Icons.AxisCenter;
+  extends Icons.AxisCenter;
   input Real u;
   output Real y;
 
 algorithm
-    y := Modelica_Math.log(u + sqrt(u*u + 1));
+    y := log(u + sqrt(u*u + 1));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -13609,14 +13602,14 @@ asinh(u) (-&infin; &lt; u &lt; &infin;):
 end asinh;
 
 function acosh "Inverse of cosh (area hyperbolic cosine)"
-  extends Modelica_Math.Icons.AxisLeft;
+  extends Icons.AxisLeft;
   input Real u;
   output Real y;
 
 algorithm
   assert(u >= 1.0, "Input argument u (= " + String(u) +
     ") of acosh(u) must be >= 1.0");
-    y := Modelica_Math.log(u + sqrt(u*u - 1));
+    y := log(u + sqrt(u*u - 1));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -13692,7 +13685,7 @@ can become close to 1:
 end acosh;
 
 function exp "Exponential, base e"
-  extends Modelica_Math.Icons.AxisCenter;
+  extends Icons.AxisCenter;
   input Real u;
   output Real y;
 
@@ -13760,7 +13753,7 @@ This function returns y = exp(u), with -&infin; &lt; u &lt; &infin;:
 end exp;
 
 function log "Natural (base e) logarithm (u shall be > 0)"
-  extends Modelica_Math.Icons.AxisLeft;
+  extends Icons.AxisLeft;
   input Real u;
   output Real y;
 
@@ -13830,7 +13823,7 @@ with u &gt; 0:
 end log;
 
 function log10 "Base 10 logarithm (u shall be > 0)"
-  extends Modelica_Math.Icons.AxisLeft;
+  extends Icons.AxisLeft;
   input Real u;
   output Real y;
 
@@ -14148,5 +14141,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
 </ul>
 
 </html>"),
-    uses(Modelica_Icons));
+    uses(Modelica_Icons, Modelica(version="3.2.1")));
 end Modelica_Math;

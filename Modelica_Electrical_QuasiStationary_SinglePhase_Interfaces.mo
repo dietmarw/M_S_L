@@ -1,6 +1,12 @@
 within ;
-package Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces
+encapsulated package Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces
   "Interfaces for AC singlephase models"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Electrical_QuasiStationary;
+  import Modelica_ComplexMath;
+  import Complex;
+  import Modelica_ComplexBlocks_Interfaces;
   extends Modelica_Icons.InterfacesPackage;
 
   connector Pin "Basic connector"
@@ -284,5 +290,5 @@ The source partial model relies on the
   end Source;
   annotation (Documentation(info="<html>
 <p>This package contains connector specifications and partial models for more complex components.</p>
-</html>"), uses(Complex(version="3.2.2")));
+</html>"), uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
 end Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces;

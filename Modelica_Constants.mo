@@ -1,6 +1,9 @@
 within ;
-package Modelica_Constants
+encapsulated package Modelica_Constants
   "Library of mathematical constants and constants of nature (e.g., pi, eps, R, sigma)"
+  import Modelica_Icons;
+  import Modelica_Math;
+  import ModelicaServices;
 
   import SI = Modelica_SIunits;
   import NonSI = Modelica_SIunits.Conversions.NonSIunits;
@@ -27,14 +30,12 @@ package Modelica_Constants
 
   // Constants of nature
   // (name, value, description from http://physics.nist.gov/cuu/Constants/)
-  final constant Modelica_SIunits.Velocity c=299792458
-    "Speed of light in vacuum";
-  final constant Modelica_SIunits.Acceleration g_n=9.80665
+  final constant SI.Velocity c=299792458 "Speed of light in vacuum";
+  final constant SI.Acceleration g_n=9.80665
     "Standard acceleration of gravity on earth";
   final constant Real G(final unit="m3/(kg.s2)") = 6.6742e-11
     "Newtonian constant of gravitation";
-  final constant Modelica_SIunits.FaradayConstant F=9.64853399e4
-    "Faraday constant, C/mol";
+  final constant SI.FaradayConstant F=9.64853399e4 "Faraday constant, C/mol";
   final constant Real h(final unit="J.s") = 6.6260693e-34 "Planck constant";
   final constant Real k(final unit="J/K") = 1.3806505e-23 "Boltzmann constant";
   final constant Real R(final unit="J/(mol.K)") = 8.314472 "Molar gas constant";
@@ -121,5 +122,5 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
         fillPattern=FillPattern.Solid,
         points={{-10.873,41.478},{-10.873,41.478},{-14.048,-4.162},{-9.352,-24.8},{7.912,-24.469},{16.247,0.27},{16.247,0.27},{13.336,0.071},{13.336,0.071},{7.515,-9.983},{-3.134,-7.271},{-2.671,41.214},{-2.671,41.214}},
         smooth=Smooth.Bezier)}),
-    uses);
+    uses(ModelicaServices(version="3.2.2"), Modelica(version="3.2.1")));
 end Modelica_Constants;

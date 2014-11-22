@@ -1,5 +1,6 @@
 within ;
-package Modelica_Icons "Library of icons"
+encapsulated package Modelica_Icons "Library of icons"
+  import Complex;
   partial class Information "Icon for general information packages"
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
@@ -120,7 +121,7 @@ package Modelica_Icons "Library of icons"
 
   partial package ExamplesPackage
     "Icon for packages containing runnable examples"
-    extends Modelica_Icons.Package;
+    extends Package;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={
           Polygon(
@@ -169,7 +170,7 @@ package Modelica_Icons "Library of icons"
   end Package;
 
   partial package BasesPackage "Icon for packages containing base classes"
-    extends Modelica_Icons.Package;
+    extends Package;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={
           Ellipse(
@@ -183,7 +184,7 @@ package Modelica_Icons "Library of icons"
   end BasesPackage;
 
   partial package VariantsPackage "Icon for package containing variants"
-    extends Modelica_Icons.Package;
+    extends Package;
     annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
               {100,100}}),       graphics={
           Ellipse(
@@ -215,7 +216,7 @@ package Modelica_Icons "Library of icons"
   end VariantsPackage;
 
   partial package InterfacesPackage "Icon for packages containing interfaces"
-    extends Modelica_Icons.Package;
+    extends Package;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={
           Polygon(origin={20.0,0.0},
@@ -233,7 +234,7 @@ package Modelica_Icons "Library of icons"
   end InterfacesPackage;
 
   partial package SourcesPackage "Icon for packages containing sources"
-    extends Modelica_Icons.Package;
+    extends Package;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={
           Polygon(origin={23.3333,0.0},
@@ -252,7 +253,7 @@ package Modelica_Icons "Library of icons"
   end SourcesPackage;
 
   partial package SensorsPackage "Icon for packages containing sensors"
-    extends Modelica_Icons.Package;
+    extends Package;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={
           Ellipse(origin={0.0,-30.0},
@@ -285,7 +286,7 @@ package Modelica_Icons "Library of icons"
   end SensorsPackage;
 
   partial package UtilitiesPackage "Icon for utility packages"
-    extends Modelica_Icons.Package;
+    extends Package;
      annotation (Icon(coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}}), graphics={
     Polygon(
       origin={1.3835,-4.1418},
@@ -306,7 +307,7 @@ package Modelica_Icons "Library of icons"
   end UtilitiesPackage;
 
   partial package TypesPackage "Icon for packages containing type definitions"
-    extends Modelica_Icons.Package;
+    extends Package;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Polygon(
             origin={-12.167,-23},
@@ -329,7 +330,7 @@ package Modelica_Icons "Library of icons"
   end TypesPackage;
 
   partial package IconsPackage "Icon for packages containing icons"
-    extends Modelica_Icons.Package;
+    extends Package;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Polygon(
             origin={-8.167,-17},
@@ -394,7 +395,7 @@ directly utilized by a user.
 
   partial package MaterialPropertiesPackage
     "Icon for package containing property classes"
-    extends Modelica_Icons.Package;
+    extends Package;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={
           Ellipse(
@@ -982,5 +983,6 @@ This icon of an <b>electrical motor</b> model will be removed in future versions
 
 <p>Copyright &copy; 1998-2013, Modelica Association, DLR, AIT, and Modelon AB. </p>
 <p><i>This Modelica package is <b>free</b> software; it can be redistributed and/or modified under the terms of the <b>Modelica license</b>, see the license conditions and the accompanying <b>disclaimer</b> in <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a>.</i> </p>
-</html>"));
+</html>"),
+    uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
 end Modelica_Icons;

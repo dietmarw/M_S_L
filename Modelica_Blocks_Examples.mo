@@ -1,7 +1,11 @@
 within ;
-package Modelica_Blocks_Examples
+encapsulated package Modelica_Blocks_Examples
   "Library of examples to demonstrate the usage of package Blocks"
-
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Blocks;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Constants;
   extends Modelica_Icons.ExamplesPackage;
 
   model PID_Controller
@@ -10,15 +14,15 @@ package Modelica_Blocks_Examples
     parameter Modelica_SIunits.Angle driveAngle=1.57
       "Reference distance to move";
     Modelica_Blocks.Continuous.LimPID PI(
-        k=100,
-        Ti=0.1,
-        yMax=12,
-        Ni=0.1,
-        initType=Modelica_Blocks.Types.InitPID.SteadyState,
-        limitsAtInit=false,
-        controllerType=Modelica_Blocks.Types.SimpleController.PI,
-        Td=0.1) annotation (Placement(transformation(extent={{-56,-20},{-36,0}},
-              rotation=0)));
+      k=100,
+      Ti=0.1,
+      yMax=12,
+      Ni=0.1,
+      initType=Modelica_Blocks.Types.InitPID.SteadyState,
+      limitsAtInit=false,
+      controllerType=Modelica_Blocks.Types.SimpleController.PI,
+      Td=0.1) annotation (Placement(transformation(extent={{-56,-20},{-36,0}},
+            rotation=0)));
     Modelica_Mechanics_Rotational.Components.Inertia inertia1(
       phi(fixed=true, start=0),
       J=1,
@@ -1042,8 +1046,8 @@ Note, that
     Modelica_Blocks.Sources.RadioButtonSource start(buttonTimeTable={1,3},
         reset={stop.on})
       annotation (Placement(transformation(extent={{24,64},{36,76}})));
-    Modelica_Blocks.Sources.RadioButtonSource stop(buttonTimeTable={2,4}, reset
-        ={start.on})
+    Modelica_Blocks.Sources.RadioButtonSource stop(buttonTimeTable={2,4}, reset=
+         {start.on})
       annotation (Placement(transformation(extent={{48,64},{60,76}})));
   equation
     connect(integerTable.y, integerValue.numberPort) annotation (Line(
@@ -1082,8 +1086,8 @@ to show how diagram animations can be constructed.
     Modelica_Blocks.Sources.Sine sine(freqHz=1) annotation (Placement(
             transformation(extent={{-60,40},{-40,60}}, rotation=0)));
 
-    Modelica_Blocks_Examples.BusUsage_Utilities.Part part annotation (Placement(
-          transformation(extent={{-60,-80},{-40,-60}}, rotation=0)));
+    BusUsage_Utilities.Part part annotation (Placement(transformation(extent={{
+              -60,-80},{-40,-60}}, rotation=0)));
     Modelica_Blocks.Math.Gain gain(k=1) annotation (Placement(transformation(
               extent={{-40,70},{-60,90}}, rotation=0)));
   protected
@@ -1302,8 +1306,8 @@ This package contains the bus definitions needed for the
             origin={100,0},
             extent={{-20,-20},{20,20}},
             rotation=270)));
-      Modelica_Blocks.Sources.RealExpression realExpression(y=time) annotation
-        (Placement(transformation(extent={{-6,0},{20,20}}, rotation=0)));
+      Modelica_Blocks.Sources.RealExpression realExpression(y=time) annotation (
+         Placement(transformation(extent={{-6,0},{20,20}}, rotation=0)));
       Modelica_Blocks.Sources.BooleanExpression booleanExpression(y=time > 0.5)
         annotation (Placement(transformation(extent={{-6,-30},{20,-10}},
               rotation=0)));
@@ -1345,5 +1349,5 @@ This package contains utility models and bus definitions needed for the
 This package contains example models to demonstrate the
 usage of package blocks.
 </p>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Blocks_Examples;

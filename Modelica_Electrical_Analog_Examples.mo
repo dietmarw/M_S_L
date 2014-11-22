@@ -1,6 +1,13 @@
 within ;
-package Modelica_Electrical_Analog_Examples
+encapsulated package Modelica_Electrical_Analog_Examples
   "Examples that demonstrate the usage of the Analog electrical components"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Electrical_Analog;
+  import Modelica_Constants;
+  import Modelica_Blocks;
+  import Modelica_Thermal_HeatTransfer;
+  import Modelica_Electrical_Digital;
 extends Modelica_Icons.ExamplesPackage;
 
   model CauerLowPassAnalog "Cauer low pass filter with analog components"
@@ -457,7 +464,8 @@ extends Modelica_Icons.ExamplesPackage;
     parameter Modelica_SIunits.Resistance R(min=Modelica_Constants.eps)=1
         "Resistance";
     Modelica_Blocks.Sources.BooleanPulse BooleanPulse1(period=clock)
-      annotation (Placement(transformation(extent={{-10,50},{10,70}}, rotation=0)));
+        annotation (Placement(transformation(extent={{-10,50},{10,70}},
+              rotation=0)));
 
     Modelica_Electrical_Analog.Basic.Capacitor Capacitor1(C=clock/R)
         annotation (Placement(transformation(extent={{-20,-20},{20,20}},
@@ -1418,7 +1426,7 @@ Christoph Clau&szlig;
           extent={{-10,-10},{10,10}},
           rotation=270)));
     Modelica_Thermal_HeatTransfer.Components.HeatCapacitor HeatCapacitor1(C=0.01)
-    annotation (Placement(transformation(
+      annotation (Placement(transformation(
           origin={70,-60},
           extent={{-10,-10},{10,10}},
           rotation=270)));
@@ -3071,7 +3079,7 @@ basicTransformer.p2.i and idealTransformer.p2.i </p>
       width=1,
       period=0.001,
       startTime=0)
-               annotation (Placement(transformation(extent={{-32,32},{-12,52}})));
+      annotation (Placement(transformation(extent={{-32,32},{-12,52}})));
     Modelica_Electrical_Analog.Ideal.DA_Converter dA_Converter(N=N, Vref=10)
       annotation (Placement(transformation(extent={{18,-10},{44,16}})));
     Modelica_Electrical_Analog.Basic.Ground ground
@@ -4718,5 +4726,5 @@ Christoph Clau&szlig;
     D-01069 Dresden
 </dd>
 </dl>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_Analog_Examples;

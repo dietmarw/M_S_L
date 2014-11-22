@@ -1,6 +1,10 @@
 within ;
-package Modelica_Utilities
+encapsulated package Modelica_Utilities
   "Library of utility functions dedicated to scripting (operating on files, streams, strings, system)"
+  import Modelica_Icons;
+  import ModelicaServices;
+  import Modelica_SIunits;
+  import Modelica_Mechanics_MultiBody_Interfaces;
   extends Modelica_Icons.Package;
 
 package UsersGuide "User's Guide of Utilities Library"
@@ -205,8 +209,8 @@ end UsersGuide;
        nDirectories := 0;
        nFiles := 0;
        for i in 1:nEntries loop
-          if Modelica_Utilities.Internal.FileSystem.stat(directory2 + names[i])
-               == Types.FileType.Directory then
+          if Internal.FileSystem.stat(directory2 + names[i]) == Types.FileType.Directory
+               then
              nDirectories := nDirectories + 1;
              orderedNames[nDirectories] := names[i];
           else
@@ -235,8 +239,7 @@ end UsersGuide;
     algorithm
        if nEntries > 0 then
           Streams.print("\nDirectory \"" + directoryName + "\":");
-          files := Modelica_Utilities.Internal.FileSystem.readDirectory(
-            directoryName, nEntries);
+          files := Internal.FileSystem.readDirectory(directoryName, nEntries);
           (files, nDirectories) := sortDirectory(directoryName, files);
 
           // List directories
@@ -260,12 +263,11 @@ end UsersGuide;
        end if;
     end listDirectory;
   algorithm
-      fileType := Modelica_Utilities.Internal.FileSystem.stat(name);
+      fileType := Internal.FileSystem.stat(name);
     if fileType == Types.FileType.RegularFile then
        listFile(name);
     elseif fileType == Types.FileType.Directory then
-        listDirectory(name,
-          Modelica_Utilities.Internal.FileSystem.getNumberOfFiles(name));
+        listDirectory(name, Internal.FileSystem.getNumberOfFiles(name));
     elseif fileType == Types.FileType.SpecialFile then
        Streams.error("Cannot list file \"" + name + "\"\n" +
                      "since it is not a regular file (pipe, device, ...)");
@@ -308,8 +310,8 @@ in the \"name\" directory are printed in sorted order.
        input Boolean replace "= true, if an existing newName may be replaced";
     algorithm
         copyDirectoryContents(
-              Modelica_Utilities.Internal.FileSystem.readDirectory(oldName,
-            Modelica_Utilities.Internal.FileSystem.getNumberOfFiles(oldName)),
+              Internal.FileSystem.readDirectory(oldName,
+            Internal.FileSystem.getNumberOfFiles(oldName)),
               oldName,
               newName,
               replace);
@@ -347,7 +349,7 @@ in the \"name\" directory are printed in sorted order.
        Streams.error("It is not possible to copy the file or directory\n" +
                      "\"" + oldName2 + "\" because it does not exist.");
     elseif oldFileType == Types.FileType.Directory then
-        newFileType := Modelica_Utilities.Internal.FileSystem.stat(newName2);
+        newFileType := Internal.FileSystem.stat(newName2);
        if newFileType == Types.FileType.NoFile then
           createDirectory(newName2);
        elseif newFileType == Types.FileType.RegularFile or
@@ -370,7 +372,7 @@ in the \"name\" directory are printed in sorted order.
                                     "\"" + newName2 + "\" which is an existing file or directory.\n" +
                                     "Since argument replace=false, this is not allowed");
        end if;
-        Modelica_Utilities.Internal.FileSystem.copyFile(oldName2, newName2);
+        Internal.FileSystem.copyFile(oldName2, newName2);
     end if;
 
     annotation (Documentation(info="<HTML>
@@ -418,7 +420,7 @@ oldName.
     // if both oldName and newName are in the current directory
     // use Internal.renameFile
     if Strings.find(oldName,"/") == 0 and Strings.find(newName,"/") == 0 then
-        Modelica_Utilities.Internal.FileSystem.rename(oldName, newName);
+        Internal.FileSystem.rename(oldName, newName);
     else
        Files.copy(oldName, newName, replace);
        Files.remove(oldName);
@@ -475,11 +477,9 @@ oldName.
        String name2 = if Strings.substring(name,lenName,lenName) == "/" then
                          Strings.substring(name,lenName-1,lenName-1) else name;
     algorithm
-        removeDirectoryContents(
-          Modelica_Utilities.Internal.FileSystem.readDirectory(name2,
-          Modelica_Utilities.Internal.FileSystem.getNumberOfFiles(name2)),
-          name2);
-        Modelica_Utilities.Internal.FileSystem.rmdir(name2);
+        removeDirectoryContents(Internal.FileSystem.readDirectory(name2,
+          Internal.FileSystem.getNumberOfFiles(name2)), name2);
+        Internal.FileSystem.rmdir(name2);
     end removeDirectory;
 
     function removeDirectoryContents
@@ -498,7 +498,7 @@ oldName.
   algorithm
     if fileType == Types.FileType.RegularFile or
        fileType == Types.FileType.SpecialFile then
-        Modelica_Utilities.Internal.FileSystem.removeFile(fullName);
+        Internal.FileSystem.removeFile(fullName);
     elseif fileType == Types.FileType.Directory then
        removeDirectory(fullName);
     end if;
@@ -529,7 +529,7 @@ This function is silent, i.e., it does not print a message.
                                             fileName);
   algorithm
     if fileType == Types.FileType.RegularFile then
-        Modelica_Utilities.Internal.FileSystem.removeFile(fileName);
+        Internal.FileSystem.removeFile(fileName);
     elseif fileType == Types.FileType.Directory then
        Streams.error("File \"" + fileName + "\" should be removed.\n" +
                      "This is not possible, because it is a directory");
@@ -639,7 +639,7 @@ This function is silent, i.e., it does not print a message.
        // Create directories
           finished := false;
           while not finished loop
-          Modelica_Utilities.Internal.FileSystem.mkdir(Strings.substring(
+          Internal.FileSystem.mkdir(Strings.substring(
               fullName,
               1,
               index));
@@ -682,7 +682,7 @@ file), an assert is triggered.
     input String name "Name of file or directory";
     output Boolean result "= true, if file or directory exists";
   algorithm
-      result := Modelica_Utilities.Internal.FileSystem.stat(name) > Types.FileType.NoFile;
+      result := Internal.FileSystem.stat(name) > Types.FileType.NoFile;
 
     annotation (Documentation(info="<html>
 <h4>Syntax</h4>
@@ -846,7 +846,7 @@ write to this file (useful for temporary output of files).
     function loadResource
       "Return the absolute path name of a URI or local file name"
        extends
-        Modelica_Utilities.Internal.PartialModelicaServices.ExternalReferences.PartialLoadResource;
+        Internal.PartialModelicaServices.ExternalReferences.PartialLoadResource;
        extends ModelicaServices.ExternalReferences.loadResource;
       annotation (Documentation(info="<html>
 <h4>Syntax</h4>
@@ -1265,7 +1265,7 @@ defined by the optional argument \"string\".
       input String string1;
       input String string2;
       input Boolean caseSensitive=true "= false, if case of letters is ignored";
-      output Modelica_Utilities.Types.Compare result "Result of comparison";
+      output Types.Compare result "Result of comparison";
     external "C" result = ModelicaStrings_compare(string1, string2, caseSensitive) annotation(Library="ModelicaExternalC");
       annotation (Documentation(info="<html>
 <h4>Syntax</h4>
@@ -2690,10 +2690,10 @@ This package contains type definitions used in Modelica.Utilities.
       input Frames.Orientation R=Frames.nullRotation()
             "Orientation object to rotate the world frame into the object frame"
                                                                               annotation(Dialog);
-          input Modelica_SIunits.Position r[3]={0,0,0}
+          input SI.Position r[3]={0,0,0}
             "Position vector from origin of world frame to origin of object frame, resolved in world frame"
             annotation (Dialog);
-          input Modelica_SIunits.Position r_shape[3]={0,0,0}
+          input SI.Position r_shape[3]={0,0,0}
             "Position vector from origin of object frame to shape origin, resolved in object frame"
             annotation (Dialog);
       input Real lengthDirection[3](each final unit="1")={1,0,0}
@@ -2702,12 +2702,9 @@ This package contains type definitions used in Modelica.Utilities.
       input Real widthDirection[3](each final unit="1")={0,1,0}
             "Vector in width direction, resolved in object frame"
                                                                annotation(Dialog);
-          input Modelica_SIunits.Length length=0 "Length of visual object"
-            annotation (Dialog);
-          input Modelica_SIunits.Length width=0 "Width of visual object"
-            annotation (Dialog);
-          input Modelica_SIunits.Length height=0 "Height of visual object"
-            annotation (Dialog);
+          input SI.Length length=0 "Length of visual object" annotation (Dialog);
+          input SI.Length width=0 "Width of visual object" annotation (Dialog);
+          input SI.Length height=0 "Height of visual object" annotation (Dialog);
       input Types.ShapeExtra extra=0.0
             "Additional size data for some of the shape types"                             annotation(Dialog);
       input Real color[3]={255,0,0} "Color of shape"               annotation(Dialog(colorSelector=true));
@@ -2736,7 +2733,7 @@ This model is documented at
           annotation(Dialog(group="Surface frame"));
         input Modelica_SIunits.Position r_0[3]={0,0,0}
             "Position vector from origin of world frame to origin of surface frame, resolved in world frame"
-          annotation(Dialog(group="Surface frame"));
+            annotation (Dialog(group="Surface frame"));
 
         parameter Integer nu=2 "Number of points in u-Dimension" annotation(Dialog(group="Surface properties"));
         parameter Integer nv=2 "Number of points in v-Dimension" annotation(Dialog(group="Surface properties"));
@@ -2943,5 +2940,5 @@ Copyright &copy; 1998-2013, Modelica Association, DLR, and Dassault Syst&egrave;
 </p>
 
 </html>"),
-    uses(ModelicaServices(version="3.2.2")));
+    uses(ModelicaServices(version="3.2.1"), Modelica(version="3.2.1")));
 end Modelica_Utilities;

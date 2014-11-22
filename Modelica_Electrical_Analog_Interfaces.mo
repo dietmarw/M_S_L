@@ -1,6 +1,10 @@
 within ;
-package Modelica_Electrical_Analog_Interfaces
+encapsulated package Modelica_Electrical_Analog_Interfaces
   "Connectors and partial models for Analog electrical components"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
+  import Modelica_Blocks_Interfaces;
   extends Modelica_Icons.InterfacesPackage;
 
   connector Pin "Pin of an electrical component"
@@ -312,8 +316,8 @@ The reason could be that
     annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
     parameter Modelica_SIunits.Temperature T=293.15
       "Fixed device temperature if useHeatPort = false" annotation(Dialog(enable=not useHeatPort));
-    Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort(T(start=T)=T_heatPort, Q_flow=-LossPower) if useHeatPort
-      "Conditional heat port"
+    Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort(T(start=T) =
+        T_heatPort, Q_flow=-LossPower) if useHeatPort "Conditional heat port"
       annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
           iconTransformation(extent={{-10,-110},{10,-90}})));
     Modelica_SIunits.Power LossPower
@@ -547,5 +551,5 @@ Modelica in file \"Modelica/package.mo\".</i>
        by Christoph Clauss<br> initially implemented<br>
        </li>
 </ul>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_Analog_Interfaces;

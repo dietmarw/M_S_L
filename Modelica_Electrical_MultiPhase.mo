@@ -1,6 +1,18 @@
 within ;
-package Modelica_Electrical_MultiPhase
+encapsulated package Modelica_Electrical_MultiPhase
   "Library for electrical components of one or more phases"
+  import Modelica_Icons;
+  import Modelica_Electrical_MultiPhase_Interfaces;
+  import Modelica_Electrical_Analog_Interfaces;
+  import Modelica_SIunits;
+  import Modelica_Electrical_Analog;
+  import Modelica_Math;
+  import Modelica_Utilities;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Constants;
+  import Complex;
+  import Modelica_ComplexMath;
+  import Modelica_Blocks;
   extends Modelica_Icons.Package;
 
   package UsersGuide "User's Guide"
@@ -364,18 +376,16 @@ Delta (polygon) connection of a multi phase circuit consiting of multiple base s
         "Insulation resistance between base systems";
       Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug(m=m)
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-      Modelica_Electrical_MultiPhase.Basic.MultiStar multiStar(m=m) annotation (
-         Placement(transformation(
+      MultiStar multiStar(m=m) annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={-50,0})));
-      Modelica_Electrical_MultiPhase.Basic.Resistor resistor(m=mBasic, R=fill(R,
-            mBasic)) annotation (Placement(transformation(
+      Resistor resistor(m=mBasic, R=fill(R, mBasic)) annotation (Placement(
+            transformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={0,0})));
-      Modelica_Electrical_MultiPhase.Basic.Star star(m=mBasic) annotation (
-          Placement(transformation(
+      Star star(m=mBasic) annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={50,0})));
@@ -2016,7 +2026,7 @@ like thyristor, diode, switch, transformer.
       Modelica_Blocks_Interfaces.RealInput u[m]
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     equation
-      y =Modelica_Electrical_MultiPhase.Functions.quasiRMS(u);
+      y = Functions.quasiRMS(u);
 
       annotation (Documentation(info="<HTML>
 <p>
@@ -2127,8 +2137,7 @@ This function determines the orientation of the symmetrical winding with <img sr
       else
         // Odd number of phases
         for k in 1:m loop
-          orientation[k, :] :=
-            Modelica_Electrical_MultiPhase.Functions.symmetricOrientation(m)*k;
+          orientation[k, :] := symmetricOrientation(m)*k;
         end for;
       end if;
       annotation (Documentation(info="<html>
@@ -2148,7 +2157,7 @@ This function determines the orientation of the symmetrical winding with <img sr
       extends Modelica_Icons.Function;
       import Modelica_Constants.pi;
       input Integer m "Number of phases";
-      output Complex transformation[m, m]
+      output Complex transformation[m,m]
         "Transformation matrix for m phase symmetrical components";
     algorithm
       // Init transformation matrix with zeros
@@ -2357,11 +2366,9 @@ thus measuring the m potential differences <i>v[m]</i> between the m pins of plu
             origin={0,-100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Electrical_MultiPhase.Sensors.VoltageSensor voltageSensor(final m=m)
-        annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-              rotation=0)));
-      Modelica_Electrical_MultiPhase.Blocks.QuasiRMS quasiRMS(final m=m)
-        annotation (Placement(transformation(
+      VoltageSensor voltageSensor(final m=m) annotation (Placement(
+            transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+      Blocks.QuasiRMS quasiRMS(final m=m) annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=270,
             origin={0,-50})));
@@ -2461,11 +2468,9 @@ thus measuring the m currents <i>i[m]</i> flowing from the m pins of plug_p to t
             origin={0,-100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Electrical_MultiPhase.Sensors.CurrentSensor currentSensor(final m=m)
-        annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-              rotation=0)));
-      Modelica_Electrical_MultiPhase.Blocks.QuasiRMS quasiRMS(final m=m)
-        annotation (Placement(transformation(
+      CurrentSensor currentSensor(final m=m) annotation (Placement(
+            transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+      Blocks.QuasiRMS quasiRMS(final m=m) annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=270,
             origin={0,-50})));
@@ -3063,7 +3068,6 @@ This package contains time-dependent and controlled multiphase voltage and curre
 </html>"));
   end Sources;
 
-
   annotation (Documentation(info="<HTML>
 <p>
 Copyright &copy; 1998-2014, Modelica Association and Anton Haumer.
@@ -3113,5 +3117,5 @@ Copyright &copy; 1998-2014, Modelica Association and Anton Haumer.
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           extent={{-20,-74},{0,-54}})}),
-    uses(Complex(version="3.2.2")));
+    uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
 end Modelica_Electrical_MultiPhase;

@@ -1,5 +1,7 @@
 within ;
-package Modelica_Electrical_Spice3_Examples "Example circuits"
+encapsulated package Modelica_Electrical_Spice3_Examples "Example circuits"
+  import Modelica_Icons;
+  import Modelica_Electrical_Spice3;
 extends Modelica_Icons.ExamplesPackage;
 
   model Inverter "Simple inverter circuit"
@@ -112,8 +114,8 @@ extends Modelica_Icons.ExamplesPackage;
       CBS=0) "Specified modelcardMOS for MNmos";
                                            //instance of record modelcardMOS
     Modelica_Electrical_Spice3.Semiconductors.M_PMOS mp1(modelcard=MPmos, IC=-1e40)
-      annotation (Placement(transformation(extent={{-38,20},{-18,40}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-38,20},{-18,40}}, rotation=
+             0)));
     Modelica_Electrical_Spice3.Semiconductors.M_NMOS mn1(modelcard=MNmos, IC=-1e40)
       annotation (Placement(transformation(extent={{-38,-30},{-18,-10}},
             rotation=0)));
@@ -370,14 +372,14 @@ extends Modelica_Icons.ExamplesPackage;
         CBS=0) "private NMOS modelcard";
 
     Modelica_Electrical_Spice3.Semiconductors.M_PMOS mp1(modelcard=modp, IC=-1e40)
-      annotation (Placement(transformation(extent={{-74,20},{-54,40}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-74,20},{-54,40}}, rotation=
+             0)));
     Modelica_Electrical_Spice3.Semiconductors.M_NMOS mn1(modelcard=modn, IC=-1e40)
       annotation (Placement(transformation(extent={{-74,-30},{-54,-10}},
             rotation=0)));
     Modelica_Electrical_Spice3.Semiconductors.M_PMOS mp2(modelcard=modp, IC=-1e40)
-      annotation (Placement(transformation(extent={{-34,20},{-14,40}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-34,20},{-14,40}}, rotation=
+             0)));
     Modelica_Electrical_Spice3.Semiconductors.M_NMOS mn2(modelcard=modn, IC=-1e40)
       annotation (Placement(transformation(extent={{-34,-30},{-14,-10}},
             rotation=0)));
@@ -389,8 +391,8 @@ extends Modelica_Icons.ExamplesPackage;
       annotation (Placement(transformation(extent={{6,-30},{26,-10}}, rotation=
               0)));
     Modelica_Electrical_Spice3.Semiconductors.M_NMOS mn4(modelcard=modn, IC=-1e40)
-      annotation (Placement(transformation(extent={{46,-30},{66,-10}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{46,-30},{66,-10}}, rotation=
+             0)));
     Modelica_Electrical_Spice3.Basic.C_Capacitor c1(
       C=10e-6,
       IC=0,
@@ -876,8 +878,8 @@ extends Modelica_Icons.ExamplesPackage;
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={-20,-8})));
-    Modelica_Electrical_Spice3.Semiconductors.R_Resistor rout(R=10) annotation
-      (Placement(transformation(
+    Modelica_Electrical_Spice3.Semiconductors.R_Resistor rout(R=10) annotation (
+       Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=90,
           origin={42,-7})));
@@ -2303,5 +2305,5 @@ print v(11) v(12) v(13)
   end Spice3BenchmarkFourBitBinaryAdder;
   annotation (Documentation(info="<html>
 <p>This package Example circuits contains some useful examples to demonstrate how the library is working and how the models can be used.</p>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_Spice3_Examples;

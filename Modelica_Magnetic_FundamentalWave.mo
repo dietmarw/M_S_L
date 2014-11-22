@@ -1,6 +1,23 @@
 within ;
-package Modelica_Magnetic_FundamentalWave
+encapsulated package Modelica_Magnetic_FundamentalWave
   "Library for magnetic fundamental wave effects in electric machines"
+  import Modelica_Icons;
+  import Modelica_Magnetic_FundamentalWave_Interfaces;
+  import Complex;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
+  import Modelica_SIunits;
+  import Modelica_Electrical_Analog_Interfaces;
+  import Modelica_ComplexMath;
+  import Modelica_Electrical_MultiPhase_Interfaces;
+  import Modelica_Electrical_Machines;
+  import Modelica_Electrical_Machines_Interfaces;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_Constants;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Electrical_Analog;
+  import Modelica_Mechanics_Rotational_Interfaces;
+  import Modelica_Thermal_HeatTransfer;
+  import Modelica_ComplexBlocks_Interfaces;
   extends Modelica_Icons.Package;
   package UsersGuide "User's Guide"
     extends Modelica_Icons.Information;

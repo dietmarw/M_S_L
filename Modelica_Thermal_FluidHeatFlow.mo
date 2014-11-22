@@ -1,6 +1,14 @@
 within ;
-package Modelica_Thermal_FluidHeatFlow
+encapsulated package Modelica_Thermal_FluidHeatFlow
   "Simple components for 1-dimensional incompressible thermo-fluid flow models"
+  import Modelica_Icons;
+  import Modelica_Thermal_FluidHeatFlow_Interfaces;
+  import Modelica_SIunits;
+  import Modelica_Constants;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Math;
+  import Modelica_Mechanics_Rotational_Interfaces;
   extends Modelica_Icons.Package;
 
   package UsersGuide "User's Guide"
@@ -159,8 +167,8 @@ This library provides simple components for 1-dimensional incompressible thermo-
 
     model IsolatedPipe "Pipe without heat exchange"
 
-      extends Modelica_Thermal_FluidHeatFlow_Interfaces.Partials.TwoPort(
-                                          final tapT=1);
+      extends Modelica_Thermal_FluidHeatFlow_Interfaces.Partials.TwoPort(final
+          tapT=1);
       extends Modelica_Thermal_FluidHeatFlow_Interfaces.Partials.SimpleFriction;
       parameter Modelica_SIunits.Length h_g(start=0)
         "Geodetic height (height difference from flowPort_a to flowPort_b)";
@@ -191,9 +199,8 @@ leads to neglection of temperature transient cv*m*der(T).
       extends Modelica_Thermal_FluidHeatFlow_Interfaces.Partials.SimpleFriction;
       parameter Modelica_SIunits.Length h_g(start=0)
         "Geodetic height (heigth difference from flowPort_a to flowPort_b)";
-      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort
-        annotation (Placement(transformation(extent={{-10,-110},{10,-90}},
-              rotation=0)));
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort annotation (
+          Placement(transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
     equation
       // coupling with FrictionModel
       volumeFlow = V_flow;
@@ -255,8 +262,8 @@ temperature rise defined by storing heat in medium's mass.
       Real yLim = max(min(y,y1),0) "Limited valve opening";
       Modelica_SIunits.VolumeFlowRate Kv "Standard flow rate";
     public
-      Modelica_Blocks_Interfaces.RealInput y
-        annotation (Placement(transformation(
+      Modelica_Blocks_Interfaces.RealInput y annotation (Placement(
+            transformation(
             origin={0,90},
             extent={{-10,-10},{10,10}},
             rotation=270)));
@@ -267,7 +274,8 @@ temperature rise defined by storing heat in medium's mass.
       assert(kv0<1-eps, "Valve characteristic: kv0 has to be < 1 !");
     equation
       // evaluate standard characteristic
-      Kv/Kv1 = if LinearCharacteristic then (kv0 + (1-kv0)*yLim/y1) else kv0*exp(Modelica_Math.log(1/kv0)*yLim/y1);
+      Kv/Kv1 = if LinearCharacteristic then (kv0 + (1 - kv0)*yLim/y1) else kv0*
+        exp(Modelica_Math.log(1/kv0)*yLim/y1);
       // pressure drop under real conditions
       dp/dp0 = medium.rho/rho0*(V_flow/Kv)*abs(V_flow/Kv);
       // no energy exchange with medium
@@ -762,9 +770,8 @@ Thermodynamic equations are defined by Partials.TwoPort.
       Modelica_SIunits.Pressure dp1;
       Modelica_SIunits.VolumeFlowRate V_flow1;
     public
-      Modelica_Mechanics_Rotational_Interfaces.Flange_a flange_a
-        annotation (Placement(transformation(extent={{-10,-110},{10,-90}},
-              rotation=0)));
+      Modelica_Mechanics_Rotational_Interfaces.Flange_a flange_a annotation (
+          Placement(transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
     equation
       // pump characteristic
       dp1 = dp0*sign(w/wNominal)*(w/wNominal)^2;
@@ -901,5 +908,6 @@ Copyright &copy; 1998-2013, Modelica Association, Anton Haumer, Christian Kral a
         lineColor = {255,128,0},
         fillColor = {255,128,0},
         fillPattern = FillPattern.Solid,
-        points = {{-20,10},{0,-10},{-20,-30},{40,-30},{60,-10},{40,10},{-20,10}})}));
+        points = {{-20,10},{0,-10},{-20,-30},{40,-30},{60,-10},{40,10},{-20,10}})}),
+    uses(Modelica(version="3.2.1")));
 end Modelica_Thermal_FluidHeatFlow;

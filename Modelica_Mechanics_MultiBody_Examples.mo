@@ -1,6 +1,16 @@
 within ;
-package Modelica_Mechanics_MultiBody_Examples
+encapsulated package Modelica_Mechanics_MultiBody_Examples
   "Examples that demonstrate the usage of the MultiBody library"
+  import Modelica_Icons;
+  import Modelica_Mechanics_MultiBody;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Blocks;
+  import Modelica_SIunits;
+  import Modelica_Mechanics_Translational;
+  import Modelica_Thermal_HeatTransfer;
+  import Modelica_Constants;
+  import Modelica_Math;
+  import Modelica_Electrical_Analog;
 extends Modelica_Icons.ExamplesPackage;
 
   package Elementary
@@ -18,9 +28,8 @@ extends Modelica_Icons.ExamplesPackage;
         phi(fixed=true),
         w(fixed=true)) annotation (Placement(transformation(extent={{-48,0},{
                 -28,20}}, rotation=0)));
-      Modelica_Mechanics_Rotational.Components.Damper damper(
-                                                  d=0.1)
-        annotation (Placement(transformation(extent={{-48,40},{-28,60}}, rotation=0)));
+      Modelica_Mechanics_Rotational.Components.Damper damper(d=0.1) annotation
+        (Placement(transformation(extent={{-48,40},{-28,60}}, rotation=0)));
       Modelica_Mechanics_MultiBody.Parts.BodyBox boxBody1(r={0.5,0,0}, width=
             0.06) annotation (Placement(transformation(extent={{-10,0},{10,20}},
               rotation=0)));
@@ -181,8 +190,8 @@ x=0.7, y=0.3.
         Nm_to_m=120,
         N_to_m=1200,
         resolveInFrame=Modelica_Mechanics_MultiBody.Types.ResolveInFrameAB.frame_resolve)
-        annotation (Placement(transformation(extent={{60,50},{40,30}}, rotation
-              =0)));
+        annotation (Placement(transformation(extent={{60,50},{40,30}}, rotation=
+               0)));
       Modelica_Mechanics_MultiBody.Joints.Revolute revolute2(
         n={0,1,0},
         phi(fixed=true),
@@ -190,8 +199,8 @@ x=0.7, y=0.3.
             origin={-20,20},
             extent={{-10,-10},{10,10}},
             rotation=90)));
-      Modelica_Blocks.Sources.Constant torque[3](k={-100,100,0})
-        annotation (Placement(transformation(
+      Modelica_Blocks.Sources.Constant torque[3](k={-100,100,0}) annotation (
+          Placement(transformation(
             origin={40,-10},
             extent={{10,-10},{-10,10}},
             rotation=270)));
@@ -502,8 +511,7 @@ ALT=\"model Examples.Elementary.InitSpringConstant\">
             origin={-40,84},
             extent={{10,-10},{-10,10}},
             rotation=270)));
-      Modelica_Mechanics_Translational.Components.Damper damper1(
-                                                      d=3)
+      Modelica_Mechanics_Translational.Components.Damper damper1(d=3)
         annotation (Placement(transformation(extent={{0,24},{20,4}}, rotation=0)));
       Modelica_Mechanics_MultiBody.Joints.Revolute revolute2(phi(fixed=true),
           w(fixed=true)) annotation (Placement(transformation(extent={{-20,-40},
@@ -962,9 +970,9 @@ a default value, when the physical system does not provide the equations.
       inner Modelica_Mechanics_MultiBody.World world(
         gravitySphereDiameter=0.1,
         gravityType=Modelica_Mechanics_MultiBody.Types.GravityTypes.PointGravity,
-
         mue=5) annotation (Placement(transformation(extent={{-80,60},{-60,80}},
               rotation=0)));
+
       Modelica_Mechanics_MultiBody.Joints.FreeMotion freeMotion annotation (
           Placement(transformation(extent={{-40,60},{-20,80}}, rotation=0)));
 
@@ -1857,8 +1865,8 @@ For a more thorough explanation, see
         annotation (Placement(transformation(extent={{-66,40},{-46,60}},
               rotation=0)));
       Modelica_Mechanics_MultiBody.Parts.FixedTranslation bar2(r={0.3,0,0})
-        annotation (Placement(transformation(extent={{-20,40},{0,60}}, rotation
-              =0)));
+        annotation (Placement(transformation(extent={{-20,40},{0,60}}, rotation=
+               0)));
       Modelica_Mechanics_MultiBody.Forces.Spring spring1(
         s_unstretched=0.1,
         coilWidth=0.01,
@@ -1902,8 +1910,8 @@ For a more thorough explanation, see
             extent={{-10,10},{10,-10}},
             rotation=270)));
       Modelica_Mechanics_MultiBody.Parts.FixedTranslation bar3(r={0.3,0,0})
-        annotation (Placement(transformation(extent={{34,40},{54,60}}, rotation
-              =0)));
+        annotation (Placement(transformation(extent={{34,40},{54,60}}, rotation=
+               0)));
       Modelica_Mechanics_MultiBody.Forces.SpringDamperSeries springDamperSeries(
         d=2,
         c=30,
@@ -2172,8 +2180,8 @@ the rotation angle of the pendulum, rev.phi, has the following values:
       Modelica_Mechanics_MultiBody.Parts.FixedTranslation fixedTranslation1(r={0,-1.3,
             torus.ro + torus.ri}, animation=false)
         annotation (Placement(transformation(extent={{-4,20},{16,40}})));
-      Modelica_Mechanics_MultiBody.Parts.FixedTranslation fixedTranslation2(animation
-          =false, r={0,-1.6,wheel.rTire})
+      Modelica_Mechanics_MultiBody.Parts.FixedTranslation fixedTranslation2(animation=
+           false, r={0,-1.6,wheel.rTire})
         annotation (Placement(transformation(extent={{-4,50},{16,70}})));
       Modelica_Mechanics_MultiBody.Visualizers.VoluminousWheel wheel
         annotation (Placement(transformation(extent={{32,50},{52,70}})));
@@ -2186,8 +2194,8 @@ the rotation angle of the pendulum, rev.phi, has the following values:
             Modelica_Constants.pi*time) .+ 1,
         n_colors=32)
         annotation (Placement(transformation(extent={{14,-30},{34,-10}})));
-      Modelica_Mechanics_MultiBody.Parts.FixedTranslation fixedTranslation3(animation
-          =false, r={0,-2.2,0})
+      Modelica_Mechanics_MultiBody.Parts.FixedTranslation fixedTranslation3(animation=
+           false, r={0,-2.2,0})
         annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
     equation
       connect(world.frame_b, prismatic.frame_a) annotation (Line(
@@ -2298,7 +2306,8 @@ The following image shows a screen-shot of this example model:
         Real ha(unit="1") "h/a";
       algorithm
         h := r[2];
-        sinphi2 :=Modelica_Math.sin(Modelica_SIunits.Conversions.from_deg(phi))^2;
+        sinphi2 := Modelica_Math.sin(Modelica_SIunits.Conversions.from_deg(phi))
+          ^2;
         gn := g_e*(1 + k*sinphi2)/sqrt(1 - e2*sinphi2);
         ha := h/a;
         gh := gn*(1 - ha*(2*(1+f+m-2*f*sinphi2)+3*ha));
@@ -4903,8 +4912,8 @@ is much faster.
         phi(fixed=true),
         w(fixed=true)) annotation (Placement(transformation(extent={{-26,0},{-6,
                 20}}, rotation=0)));
-      inner Modelica_Mechanics_MultiBody.World world(g=0, driveTrainMechanics3D
-          =true) annotation (Placement(transformation(extent={{-60,0},{-40,20}},
+      inner Modelica_Mechanics_MultiBody.World world(g=0, driveTrainMechanics3D=
+           true) annotation (Placement(transformation(extent={{-60,0},{-40,20}},
               rotation=0)));
       Modelica_Mechanics_MultiBody.Forces.Torque torque annotation (Placement(
             transformation(extent={{8,30},{28,50}}, rotation=0)));
@@ -4998,8 +5007,8 @@ is much faster.
         phi(fixed=true),
         w(fixed=true)) annotation (Placement(transformation(extent={{16,10},{36,
                 30}}, rotation=0)));
-      inner Modelica_Mechanics_MultiBody.World world(g=0, driveTrainMechanics3D
-          =true) annotation (Placement(transformation(extent={{-84,10},{-64,30}},
+      inner Modelica_Mechanics_MultiBody.World world(g=0, driveTrainMechanics3D=
+           true) annotation (Placement(transformation(extent={{-84,10},{-64,30}},
               rotation=0)));
       Modelica_Mechanics_MultiBody.Forces.Torque torque annotation (Placement(
             transformation(extent={{50,40},{70,60}}, rotation=0)));
@@ -6225,8 +6234,7 @@ load inertia.
           rLoad=rLoad,
           g=g) annotation (Placement(transformation(extent={{35,-35},{95,25}},
                 rotation=0)));
-        Modelica_Mechanics_MultiBody_Examples.Systems.RobotR3.Components.PathPlanning6
-          pathPlanning(
+        Components.PathPlanning6 pathPlanning(
           naxis=6,
           angleBegDeg={startAngle1,startAngle2,startAngle3,startAngle4,
               startAngle5,startAngle6},
@@ -6458,18 +6466,12 @@ determined from the connections to this bus.
 
         expandable connector ControlBus "Data bus for all axes of robot"
           extends Modelica_Icons.SignalBus;
-          Modelica_Mechanics_MultiBody_Examples.Systems.RobotR3.Components.AxisControlBus
-            axisControlBus1 "Bus of axis 1";
-          Modelica_Mechanics_MultiBody_Examples.Systems.RobotR3.Components.AxisControlBus
-            axisControlBus2 "Bus of axis 2";
-          Modelica_Mechanics_MultiBody_Examples.Systems.RobotR3.Components.AxisControlBus
-            axisControlBus3 "Bus of axis 3";
-          Modelica_Mechanics_MultiBody_Examples.Systems.RobotR3.Components.AxisControlBus
-            axisControlBus4 "Bus of axis 4";
-          Modelica_Mechanics_MultiBody_Examples.Systems.RobotR3.Components.AxisControlBus
-            axisControlBus5 "Bus of axis 5";
-          Modelica_Mechanics_MultiBody_Examples.Systems.RobotR3.Components.AxisControlBus
-            axisControlBus6 "Bus of axis 6";
+          AxisControlBus axisControlBus1 "Bus of axis 1";
+          AxisControlBus axisControlBus2 "Bus of axis 2";
+          AxisControlBus axisControlBus3 "Bus of axis 3";
+          AxisControlBus axisControlBus4 "Bus of axis 4";
+          AxisControlBus axisControlBus5 "Bus of axis 5";
+          AxisControlBus axisControlBus6 "Bus of axis 6";
 
           annotation (
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
@@ -7146,8 +7148,8 @@ Default values for all parameters are given for joint 4.
           Modelica_Mechanics_Rotational.Interfaces.Flange_b flange_motor
             annotation (Placement(transformation(extent={{90,-10},{110,10}},
                   rotation=0)));
-          Modelica_Electrical_Analog.Sources.SignalVoltage Vs
-            annotation (Placement(transformation(
+          Modelica_Electrical_Analog.Sources.SignalVoltage Vs annotation (
+              Placement(transformation(
                 origin={-90,0},
                 extent={{-10,10},{10,-10}},
                 rotation=270)));
@@ -7242,9 +7244,8 @@ Default values for all parameters are given for joint 4.
                                                        J=J)
             annotation (Placement(transformation(extent={{70,-10},{90,10}},
                   rotation=0)));
-          Modelica_Mechanics_MultiBody_Examples.Systems.RobotR3.Components.AxisControlBus
-            axisControlBus annotation (Placement(transformation(extent={{60,-120},
-                    {100,-80}}, rotation=0)));
+          AxisControlBus axisControlBus annotation (Placement(transformation(
+                  extent={{60,-120},{100,-80}}, rotation=0)));
           Modelica_Blocks.Math.Gain convert1(k(unit="V/A") = 1) annotation (
               Placement(transformation(extent={{-30,-56},{-42,-44}}, rotation=
                    0)));
@@ -7366,9 +7367,8 @@ produced by the motor).
           Modelica_Blocks.Math.Gain gain2(k=ratio)
             annotation (Placement(transformation(extent={{-60,40},{-40,60}},
                   rotation=0)));
-          Modelica_Mechanics_MultiBody_Examples.Systems.RobotR3.Components.AxisControlBus
-            axisControlBus annotation (Placement(transformation(extent={{-20,-120},
-                    {20,-80}}, rotation=0)));
+          AxisControlBus axisControlBus annotation (Placement(transformation(
+                  extent={{-20,-120},{20,-80}}, rotation=0)));
         equation
           connect(gain1.y, feedback1.u1)
             annotation (Line(points={{-49,10},{-44,10}}, color={0,0,127}));
@@ -7501,8 +7501,7 @@ reference signals. All signals are communicated via the
             Ts=Ts,
             ratio=ratio) annotation (Placement(transformation(extent={{-70,-10},{
                     -50,10}}, rotation=0)));
-          Modelica_Mechanics_MultiBody_Examples.Systems.RobotR3.Components.AxisControlBus
-            axisControlBus annotation (Placement(transformation(
+          AxisControlBus axisControlBus annotation (Placement(transformation(
                 origin={-100,0},
                 extent={{-20,-20},{20,20}},
                 rotation=270)));
@@ -8069,5 +8068,5 @@ MultiBody package. Open the models and
 simulate them according to the provided description in the models.
 </p>
 
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Mechanics_MultiBody_Examples;

@@ -1,6 +1,14 @@
 within ;
-package Modelica_Electrical_QuasiStationary_Machines_Interfaces
+encapsulated package Modelica_Electrical_QuasiStationary_Machines_Interfaces
   "SpacePhasor connector and PartialMachines"
+  import Modelica_Icons;
+  import Modelica_Electrical_Machines;
+  import Modelica_SIunits;
+  import Modelica_Electrical_Machines_Interfaces;
+  import Modelica_ComplexMath;
+  import Modelica_Utilities;
+  import Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces;
+  import Modelica_Electrical_QuasiStationary;
   extends Modelica_Icons.InterfacesPackage;
 
   partial model PartialBasicTransformer
@@ -47,8 +55,7 @@ package Modelica_Electrical_QuasiStationary_Machines_Interfaces
     parameter Modelica_SIunits.Temperature T2Operational(start=293.15)
       "Operational temperature of secondary resistance" annotation (Dialog(
           group="Operational temperatures", enable=not useThermalPort));
-    output Modelica_Electrical_Machines_Interfaces.PowerBalanceTransformer
-      powerBalance(
+    output Modelica_Electrical_Machines_Interfaces.PowerBalanceTransformer powerBalance(
       final power1=sum({Modelica_ComplexMath.real(v1[j]*
           Modelica_ComplexMath.conj(i1[j])) for j in 1:m}),
       final power2=sum({Modelica_ComplexMath.real(v2[j]*
@@ -242,5 +249,5 @@ Circuit layout (vector group) of primary and secondary windings have to be defin
 <p>
 This package contains the quasi stationary space phasor connector and partial models for quasi stationary machine models.
 </p>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_QuasiStationary_Machines_Interfaces;

@@ -203,7 +203,6 @@ extends Modelica.Icons.ExamplesPackage;
       annotation(experiment(StopTime=1.0));
     end TwoMassesEquationsFullInitialInconsistent;
 
-
     model TwoMassesEquationsReducedSteadyState
       "Steady state conditions for states after index reduction"
       extends Modelica.Icons.Example;

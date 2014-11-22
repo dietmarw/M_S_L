@@ -1,5 +1,9 @@
 within ;
-package Modelica_StateGraph_Interfaces "Connectors and partial models"
+encapsulated package Modelica_StateGraph_Interfaces
+  "Connectors and partial models"
+  import Modelica_Icons;
+  import Modelica_StateGraph;
+  import Modelica_SIunits;
   extends Modelica_Icons.InterfacesPackage;
 
   connector Step_in "Input port of a step"
@@ -262,7 +266,7 @@ package Modelica_StateGraph_Interfaces "Connectors and partial models"
       annotation (HideResult=true);
     parameter Boolean enableTimer=false "= true, if timer is enabled"
       annotation (Evaluate=true, Dialog(group="Timer"));
-    parameter Modelica_SIunits.Time waitTime(min=0) = 0
+    parameter Modelica_SIunits.Time waitTime(min=0)=0
       "Wait time before transition fires"
       annotation (Dialog(group="Timer", enable=enableTimer));
     output Modelica_SIunits.Time t
@@ -345,4 +349,5 @@ top level your model.");
       defaultComponentPrefixes="inner",
       missingInnerMessage="A \"stateGraphRoot\" component was automatically introduced.");
   end CompositeStepState;
+  annotation (uses(Modelica(version="3.2.1")));
 end Modelica_StateGraph_Interfaces;

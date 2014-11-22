@@ -367,10 +367,10 @@ package Utilities "Test functions for Modelica.Utilities"
   protected
     Boolean result;
   algorithm
-    result := ModelicaTest.Utilities.Strings(logFile);
-    result := ModelicaTest.Utilities.Streams(logFile);
-    result := ModelicaTest.Utilities.Files(logFile);
-    result := ModelicaTest.Utilities.Internal(logFile);
+    result := Strings(logFile);
+    result := Streams(logFile);
+    result := Files(logFile);
+    result := Internal(logFile);
     ok := true;
   end testAll;
 end Utilities;

@@ -1,5 +1,20 @@
 within ;
-package Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces "Interfaces"
+encapsulated package Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces
+  "Interfaces"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Electrical_QuasiStationary;
+  import Modelica_ComplexMath;
+  import Complex;
+  import Modelica_Electrical_Machines;
+  import Modelica_Constants;
+  import Modelica_Magnetic_FundamentalWave;
+  import Modelica_Electrical_Machines_Interfaces;
+  import Modelica_Mechanics_Rotational_Interfaces;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces;
+  import Modelica_Magnetic_QuasiStatic_FundamentalWave;
+  import Modelica_Math;
   extends Modelica_Icons.InterfacesPackage;
   connector MagneticPort "Basic quasi static magnet connector"
     Modelica_SIunits.ComplexMagneticPotential V_m
@@ -118,8 +133,7 @@ The partial two port model consists of a positive and a negative magnetic port. 
 
   partial model PartialTwoPortExtended
     "Partial two port for graphical programming with additonal variables"
-    extends
-      Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces.PartialTwoPort;
+    extends PartialTwoPort;
 
     Modelica_SIunits.ComplexMagneticPotentialDifference V_m = port_p.V_m - port_n.V_m
       "Complex magnetic potential difference";
@@ -215,8 +229,8 @@ The partial two port elementary model extends from the partial two port model an
     parameter Modelica_SIunits.Inductance Lssigma(start=3*(1 - sqrt(1 -
           0.0667))/(2*pi*fsNominal)) "Stator stray inductance"
       annotation (Dialog(tab="Nominal resistances and inductances"));
-    parameter Modelica_Magnetic_FundamentalWave.Types.SalientInductance L0(d(
-          start=1), q(start=1)) "Salient inductance of an unchorded coil"
+    parameter Modelica_Magnetic_FundamentalWave.Types.SalientInductance L0(d(start=1),
+        q(start=1)) "Salient inductance of an unchorded coil"
       annotation (Dialog(tab="Nominal resistances and inductances"));
     parameter Modelica_Electrical_Machines.Losses.FrictionParameters
       frictionParameters(wRef=2*pi*fsNominal/p) "Friction losses"
@@ -252,9 +266,10 @@ The partial two port elementary model extends from the partial two port model an
       powerBalance(
       final powerStator=
           Modelica_Electrical_QuasiStationary.MultiPhase.Functions.activePower(
-                                                                      vs, is),
+          vs, is),
       final powerMechanical=wMechanical*tauShaft,
       final powerInertiaStator=inertiaStator.J*inertiaStator.a*inertiaStator.w,
+
       final powerInertiaRotor=inertiaRotor.J*inertiaRotor.a*inertiaRotor.w,
       final lossPowerStatorWinding=sum(stator.resistor.resistor.LossPower),
       final lossPowerStatorCore=stator.core.lossPower,
@@ -291,8 +306,8 @@ The partial two port elementary model extends from the partial two port model an
       "Stator power factor";
 
     Modelica_Mechanics_Rotational_Interfaces.Flange_a flange "Shaft"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation
+            =0)));
     Modelica_Mechanics_Rotational.Components.Inertia inertiaRotor(final J=Jr)
       annotation (Placement(transformation(
           origin={80,0},
@@ -311,9 +326,9 @@ The partial two port elementary model extends from the partial two port model an
           extent={{-10,-10},{10,10}},
           rotation=180,
           origin={70,-90})));
-    Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug
-      plug_sp(final m=m) "Positive plug of stator" annotation (Placement(
-          transformation(extent={{50,90},{70,110}}, rotation=0)));
+    Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.PositivePlug plug_sp(final m=m)
+      "Positive plug of stator" annotation (Placement(transformation(extent={{
+              50,90},{70,110}}, rotation=0)));
     Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
       plug_sn(final m=m) "Negative plug of stator" annotation (Placement(
           transformation(extent={{-70,90},{-50,110}}, rotation=0)));
@@ -517,5 +532,5 @@ The partial two port elementary model extends from the partial two port model an
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics));
   end PartialBasicMachine;
-  annotation (uses(Complex(version="3.2.2")));
+  annotation (uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
 end Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces;

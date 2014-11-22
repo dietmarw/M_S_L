@@ -1,6 +1,13 @@
 within ;
-package Modelica_Magnetic_FluxTubes_Examples
+encapsulated package Modelica_Magnetic_FluxTubes_Examples
   "Illustration of component usage with simple models of various devices"
+  import Modelica_Icons;
+  import Modelica_Magnetic_FluxTubes;
+  import Modelica_Electrical_Analog;
+  import Modelica_Constants;
+  import Modelica_Mechanics_Translational;
+  import Modelica_Blocks;
+  import Modelica_SIunits;
   extends Modelica_Icons.ExamplesPackage;
 
   model SaturatedInductor "Inductor with saturation in the ferromagnetic core"
@@ -10,8 +17,7 @@ package Modelica_Magnetic_FluxTubes_Examples
           transformation(extent={{50,-30},{70,-10}}, rotation=0)));
     Modelica_Electrical_Analog.Sources.SineVoltage source(
       freqHz=50,
-      phase=Modelica_Constants.pi
-              /2,
+      phase=Modelica_Constants.pi/2,
       V=230*sqrt(2)) "Voltage applied to inductor" annotation (Placement(
           transformation(
           origin={-80,10},
@@ -44,7 +50,6 @@ package Modelica_Magnetic_FluxTubes_Examples
       l=4*0.065,
       material=
           Modelica_Magnetic_FluxTubes.Material.SoftMagnetic.ElectricSheet.M350_50A(),
-
       B(start=0)) "Reluctance of ferromagnetic inductor core" annotation (
         Placement(transformation(
           origin={60,10},
@@ -115,14 +120,13 @@ If the supply voltage has a zero-crossing when applied to the inductor at time t
 
       Modelica_Electrical_Analog.Basic.Ground pmGround annotation (Placement(
             transformation(extent={{-70,-100},{-50,-80}}, rotation=0)));
-      Modelica_Magnetic_FluxTubes_Examples.MovingCoilActuator.Components.PermeanceActuator
-        pmActuator(x(start=0), material=
+      Components.PermeanceActuator pmActuator(x(start=0), material=
             Modelica_Magnetic_FluxTubes.Material.HardMagnetic.PlasticNdFeB())
         "Moving coil actuator described with permeance model" annotation (
           Placement(transformation(extent={{-20,-70},{0,-50}}, rotation=0)));
       Modelica_Mechanics_Translational.Components.Fixed pmFixedPos(s0=0)
-        "Fixed armature position" annotation (Placement(transformation(extent=
-               {{10,-70},{30,-50}}, rotation=0)));
+        "Fixed armature position" annotation (Placement(transformation(extent={
+                {10,-70},{30,-50}}, rotation=0)));
       Modelica_Electrical_Analog.Sources.RampCurrent pmRampCurrent(
         I=-6,
         duration=6,
@@ -144,17 +148,16 @@ If the supply voltage has a zero-crossing when applied to the inductor at time t
             origin={-60,20},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Magnetic_FluxTubes_Examples.MovingCoilActuator.Components.ConstantActuator
-        cActuator "Moving coil actuator described with converter constant"
-        annotation (Placement(transformation(extent={{-20,10},{0,30}}, rotation
-              =0)));
-      Modelica_Blocks.Tables.CombiTable1Ds comparisonWithFEA(table=[-3, -9.65653;
-            -2.5, -8.28587; -2, -6.82002; -1.5, -5.25898; -1, -3.60274; -0.5,
-            -1.85131; 0, -0.00468; 0.5, 1.93714; 1, 3.97415; 1.5, 6.10636; 2,
-            8.33376; 2.5, 10.65636; 3, 13.07415])
+      Components.ConstantActuator cActuator
+        "Moving coil actuator described with converter constant" annotation (
+          Placement(transformation(extent={{-20,10},{0,30}}, rotation=0)));
+      Modelica_Blocks.Tables.CombiTable1Ds comparisonWithFEA(table=[-3,-9.65653;
+            -2.5,-8.28587; -2,-6.82002; -1.5,-5.25898; -1,-3.60274; -0.5,-1.85131;
+            0,-0.00468; 0.5,1.93714; 1,3.97415; 1.5,6.10636; 2,8.33376; 2.5,
+            10.65636; 3,13.07415])
         "Column 1: current, col. 2: force; mu_rFe=const.=1000 in FEA model"
-        annotation (Placement(transformation(extent={{40,50},{60,70}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{40,50},{60,70}}, rotation
+              =0)));
       Modelica_Electrical_Analog.Sensors.CurrentSensor iSensor
         "Input value for look-up table with FEA results" annotation (
           Placement(transformation(extent={{-50,40},{-30,20}}, rotation=0)));
@@ -211,8 +214,7 @@ Simulation of the force-current characteristics of both converter models with th
 
       Modelica_Electrical_Analog.Basic.Ground ground annotation (Placement(
             transformation(extent={{-70,-30},{-50,-10}}, rotation=0)));
-      Modelica_Magnetic_FluxTubes_Examples.MovingCoilActuator.Components.PermeanceActuator
-        actuator(x(start=0), material=
+      Components.PermeanceActuator actuator(x(start=0), material=
             Modelica_Magnetic_FluxTubes.Material.HardMagnetic.PlasticNdFeB())
         annotation (Placement(transformation(extent={{-30,0},{-10,20}},
               rotation=0)));
@@ -290,8 +292,7 @@ Simulation of the force-stroke characteristic of the <a href=\"modelica://Modeli
             origin={-70,-30},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Magnetic_FluxTubes_Examples.MovingCoilActuator.Components.PermeanceActuator
-        pmActuator(
+      Components.PermeanceActuator pmActuator(
         material=Modelica_Magnetic_FluxTubes.Material.HardMagnetic.PlasticNdFeB(),
 
         x(start=pmActuator.x_min, fixed=true),
@@ -311,8 +312,7 @@ Simulation of the force-stroke characteristic of the <a href=\"modelica://Modeli
             origin={-70,40},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Magnetic_FluxTubes_Examples.MovingCoilActuator.Components.ConstantActuator
-        cActuator(
+      Components.ConstantActuator cActuator(
         x(start=cActuator.x_min, fixed=true),
         armature(v(fixed=true)),
         l(i(start=0, fixed=true)))
@@ -435,8 +435,7 @@ Whereas the steady state current is the same in both models, the steady state ac
               extent={{-10,-10},{10,10}},
               rotation=270)));
 
-        Modelica_Magnetic_FluxTubes_Examples.Utilities.TranslatoryArmatureAndStopper
-          armature(
+        Utilities.TranslatoryArmatureAndStopper armature(
           final L=0,
           final m=m_a,
           final c=c,
@@ -637,8 +636,7 @@ Both force components are properly considered with a simple permeance model as s
         Modelica_Electrical_Analog.Basic.Resistor r(final R=R)
           "Coil resistance" annotation (Placement(transformation(extent={{-90,
                   50},{-70,70}}, rotation=0)));
-        Modelica_Magnetic_FluxTubes_Examples.Utilities.TranslatoryArmatureAndStopper
-          armature(
+        Utilities.TranslatoryArmatureAndStopper armature(
           final m=m_a,
           final x_max=x_max,
           final x_min=x_min,
@@ -749,9 +747,8 @@ Moving coil actuators are often called electrodynamic actuators and a proportion
             origin={-70,50},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Magnetic_FluxTubes_Examples.SolenoidActuator.Components.AdvancedSolenoid
-        advancedSolenoid annotation (Placement(transformation(extent={{-40,40},
-                {-20,60}}, rotation=0)));
+      Components.AdvancedSolenoid advancedSolenoid annotation (Placement(
+            transformation(extent={{-40,40},{-20,60}}, rotation=0)));
       Modelica_Mechanics_Translational.Sources.Position advancedFeed_x(f_crit=
            1000, exact=false)
                              annotation (Placement(transformation(
@@ -765,9 +762,8 @@ Moving coil actuators are often called electrodynamic actuators and a proportion
             origin={-70,-50},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Magnetic_FluxTubes_Examples.SolenoidActuator.Components.SimpleSolenoid
-        simpleSolenoid annotation (Placement(transformation(extent={{-40,-60},{
-                -20,-40}}, rotation=0)));
+      Components.SimpleSolenoid simpleSolenoid annotation (Placement(
+            transformation(extent={{-40,-60},{-20,-40}}, rotation=0)));
       Modelica_Mechanics_Translational.Sources.Position simpleFeed_x(f_crit=
             1000, exact=false) annotation (Placement(transformation(
             origin={0,-50},
@@ -871,9 +867,8 @@ As mentioned in the description of both magnetic network models, one can tell th
             origin={-60,30},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Magnetic_FluxTubes_Examples.SolenoidActuator.Components.AdvancedSolenoid
-        advancedSolenoid(x(fixed=true)) annotation (Placement(transformation(
-              extent={{-20,20},{0,40}}, rotation=0)));
+      Components.AdvancedSolenoid advancedSolenoid(x(fixed=true)) annotation (
+          Placement(transformation(extent={{-20,20},{0,40}}, rotation=0)));
       Modelica_Mechanics_Translational.Components.Mass advancedLoad(m=0.01)
         "translatory load to be pulled horizontally" annotation (Placement(
             transformation(extent={{20,20},{40,40}}, rotation=0)));
@@ -884,9 +879,8 @@ As mentioned in the description of both magnetic network models, one can tell th
             origin={-60,-50},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Magnetic_FluxTubes_Examples.SolenoidActuator.Components.SimpleSolenoid
-        simpleSolenoid(x(fixed=true)) annotation (Placement(transformation(
-              extent={{-20,-60},{0,-40}}, rotation=0)));
+      Components.SimpleSolenoid simpleSolenoid(x(fixed=true)) annotation (
+          Placement(transformation(extent={{-20,-60},{0,-40}}, rotation=0)));
       Modelica_Mechanics_Translational.Components.Mass simpleLoad(m=0.01)
         "translatory load to be pulled horizontally" annotation (Placement(
             transformation(extent={{20,-60},{40,-40}}, rotation=0)));
@@ -1457,8 +1451,7 @@ The characteristic current drop during pull-in is due to both armature motion an
               extent={{10,-10},{-10,10}},
               rotation=270)));
 
-        Modelica_Magnetic_FluxTubes_Examples.Utilities.TranslatoryArmatureAndStopper
-          armature(
+        Utilities.TranslatoryArmatureAndStopper armature(
           final m=rho_steel*l_arm*Modelica_Constants.pi*r_arm^2,
           final x_max=x_max,
           final x_min=x_min,
@@ -1791,8 +1784,7 @@ During model-based actuator design, the radii and lengths of the flux tube eleme
               extent={{-10,10},{10,-10}},
               rotation=180)));
 
-        Modelica_Magnetic_FluxTubes_Examples.Utilities.TranslatoryArmatureAndStopper
-          armature(
+        Utilities.TranslatoryArmatureAndStopper armature(
           final x_max=x_max,
           final x_min=x_min,
           final m=rho_steel*l_arm*Modelica_Constants.pi*r_arm^2,
@@ -2315,5 +2307,5 @@ For manufacturing of a winding, the obtained wire diameter d_wireCalculated must
 <p>
 This package contains examples to demonstrate the usage of the flux tubes components.
 </p>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Magnetic_FluxTubes_Examples;

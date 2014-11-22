@@ -92,9 +92,8 @@ This model executes pressure loss calculations out of the <b> Fluid.Dissipation 
     model CurvedBend
       extends Modelica.Icons.Example;
       parameter Modelica.Fluid.Fittings.BaseClasses.Bends.CurvedBend.Geometry geometry(d_hyd=0.1, R_0=0.2) annotation (Placement(transformation(extent={{12,72},{32,92}})));
-      extends ModelicaTest.Fluid.TestComponents.NewFittings.PartialFittingTest(
-                                 redeclare model FittingComponent =
-            Modelica.Fluid.Fittings.Bends.CurvedBend(geometry=geometry));
+      extends PartialFittingTest(redeclare model FittingComponent =
+            Modelica.Fluid.Fittings.Bends.CurvedBend (geometry=geometry));
       annotation (experiment(StopTime=1.01));
     end CurvedBend;
 
@@ -102,9 +101,8 @@ This model executes pressure loss calculations out of the <b> Fluid.Dissipation 
       extends Modelica.Icons.Example;
       parameter Modelica.Fluid.Fittings.BaseClasses.Bends.EdgedBend.Geometry geometry(d_hyd=0.1, delta=
             1.5707963267949)                                                           annotation (Placement(transformation(extent={{12,72},{32,92}})));
-      extends ModelicaTest.Fluid.TestComponents.NewFittings.PartialFittingTest(
-                                 redeclare model FittingComponent =
-            Modelica.Fluid.Fittings.Bends.EdgedBend(geometry=geometry));
+      extends PartialFittingTest(redeclare model FittingComponent =
+            Modelica.Fluid.Fittings.Bends.EdgedBend (geometry=geometry));
       annotation (experiment(StopTime=1.01));
     end EdgedBend;
   end Bends;
@@ -117,9 +115,9 @@ This model executes pressure loss calculations out of the <b> Fluid.Dissipation 
         Modelica.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Geometry
                                                                                 geometry=
     Modelica.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices.circular(diameter=0.1, venaDiameter=0.01, venaLength=0.001) annotation (Placement(transformation(extent={{12,72},{32,92}})));
-      extends ModelicaTest.Fluid.TestComponents.NewFittings.PartialFittingTest(
-                                 redeclare model FittingComponent =
-            Modelica.Fluid.Fittings.Orifices.ThickEdgedOrifice(geometry=geometry));
+      extends PartialFittingTest(redeclare model FittingComponent =
+            Modelica.Fluid.Fittings.Orifices.ThickEdgedOrifice (geometry=
+                geometry));
       annotation (experiment(StopTime=1.01));
     end ThickEdgedOrifice;
   end Orifices;
@@ -130,9 +128,8 @@ This model executes pressure loss calculations out of the <b> Fluid.Dissipation 
       extends Modelica.Icons.Example;
       parameter Real a=1;
       parameter Real b=2;
-      extends ModelicaTest.Fluid.TestComponents.NewFittings.PartialFittingTest(
-                                 redeclare model FittingComponent =
-            Modelica.Fluid.Fittings.GenericResistances.VolumeFlowRate(a=a,b=b));
+      extends PartialFittingTest(redeclare model FittingComponent =
+            Modelica.Fluid.Fittings.GenericResistances.VolumeFlowRate (a=a, b=b));
       annotation (experiment(StopTime=1.01));
     end VolumeFlowRate;
   end GenericResistances;

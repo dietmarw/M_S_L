@@ -16,19 +16,19 @@ algorithm
 
     print("--- Test functions of ModelicaTest library");
     print("--- Test functions of ModelicaTest library", logFile);
-    result :=ModelicaTest.Math.ScalarFunctions(logFile);
-    result :=ModelicaTest.Math.BooleanFunctions(logFile);
-    result :=ModelicaTest.Math.Polynomials(logFile);
-    result :=ModelicaTest.Math.Matrices(logFile);
-    result :=ModelicaTest.Math.Matrices2(logFile);
+    result := Math.ScalarFunctions(logFile);
+    result := Math.BooleanFunctions(logFile);
+    result := Math.Polynomials(logFile);
+    result := Math.Matrices(logFile);
+    result := Math.Matrices2(logFile);
     //result :=ModelicaTest.Math.Matrices3(logFile);
     //result :=ModelicaTest.Math.Vectors();
     //result := ModelicaTest.Utilities.Strings(logFile);
-    result := ModelicaTest.Utilities.Streams(logFile);
-    result := ModelicaTest.Utilities.Files(logFile);
-    result := ModelicaTest.Utilities.Internal(logFile);
-    result := ModelicaTest.ComplexMath.ComplexFunctions(logFile);
-    result := ModelicaTest.ComplexMath.ComplexOperations();
+    result := Utilities.Streams(logFile);
+    result := Utilities.Files(logFile);
+    result := Utilities.Internal(logFile);
+    result := ComplexMath.ComplexFunctions(logFile);
+    result := ComplexMath.ComplexOperations();
   end when;
 
   annotation (experiment(StopTime=0.1));

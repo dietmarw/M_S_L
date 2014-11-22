@@ -1,5 +1,17 @@
 within ;
-package Modelica_Electrical_Machines_Examples "Test examples"
+encapsulated package Modelica_Electrical_Machines_Examples "Test examples"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Constants;
+  import Modelica_Electrical_Machines;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_Electrical_Analog;
+  import Modelica_Blocks;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Utilities;
+  import Modelica_Thermal_HeatTransfer;
+  import Modelica_Thermal_FluidHeatFlow;
+  import Modelica_Electrical_Machines_Interfaces;
   extends Modelica_Icons.ExamplesPackage;
   package AsynchronousInductionMachines
     "Test examples of asynchronous induction machines"
@@ -59,9 +71,9 @@ package Modelica_Electrical_Machines_Examples "Test examples"
             origin={-90,90},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica_Blocks.Sources.BooleanStep booleanStep[m](each startTime=
-            tStart1) annotation (Placement(transformation(extent={{-80,30},{-60,
-                50}}, rotation=0)));
+      Modelica_Blocks.Sources.BooleanStep booleanStep[m](each startTime=tStart1)
+        annotation (Placement(transformation(extent={{-80,30},{-60,50}},
+              rotation=0)));
       Modelica_Electrical_MultiPhase.Ideal.IdealClosingSwitch idealCloser(
         final m=m,
         Ron=fill(1e-5, m),
@@ -202,8 +214,8 @@ Default machine parameters of model <i>AIM_SquirrelCage</i> are used.
             origin={0,30},
             extent={{-10,10},{10,-10}},
             rotation=270)));
-      Modelica_Electrical_Machines.Utilities.SwitchYD switchYD(m=m) annotation
-        (Placement(transformation(extent={{-20,-30},{0,-10}}, rotation=0)));
+      Modelica_Electrical_Machines.Utilities.SwitchYD switchYD(m=m) annotation (
+         Placement(transformation(extent={{-20,-30},{0,-10}}, rotation=0)));
       Modelica_Blocks.Sources.BooleanStep booleanStepYD[m](each startTime=
             tStart2) annotation (Placement(transformation(extent={{-80,-30},{
                 -60,-10}}, rotation=0)));
@@ -345,10 +357,8 @@ Default machine parameters of model <i>AIM_SquirrelCage</i> are used.
         L2sigma=transformerData.L2sigma,
         T1Ref=293.15,
         alpha20_1(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         T2Ref=293.15,
         alpha20_2(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         T1Operational=293.15,
         T2Operational=293.15) annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
@@ -1040,8 +1050,8 @@ Default machine parameters of model <i>AIM_SquirrelCage</i> are used.
         TsOperational=TempNominal,
         TrOperational=TempNominal,
         wMechanical(fixed=true, start=2*pi*aimcData.fsNominal/aimcData.p),
-        alpha20r=aimcData.alpha20r) annotation (Placement(transformation(extent
-              ={{-40,0},{-20,20}}, rotation=0)));
+        alpha20r=aimcData.alpha20r) annotation (Placement(transformation(extent=
+               {{-40,0},{-20,20}}, rotation=0)));
       Modelica_Electrical_Machines.Utilities.TerminalBox terminalBox(
           terminalConnection="D") annotation (Placement(transformation(extent={
                 {-40,20},{-20,40}}, rotation=0)));
@@ -1105,7 +1115,6 @@ Default machine parameters of model <i>AIM_SquirrelCage</i> are used.
         Jr=0.12,
         Rs=0.56,
         alpha20s(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Copper,
-
         Lssigma=1.52/(2*pi*fNominal),
         frictionParameters(PRef=180, wRef=wNominal),
         strayLoadParameters(
@@ -1571,8 +1580,8 @@ Default machine parameters of model <i>SM_ReluctanceRotor</i> are used.
         alpha20s=smpmData.alpha20s,
         ir(each fixed=true),
         TrOperational=293.15,
-        alpha20r=smpmData.alpha20r) annotation (Placement(transformation(extent
-              ={{-20,-50},{0,-30}}, rotation=0)));
+        alpha20r=smpmData.alpha20r) annotation (Placement(transformation(extent=
+               {{-20,-50},{0,-30}}, rotation=0)));
 
       Modelica_Electrical_Machines.Sensors.CurrentQuasiRMSSensor currentQuasiRMSSensor
         annotation (Placement(transformation(
@@ -1937,8 +1946,8 @@ Default machine parameters of model <a href=\"modelica://Modelica.Electrical.Mac
         TsOperational=293.15,
         alpha20s=smpmData.alpha20s,
         TrOperational=293.15,
-        alpha20r=smpmData.alpha20r) annotation (Placement(transformation(extent
-              ={{-20,-50},{0,-30}}, rotation=0)));
+        alpha20r=smpmData.alpha20r) annotation (Placement(transformation(extent=
+               {{-20,-50},{0,-30}}, rotation=0)));
 
       Modelica_Electrical_MultiPhase.Sources.SignalVoltage signalVoltage(
           final m=m) annotation (Placement(transformation(
@@ -2248,11 +2257,8 @@ Default machine parameters of model <a href=\"modelica://Modelica.Electrical.Mac
         Td0Subtransient=0.006963029,
         Tq0Subtransient=0.123345081,
         alpha20s(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         alpha20r(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         alpha20e(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         TsSpecification=293.15,
         TsRef=293.15,
         TrSpecification=293.15,
@@ -2404,11 +2410,9 @@ Default machine parameters of model <i>SM_ElectricalExcited</i> are used.
         TsSpecification=293.15,
         TsRef=293.15,
         alpha20s(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         TrSpecification=293.15,
         TrRef=293.15,
         alpha20r(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         TeSpecification=293.15,
         TeRef=293.15,
         alpha20e(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero)
@@ -2674,11 +2678,9 @@ One could try to optimize the controller parameters.
         TsSpecification=293.15,
         TsRef=293.15,
         alpha20s(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         TrSpecification=293.15,
         TrRef=293.15,
         alpha20r(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         TeSpecification=293.15,
         TeRef=293.15,
         alpha20e(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero)
@@ -3494,7 +3496,6 @@ Default machine parameters are used.
         Modelica_Electrical_Machines.Utilities.ParameterRecords.DcPermanentMagnetData
         dcpmData(
         alpha20a(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Copper,
-
         TaNominal=353.15,
         TaRef=353.15)
         annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
@@ -3670,7 +3671,6 @@ So the machine is at the beginning in cold condition, ending in warm condition
         Modelica_Electrical_Machines.Utilities.ParameterRecords.DcPermanentMagnetData
         dcpmData(
         alpha20a(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Copper,
-
         TaNominal=353.15,
         TaRef=353.15)
         annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
@@ -3864,8 +3864,8 @@ Default machine parameters are used, but:
         phiMechanical(fixed=true),
         wMechanical(fixed=true, start=w0),
         TaOperational=293.15,
-        alpha20a=dcpmData.alpha20a) annotation (Placement(transformation(extent
-              ={{-20,-40},{0,-20}}, rotation=0)));
+        alpha20a=dcpmData.alpha20a) annotation (Placement(transformation(extent=
+               {{-20,-40},{0,-20}}, rotation=0)));
       Modelica_Mechanics_Rotational.Components.Inertia loadInertia2(J=JLoad)
         annotation (Placement(transformation(extent={{10,-40},{30,-20}},
               rotation=0)));
@@ -4037,7 +4037,6 @@ Simulate for 2 seconds and plot (versus time):
         dcpmData2(
         Ra=0.03864,
         alpha20a(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Copper,
-
         wNominal=148.44025288212,
         TaNominal=368.15,
         frictionParameters(PRef=100),
@@ -4215,10 +4214,8 @@ This package contains test examples of DC machines.
         L2sigma=transformerData.L2sigma,
         T1Ref=293.15,
         alpha20_1(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         T2Ref=293.15,
         alpha20_2(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         T1Operational=293.15,
         T2Operational=293.15) annotation (Placement(transformation(extent={{-20,
                 -10},{20,30}}, rotation=0)));
@@ -4351,10 +4348,8 @@ In some cases it may be necessary to ground the transformer's starpoint even tho
         L2sigma=transformerData.L2sigma,
         T1Ref=293.15,
         alpha20_1(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         T2Ref=293.15,
         alpha20_2(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         T1Operational=293.15,
         T2Operational=293.15) annotation (Placement(transformation(extent={{-20,
                 -10},{20,30}}, rotation=0)));
@@ -4520,10 +4515,8 @@ In some cases it may be necessary to ground the transformer's starpoint even tho
         L2sigma=transformerData1.L2sigma,
         T1Ref=293.15,
         alpha20_1(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         T2Ref=293.15,
         alpha20_2(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         T1Operational=293.15,
         T2Operational=293.15) annotation (Placement(transformation(extent={{-50,
                 30},{-30,50}}, rotation=0)));
@@ -4604,10 +4597,8 @@ neglecting initial transient.
         L2sigma=transformerData2.L2sigma,
         T1Ref=293.15,
         alpha20_1(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         T2Ref=293.15,
         alpha20_2(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
         T1Operational=293.15,
         T2Operational=293.15) annotation (Placement(transformation(extent={{-50,
                 -50},{-30,-30}}, rotation=0)));
@@ -4721,5 +4712,5 @@ This package contains test examples of electric machines.
   <li> v2.1.2 2010/02/09 Anton Haumer<br>
        included new Examples (AIMC_Transformer, DC_Comparison)</li>
   </ul>
-</HTML>"));
+</HTML>"), uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_Machines_Examples;

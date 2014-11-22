@@ -1,6 +1,14 @@
 within ;
-package Modelica_Mechanics_Translational
+encapsulated package Modelica_Mechanics_Translational
   "Library to model 1-dimensional, translational mechanical systems"
+  import Modelica_Icons;
+  import Modelica_Mechanics_Translational_Interfaces;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
+  import Modelica_Math;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Blocks;
+  import Modelica_Constants;
   extends Modelica_Icons.Package;
   import SI = Modelica_SIunits;
 
@@ -8,8 +16,7 @@ package Modelica_Mechanics_Translational
     extends Modelica_Icons.Package;
 
     model Fixed "Fixed flange"
-      parameter Modelica_SIunits.Position s0=0
-        "Fixed offset position of housing";
+      parameter SI.Position s0=0 "Fixed offset position of housing";
 
       Modelica_Mechanics_Translational_Interfaces.Flange_b flange annotation (
           Placement(transformation(
@@ -48,16 +55,14 @@ at an position s0 in the <i>housing</i>. May be used:
     end Fixed;
 
     model Mass "Sliding mass with inertia"
-      parameter Modelica_SIunits.Mass m(min=0, start=1)
-        "Mass of the sliding mass";
+      parameter SI.Mass m(min=0, start=1) "Mass of the sliding mass";
       parameter StateSelect stateSelect=StateSelect.default
         "Priority to use s and v as states" annotation(Dialog(tab="Advanced"));
       extends Modelica_Mechanics_Translational_Interfaces.PartialRigid(
                                       L=0, s(start=0, stateSelect=stateSelect));
-      Modelica_SIunits.Velocity v(start=0, stateSelect=stateSelect)
+      SI.Velocity v(start=0, stateSelect=stateSelect)
         "Absolute velocity of component";
-      Modelica_SIunits.Acceleration a(start=0)
-        "Absolute acceleration of component";
+      SI.Acceleration a(start=0) "Absolute acceleration of component";
 
     equation
       v = der(s);
@@ -216,9 +221,9 @@ Rod <i>without inertia</i> and two rigidly connected flanges.
 
     model Spring "Linear 1D translational spring"
       extends Modelica_Mechanics_Translational_Interfaces.PartialCompliant;
-      parameter Modelica_SIunits.TranslationalSpringConstant c(final min=0,
-          start=1) "Spring constant";
-      parameter Modelica_SIunits.Distance s_rel0=0 "Unstretched spring length";
+      parameter SI.TranslationalSpringConstant c(final min=0, start=1)
+        "Spring constant";
+      parameter SI.Distance s_rel0=0 "Unstretched spring length";
 
     equation
       f = c*(s_rel - s_rel0);
@@ -272,8 +277,8 @@ a coupling of the sliding mass with the housing via a spring.
     model Damper "Linear 1D translational damper"
       extends
         Modelica_Mechanics_Translational_Interfaces.PartialCompliantWithRelativeStates;
-      parameter Modelica_SIunits.TranslationalDampingConstant d(final min=0,
-          start=0) "Damping constant";
+      parameter SI.TranslationalDampingConstant d(final min=0, start=0)
+        "Damping constant";
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT;
     equation
@@ -347,16 +352,16 @@ between two sliding masses.
     model SpringDamper "Linear 1D translational spring and damper in parallel"
       extends
         Modelica_Mechanics_Translational_Interfaces.PartialCompliantWithRelativeStates;
-      parameter Modelica_SIunits.TranslationalSpringConstant c(final min=0,
-          start=1) "Spring constant";
-      parameter Modelica_SIunits.TranslationalDampingConstant d(final min=0,
-          start=1) "Damping constant";
-      parameter Modelica_SIunits.Position s_rel0=0 "Unstretched spring length";
+      parameter SI.TranslationalSpringConstant c(final min=0, start=1)
+        "Spring constant";
+      parameter SI.TranslationalDampingConstant d(final min=0, start=1)
+        "Damping constant";
+      parameter SI.Position s_rel0=0 "Unstretched spring length";
       extends
         Modelica_Thermal_HeatTransfer_Interfaces.PartialElementaryConditionalHeatPortWithoutT;
     protected
-      Modelica_SIunits.Force f_c "Spring force";
-      Modelica_SIunits.Force f_d "Damping force";
+      SI.Force f_c "Spring force";
+      SI.Force f_d "Damping force";
     equation
       f_c = c*(s_rel - s_rel0);
       f_d = d*v_rel;
@@ -450,11 +455,11 @@ to describe a coupling of the sliding mass with the housing via a spring/damper.
     model ElastoGap "1D translational spring damper combination with gap"
       extends
         Modelica_Mechanics_Translational_Interfaces.PartialCompliantWithRelativeStates;
-      parameter Modelica_SIunits.TranslationalSpringConstant c(final min=0,
-          start=1) "Spring constant";
-      parameter Modelica_SIunits.TranslationalDampingConstant d(final min=0,
-          start=1) "Damping constant";
-      parameter Modelica_SIunits.Position s_rel0=0 "Unstretched spring length";
+      parameter SI.TranslationalSpringConstant c(final min=0, start=1)
+        "Spring constant";
+      parameter SI.TranslationalDampingConstant d(final min=0, start=1)
+        "Damping constant";
+      parameter SI.Position s_rel0=0 "Unstretched spring length";
       parameter Real n(final min=1) = 1
         "Exponent of spring force ( f_c = -c*|s_rel-s_rel0|^n )";
       extends
@@ -468,9 +473,9 @@ if a positive force is acting on the element and no other force balances this fo
 */
       Boolean contact "=true, if contact, otherwise no contact";
     protected
-      Modelica_SIunits.Force f_c "Spring force";
-      Modelica_SIunits.Force f_d2 "Linear damping force";
-      Modelica_SIunits.Force f_d
+      SI.Force f_c "Spring force";
+      SI.Force f_d2 "Linear damping force";
+      SI.Force f_d
         "Linear damping force which is limited by spring force (|f_d| <= |f_c|)";
     equation
       // Modify contact force, so that it is only "pushing" and not
@@ -697,14 +702,17 @@ where the different effects are visualized:
         "peak*f_pos[1,2] = Maximum friction force for v==0";
       extends Modelica_Mechanics_Translational_Interfaces.PartialFriction;
 
-      Modelica_SIunits.Position s;
-      Modelica_SIunits.Force f "Friction force";
-      Modelica_SIunits.Velocity v "Absolute velocity of flange_a and flange_b";
-      Modelica_SIunits.Acceleration a
-        "Absolute acceleration of flange_a and flange_b";
+      SI.Position s;
+      SI.Force f "Friction force";
+      SI.Velocity v "Absolute velocity of flange_a and flange_b";
+      SI.Acceleration a "Absolute acceleration of flange_a and flange_b";
     equation
       // Constant auxiliary variables
-      f0 = Modelica_Math.Vectors.interpolate(f_pos[:,1], f_pos[:,2], 0, 1);
+      f0 = Modelica_Math.Vectors.interpolate(
+            f_pos[:, 1],
+            f_pos[:, 2],
+            0,
+            1);
       f0_max = peak*f0;
       free = false;
 
@@ -895,18 +903,16 @@ following references, especially (Armstrong and Canudas de Witt 1996):
         "peak*mue_pos[1,2] = Maximum friction force for v==0";
       parameter Real cgeo(final min=0) = 1
         "Geometry constant containing friction distribution assumption";
-      parameter Modelica_SIunits.Force fn_max(final min=0, start=1)
-        "Maximum normal force";
+      parameter SI.Force fn_max(final min=0, start=1) "Maximum normal force";
       extends Modelica_Mechanics_Translational_Interfaces.PartialFriction;
 
-      Modelica_SIunits.Position s;
-      Modelica_SIunits.Force f "Brake friction force";
-      Modelica_SIunits.Velocity v "Absolute velocity of flange_a and flange_b";
-      Modelica_SIunits.Acceleration a
-        "Absolute acceleration of flange_a and flange_b";
+      SI.Position s;
+      SI.Force f "Brake friction force";
+      SI.Velocity v "Absolute velocity of flange_a and flange_b";
+      SI.Acceleration a "Absolute acceleration of flange_a and flange_b";
 
       Real mue0 "Friction coefficient for v=0 and forward sliding";
-      Modelica_SIunits.Force fn "Normal force (=fn_max*f_normalized)";
+      SI.Force fn "Normal force (=fn_max*f_normalized)";
 
       // Constant auxiliary variable
       Modelica_Blocks_Interfaces.RealInput f_normalized
@@ -1132,9 +1138,8 @@ following references, especially (Armstrong and Canudas de Witt 1996):
         "Flange that is initialized" annotation (Placement(transformation(
               extent={{90,-10},{110,10}}, rotation=0)));
 
-      Modelica_SIunits.Position s_flange(stateSelect=stateSelect)=flange.s
-        "Flange position";
-      Modelica_SIunits.Velocity v_flange(stateSelect=stateSelect)= der(s_flange)
+      SI.Position s_flange(stateSelect=stateSelect)=flange.s "Flange position";
+      SI.Velocity v_flange(stateSelect=stateSelect)=der(s_flange)
         "= der(s_flange)";
 
     protected
@@ -1297,16 +1302,15 @@ provided via a signal bus.
     model MassWithStopAndFriction
       "Sliding mass with hard stop and Stribeck friction"
       extends PartialFrictionWithStop;
-      Modelica_SIunits.Velocity v(start=0, stateSelect=StateSelect.always)
+      SI.Velocity v(start=0, stateSelect=StateSelect.always)
         "Absolute velocity of flange_a and flange_b";
-      Modelica_SIunits.Acceleration a(start=0)
+      SI.Acceleration a(start=0)
         "Absolute acceleration of flange_a and flange_b";
-      parameter Modelica_SIunits.Mass m(start=1) "Mass";
+      parameter SI.Mass m(start=1) "Mass";
       parameter Real F_prop(final unit="N.s/m", final min=0, start = 1)
         "Velocity dependent friction";
-      parameter Modelica_SIunits.Force F_Coulomb(start=5)
-        "Constant friction: Coulomb force";
-      parameter Modelica_SIunits.Force F_Stribeck(start=10) "Stribeck effect";
+      parameter SI.Force F_Coulomb(start=5) "Constant friction: Coulomb force";
+      parameter SI.Force F_Stribeck(start=10) "Stribeck effect";
       parameter Real fexp(final unit="s/m", final min=0, start = 2)
         "Exponential decay";
     extends
@@ -1733,12 +1737,11 @@ between the stops.</i> </li>
       extends Modelica_Mechanics_Translational_Interfaces.PartialTwoFlanges;
       parameter StateSelect stateSelect=StateSelect.prefer
         "Priority to use the relative angle and relative speed as states";
-      Modelica_SIunits.Position s_rel(start=0, stateSelect=StateSelect.prefer)
+      SI.Position s_rel(start=0, stateSelect=StateSelect.prefer)
         "Relative position used as state variable";
-      Modelica_SIunits.Velocity v_rel(start=0, stateSelect=StateSelect.prefer)
+      SI.Velocity v_rel(start=0, stateSelect=StateSelect.prefer)
         "Relative velocity used as state variable";
-      Modelica_SIunits.Acceleration a_rel(start=0)
-        "Relative angular acceleration";
+      SI.Acceleration a_rel(start=0) "Relative angular acceleration";
 
     equation
       s_rel = flange_b.s - flange_a.s;
@@ -1915,7 +1918,7 @@ Modelica.Blocks library).
 
     model AccSensor "Ideal sensor to measure the absolute acceleration"
       extends Modelica_Mechanics_Translational_Interfaces.PartialAbsoluteSensor;
-      Modelica_SIunits.Velocity v "Absolute velocity of flange";
+      SI.Velocity v "Absolute velocity of flange";
       Modelica_Blocks_Interfaces.RealOutput a(unit="m/s2")
         "Absolute acceleration of flange as output signal"
            annotation (Placement(transformation(extent={{100,-10},{120,10}},
@@ -1975,7 +1978,7 @@ Modelica.Blocks library).
 
     model RelSpeedSensor "Ideal sensor to measure the relative speed"
       extends Modelica_Mechanics_Translational_Interfaces.PartialRelativeSensor;
-      Modelica_SIunits.Position s_rel
+      SI.Position s_rel
         "Distance between the two flanges (flange_b.s - flange_a.s)";
       Modelica_Blocks_Interfaces.RealOutput v_rel(unit="m/s")
         "Relative velocity between two flanges (= der(flange_b.s) - der(flange_a.s)) as output signal"
@@ -2016,9 +2019,9 @@ Modelica.Blocks library).
 
     model RelAccSensor "Ideal sensor to measure the relative acceleration"
       extends Modelica_Mechanics_Translational_Interfaces.PartialRelativeSensor;
-      Modelica_SIunits.Position s_rel
+      SI.Position s_rel
         "Distance between the two flanges (flange_b.s - flange_a.s)";
-      Modelica_SIunits.Velocity v_rel
+      SI.Velocity v_rel
         "Relative velocity between the two flanges (der(flange_b.s) - der(flange_a.s))";
       Modelica_Blocks_Interfaces.RealOutput a_rel(unit="m/s2")
         "Relative acceleration between two flanges (= der(v_rel)) as output signal"
@@ -2195,19 +2198,19 @@ Modelica.Blocks library.
         (s(stateSelect=if exact then StateSelect.default else StateSelect.prefer));
       parameter Boolean exact=false
         "true/false exact treatment/filtering the input signal";
-      parameter Modelica_SIunits.Frequency f_crit=50
+      parameter SI.Frequency f_crit=50
         "if exact=false, critical frequency of filter to filter input signal"
         annotation (Dialog(enable=not exact));
-      Modelica_SIunits.Velocity v(start=0, stateSelect=if exact then
-            StateSelect.default else StateSelect.prefer)
+      SI.Velocity v(start=0, stateSelect=if exact then StateSelect.default
+             else StateSelect.prefer)
         "If exact=false, absolute velocity of flange_b else dummy";
-      Modelica_SIunits.Acceleration a(start=0)
+      SI.Acceleration a(start=0)
         "If exact=false, absolute acceleration of flange_b else dummy";
       Modelica_Blocks_Interfaces.RealInput s_ref(unit="m")
         "Reference position of flange as input signal" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
     protected
-      parameter Modelica_SIunits.AngularFrequency w_crit=2*Modelica_Constants.pi*f_crit
+      parameter SI.AngularFrequency w_crit=2*Modelica_Constants.pi*f_crit
         "Critical frequency";
       constant Real af=1.3617 "s coefficient of Bessel filter";
       constant Real bf=0.6180 "s*s coefficient of Bessel filter";
@@ -2303,19 +2306,19 @@ blocks of the block library Modelica.Blocks.Sources.
           stateSelect=StateSelect.prefer));
       parameter Boolean exact=false
         "true/false exact treatment/filtering the input signal";
-      parameter Modelica_SIunits.Frequency f_crit=50
+      parameter SI.Frequency f_crit=50
         "if exact=false, critical frequency of filter to filter input signal"
         annotation (Dialog(enable=not exact));
-      Modelica_SIunits.Velocity v(stateSelect=if exact then StateSelect.default
-             else StateSelect.prefer) "Absolute velocity of flange_b";
-      Modelica_SIunits.Acceleration a
+      SI.Velocity v(stateSelect=if exact then StateSelect.default else
+            StateSelect.prefer) "Absolute velocity of flange_b";
+      SI.Acceleration a
         "If exact=false, absolute acceleration of flange_b else dummy";
       Modelica_Blocks_Interfaces.RealInput v_ref(unit="m/s")
         "Reference speed of flange as input signal" annotation (Placement(
             transformation(extent={{-140,-20},{-100,20}}, rotation=0)));
 
     protected
-      parameter Modelica_SIunits.AngularFrequency w_crit=2*Modelica_Constants.pi*f_crit
+      parameter SI.AngularFrequency w_crit=2*Modelica_Constants.pi*f_crit
         "Critical frequency";
     initial equation
       if not exact then
@@ -2406,11 +2409,11 @@ blocks of the block library Modelica.Blocks.Sources.
           start=0,
           fixed=true,
           stateSelect=StateSelect.prefer));
-      Modelica_SIunits.Velocity v(
+      SI.Velocity v(
         start=0,
         fixed=true,
         stateSelect=StateSelect.prefer) "Absolute velocity of flange_b";
-      Modelica_SIunits.Acceleration a "Absolute acceleration of flange_b";
+      SI.Acceleration a "Absolute acceleration of flange_b";
 
       Modelica_Blocks_Interfaces.RealInput a_ref(unit="m/s2")
         "Absolute acceleration of flange as input signal"
@@ -2669,14 +2672,13 @@ blocks of Modelica.Blocks.Source.
 
     model LinearSpeedDependentForce "Linear dependency of force versus speed"
       extends Modelica_Mechanics_Translational_Interfaces.PartialForce;
-      parameter Modelica_SIunits.Force f_nominal
+      parameter SI.Force f_nominal
         "Nominal force (if negative, force is acting as load)";
       parameter Boolean ForceDirection=true
         "Same direction of force in both directions of movement";
-      parameter Modelica_SIunits.Velocity v_nominal(min=Modelica_Constants.eps)
+      parameter SI.Velocity v_nominal(min=Modelica_Constants.eps)
         "Nominal speed";
-      Modelica_SIunits.Velocity v
-        "Velocity of flange with respect to support (= der(s))";
+      SI.Velocity v "Velocity of flange with respect to support (= der(s))";
 
     equation
       v = der(s);
@@ -2698,14 +2700,13 @@ Parameter ForceDirection chooses whether direction of force is the same in both 
     model QuadraticSpeedDependentForce
       "Quadratic dependency of force versus speed"
       extends Modelica_Mechanics_Translational_Interfaces.PartialForce;
-      parameter Modelica_SIunits.Force f_nominal
+      parameter SI.Force f_nominal
         "Nominal force (if negative, force is acting as load)";
       parameter Boolean ForceDirection=true
         "Same direction of force in both directions of movement";
-      parameter Modelica_SIunits.Velocity v_nominal(min=Modelica_Constants.eps)
+      parameter SI.Velocity v_nominal(min=Modelica_Constants.eps)
         "Nominal speed";
-      Modelica_SIunits.Velocity v
-        "Velocity of flange with respect to support (= der(s))";
+      SI.Velocity v "Velocity of flange with respect to support (= der(s))";
     equation
       v = der(s);
       if ForceDirection then
@@ -2726,7 +2727,7 @@ Parameter ForceDirection chooses whether direction of force is the same in both 
 
     model ConstantForce "Constant force, not dependent on speed"
       extends Modelica_Mechanics_Translational_Interfaces.PartialForce;
-      parameter Modelica_SIunits.Force f_constant
+      parameter SI.Force f_constant
         "Nominal force (if negative, force is acting as load)";
     equation
       f = -f_constant;
@@ -2746,10 +2747,9 @@ Positive force acts accelerating.
 
     model ConstantSpeed "Constant speed, not dependent on force"
       extends Modelica_Mechanics_Translational_Interfaces.PartialForce;
-      parameter Modelica_SIunits.Velocity v_fixed
+      parameter SI.Velocity v_fixed
         "Fixed speed (if negative, force is acting as load)";
-      Modelica_SIunits.Velocity v
-        "Velocity of flange with respect to support (= der(s))";
+      SI.Velocity v "Velocity of flange with respect to support (= der(s))";
     equation
       v = der(s);
       v = v_fixed;
@@ -2768,11 +2768,10 @@ Model of <b>fixed</b> velocity of flange, not dependent on force.
 
     model ForceStep "Constant force, not dependent on speed"
       extends Modelica_Mechanics_Translational_Interfaces.PartialForce;
-      parameter Modelica_SIunits.Force stepForce(start=1)
+      parameter SI.Force stepForce(start=1)
         "Height of force step (if negative, force is acting as load)";
-      parameter Modelica_SIunits.Force offsetForce(start=0) "Offset of force";
-      parameter Modelica_SIunits.Time startTime=0
-        "Force = offset for time < startTime";
+      parameter SI.Force offsetForce(start=0) "Offset of force";
+      parameter SI.Time startTime=0 "Force = offset for time < startTime";
     equation
       f = -offsetForce - (if time < startTime then 0 else stepForce);
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -2794,7 +2793,6 @@ This package contains ideal sources to drive 1D mechanical translational drive t
 </p>
 </html>"));
   end Sources;
-
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100,-100},{100,100}}), graphics={
@@ -2968,5 +2966,5 @@ Copyright &copy; 1998-2013, Modelica Association, Anton Haumer and Universit&aum
        by Martin Otter and an existing Dymola library onedof.lib by Peter Beater.</li>
 </ul>
 </html>"),
-    uses(Modelica_Icons));
+    uses(Modelica_Icons, Modelica(version="3.2.1")));
 end Modelica_Mechanics_Translational;

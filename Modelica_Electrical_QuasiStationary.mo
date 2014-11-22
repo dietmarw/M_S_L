@@ -1,6 +1,22 @@
 within ;
-package Modelica_Electrical_QuasiStationary
+encapsulated package Modelica_Electrical_QuasiStationary
   "Library for quasi-stationary electrical singlephase and multiphase AC simulation"
+  import Modelica_Icons;
+  import Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces;
+  import Complex;
+  import Modelica_Electrical_Analog_Interfaces;
+  import Modelica_SIunits;
+  import Modelica_Constants;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_ComplexBlocks_Interfaces;
+  import Modelica_Electrical_Analog;
+  import Modelica_Electrical_QuasiStationary_Machines_Interfaces;
+  import Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces;
+  import Modelica_Blocks;
+  import Modelica_Electrical_MultiPhase;
+  import Modelica_Electrical_MultiPhase_Interfaces;
+  import Modelica_ComplexMath;
+  import Modelica_ComplexBlocks;
 
 extends Modelica_Icons.Package;
 
@@ -580,8 +596,8 @@ ideal AC DC converter</a>, which is used in the
 
       model Ground "Electrical ground"
 
-        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin
-          pin annotation (Placement(transformation(extent={{-10,90},{10,110}},
+        Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces.PositivePin pin
+          annotation (Placement(transformation(extent={{-10,90},{10,110}},
                 rotation=0)));
       equation
         Connections.potentialRoot(pin.reference, 256);
@@ -619,11 +635,12 @@ Every electrical circuit, e.g., a series resonance
           "Reference temperature";
         parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_ref=0
           "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
-        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
+        extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=
+              T_ref);
         Modelica_SIunits.Resistance R_actual
           "Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
       equation
-        assert((1 + alpha_ref*(T_heatPort - T_ref)) >=Modelica_Constants.eps,
+        assert((1 + alpha_ref*(T_heatPort - T_ref)) >= Modelica_Constants.eps,
           "Temperature outside scope of model!");
         R_actual = R_ref*(1 + alpha_ref*(T_heatPort - T_ref));
         v = R_actual*i;
@@ -2231,7 +2248,6 @@ Quasi stationary theory for single phase circuits can be found in the
 
 </html>"));
     end Sources;
-
 
     package Utilities "Library with auxiliary models for testing"
       extends Modelica_Icons.UtilitiesPackage;
@@ -4454,7 +4470,6 @@ This package contains components for modeling quasi stationary electrical induct
 </html>"));
     end BasicMachines;
 
-
     package SpacePhasors
       "Space phasor components for quasi stationary electric machines"
       extends Modelica_Icons.Package;
@@ -4702,11 +4717,9 @@ Delta (polygon) connection of a multi phase circuit.
         Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
           starpoints(final m=mSystems) annotation (Placement(transformation(
                 extent={{90,-10},{110,10}}, rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_p
-          plugToPins_p(final m=m) annotation (Placement(transformation(extent={
-                  {-80,-10},{-60,10}}, rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_n
-          plugToPins_n(final m=mSystems)
+        PlugToPins_p plugToPins_p(final m=m) annotation (Placement(
+              transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
+        PlugToPins_n plugToPins_n(final m=mSystems)
           annotation (Placement(transformation(extent={{80,-10},{60,10}})));
       equation
         for k in 1:mSystems loop
@@ -4776,12 +4789,10 @@ Star (wye) connection of a multi phase circuit consiting of multiple base system
         Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug
           plug_n(final m=m) annotation (Placement(transformation(extent={{90,-10},
                   {110,10}}, rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_p
-          plugToPins_p(final m=m) annotation (Placement(transformation(extent={
-                  {-80,-10},{-60,10}}, rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_n
-          plugToPins_n(final m=m) annotation (Placement(transformation(extent={
-                  {80,-10},{60,10}}, rotation=0)));
+        PlugToPins_p plugToPins_p(final m=m) annotation (Placement(
+              transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
+        PlugToPins_n plugToPins_n(final m=m) annotation (Placement(
+              transformation(extent={{80,-10},{60,10}}, rotation=0)));
       equation
         for k in 1:mSystems loop
           for j in 1:mBasic - 1 loop
@@ -5880,22 +5891,20 @@ it uses <i>m</i> <a href=\"modelica://Modelica.Electrical.QuasiStationary.Single
         Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug plug_n1(final m=m)
           annotation (Placement(transformation(extent={{90,40},{110,60}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Ideal.IdealCommutingSwitch
-          idealCommutingSwitch[m](
+        SinglePhase.Ideal.IdealCommutingSwitch idealCommutingSwitch[m](
           final Ron=Ron,
           final Goff=Goff,
           each final useHeatPort=useHeatPort) annotation (Placement(
               transformation(extent={{-10,-10},{10,10}}, rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_p plugToPins_p(final m=m)
-          annotation (Placement(transformation(extent={{-90,-10},{-70,10}},
-                rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_n plugToPins_n1(final m=m)
-          annotation (Placement(transformation(
+        Basic.PlugToPins_p plugToPins_p(final m=m) annotation (Placement(
+              transformation(extent={{-90,-10},{-70,10}}, rotation=0)));
+        Basic.PlugToPins_n plugToPins_n1(final m=m) annotation (Placement(
+              transformation(
               origin={80,50},
               extent={{-10,-10},{10,10}},
               rotation=180)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_n plugToPins_n2(final m=m)
-          annotation (Placement(transformation(
+        Basic.PlugToPins_n plugToPins_n2(final m=m) annotation (Placement(
+              transformation(
               origin={80,0},
               extent={{-10,-10},{10,10}},
               rotation=180)));
@@ -5983,25 +5992,22 @@ This switch is only intended to be used for structural changes, not fast switchi
         Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.NegativePlug plug_n1(final m=m)
           annotation (Placement(transformation(extent={{90,40},{110,60}},
                 rotation=0)));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Ideal.IdealIntermediateSwitch
-          idealIntermediateSwitch[m](
+        SinglePhase.Ideal.IdealIntermediateSwitch idealIntermediateSwitch[m](
           final Ron=Ron,
           final Goff=Goff,
           each final useHeatPort=useHeatPort) annotation (Placement(
               transformation(extent={{-10,-10},{10,10}}, rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_p plugToPins_p1(final m=m)
-          annotation (Placement(transformation(extent={{-90,40},{-70,60}},
-                rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_n plugToPins_n1(final m=m)
-          annotation (Placement(transformation(
+        Basic.PlugToPins_p plugToPins_p1(final m=m) annotation (Placement(
+              transformation(extent={{-90,40},{-70,60}}, rotation=0)));
+        Basic.PlugToPins_n plugToPins_n1(final m=m) annotation (Placement(
+              transformation(
               origin={80,50},
               extent={{-10,-10},{10,10}},
               rotation=180)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_p plugToPins_p2(final m=m)
-          annotation (Placement(transformation(extent={{-90,-10},{-70,10}},
-                rotation=0)));
-        Modelica_Electrical_QuasiStationary.MultiPhase.Basic.PlugToPins_n plugToPins_n2(final m=m)
-          annotation (Placement(transformation(
+        Basic.PlugToPins_p plugToPins_p2(final m=m) annotation (Placement(
+              transformation(extent={{-90,-10},{-70,10}}, rotation=0)));
+        Basic.PlugToPins_n plugToPins_n2(final m=m) annotation (Placement(
+              transformation(
               origin={80,0},
               extent={{-10,-10},{10,10}},
               rotation=180)));
@@ -6087,8 +6093,7 @@ This switch is only intended to be used for structural changes, not fast switchi
               origin={0,70},
               extent={{-20,-20},{20,20}},
               rotation=270)));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Ideal.IdealOpeningSwitch
-          idealOpeningSwitch[m](
+        SinglePhase.Ideal.IdealOpeningSwitch idealOpeningSwitch[m](
           final Ron=Ron,
           final Goff=Goff,
           each final useHeatPort=useHeatPort) annotation (Placement(
@@ -6150,8 +6155,7 @@ This switch is only intended to be used for structural changes, not fast switchi
               origin={0,70},
               extent={{-20,-20},{20,20}},
               rotation=270)));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Ideal.IdealClosingSwitch
-          idealClosingSwitch[m](
+        SinglePhase.Ideal.IdealClosingSwitch idealClosingSwitch[m](
           final Ron=Ron,
           final Goff=Goff,
           each final useHeatPort=useHeatPort) annotation (Placement(
@@ -6507,9 +6511,8 @@ This sensor can be used to measure the frequency of the reference system, using 
       model PotentialSensor "Potential sensor"
         extends
           Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.AbsoluteSensor;
-        Modelica_Electrical_QuasiStationary.SinglePhase.Sensors.PotentialSensor
-          potentialSensor[m] annotation (Placement(transformation(extent={{-10,
-                  -10},{10,10}}, rotation=0)));
+        SinglePhase.Sensors.PotentialSensor potentialSensor[m] annotation (
+            Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
         Basic.PlugToPins_p plugToPins_p(final m=m) annotation (Placement(
               transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
         Modelica_ComplexBlocks_Interfaces.ComplexOutput y[m] annotation (
@@ -6551,9 +6554,8 @@ This sensor can be used to measure <i>m</i> complex potentials, using <i>m</i>
       model VoltageSensor "Voltage sensor"
         extends
           Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.RelativeSensor;
-        Modelica_Electrical_QuasiStationary.SinglePhase.Sensors.VoltageSensor voltageSensor[m]
-          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-                rotation=0)));
+        SinglePhase.Sensors.VoltageSensor voltageSensor[m] annotation (
+            Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
       equation
         connect(plugToPins_p.pin_p, voltageSensor.pin_p) annotation (Line(points=
                 {{-68,0},{-53.5,0},{-53.5,0},{-39,0},{-39,0},{-10,0}}, color={85,
@@ -6587,9 +6589,8 @@ This sensor can be used to measure <i>m</i> complex voltages, using <i>m</i>
       model CurrentSensor "Current Sensor"
         extends
           Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces.RelativeSensor;
-        Modelica_Electrical_QuasiStationary.SinglePhase.Sensors.CurrentSensor currentSensor[m]
-          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-                rotation=0)));
+        SinglePhase.Sensors.CurrentSensor currentSensor[m] annotation (
+            Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
       equation
         connect(plugToPins_p.pin_p, currentSensor.pin_p) annotation (Line(points=
                 {{-68,0},{-53.5,0},{-53.5,0},{-39,0},{-39,0},{-10,0}}, color={85,
@@ -6655,9 +6656,8 @@ This sensor can be used to measure <i>m</i> complex currents, using <i>m</i>
               origin={0,-70},
               extent={{-10,10},{10,-10}},
               rotation=90)));
-        Modelica_Electrical_QuasiStationary.SinglePhase.Sensors.PowerSensor powerSensor[m]
-          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-                rotation=0)));
+        SinglePhase.Sensors.PowerSensor powerSensor[m] annotation (Placement(
+              transformation(extent={{-10,-10},{10,10}}, rotation=0)));
         Modelica_ComplexBlocks.ComplexMath.Sum sum(final nin=m) annotation (
             Placement(transformation(
               origin={-80,-70},
@@ -7006,7 +7006,6 @@ Quasi stationary theory can be found in the
 </html>"));
     end Sources;
 
-
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
               {100,100}}), graphics={
           Ellipse(
@@ -7121,5 +7120,7 @@ Copyright &copy; 1998-2013, Modelica Association, Anton Haumer, Christian Kral a
             {25,-98.4},{30.6,-100},{36.2,-97.6},{41.9,-91.5},{47.5,-81.9},{53.9,
             -67.2},{62,-44.8},{70,-20}},
         smooth=Smooth.Bezier)}),
-    uses(Complex(version="3.2.2"), Modelica_Icons));
+    uses(Complex(version="3.2.2"), Modelica_Icons,
+      Modelica_ComplexBlocks(version="3.2.2"),
+      Modelica(version="3.2.1")));
 end Modelica_Electrical_QuasiStationary;

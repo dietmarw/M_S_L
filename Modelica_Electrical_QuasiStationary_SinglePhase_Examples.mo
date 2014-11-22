@@ -1,6 +1,13 @@
 within ;
-package Modelica_Electrical_QuasiStationary_SinglePhase_Examples
+encapsulated package Modelica_Electrical_QuasiStationary_SinglePhase_Examples
   "Test examples"
+  import Modelica_Icons;
+  import Modelica_Blocks;
+  import Modelica_Electrical_QuasiStationary;
+  import Modelica_Constants;
+  import Modelica_ComplexBlocks;
+  import Modelica_SIunits;
+  import Modelica_Electrical_Analog;
   extends Modelica_Icons.ExamplesPackage;
 
   model SeriesResonance "Series resonance circuit"
@@ -115,8 +122,8 @@ Plot length and angle of the current phasor, i.e., complexToPolar.len and .phi, 
           extent={{10,10},{-10,-10}},
           rotation=270)));
     Modelica_Electrical_QuasiStationary.SinglePhase.Basic.Ground ground
-      annotation (Placement(transformation(extent={{-40,-20},{-20,0}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-40,-20},{-20,0}}, rotation=
+             0)));
     Modelica_Electrical_QuasiStationary.SinglePhase.Basic.Resistor resistor(R_ref=10)
       annotation (Placement(transformation(
           origin={-10,20},
@@ -375,5 +382,6 @@ whereas the transient model may have only one ground since AC side and DC side a
 
   annotation (Documentation(info="<html>
 Examples to demonstrate the usage of quasistationary electric components.
-</html>"), uses(Modelica_ComplexBlocks(version="3.2.2")));
+</html>"), uses(Modelica_ComplexBlocks(version="3.2.2"), Modelica(version=
+            "3.2.1")));
 end Modelica_Electrical_QuasiStationary_SinglePhase_Examples;

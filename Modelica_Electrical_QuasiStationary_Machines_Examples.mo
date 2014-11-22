@@ -1,5 +1,12 @@
 within ;
-package Modelica_Electrical_QuasiStationary_Machines_Examples "Test examples"
+encapsulated package Modelica_Electrical_QuasiStationary_Machines_Examples
+  "Test examples"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Electrical_QuasiStationary;
+  import Modelica_ComplexBlocks;
+  import Modelica_Electrical_Machines;
+  import Modelica_Utilities;
   extends Modelica_Icons.ExamplesPackage;
 
   model TransformerTestbench "Transformer Testbench"
@@ -27,8 +34,8 @@ package Modelica_Electrical_QuasiStationary_Machines_Examples "Test examples"
     Modelica_Electrical_QuasiStationary.MultiPhase.Sensors.CurrentSensor currentSensorS(m=m)
       annotation (Placement(transformation(extent={{-60,20},{-40,0}}, rotation=
               0)));
-    Modelica_ComplexBlocks.ComplexMath.ComplexToPolar polarIS[m]
-      annotation (Placement(transformation(
+    Modelica_ComplexBlocks.ComplexMath.ComplexToPolar polarIS[m] annotation (
+        Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=90,
           origin={-50,40})));
@@ -94,13 +101,13 @@ package Modelica_Electrical_QuasiStationary_Machines_Examples "Test examples"
             rotation=0)));
     Modelica_Electrical_Machines.Utilities.TransformerData transformerData(
       C1=Modelica_Utilities.Strings.substring(
-              transformer.VectorGroup,
-              1,
-              1),
+            transformer.VectorGroup,
+            1,
+            1),
       C2=Modelica_Utilities.Strings.substring(
-              transformer.VectorGroup,
-              2,
-              2),
+            transformer.VectorGroup,
+            2,
+            2),
       f=50,
       V1=100,
       V2=100,
@@ -117,10 +124,8 @@ package Modelica_Electrical_QuasiStationary_Machines_Examples "Test examples"
       L2sigma=transformerData.L2sigma,
       T1Ref=293.15,
       alpha20_1(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
       T2Ref=293.15,
       alpha20_2(displayUnit="1/K") = Modelica_Electrical_Machines.Thermal.Constants.alpha20Zero,
-
       T1Operational=293.15,
       T2Operational=293.15) annotation (Placement(transformation(extent={{-20,-10},
               {20,30}}, rotation=0)));
@@ -245,5 +250,6 @@ even though the source's or load's starpoint are grounded; you may use a reasona
   end TransformerTestbench;
   annotation (Documentation(info="<html>
 Examples to demonstrate the usage of quasistationary electric components.
-</html>"), uses(Modelica_ComplexBlocks(version="3.2.2")));
+</html>"), uses(Modelica_ComplexBlocks(version="3.2.2"), Modelica(version=
+            "3.2.1")));
 end Modelica_Electrical_QuasiStationary_Machines_Examples;

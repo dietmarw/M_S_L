@@ -1,6 +1,12 @@
 within ;
-package Modelica_Mechanics_Rotational_Examples
+encapsulated package Modelica_Mechanics_Rotational_Examples
   "Demonstration examples of the components of this package"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Blocks;
+  import Modelica_Mechanics_Translational;
+  import Modelica_Thermal_HeatTransfer;
 
   extends Modelica_Icons.ExamplesPackage;
 
@@ -42,8 +48,8 @@ package Modelica_Mechanics_Rotational_Examples
           extent={{-8,-8},{8,8}},
           rotation=270)));
     Modelica_Blocks.Sources.Sine sine(amplitude=amplitude, freqHz=freqHz)
-      annotation (Placement(transformation(extent={{-98,-8},{-82,8}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-98,-8},{-82,8}}, rotation=
+              0)));
   equation
     connect(inertia1.flange_b, idealGear.flange_a)
       annotation (Line(points={{-22,0},{-8,0}}, color={0,0,0}));
@@ -180,8 +186,7 @@ in the housing on one side via component Fixed.</p>
         start=0,
         fixed=true,
         displayUnit="deg"),
-      w(
-        start=100,
+      w(start=100,
         fixed=true,
         displayUnit="rad/s")) annotation (Placement(transformation(extent={{-60,
               -10},{-40,10}}, rotation=0)));
@@ -314,8 +319,8 @@ values (defined already in the model):</p>
       w(fixed=true, start=0)) annotation (Placement(transformation(extent={{50,
               -10},{70,10}}, rotation=0)));
     Modelica_Mechanics_Rotational.Components.Clutch clutch3(peak=1.1, fn_max=20)
-      annotation (Placement(transformation(extent={{80,-10},{100,10}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{80,-10},{100,10}}, rotation=
+             0)));
     Modelica_Mechanics_Rotational.Components.Inertia J4(
       J=1,
       phi(fixed=true, start=0),
@@ -489,8 +494,8 @@ gear.mode  :  1 = forward rolling
       w(fixed=true, start=0)) annotation (Placement(transformation(extent={{10,
               0},{30,20}}, rotation=0)));
     Modelica_Mechanics_Rotational.Sources.Torque torque1(useSupport=true)
-      annotation (Placement(transformation(extent={{-110,0},{-90,20}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-110,0},{-90,20}}, rotation=
+             0)));
     Modelica_Mechanics_Rotational.Sources.Torque torque2(useSupport=true)
       annotation (Placement(transformation(extent={{60,0},{40,20}}, rotation=0)));
     Modelica_Blocks.Sources.Sine DriveSine(amplitude=10, freqHz=1)
@@ -633,8 +638,8 @@ The version of LossyGear up to version 3.1 of package Modelica failed in this ca
     Modelica_Mechanics_Rotational.Components.Inertia load(J=50, w(fixed=true,
           start=0)) annotation (Placement(transformation(extent={{70,40},{90,60}},
             rotation=0)));
-    Modelica_Mechanics_Rotational.Components.Spring spring(c=1e3, phi_rel(fixed
-          =true)) annotation (Placement(transformation(extent={{40,40},{60,60}},
+    Modelica_Mechanics_Rotational.Components.Spring spring(c=1e3, phi_rel(fixed=
+           true)) annotation (Placement(transformation(extent={{40,40},{60,60}},
             rotation=0)));
     Modelica_Mechanics_Rotational.Components.Fixed fixed annotation (Placement(
           transformation(extent={{10,-70},{30,-50}}, rotation=0)));
@@ -647,8 +652,8 @@ The version of LossyGear up to version 3.1 of package Modelica failed in this ca
           extent={{-10,-10},{10,10}},
           rotation=90)));
     Modelica_Mechanics_Rotational.Sources.Torque torque(useSupport=true)
-      annotation (Placement(transformation(extent={{-50,40},{-30,60}}, rotation
-            =0)));
+      annotation (Placement(transformation(extent={{-50,40},{-30,60}}, rotation=
+             0)));
     Modelica_Blocks.Sources.Ramp ramp(duration=5, height=100) annotation (
         Placement(transformation(extent={{-90,40},{-70,60}}, rotation=0)));
     Modelica_Mechanics_Rotational.Components.IdealGear idealGear(ratio=3,
@@ -1852,5 +1857,5 @@ Modelica.Mechanics.Rotational package. Open the models and
 simulate them according to the provided description in the models.
 </p>
 
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Mechanics_Rotational_Examples;

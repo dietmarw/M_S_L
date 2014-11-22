@@ -1,6 +1,9 @@
 within ;
-package Modelica_Electrical_Digital_Examples
+encapsulated package Modelica_Electrical_Digital_Examples
   "Examples that demonstrate the usage of the Digital electrical components"
+  import Modelica_Icons;
+  import Modelica_Electrical_Digital;
+  import Modelica_SIunits;
   extends Modelica_Icons.ExamplesPackage;
 
   model Multiplexer "4 to 1 Bit Multiplexer Example"
@@ -111,45 +114,45 @@ package Modelica_Electrical_Digital_Examples
     import L = Modelica_Electrical_Digital.Interfaces.Logic;
     extends Modelica_Icons.Example;
 
-    Modelica_Electrical_Digital.Sources.Table a(
-  t={1,2,3,4},
-  x={L.'1',L.'0',L.'1',L.'0'},
-  y0=L.'0') annotation (Placement(transformation(extent={{-80,18},{-60,38}},
-        rotation=0)));
-    Modelica_Electrical_Digital.Sources.Table b(
-  x={L.'1',L.'0'},
-  t={2,4},
-  y0=L.'0') annotation (Placement(transformation(extent={{-80,-38},{-60,-18}},
-        rotation=0)));
-    Modelica_Electrical_Digital_Examples.Utilities.HalfAdder Adder(
+    Digital.Sources.Table a(
+      t={1,2,3,4},
+      x={L.'1',L.'0',L.'1',L.'0'},
+      y0=L.'0') annotation (Placement(transformation(extent={{-80,18},{-60,38}},
+            rotation=0)));
+    Digital.Sources.Table b(
+      x={L.'1',L.'0'},
+      t={2,4},
+      y0=L.'0') annotation (Placement(transformation(extent={{-80,-38},{-60,-18}},
+            rotation=0)));
+    Utilities.HalfAdder Adder(
       delayTime=0.3,
       AND(G2(y(start=L.'U', fixed=true))),
       XOR(G2(y(start=L.'U', fixed=true)))) annotation (Placement(transformation(
             extent={{-40,-40},{40,40}}, rotation=0)));
-    Modelica_Electrical_Digital.Converters.LogicToReal s(
-  n=1,
-  value_U=0.5,
-  value_X=0.5,
-  value_0=0,
-  value_1=1,
-  value_Z=0.5,
-  value_W=0.5,
-  value_L=0,
-  value_H=1,
-  value_m=0.5) annotation (Placement(transformation(extent={{60,18},{80,
-          38}}, rotation=0)));
-    Modelica_Electrical_Digital.Converters.LogicToReal c(
-  n=1,
-  value_U=0.5,
-  value_X=0.5,
-  value_0=0,
-  value_1=1,
-  value_Z=0.5,
-  value_W=0.5,
-  value_L=0,
-  value_H=1,
-  value_m=0.5) annotation (Placement(transformation(extent={{60,-38},{80,
-          -18}}, rotation=0)));
+    Digital.Converters.LogicToReal s(
+      n=1,
+      value_U=0.5,
+      value_X=0.5,
+      value_0=0,
+      value_1=1,
+      value_Z=0.5,
+      value_W=0.5,
+      value_L=0,
+      value_H=1,
+      value_m=0.5) annotation (Placement(transformation(extent={{60,18},{80,38}},
+            rotation=0)));
+    Digital.Converters.LogicToReal c(
+      n=1,
+      value_U=0.5,
+      value_X=0.5,
+      value_0=0,
+      value_1=1,
+      value_Z=0.5,
+      value_W=0.5,
+      value_L=0,
+      value_H=1,
+      value_m=0.5) annotation (Placement(transformation(extent={{60,-38},{80,-18}},
+            rotation=0)));
   equation
     connect(b.y,Adder. b) annotation (Line(
         points={{-60,-28},{-40,-28}},
@@ -275,71 +278,70 @@ The simulation stop time should be 10 seconds.
 
     extends Modelica_Icons.Example;
 
-    Modelica_Electrical_Digital.Sources.Table b4(
-  y0=L.'0',
-  x={L.'1',L.'0'},
-  t={1,3}) annotation (Placement(transformation(extent={{70,-20},{110,20}},
-        rotation=0)));
-    Modelica_Electrical_Digital.Sources.Table b1(
-  x={L.'1',L.'0',L.'1'},
-  y0=L.'0',
-  t={1,2,3}) annotation (Placement(transformation(extent={{-170,-20},{-130,
-          20}}, rotation=0)));
-    Modelica_Electrical_Digital.Sources.Table b2(
-  y0=L.'0',
-  x={L.'1'},
-  t={4}) annotation (Placement(transformation(extent={{-90,-20},{-50,20}},
-        rotation=0)));
-    Modelica_Electrical_Digital.Sources.Table b3(
-  y0=L.'0',
-  x={L.'1'},
-  t={1}) annotation (Placement(transformation(extent={{-10,-20},{30,20}},
-        rotation=0)));
-    Modelica_Electrical_Digital.Sources.Table a1(
-  y0=L.'0',
-  x={L.'1',L.'0',L.'1'},
-  t={1,2,3}) annotation (Placement(transformation(extent={{-170,40},{-130,
-          80}}, rotation=0)));
-    Modelica_Electrical_Digital.Sources.Table a2(
-  y0=L.'0',
-  x={L.'1'},
-  t={1}) annotation (Placement(transformation(extent={{-90,40},{-50,80}},
-        rotation=0)));
-    Modelica_Electrical_Digital.Sources.Table a3(
-  y0=L.'0',
-  x={L.'1',L.'0'},
-  t={1,4}) annotation (Placement(transformation(extent={{-8,40},{30,80}},
-        rotation=0)));
-    Modelica_Electrical_Digital.Sources.Table a4(
-  y0=L.'0',
-  x={L.'0'},
-  t={1}) annotation (Placement(transformation(extent={{70,40},{110,80}},
-        rotation=0)));
-    Modelica_Electrical_Digital.Sources.Set Set(x=L.'0') annotation (
-    Placement(transformation(
-      origin={-150,-74},
-      extent={{20,20},{-20,-20}},
-      rotation=180)));
-    Modelica_Electrical_Digital_Examples.Utilities.FullAdder Adder1(Adder1(AND(
-            G2(y(start=L.'U', fixed=true))), XOR(G2(y(start=L.'U', fixed=true)))),
-        Adder2(AND(G2(y(start=L.'U', fixed=true))), XOR(G2(y(start=L.'U', fixed
-                =true))))) annotation (Placement(transformation(extent={{-100,-80},
-              {-60,-40}}, rotation=0)));
-    Modelica_Electrical_Digital_Examples.Utilities.FullAdder Adder2(Adder1(AND(
-            G2(y(start=L.'U', fixed=true))), XOR(G2(y(start=L.'U', fixed=true)))),
-        Adder2(AND(G2(y(start=L.'U', fixed=true))), XOR(G2(y(start=L.'U', fixed
-                =true))))) annotation (Placement(transformation(extent={{-20,-80},
-              {20,-40}}, rotation=0)));
-    Modelica_Electrical_Digital_Examples.Utilities.FullAdder Adder3(Adder1(AND(
-            G2(y(start=L.'U', fixed=true))), XOR(G2(y(start=L.'U', fixed=true)))),
-        Adder2(AND(G2(y(start=L.'U', fixed=true))), XOR(G2(y(start=L.'U', fixed
-                =true))))) annotation (Placement(transformation(extent={{60,-80},
-              {100,-40}}, rotation=0)));
-    Modelica_Electrical_Digital_Examples.Utilities.FullAdder Adder4(Adder1(AND(
-            G2(y(start=L.'U', fixed=true))), XOR(G2(y(start=L.'U', fixed=true)))),
-        Adder2(AND(G2(y(start=L.'U', fixed=true))), XOR(G2(y(start=L.'U', fixed
-                =true))))) annotation (Placement(transformation(extent={{140,-80},
-              {180,-40}}, rotation=0)));
+    Digital.Sources.Table b4(
+      y0=L.'0',
+      x={L.'1',L.'0'},
+      t={1,3}) annotation (Placement(transformation(extent={{70,-20},{110,20}},
+            rotation=0)));
+    Digital.Sources.Table b1(
+      x={L.'1',L.'0',L.'1'},
+      y0=L.'0',
+      t={1,2,3}) annotation (Placement(transformation(extent={{-170,-20},{-130,
+              20}}, rotation=0)));
+    Digital.Sources.Table b2(
+      y0=L.'0',
+      x={L.'1'},
+      t={4}) annotation (Placement(transformation(extent={{-90,-20},{-50,20}},
+            rotation=0)));
+    Digital.Sources.Table b3(
+      y0=L.'0',
+      x={L.'1'},
+      t={1}) annotation (Placement(transformation(extent={{-10,-20},{30,20}},
+            rotation=0)));
+    Digital.Sources.Table a1(
+      y0=L.'0',
+      x={L.'1',L.'0',L.'1'},
+      t={1,2,3}) annotation (Placement(transformation(extent={{-170,40},{-130,
+              80}}, rotation=0)));
+    Digital.Sources.Table a2(
+      y0=L.'0',
+      x={L.'1'},
+      t={1}) annotation (Placement(transformation(extent={{-90,40},{-50,80}},
+            rotation=0)));
+    Digital.Sources.Table a3(
+      y0=L.'0',
+      x={L.'1',L.'0'},
+      t={1,4}) annotation (Placement(transformation(extent={{-8,40},{30,80}},
+            rotation=0)));
+    Digital.Sources.Table a4(
+      y0=L.'0',
+      x={L.'0'},
+      t={1}) annotation (Placement(transformation(extent={{70,40},{110,80}},
+            rotation=0)));
+    Digital.Sources.Set Set(x=L.'0') annotation (Placement(transformation(
+          origin={-150,-74},
+          extent={{20,20},{-20,-20}},
+          rotation=180)));
+    Utilities.FullAdder Adder1(Adder1(AND(G2(y(start=L.'U', fixed=true))), XOR(
+            G2(y(start=L.'U', fixed=true)))), Adder2(AND(G2(y(start=L.'U',
+                fixed=true))), XOR(G2(y(start=L.'U', fixed=true)))))
+      annotation (Placement(transformation(extent={{-100,-80},{-60,-40}},
+            rotation=0)));
+    Utilities.FullAdder Adder2(Adder1(AND(G2(y(start=L.'U', fixed=true))), XOR(
+            G2(y(start=L.'U', fixed=true)))), Adder2(AND(G2(y(start=L.'U',
+                fixed=true))), XOR(G2(y(start=L.'U', fixed=true)))))
+      annotation (Placement(transformation(extent={{-20,-80},{20,-40}},
+            rotation=0)));
+    Utilities.FullAdder Adder3(Adder1(AND(G2(y(start=L.'U', fixed=true))), XOR(
+            G2(y(start=L.'U', fixed=true)))), Adder2(AND(G2(y(start=L.'U',
+                fixed=true))), XOR(G2(y(start=L.'U', fixed=true)))))
+      annotation (Placement(transformation(extent={{60,-80},{100,-40}},
+            rotation=0)));
+    Utilities.FullAdder Adder4(Adder1(AND(G2(y(start=L.'U', fixed=true))), XOR(
+            G2(y(start=L.'U', fixed=true)))), Adder2(AND(G2(y(start=L.'U',
+                fixed=true))), XOR(G2(y(start=L.'U', fixed=true)))))
+      annotation (Placement(transformation(extent={{140,-80},{180,-40}},
+            rotation=0)));
   equation
     connect(b1.y, Adder1.b)  annotation (Line(
         points={{-130,0},{-120,0},{-120,-54},{-100,-54}},
@@ -490,11 +492,11 @@ The result can be seen in the output signals of the FullAdders according to:</p>
     extends Modelica_Icons.Example;
 
     Modelica_Electrical_Digital.Delay.InertialDelaySensitiveVector delay(
-  final tHL=1,
-  final tLH=2,
-  final n=3,
-  inertialDelaySensitive(each y(start=L.'U', fixed=true)))
-  annotation (Placement(transformation(extent={{-36,-28},{40,48}})));
+      final tHL=1,
+      final tLH=2,
+      final n=3,
+      inertialDelaySensitive(each y(start=L.'U', fixed=true)))
+      annotation (Placement(transformation(extent={{-36,-28},{40,48}})));
     Modelica_Electrical_Digital.Sources.Table table(x={L.'0',L.'1',L.'0',
       L.'1',L.'0'}, t={0,1,5,7,8})
   annotation (Placement(transformation(extent={{-96,40},{-76,60}})));
@@ -1827,13 +1829,13 @@ package Utilities "Utility components used by package Examples"
             model HalfAdder "Half adder"
               import L = Modelica_Electrical_Digital.Interfaces.Logic;
               parameter Real delayTime=0 "Delay time";
-              Modelica_Electrical_Digital.Interfaces.DigitalInput b annotation
-        (Placement(transformation(extent={{-110,-80},{-90,-60}}, rotation=0)));
+              Modelica_Electrical_Digital.Interfaces.DigitalInput b annotation (Placement(
+            transformation(extent={{-110,-80},{-90,-60}}, rotation=0)));
               Modelica_Electrical_Digital.Interfaces.DigitalOutput s
         annotation (Placement(transformation(extent={{90,60},{110,80}},
               rotation=0)));
-              Modelica_Electrical_Digital.Interfaces.DigitalInput a annotation
-        (Placement(transformation(extent={{-110,60},{-90,80}}, rotation=0)));
+              Modelica_Electrical_Digital.Interfaces.DigitalInput a annotation (Placement(
+            transformation(extent={{-110,60},{-90,80}}, rotation=0)));
               Modelica_Electrical_Digital.Interfaces.DigitalOutput c
         annotation (Placement(transformation(extent={{90,-80},{110,-60}},
               rotation=0)));
@@ -2129,9 +2131,8 @@ package Utilities "Utility components used by package Examples"
   import Digital = Modelica_Electrical_Digital;
 
     parameter Integer n=2 "Number of single adders";
-    Modelica_Electrical_Digital_Examples.Utilities.FullAdder Adder[n]
-        annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-              rotation=0)));
+    FullAdder Adder[n] annotation (Placement(transformation(extent={{-20,-20},{
+                20,20}}, rotation=0)));
     Modelica_Electrical_Digital.Interfaces.DigitalInput a[n] annotation (
       Placement(transformation(extent={{-110,60},{-90,80}}, rotation=0)));
     Modelica_Electrical_Digital.Interfaces.DigitalInput b[n] annotation (
@@ -2427,6 +2428,6 @@ end Utilities;
   annotation (                                Documentation(info="<html>
 <p>This package contains examples that demonstrate the usage of the components of the Electrical.Digital library.</p>
 <p>The examples are simple to understand. They will show a typical behavior of the components, and they will give hints to users.</p>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 
 end Modelica_Electrical_Digital_Examples;

@@ -1,6 +1,8 @@
 within ;
-package Modelica_Utilities_Examples
+encapsulated package Modelica_Utilities_Examples
   "Examples to demonstrate the usage of package Modelica.Utilities"
+  import Modelica_Icons;
+  import Modelica_Utilities;
   extends Modelica_Icons.ExamplesPackage;
 
   function calculator
@@ -105,7 +107,7 @@ The following operations are supported (pi=3.14.. is a predefined constant):
     Real result2;
     String delimiter;
     String functionName;
-      Real pi=Modelica_Constants.pi;
+      Real pi=Constants.pi;
   algorithm
     (token,nextIndex) := Strings.scanToken(string, startIndex,unsigned=true);
     if token.tokenType == Types.TokenType.DelimiterToken and token.string == "(" then
@@ -127,11 +129,11 @@ The following operations are supported (pi=3.14.. is a predefined constant):
          (result,nextIndex)    := expression(string, nextIndex, message);
          (delimiter,nextIndex) := Strings.scanDelimiter(string,nextIndex,{")"}, message);
          if functionName == "sin" then
-           result :=Modelica_Math.sin(result);
+            result := Math.sin(result);
          elseif functionName == "cos" then
-           result :=Modelica_Math.cos(result);
+            result := Math.cos(result);
          elseif functionName == "tan" then
-           result :=Modelica_Math.tan(result);
+            result := Math.tan(result);
          elseif functionName == "sqrt" then
            if result < 0.0 then
               Strings.syntaxError(string, startIndex, "Argument of call \"sqrt(" + String(result) + ")\" is negative.\n" +
@@ -276,8 +278,7 @@ function can be used as part of another scan operation.
       if token.tokenType == Modelica_Utilities.Types.TokenType.NoToken then
           // skip line
           iline := iline + 1;
-      elseif token.tokenType == Modelica_Utilities.Types.TokenType.IdentifierToken
-           then
+      elseif token.tokenType == Modelica_Utilities.Types.TokenType.IdentifierToken then
           if token.string == name then
              // name found, get value of "name = value;"
              message2 := message + String(iline);
@@ -373,11 +374,11 @@ readRealParameter(\"test.txt\", \"w_rel0\")
       "File on which data is present"
           annotation(Dialog(loadSelector(filter="Text files (*.txt)",
                         caption="Open text file to read parameters of the form \"name = value\"")));
-    parameter Modelica_SIunits.Inertia J=readRealParameter(file, "J") "Inertia";
-    parameter Modelica_SIunits.Angle phi_rel0=readRealParameter(file,
-        "phi_rel0") "Relative angle";
-    parameter Modelica_SIunits.AngularVelocity w_rel0=readRealParameter(file,
-        "w_rel0") "Relative angular velocity";
+    parameter SI.Inertia J=readRealParameter(file, "J") "Inertia";
+    parameter SI.Angle phi_rel0=readRealParameter(file, "phi_rel0")
+      "Relative angle";
+    parameter SI.AngularVelocity w_rel0=readRealParameter(file, "w_rel0")
+      "Relative angular velocity";
 
     annotation (Documentation(info="<html>
 <p>
@@ -412,5 +413,5 @@ the following examples are present.
      contains 3 parameters that are read from file \"Modelica.Utilities/data/Examples_readRealParameters.txt\".
      </li>
 </ul>
-</html>"));
+</html>"), uses(Modelica(version="3.2.1")));
 end Modelica_Utilities_Examples;

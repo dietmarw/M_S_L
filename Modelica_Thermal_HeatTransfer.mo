@@ -1,6 +1,11 @@
 within ;
-package Modelica_Thermal_HeatTransfer
+encapsulated package Modelica_Thermal_HeatTransfer
   "Library of 1-dimensional heat transfer with lumped elements"
+  import Modelica_Icons;
+  import Modelica_SIunits;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Constants;
   extends Modelica_Icons.Package;
 
   package Components "Lumped thermal components"
@@ -1037,11 +1042,10 @@ The output signal is positive, if the heat flows from port_a to port_b.
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
       Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_b port_b
         annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-      Modelica_Thermal_HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
+      HeatFlowSensor heatFlowSensor
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-      Modelica_Thermal_HeatTransfer.Sources.FixedTemperature fixedTemperature(final T(
-            displayUnit="K") = 293.15) if useFixedTemperature annotation (
-          Placement(transformation(
+      Sources.FixedTemperature fixedTemperature(final T(displayUnit="K") =
+          293.15) if useFixedTemperature annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=90,
             origin={-50,-30})));
@@ -2707,5 +2711,6 @@ Hubertus Tummescheit, Lund Institute of Technology, Lund, Sweden.
        added component ThermalCollector</li>
 
 </ul>
-</html>"));
+</html>"),
+    uses(Modelica(version="3.2.1")));
 end Modelica_Thermal_HeatTransfer;

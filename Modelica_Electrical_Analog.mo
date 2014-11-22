@@ -1,6 +1,19 @@
 within ;
-package Modelica_Electrical_Analog "Library for analog electrical models"
+encapsulated package Modelica_Electrical_Analog
+  "Library for analog electrical models"
 import SI = Modelica_SIunits;
+  import Modelica_Icons;
+  import Modelica_Electrical_Analog_Interfaces;
+  import Modelica_Constants;
+  import Modelica_Math;
+  import Modelica_Mechanics_Rotational_Interfaces;
+  import Modelica_Mechanics_Rotational;
+  import Modelica_Mechanics_Translational_Interfaces;
+  import Modelica_Mechanics_Translational;
+  import Modelica_Blocks_Interfaces;
+  import Modelica_Blocks;
+  import Modelica_Electrical_Digital_Interfaces;
+  import Modelica_Thermal_HeatTransfer_Interfaces;
 
 extends Modelica_Icons.Package;
 
@@ -57,20 +70,18 @@ extends Modelica_Icons.Package;
     end Ground;
 
     model Resistor "Ideal linear electrical resistor"
-      parameter Modelica_SIunits.Resistance R(start=1)
-        "Resistance at temperature T_ref";
-      parameter Modelica_SIunits.Temperature T_ref=300.15
-        "Reference temperature";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
+      parameter SI.Resistance R(start=1) "Resistance at temperature T_ref";
+      parameter SI.Temperature T_ref=300.15 "Reference temperature";
+      parameter SI.LinearTemperatureCoefficient alpha=0
         "Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))";
 
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
-      Modelica_SIunits.Resistance R_actual
+      SI.Resistance R_actual
         "Actual resistance = R*(1 + alpha*(T_heatPort - T_ref))";
 
     equation
-      assert((1 + alpha*(T_heatPort - T_ref)) >=Modelica_Constants.eps,
+      assert((1 + alpha*(T_heatPort - T_ref)) >= Modelica_Constants.eps,
         "Temperature outside scope of model!");
       R_actual = R*(1 + alpha*(T_heatPort - T_ref));
       v = R_actual*i;
@@ -121,17 +132,14 @@ extends Modelica_Icons.Package;
     end Resistor;
 
     model HeatingResistor "Temperature dependent electrical resistor"
-      parameter Modelica_SIunits.Resistance R_ref(start=1)
-        "Resistance at temperature T_ref";
-      parameter Modelica_SIunits.Temperature T_ref=300.15
-        "Reference temperature";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
+      parameter SI.Resistance R_ref(start=1) "Resistance at temperature T_ref";
+      parameter SI.Temperature T_ref=300.15 "Reference temperature";
+      parameter SI.LinearTemperatureCoefficient alpha=0
         "Temperature coefficient of resistance (R = R_ref*(1 + alpha*(heatPort.T - T_ref))";
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref,
           useHeatPort=true);
-      Modelica_SIunits.Resistance R
-        "Resistance = R_ref*(1 + alpha*(T_heatPort - T_ref))";
+      SI.Resistance R "Resistance = R_ref*(1 + alpha*(T_heatPort - T_ref))";
     equation
       assert((1 + alpha*(T_heatPort - T_ref)) >=Modelica_Constants.eps,
         "Temperature outside scope of model!");
@@ -206,15 +214,13 @@ extends Modelica_Icons.Package;
     end HeatingResistor;
 
     model Conductor "Ideal linear electrical conductor"
-      parameter Modelica_SIunits.Conductance G(start=1)
-        "Conductance at temperature T_ref";
-      parameter Modelica_SIunits.Temperature T_ref=300.15
-        "Reference temperature";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
+      parameter SI.Conductance G(start=1) "Conductance at temperature T_ref";
+      parameter SI.Temperature T_ref=300.15 "Reference temperature";
+      parameter SI.LinearTemperatureCoefficient alpha=0
         "Temperature coefficient of conductance (G_actual = G_ref/(1 + alpha*(T_heatPort - T_ref))";
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
-      Modelica_SIunits.Conductance G_actual
+      SI.Conductance G_actual
         "Actual conductance = G_ref/(1 + alpha*(T_heatPort - T_ref))";
 
     equation
@@ -272,7 +278,7 @@ extends Modelica_Icons.Package;
     model Capacitor "Ideal linear electrical capacitor"
       extends Modelica_Electrical_Analog_Interfaces.OnePort(
                                  v(start=0));
-      parameter Modelica_SIunits.Capacitance C(start=1) "Capacitance";
+      parameter SI.Capacitance C(start=1) "Capacitance";
 
     equation
       i = C*der(v);
@@ -315,7 +321,7 @@ extends Modelica_Icons.Package;
     model Inductor "Ideal linear electrical inductor"
       extends Modelica_Electrical_Analog_Interfaces.OnePort(
                                  i(start=0));
-      parameter Modelica_SIunits.Inductance L(start=1) "Inductance";
+      parameter SI.Inductance L(start=1) "Inductance";
 
     equation
       L*der(i) = v;
@@ -365,17 +371,15 @@ extends Modelica_Icons.Package;
 
     model SaturatingInductor "Simple model of an inductor with saturation"
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
-      parameter Modelica_SIunits.Current Inom(start=1) "Nominal current";
-      parameter Modelica_SIunits.Inductance Lnom(start=1)
+      parameter SI.Current Inom(start=1) "Nominal current";
+      parameter SI.Inductance Lnom(start=1)
         "Nominal inductance at Nominal current";
-      parameter Modelica_SIunits.Inductance Lzer(start=2*Lnom)
-        "Inductance near current=0";
-      parameter Modelica_SIunits.Inductance Linf(start=Lnom/2)
-        "Inductance at large currents";
-      Modelica_SIunits.Inductance Lact(start=Lzer) "Present inductance";
-      Modelica_SIunits.MagneticFlux Psi(start=0, fixed=true) "Present flux";
+      parameter SI.Inductance Lzer(start=2*Lnom) "Inductance near current=0";
+      parameter SI.Inductance Linf(start=Lnom/2) "Inductance at large currents";
+      SI.Inductance Lact(start=Lzer) "Present inductance";
+      SI.MagneticFlux Psi(start=0, fixed=true) "Present flux";
     protected
-      parameter Modelica_SIunits.Current Ipar(start=Inom/10, fixed=false);
+      parameter SI.Current Ipar(start=Inom/10, fixed=false);
     initial equation
       (Lnom - Linf) = (Lzer - Linf)*Ipar/Inom*(Modelica_Constants.pi/2 -
         Modelica_Math.atan(Ipar/Inom));
@@ -455,9 +459,9 @@ extends Modelica_Icons.Package;
     model Transformer "Transformer with two ports"
       extends Modelica_Electrical_Analog_Interfaces.TwoPort(
                                  i1(start=0),i2(start=0));
-      parameter Modelica_SIunits.Inductance L1(start=1) "Primary inductance";
-      parameter Modelica_SIunits.Inductance L2(start=1) "Secondary inductance";
-      parameter Modelica_SIunits.Inductance M(start=1) "Coupling inductance";
+      parameter SI.Inductance L1(start=1) "Primary inductance";
+      parameter SI.Inductance L2(start=1) "Secondary inductance";
+      parameter SI.Inductance M(start=1) "Coupling inductance";
       Real dv "Difference between voltage drop over primary inductor and
     voltage drop over secondary inductor";
     equation
@@ -555,17 +559,16 @@ extends Modelica_Icons.Package;
     protected
       parameter Integer dimL=div(N*(N + 1), 2);
     public
-      parameter Modelica_SIunits.Inductance L[dimL]={1,0.1,0.2,2,0.3,3}
+      parameter SI.Inductance L[dimL]={1,0.1,0.2,2,0.3,3}
         "Inductances and coupling inductances";
       Modelica_Electrical_Analog_Interfaces.PositivePin p[N] "Positive pin"
         annotation (Placement(transformation(extent={{-80,-40},{-62,40}})));
       Modelica_Electrical_Analog_Interfaces.NegativePin n[N] "Negative pin"
         annotation (Placement(transformation(extent={{62,-40},{80,40}})));
 
-      Modelica_SIunits.Voltage v[N] "Voltage drop over inductors";
-      Modelica_SIunits.Current i[N](each start=0, fixed=true)
-        "Current through inductors";
-      parameter Modelica_SIunits.Inductance Lm[N, N](each final fixed=false)
+      SI.Voltage v[N] "Voltage drop over inductors";
+      SI.Current i[N](each start=0, fixed=true) "Current through inductors";
+      parameter SI.Inductance Lm[N,N](each final fixed=false)
         "Complete symmetric inductance matrix, calculated internally";
 
     initial equation
@@ -684,8 +687,8 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
 
     model Gyrator "Gyrator"
       extends Modelica_Electrical_Analog_Interfaces.TwoPort;
-      parameter Modelica_SIunits.Conductance G1(start=1) "Gyration conductance";
-      parameter Modelica_SIunits.Conductance G2(start=1) "Gyration conductance";
+      parameter SI.Conductance G1(start=1) "Gyration conductance";
+      parameter SI.Conductance G2(start=1) "Gyration conductance";
     equation
       i1 = G2*v2;
       i2 = -G1*v1;
@@ -779,15 +782,13 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
         Evaluate=true,
         HideResult=true,
         choices(checkBox=true));
-      parameter Modelica_SIunits.ElectricalTorqueConstant k(start=1)
+      parameter SI.ElectricalTorqueConstant k(start=1)
         "Transformation coefficient";
-      Modelica_SIunits.Voltage v "Voltage drop between the two pins";
-      Modelica_SIunits.Current i
-        "Current flowing from positive to negative pin";
-      Modelica_SIunits.Angle phi
+      SI.Voltage v "Voltage drop between the two pins";
+      SI.Current i "Current flowing from positive to negative pin";
+      SI.Angle phi
         "Angle of shaft flange with respect to support (= flange.phi - support.phi)";
-      Modelica_SIunits.AngularVelocity w
-        "Angular velocity of flange relative to support";
+      SI.AngularVelocity w "Angular velocity of flange relative to support";
       Modelica_Electrical_Analog_Interfaces.PositivePin p annotation (Placement(
             transformation(
             origin={0,100},
@@ -805,8 +806,7 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
         "Support/housing of emf shaft"
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     protected
-      Modelica_Mechanics_Rotational.Components.Fixed fixed if
-                                                     not useSupport
+      Modelica_Mechanics_Rotational.Components.Fixed fixed if not useSupport
         annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
       Modelica_Mechanics_Rotational_Interfaces.InternalSupport internalSupport(
           tau=-flange.tau)
@@ -915,14 +915,13 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
         Evaluate=true,
         HideResult=true,
         choices(checkBox=true));
-      parameter Modelica_SIunits.ElectricalForceConstant k(start=1)
+      parameter SI.ElectricalForceConstant k(start=1)
         "Transformation coefficient";
 
-      Modelica_SIunits.Voltage v "Voltage drop between the two pins";
-      Modelica_SIunits.Current i
-        "Current flowing from positive to negative pin";
-      Modelica_SIunits.Position s "Position of flange relative to support";
-      Modelica_SIunits.Velocity vel "Velocity of flange relative to support";
+      SI.Voltage v "Voltage drop between the two pins";
+      SI.Current i "Current flowing from positive to negative pin";
+      SI.Position s "Position of flange relative to support";
+      SI.Velocity vel "Velocity of flange relative to support";
 
       Modelica_Electrical_Analog_Interfaces.PositivePin p annotation (Placement(
             transformation(
@@ -1118,8 +1117,7 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
 
     model VCC "Linear voltage-controlled current source"
       extends Modelica_Electrical_Analog_Interfaces.TwoPort;
-      parameter Modelica_SIunits.Conductance transConductance(start=1)
-        "Transconductance";
+      parameter SI.Conductance transConductance(start=1) "Transconductance";
     equation
       i2 = v1*transConductance;
       i1 = 0;
@@ -1175,8 +1173,7 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
     model CCV "Linear current-controlled voltage source"
       extends Modelica_Electrical_Analog_Interfaces.TwoPort;
 
-      parameter Modelica_SIunits.Resistance transResistance(start=1)
-        "Transresistance";
+      parameter SI.Resistance transResistance(start=1) "Transresistance";
 
     equation
       v2 = i1*transResistance;
@@ -1299,7 +1296,7 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
       Modelica_Electrical_Analog_Interfaces.NegativePin VMin
         "Negative output voltage limitation" annotation (Placement(
             transformation(extent={{-10,-80},{10,-60}}, rotation=0)));
-      Modelica_SIunits.Voltage vin "input voltage";
+      SI.Voltage vin "input voltage";
     protected
       Real f "auxiliary variable";
       Real absSlope;
@@ -1381,53 +1378,48 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
 
     model OpAmpDetailed "Detailed model of an operational amplifier"
       // literature: Conelly, J.A.; Choi, P.: Macromodelling with SPICE. Englewood Cliffs: Prentice-Hall, 1992
-      parameter Modelica_SIunits.Resistance Rdm=2.0e6
+      parameter SI.Resistance Rdm=2.0e6
         "Input resistance (differential input mode)";
-      parameter Modelica_SIunits.Resistance Rcm=2.0e9
-        "Input resistance (common mode)";
-      parameter Modelica_SIunits.Capacitance Cin=1.4e-12 "Input capacitance";
-      parameter Modelica_SIunits.Voltage Vos=1.0e-3 "Input offset voltage";
-      parameter Modelica_SIunits.Current Ib=80.0e-9 "Input bias current";
-      parameter Modelica_SIunits.Current Ios=20.0e-9 "Input offset current";
-      parameter Modelica_SIunits.Voltage vcp=0.0
-        "Correction value for limiting by p_supply";
-      parameter Modelica_SIunits.Voltage vcm=0.0
-        "Correction value for limiting by msupply";
+      parameter SI.Resistance Rcm=2.0e9 "Input resistance (common mode)";
+      parameter SI.Capacitance Cin=1.4e-12 "Input capacitance";
+      parameter SI.Voltage Vos=1.0e-3 "Input offset voltage";
+      parameter SI.Current Ib=80.0e-9 "Input bias current";
+      parameter SI.Current Ios=20.0e-9 "Input offset current";
+      parameter SI.Voltage vcp=0.0 "Correction value for limiting by p_supply";
+      parameter SI.Voltage vcm=0.0 "Correction value for limiting by msupply";
       parameter Real Avd0=106.0 "Differential amplifier [dB]";
       parameter Real CMRR=90.0 "Common-mode rejection [dB]";
-      parameter Modelica_SIunits.Frequency fp1=5.0 "Dominant pole";
-      parameter Modelica_SIunits.Frequency fp2=2.0e6 "Pole frequency";
-      parameter Modelica_SIunits.Frequency fp3=20.0e6 "Pole frequency";
-      parameter Modelica_SIunits.Frequency fp4=100.0e6 "Pole frequency";
-      parameter Modelica_SIunits.Frequency fz=5.0e6 "Zero frequency";
-      parameter Modelica_SIunits.VoltageSlope sr_p=0.5e6
-        "Slew rate for increase";
-      parameter Modelica_SIunits.VoltageSlope sr_m=0.5e6
-        "Slew rate for decrease";
-      parameter Modelica_SIunits.Resistance Rout=75.0 "Output resistance";
-      parameter Modelica_SIunits.Current Imaxso=25.0e-3
+      parameter SI.Frequency fp1=5.0 "Dominant pole";
+      parameter SI.Frequency fp2=2.0e6 "Pole frequency";
+      parameter SI.Frequency fp3=20.0e6 "Pole frequency";
+      parameter SI.Frequency fp4=100.0e6 "Pole frequency";
+      parameter SI.Frequency fz=5.0e6 "Zero frequency";
+      parameter SI.VoltageSlope sr_p=0.5e6 "Slew rate for increase";
+      parameter SI.VoltageSlope sr_m=0.5e6 "Slew rate for decrease";
+      parameter SI.Resistance Rout=75.0 "Output resistance";
+      parameter SI.Current Imaxso=25.0e-3
         "Maximal output current (source current)";
-      parameter Modelica_SIunits.Current Imaxsi=25.0e-3
+      parameter SI.Current Imaxsi=25.0e-3
         "Maximal output current (sink current)";
 
       // number of intervals: 2500, stop time: 0.003
-      parameter Modelica_SIunits.Time Ts=0.0000012 "sampling time";
+      parameter SI.Time Ts=0.0000012 "sampling time";
 
       // constant expressions
       constant Real Pi=3.141592654;
 
       // power supply
-      final parameter Modelica_SIunits.Voltage vcp_abs=abs(vcp)
+      final parameter SI.Voltage vcp_abs=abs(vcp)
         "Positive correction value for limiting by p_supply";
-      final parameter Modelica_SIunits.Voltage vcm_abs=abs(vcm)
+      final parameter SI.Voltage vcm_abs=abs(vcm)
         "Positive correction value for limiting by msupply";
 
       // input stage
       //  Ib = 0.5*(I1 + I2);
       //  Ios = I1 - I2;
-      final parameter Modelica_SIunits.Current I1=Ib + Ios/2.0
+      final parameter SI.Current I1=Ib + Ios/2.0
         "Current of internal source I1";
-      final parameter Modelica_SIunits.Current I2=Ib - Ios/2.0
+      final parameter SI.Current I2=Ib - Ios/2.0
         "Current of internal source I2";
 
       // gain stage (difference and common mode)
@@ -1436,16 +1428,14 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
         "common mode gain";
 
       // slew rate stage
-      final parameter Modelica_SIunits.VoltageSlope sr_p_val=abs(sr_p)
+      final parameter SI.VoltageSlope sr_p_val=abs(sr_p)
         "Value of slew rate for increase";
-      final parameter Modelica_SIunits.VoltageSlope sr_m_val=-abs(sr_m)
+      final parameter SI.VoltageSlope sr_m_val=-abs(sr_m)
         "Negative alue of slew rate for increase";
 
       // output stage
-      final parameter Modelica_SIunits.Current Imaxso_val=abs(Imaxso)
-        "Orientation out outp";
-      final parameter Modelica_SIunits.Current Imaxsi_val=abs(Imaxsi)
-        "Orientation into outp";
+      final parameter SI.Current Imaxso_val=abs(Imaxso) "Orientation out outp";
+      final parameter SI.Current Imaxsi_val=abs(Imaxsi) "Orientation into outp";
 
       Modelica_Electrical_Analog_Interfaces.PositivePin p
         "Positive pin of the input port" annotation (Placement(transformation(
@@ -1464,20 +1454,20 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
             transformation(extent={{-9,-83},{9,-65}}, rotation=0)));
 
       // power supply
-      Modelica_SIunits.Voltage v_pos;
-      Modelica_SIunits.Voltage v_neg;
+      SI.Voltage v_pos;
+      SI.Voltage v_neg;
 
       // input stage
-      Modelica_SIunits.Voltage v_vos;
-      Modelica_SIunits.Voltage v_3;
-      Modelica_SIunits.Voltage v_in;
-      Modelica_SIunits.Voltage v_4;
+      SI.Voltage v_vos;
+      SI.Voltage v_3;
+      SI.Voltage v_in;
+      SI.Voltage v_4;
 
-      Modelica_SIunits.Current i_vos;
-      Modelica_SIunits.Current i_3;
-      Modelica_SIunits.Current i_r2;
-      Modelica_SIunits.Current i_c3;
-      Modelica_SIunits.Current i_4;
+      SI.Current i_vos;
+      SI.Current i_3;
+      SI.Current i_r2;
+      SI.Current i_c3;
+      SI.Current i_4;
 
       // frequency response
       Real q_fr1;
@@ -1485,29 +1475,29 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
       Real q_fr3;
 
       // gain stage
-      Modelica_SIunits.Voltage q_sum;
-      Modelica_SIunits.Voltage q_sum_help;
-      Modelica_SIunits.Voltage q_fp1;
+      SI.Voltage q_sum;
+      SI.Voltage q_sum_help;
+      SI.Voltage q_fp1;
 
       // slew rate stage
-      Modelica_SIunits.Voltage v_source;
+      SI.Voltage v_source;
 
-      Modelica_SIunits.Voltage x "auxiliary variable for slew rate";
+      SI.Voltage x "auxiliary variable for slew rate";
 
       // output stage
-      Modelica_SIunits.Voltage v_out;
+      SI.Voltage v_out;
 
-      Modelica_SIunits.Current i_out;
+      SI.Current i_out;
 
       // functions
       function FCNiout_limit "Internal limitation function"
         extends Modelica_Icons.Function;
-        input Modelica_SIunits.Voltage v_source;
-        input Modelica_SIunits.Voltage v_out;
-        input Modelica_SIunits.Resistance Rout;
-        input Modelica_SIunits.Current Imaxsi_val;
-        input Modelica_SIunits.Current Imaxso_val;
-        output Modelica_SIunits.Current result;
+        input SI.Voltage v_source;
+        input SI.Voltage v_out;
+        input SI.Resistance Rout;
+        input SI.Current Imaxsi_val;
+        input SI.Current Imaxso_val;
+        output SI.Current result;
 
       algorithm
         if v_out > v_source + Rout*Imaxsi_val then
@@ -1525,13 +1515,13 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
 
       function FCNq_sum_limit "Internal limitation function"
         extends Modelica_Icons.Function;
-        input Modelica_SIunits.Voltage q_sum;
-        input Modelica_SIunits.Voltage q_sum_ltf;
-        input Modelica_SIunits.Voltage v_pos;
-        input Modelica_SIunits.Voltage v_neg;
-        input Modelica_SIunits.Voltage vcp;
-        input Modelica_SIunits.Voltage vcm;
-        output Modelica_SIunits.Voltage result;
+        input SI.Voltage q_sum;
+        input SI.Voltage q_sum_ltf;
+        input SI.Voltage v_pos;
+        input SI.Voltage v_neg;
+        input SI.Voltage vcp;
+        input SI.Voltage vcm;
+        output SI.Voltage result;
 
       algorithm
         if q_sum > v_pos - vcp and q_sum_ltf >= v_pos - vcp then
@@ -1667,13 +1657,12 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
 
     model VariableResistor
       "Ideal linear electrical resistor with variable resistance"
-      parameter Modelica_SIunits.Temperature T_ref=300.15
-        "Reference temperature";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
+      parameter SI.Temperature T_ref=300.15 "Reference temperature";
+      parameter SI.LinearTemperatureCoefficient alpha=0
         "Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))";
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
-      Modelica_SIunits.Resistance R_actual
+      SI.Resistance R_actual
         "Actual resistance = R*(1 + alpha*(T_heatPort - T_ref))";
       Modelica_Blocks_Interfaces.RealInput R(unit="Ohm") annotation (Placement(
             transformation(
@@ -1734,13 +1723,12 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
 
     model VariableConductor
       "Ideal linear electrical conductor with variable conductance"
-      parameter Modelica_SIunits.Temperature T_ref=300.15
-        "Reference temperature";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
+      parameter SI.Temperature T_ref=300.15 "Reference temperature";
+      parameter SI.LinearTemperatureCoefficient alpha=0
         "Temperature coefficient of conductance (G_actual = G/(1 + alpha*(T_heatPort - T_ref))";
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
-      Modelica_SIunits.Conductance G_actual
+      SI.Conductance G_actual
         "Actual conductance = G/(1 + alpha*(T_heatPort - T_ref))";
       Modelica_Blocks_Interfaces.RealInput G(unit="S") annotation (Placement(
             transformation(
@@ -1805,10 +1793,10 @@ the user has to allocate the parameter vector <i>L[6] </i>, since <i>Nv=(N*(N+1)
             origin={0,110},
             extent={{-20,-20},{20,20}},
             rotation=270)));
-      parameter Modelica_SIunits.Capacitance Cmin=Modelica_Constants.eps
+      parameter SI.Capacitance Cmin=Modelica_Constants.eps
         "lower bound for variable capacitance";
-      Modelica_SIunits.ElectricCharge Q;
-      parameter Modelica_SIunits.Voltage IC=0 "Initial Value";
+      SI.ElectricCharge Q;
+      parameter SI.Voltage IC=0 "Initial Value";
       parameter Boolean UIC=false;
     initial equation
       if UIC then
@@ -1870,10 +1858,10 @@ C = Cmin, if 0 &le; C &lt; Cmin, where Cmin is a parameter with default value Mo
             origin={0,108},
             extent={{-20,-20},{20,20}},
             rotation=270)));
-      Modelica_SIunits.MagneticFlux Psi;
-      parameter Modelica_SIunits.Inductance Lmin=Modelica_Constants.eps
+      SI.MagneticFlux Psi;
+      parameter SI.Inductance Lmin=Modelica_Constants.eps
         "lower bound for variable inductance";
-      parameter Modelica_SIunits.Current IC=0 "Initial Value";
+      parameter SI.Current IC=0 "Initial Value";
       parameter Boolean UIC=false;
     initial equation
       if UIC then
@@ -1936,11 +1924,9 @@ It is required that L &ge; 0, otherwise an assertion is raised. To avoid a varia
     end VariableInductor;
 
     model Potentiometer "Adjustable resistor"
-      parameter Modelica_SIunits.Resistance R(start=1)
-        "Resistance at temperature T_ref";
-      parameter Modelica_SIunits.Temperature T_ref=293.15
-        "Reference temperature";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
+      parameter SI.Resistance R(start=1) "Resistance at temperature T_ref";
+      parameter SI.Temperature T_ref=293.15 "Reference temperature";
+      parameter SI.LinearTemperatureCoefficient alpha=0
         "Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=T_ref);
       parameter Boolean useRinput=false "use input for 0<r<1 (else constant)"
@@ -1952,10 +1938,8 @@ It is required that L &ge; 0, otherwise an assertion is raised. To avoid a varia
         final min=0,
         final max=1) = 0.5 "Contact between n (r=0) and p (r=1)"
         annotation (Dialog(group="potentiometer", enable=not useRinput));
-      Modelica_SIunits.Resistance Rp
-        "Actual resistance between pin_p and contact";
-      Modelica_SIunits.Resistance Rn
-        "Actual resistance between contact and pin_n";
+      SI.Resistance Rp "Actual resistance between pin_p and contact";
+      SI.Resistance Rn "Actual resistance between contact and pin_n";
       Modelica_Electrical_Analog_Interfaces.PositivePin pin_p
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
       Modelica_Electrical_Analog_Interfaces.PositivePin contact annotation (
@@ -1969,8 +1953,8 @@ It is required that L &ge; 0, otherwise an assertion is raised. To avoid a varia
             rotation=90,
             origin={-100,-110})));
     protected
-      Modelica_Blocks.Sources.Constant rConst(final k=rConstant) if not useRinput
-        annotation (Placement(transformation(
+      Modelica_Blocks.Sources.Constant rConst(final k=rConstant) if not
+        useRinput annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=270,
             origin={-90,-50})));
@@ -2078,12 +2062,11 @@ Christoph Clau&szlig;
 
     model IdealDiode "Ideal diode"
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
+      parameter SI.Resistance Ron(final min=0)=1.E-5
         "Forward state-on differential resistance (closed diode resistance)";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Backward state-off conductance (opened diode conductance)";
-      parameter Modelica_SIunits.Voltage Vknee(final min=0) = 0
-        "Forward threshold voltage";
+      parameter SI.Voltage Vknee(final min=0)=0 "Forward threshold voltage";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort;
       Boolean off(start=true) "Switching state";
     protected
@@ -2092,8 +2075,8 @@ Christoph Clau&szlig;
       /* s = 0: knee point
      s < 0: below knee point, diode conducting
      s > 0: above knee point, diode locking */
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       off = s < 0;
       v = (s*unitCurrent)*(if off then 1 else Ron) + Vknee;
@@ -2199,12 +2182,11 @@ behavior is <b>not</b> modelled.
 
     model IdealThyristor "Ideal thyristor"
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
+      parameter SI.Resistance Ron(final min=0)=1.E-5
         "Closed thyristor resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened thyristor conductance";
-      parameter Modelica_SIunits.Voltage Vknee(final min=0) = 0
-        "Forward threshold voltage";
+      parameter SI.Voltage Vknee(final min=0)=0 "Forward threshold voltage";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
       Boolean off(start=true) "Switching state";
@@ -2216,8 +2198,8 @@ behavior is <b>not</b> modelled.
     protected
       Real s(final unit="1")
         "Auxiliary variable: if on then current, if opened then voltage";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       off = s < 0 or pre(off) and not fire;
       v = (s*unitCurrent)*(if off then 1 else Ron) + Vknee;
@@ -2327,12 +2309,11 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
 
     model IdealGTOThyristor "Ideal GTO thyristor"
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
+      parameter SI.Resistance Ron(final min=0)=1.E-5
         "Closed thyristor resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened thyristor conductance";
-      parameter Modelica_SIunits.Voltage Vknee(final min=0) = 0
-        "Forward threshold voltage";
+      parameter SI.Voltage Vknee(final min=0)=0 "Forward threshold voltage";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
       Boolean off(start=true) "Switching state";
@@ -2344,8 +2325,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
     protected
       Real s(final unit="1")
         "Auxiliary variable: if on then current, if opened then voltage";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       off = s < 0 or not fire;
       v = (s*unitCurrent)*(if off then 1 else Ron) + Vknee;
@@ -2476,9 +2457,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
     end IdealGTOThyristor;
 
     model IdealCommutingSwitch "Ideal commuting switch"
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
-        "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Resistance Ron(final min=0)=1.E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened switch conductance";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
@@ -2497,8 +2477,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
     protected
       Real s1(final unit="1");
       Real s2(final unit="1") "Auxiliary variables";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       0 = p.i + n2.i + n1.i;
 
@@ -2577,9 +2557,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
     end IdealCommutingSwitch;
 
     model IdealIntermediateSwitch "Ideal intermediate switch"
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
-        "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Resistance Ron(final min=0)=1.E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened switch conductance";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
@@ -2602,8 +2581,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
       Real s2(final unit="1");
       Real s3(final unit="1");
       Real s4(final unit="1") "Auxiliary variables";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       p1.v - n1.v = (s1*unitCurrent)*(if (control) then 1 else Ron);
       p2.v - n2.v = (s2*unitCurrent)*(if (control) then 1 else Ron);
@@ -2689,10 +2668,9 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
     end IdealIntermediateSwitch;
 
     model ControlledIdealCommutingSwitch "Controlled ideal commuting switch"
-      parameter Modelica_SIunits.Voltage level=0.5 "Switch level";
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
-        "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Voltage level=0.5 "Switch level";
+      parameter SI.Resistance Ron(final min=0)=1.E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened switch conductance";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
@@ -2711,8 +2689,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
     protected
       Real s1(final unit="1");
       Real s2(final unit="1") "Auxiliary variables";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       control.i = 0;
       0 = p.i + n2.i + n1.i;
@@ -2794,10 +2772,9 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
 
     model ControlledIdealIntermediateSwitch
       "Controlled ideal intermediate switch"
-      parameter Modelica_SIunits.Voltage level=0.5 "Switch level";
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
-        "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Voltage level=0.5 "Switch level";
+      parameter SI.Resistance Ron(final min=0)=1.E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened switch conductance";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
@@ -2820,8 +2797,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
       Real s2(final unit="1");
       Real s3(final unit="1");
       Real s4(final unit="1") "Auxiliary variables";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       control.i = 0;
 
@@ -2919,12 +2896,10 @@ The limiting case is also allowed, i.e., the resistance Ron of the closed switch
     end ControlledIdealIntermediateSwitch;
 
     model IdealOpAmp "Ideal operational amplifier (norator-nullator pair)"
-      Modelica_SIunits.Voltage v1 "Voltage drop over the left port";
-      Modelica_SIunits.Voltage v2 "Voltage drop over the right port";
-      Modelica_SIunits.Current i1
-        "Current flowing from pos. to neg. pin of the left port";
-      Modelica_SIunits.Current i2
-        "Current flowing from pos. to neg. pin of the right port";
+      SI.Voltage v1 "Voltage drop over the left port";
+      SI.Voltage v2 "Voltage drop over the right port";
+      SI.Current i1 "Current flowing from pos. to neg. pin of the left port";
+      SI.Current i2 "Current flowing from pos. to neg. pin of the right port";
       Modelica_Electrical_Analog_Interfaces.PositivePin p1
         "Positive pin of the left port" annotation (Placement(transformation(
               extent={{-110,-60},{-90,-40}}, rotation=0)));
@@ -3105,10 +3080,10 @@ are possible.
       Modelica_Electrical_Analog_Interfaces.NegativePin VMin
         "Negative output voltage limitation" annotation (Placement(
             transformation(extent={{-10,-80},{10,-60}}, rotation=0)));
-      Modelica_SIunits.Voltage vin "input voltage";
+      SI.Voltage vin "input voltage";
     protected
       Real s(final unit="1") "Auxiliary variable";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
 
     equation
       in_p.i = 0;
@@ -3197,18 +3172,18 @@ If the input voltage is vin larger than 0, the output voltage is out.v = VMax.
       parameter Real V0=15000.0 "No-load amplification";
       parameter Boolean useSupply=false
         "Use supply pins (otherwise constant supply" annotation (Evaluate=true);
-      parameter Modelica_SIunits.Voltage Vps=+15 "Positive supply voltage"
+      parameter SI.Voltage Vps=+15 "Positive supply voltage"
         annotation (Dialog(enable=not useSupply));
-      parameter Modelica_SIunits.Voltage Vns=-15 "Negative supply voltage"
+      parameter SI.Voltage Vns=-15 "Negative supply voltage"
         annotation (Dialog(enable=not useSupply));
-      Modelica_SIunits.Voltage vps "Positive supply voltage";
-      Modelica_SIunits.Voltage vns "Negative supply voltage";
-      Modelica_SIunits.Voltage v_in=in_p.v - in_n.v "Input voltage difference";
-      Modelica_SIunits.Voltage v_out=out.v "Ouput voltage to ground";
-      Modelica_SIunits.Power p_in=in_p.v*in_p.i + in_n.v*in_n.i "Input power";
-      Modelica_SIunits.Power p_out=out.v*out.i "Output power";
-      Modelica_SIunits.Power p_s=-(p_in + p_out) "Supply power";
-      Modelica_SIunits.Current i_s=p_s/(vps - vns) "Supply current";
+      SI.Voltage vps "Positive supply voltage";
+      SI.Voltage vns "Negative supply voltage";
+      SI.Voltage v_in=in_p.v - in_n.v "Input voltage difference";
+      SI.Voltage v_out=out.v "Ouput voltage to ground";
+      SI.Power p_in=in_p.v*in_p.i + in_n.v*in_n.i "Input power";
+      SI.Power p_out=out.v*out.i "Output power";
+      SI.Power p_s=-(p_in + p_out) "Supply power";
+      SI.Current i_s=p_s/(vps - vns) "Supply current";
       Modelica_Electrical_Analog_Interfaces.PositivePin in_p
         "Positive pin of the input port" annotation (Placement(transformation(
               extent={{-90,-70},{-110,-50}}, rotation=0)));
@@ -3272,12 +3247,12 @@ If the input voltage is vin larger than 0, the output voltage is out.v = VMax.
       parameter Real n(start=1) "Turns ratio primary:secondary voltage";
       parameter Boolean considerMagnetization=false
         "Choice of considering magnetization";
-      parameter Modelica_SIunits.Inductance Lm1(start=1)
+      parameter SI.Inductance Lm1(start=1)
         "Magnetization inductance w.r.t. primary side"
         annotation (Dialog(enable=considerMagnetization));
     protected
-      Modelica_SIunits.Current im1 "Magnetization current w.r.t. primary side";
-      Modelica_SIunits.MagneticFlux psim1 "Magnetic flux w.r.t. primary side";
+      SI.Current im1 "Magnetization current w.r.t. primary side";
+      SI.MagneticFlux psim1 "Magnetic flux w.r.t. primary side";
     equation
       im1 = i1 + i2/n;
       if considerMagnetization then
@@ -3385,7 +3360,7 @@ For the backward conversion, one has to decide about the partitioning of the lea
 
     model IdealGyrator "Ideal gyrator"
       extends Modelica_Electrical_Analog_Interfaces.TwoPort;
-      parameter Modelica_SIunits.Conductance G(start=1) "Gyration conductance";
+      parameter SI.Conductance G(start=1) "Gyration conductance";
 
     equation
       i1 = G*v2;
@@ -3532,9 +3507,8 @@ where the constant <i>G</i> is called the gyration conductance.
 
     model IdealOpeningSwitch "Ideal electrical opener"
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
-        "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Resistance Ron(final min=0)=1.E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened switch conductance";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
@@ -3546,8 +3520,8 @@ where the constant <i>G</i> is called the gyration conductance.
             rotation=270)));
     protected
       Real s(final unit="1") "Auxiliary variable";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       v = (s*unitCurrent)*(if control then 1 else Ron);
       i = (s*unitVoltage)*(if control then Goff else 1);
@@ -3615,9 +3589,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
 
     model IdealClosingSwitch "Ideal electrical closer"
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
-        "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Resistance Ron(final min=0)=1.E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened switch conductance";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
@@ -3629,8 +3602,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
             rotation=270)));
     protected
       Real s(final unit="1") "Auxiliary variable";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       v = (s*unitCurrent)*(if control then Ron else 1);
       i = (s*unitVoltage)*(if control then 1 else Goff);
@@ -3696,10 +3669,9 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
 
     model ControlledIdealOpeningSwitch "Controlled ideal electrical opener"
 
-      parameter Modelica_SIunits.Voltage level=0.5 "Switch level";
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
-        "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Voltage level=0.5 "Switch level";
+      parameter SI.Resistance Ron(final min=0)=1.E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened switch conductance";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
@@ -3715,8 +3687,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
             rotation=90)));
     protected
       Real s(final unit="1") "Auxiliary variable";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       control.i = 0;
       0 = p.i + n.i;
@@ -3783,10 +3755,9 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
 
     model ControlledIdealClosingSwitch "Controlled ideal electrical closer"
 
-      parameter Modelica_SIunits.Voltage level=0.5 "Switch level";
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
-        "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Voltage level=0.5 "Switch level";
+      parameter SI.Resistance Ron(final min=0)=1.E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened switch conductance";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
@@ -3802,8 +3773,8 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
             rotation=90)));
     protected
       Real s(final unit="1") "Auxiliary variable";
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
     equation
       control.i = 0;
       0 = p.i + n.i;
@@ -3869,13 +3840,11 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
 
     model OpenerWithArc "Ideal opening switch with simple arc model"
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
-      parameter Modelica_SIunits.Resistance Ron=1E-5 "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff=1E-5
-        "Opened switch conductance";
-      parameter Modelica_SIunits.Voltage V0(start=30) "Initial arc voltage";
-      parameter Modelica_SIunits.VoltageSlope dVdt(start=10E3)
-        "Arc voltage slope";
-      parameter Modelica_SIunits.Voltage Vmax(start=60) "Max. arc voltage";
+      parameter SI.Resistance Ron=1E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff=1E-5 "Opened switch conductance";
+      parameter SI.Voltage V0(start=30) "Initial arc voltage";
+      parameter SI.VoltageSlope dVdt(start=10E3) "Arc voltage slope";
+      parameter SI.Voltage Vmax(start=60) "Max. arc voltage";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
       Modelica_Blocks_Interfaces.BooleanInput control
@@ -3888,7 +3857,7 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
     protected
       Boolean off=control;
       Boolean on=not off;
-      discrete Modelica_SIunits.Time tSwitch(start=-Modelica_Constants.inf);
+      discrete SI.Time tSwitch(start=-Modelica_Constants.inf);
       Boolean quenched(start=true, fixed=true);
     equation
       when edge(off) then
@@ -3999,13 +3968,11 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
 
     model CloserWithArc "Ideal closing switch with simple arc model"
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
-      parameter Modelica_SIunits.Resistance Ron=1E-5 "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff=1E-5
-        "Opened switch conductance";
-      parameter Modelica_SIunits.Voltage V0(start=30) "Initial arc voltage";
-      parameter Modelica_SIunits.VoltageSlope dVdt(start=10E3)
-        "Arc voltage slope";
-      parameter Modelica_SIunits.Voltage Vmax(start=60) "Max. arc voltage";
+      parameter SI.Resistance Ron=1E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff=1E-5 "Opened switch conductance";
+      parameter SI.Voltage V0(start=30) "Initial arc voltage";
+      parameter SI.VoltageSlope dVdt(start=10E3) "Arc voltage slope";
+      parameter SI.Voltage Vmax(start=60) "Max. arc voltage";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
       Modelica_Blocks_Interfaces.BooleanInput control
@@ -4018,7 +3985,7 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
     protected
       Boolean on=control;
       Boolean off(start=false, fixed=true);
-      discrete Modelica_SIunits.Time tSwitch(start=-Modelica_Constants.inf);
+      discrete SI.Time tSwitch(start=-Modelica_Constants.inf);
       Boolean quenched(start=true, fixed=true);
     equation
       off = not on;
@@ -4127,15 +4094,13 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
     model ControlledOpenerWithArc
       "Controlled ideal electrical opener with simple arc model"
 
-      parameter Modelica_SIunits.Voltage level=0.5 "Switch level";
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
-        "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Voltage level=0.5 "Switch level";
+      parameter SI.Resistance Ron(final min=0)=1.E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened switch conductance";
-      parameter Modelica_SIunits.Voltage V0(start=30) "Initial arc voltage";
-      parameter Modelica_SIunits.VoltageSlope dVdt(start=10E3)
-        "Arc voltage slope";
-      parameter Modelica_SIunits.Voltage Vmax(start=60) "Max. arc voltage";
+      parameter SI.Voltage V0(start=30) "Initial arc voltage";
+      parameter SI.VoltageSlope dVdt(start=10E3) "Arc voltage slope";
+      parameter SI.Voltage Vmax(start=60) "Max. arc voltage";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
       Modelica_Electrical_Analog_Interfaces.PositivePin p annotation (Placement(
@@ -4148,14 +4113,14 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
             origin={0,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
-      Modelica_SIunits.Current i;
-      Modelica_SIunits.Voltage v;
+      SI.Current i;
+      SI.Voltage v;
     protected
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
       Boolean off=(control.v > level);
       Boolean on=not off;
-      discrete Modelica_SIunits.Time tSwitch(start=-Modelica_Constants.inf);
+      discrete SI.Time tSwitch(start=-Modelica_Constants.inf);
       Boolean quenched(start=true);
     equation
       control.i = 0;
@@ -4252,15 +4217,13 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
     model ControlledCloserWithArc
       "Controlled ideal electrical closer with simple arc model"
 
-      parameter Modelica_SIunits.Voltage level=0.5 "Switch level";
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.E-5
-        "Closed switch resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.E-5
+      parameter SI.Voltage level=0.5 "Switch level";
+      parameter SI.Resistance Ron(final min=0)=1.E-5 "Closed switch resistance";
+      parameter SI.Conductance Goff(final min=0)=1.E-5
         "Opened switch conductance";
-      parameter Modelica_SIunits.Voltage V0(start=30) "Initial arc voltage";
-      parameter Modelica_SIunits.VoltageSlope dVdt(start=10E3)
-        "Arc voltage slope";
-      parameter Modelica_SIunits.Voltage Vmax(start=60) "Max. arc voltage";
+      parameter SI.Voltage V0(start=30) "Initial arc voltage";
+      parameter SI.VoltageSlope dVdt(start=10E3) "Arc voltage slope";
+      parameter SI.Voltage Vmax(start=60) "Max. arc voltage";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(final T=
            293.15);
       Modelica_Electrical_Analog_Interfaces.PositivePin p annotation (Placement(
@@ -4273,14 +4236,14 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
             origin={0,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
-      Modelica_SIunits.Current i;
-      Modelica_SIunits.Voltage v;
+      SI.Current i;
+      SI.Voltage v;
     protected
-      constant Modelica_SIunits.Voltage unitVoltage=1 annotation (HideResult=true);
-      constant Modelica_SIunits.Current unitCurrent=1 annotation (HideResult=true);
+      constant SI.Voltage unitVoltage=1 annotation (HideResult=true);
+      constant SI.Current unitCurrent=1 annotation (HideResult=true);
       Boolean off(start=false, fixed=true);
       Boolean on=not off;
-      discrete Modelica_SIunits.Time tSwitch(start=-Modelica_Constants.inf);
+      discrete SI.Time tSwitch(start=-Modelica_Constants.inf);
       Boolean quenched(start=true, fixed=true);
     equation
       off = (control.v < level);
@@ -4375,36 +4338,33 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
 
     model IdealTriac "Ideal triac, based on ideal thyristors"
 
-      parameter Modelica_SIunits.Resistance Ron(final min=0) = 1.e-5
-        "Closed triac resistance";
-      parameter Modelica_SIunits.Conductance Goff(final min=0) = 1.e-5
+      parameter SI.Resistance Ron(final min=0)=1.e-5 "Closed triac resistance";
+      parameter SI.Conductance Goff(final min=0)=1.e-5
         "Opened triac conductance";
-      parameter Modelica_SIunits.Voltage Vknee(
+      parameter SI.Voltage Vknee(
         final min=0,
-        start=0) = 0.8 "Threshold voltage for positive and negative phase";
+        start=0)=0.8 "Threshold voltage for positive and negative phase";
 
-      parameter Modelica_SIunits.Resistance Rdis=100
-        "Resistance of disturbance elimination";
-      parameter Modelica_SIunits.Capacitance Cdis=0.005
-        "Capacity of disturbance elimination";
+      parameter SI.Resistance Rdis=100 "Resistance of disturbance elimination";
+      parameter SI.Capacitance Cdis=0.005 "Capacity of disturbance elimination";
 
-      Modelica_Electrical_Analog.Ideal.IdealThyristor idealThyristor(
+      IdealThyristor idealThyristor(
         Ron=Ron,
         Goff=Goff,
         Vknee=Vknee) annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={-10,32})));
-      Modelica_Electrical_Analog.Ideal.IdealThyristor idealThyristor1(
+      IdealThyristor idealThyristor1(
         Ron=Ron,
         Goff=Goff,
         Vknee=Vknee) annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
             origin={-10,-32})));
-      Modelica_Electrical_Analog.Basic.Resistor resistor(R=Rdis)
+      Basic.Resistor resistor(R=Rdis)
         annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-      Modelica_Electrical_Analog.Basic.Capacitor capacitor(C=Cdis)
+      Basic.Capacitor capacitor(C=Cdis)
         annotation (Placement(transformation(extent={{20,-10},{40,10}})));
       Modelica_Blocks_Interfaces.BooleanInput fire1 "Gate"
         annotation (Placement(transformation(extent={{-74,-106},{-46,-78}})));
@@ -4529,9 +4489,9 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
               extent={{-80,-80},{-60,-60}}, rotation=0), iconTransformation(
               extent={{-80,-80},{-60,-60}})));
       Modelica_Electrical_Digital_Interfaces.DigitalOutput y[N]
-        "Digital output"
-        annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=
-                0), iconTransformation(extent={{60,-10},{80,10}})));
+        "Digital output" annotation (Placement(transformation(extent={{60,-10},
+                {80,10}}, rotation=0), iconTransformation(extent={{60,-10},{80,
+                10}})));
       Modelica_Electrical_Digital_Interfaces.DigitalInput trig "Trigger input"
         annotation (Placement(transformation(extent={{-10,60},{10,80}}),
             iconTransformation(
@@ -4540,11 +4500,10 @@ behavior is <b>not</b> modelled. The parameters are not temperature dependent.
             origin={0,90})));
       parameter Integer N(final min=1, start=8)
         "Resolution in bits - output signal width";
-      parameter Modelica_SIunits.Voltage VRefHigh(start=10)
-        "High reference voltage";
-      parameter Modelica_SIunits.Voltage VRefLow(final max=VRefHigh, start=0)
+      parameter SI.Voltage VRefHigh(start=10) "High reference voltage";
+      parameter SI.Voltage VRefLow(final max=VRefHigh, start=0)
         "Low reference voltage";
-      parameter Modelica_SIunits.Resistance Rin(start=10^6) "Input resistance";
+      parameter SI.Resistance Rin(start=10^6) "Input resistance";
       Integer z;
       Real u;
 
@@ -4634,11 +4593,11 @@ Hence the output will change instantaneously when the trigger signal rises.
               extent={{60,-80},{80,-60}}, rotation=0), iconTransformation(
               extent={{60,-80},{80,-60}})));
 
-      Modelica_SIunits.Voltage vout;
+      SI.Voltage vout;
       Real y(start=0);
       parameter Integer N(final min=1, start=8)
         "Resolution - input signal width";
-      parameter Modelica_SIunits.Voltage Vref(start=10) "Reference voltage";
+      parameter SI.Voltage Vref(start=10) "Reference voltage";
 
     algorithm
       when trig == L.'1' or trig == L.'H' then
@@ -4720,7 +4679,6 @@ Modelica in file \"Modelica/package.mo\".</i>
           Line(points={{40,0},{90,0}}, color={0,0,0})}));
   end Ideal;
 
-
   package Lines
     "Lossy and lossless segmented transmission lines, and LC distributed line models"
     extends Modelica_Icons.Package;
@@ -4733,10 +4691,10 @@ Modelica in file \"Modelica/package.mo\".</i>
             transformation(extent={{90,-10},{110,10}}, rotation=0)));
       Modelica_Electrical_Analog_Interfaces.Pin p3 annotation (Placement(
             transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
-      Modelica_SIunits.Voltage v13;
-      Modelica_SIunits.Voltage v23;
-      Modelica_SIunits.Current i1;
-      Modelica_SIunits.Current i2;
+      SI.Voltage v13;
+      SI.Voltage v23;
+      SI.Current i1;
+      SI.Current i2;
       parameter Real r(
         final min=Modelica_Constants.small,
         unit="Ohm/m",
@@ -4753,36 +4711,35 @@ Modelica in file \"Modelica/package.mo\".</i>
         final min=Modelica_Constants.small,
         unit="F/m",
         start=1) "Capacitance per meter";
-      parameter Modelica_SIunits.Length length(final min=Modelica_Constants.small,
-          start=1) "Length of line";
+      parameter SI.Length length(final min=Modelica_Constants.small, start=1)
+        "Length of line";
       parameter Integer N(final min=1, start=1) "Number of lumped segments";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_R=0
+      parameter SI.LinearTemperatureCoefficient alpha_R=0
         "Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_G=0
+      parameter SI.LinearTemperatureCoefficient alpha_G=0
         "Temperature coefficient of conductance (G_actual = G_ref/(1 + alpha*(T_heatPort - T_ref))";
       parameter Boolean useHeatPort=false "=true, if HeatPort is enabled"
         annotation (
         Evaluate=true,
         HideResult=true,
         choices(checkBox=true));
-      parameter Modelica_SIunits.Temperature T=293.15
+      parameter SI.Temperature T=293.15
         "Fixed device temperature if useHeatPort = false"
         annotation (Dialog(enable=not useHeatPort));
-      parameter Modelica_SIunits.Temperature T_ref=300.15;
-      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort if useHeatPort
-        annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
-            iconTransformation(extent={{-80,-80},{-60,-60}})));
+      parameter SI.Temperature T_ref=300.15;
+      Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort if
+        useHeatPort annotation (Placement(transformation(extent={{-10,-110},{10,
+                -90}}), iconTransformation(extent={{-80,-80},{-60,-60}})));
     protected
-      Modelica_Electrical_Analog.Basic.Resistor R[N + 1](
+      Basic.Resistor R[N + 1](
         R=fill(r*length/(N + 1), N + 1),
         T_ref=fill(T_ref, N + 1),
         alpha=fill(alpha_R, N + 1),
         useHeatPort=fill(useHeatPort, N + 1),
         T=fill(T, N + 1));
-      Modelica_Electrical_Analog.Basic.Inductor L[N + 1](L=fill(l*length/(N + 1),
-            N + 1));
-      Modelica_Electrical_Analog.Basic.Capacitor C[N](C=fill(c*length/(N), N));
-      Modelica_Electrical_Analog.Basic.Conductor G[N](
+      Basic.Inductor L[N + 1](L=fill(l*length/(N + 1), N + 1));
+      Basic.Capacitor C[N](C=fill(c*length/(N), N));
+      Basic.Conductor G[N](
         G=fill(g*length/(N), N),
         T_ref=fill(T_ref, N),
         alpha=fill(alpha_G, N),
@@ -4869,8 +4826,8 @@ Modelica in file \"Modelica/package.mo\".</i>
 
     model M_OLine "Multiple OLine"
 
-      parameter Modelica_SIunits.Length length(final min=Modelica_Constants.small)=
-           0.1 "Length of line";
+      parameter SI.Length length(final min=Modelica_Constants.small)=0.1
+        "Length of line";
       parameter Integer N(final min=2) = 5 "Number of lumped segments";
       parameter Integer lines(final min=2) = 4 "Number of lines";
     protected
@@ -4895,19 +4852,19 @@ Modelica in file \"Modelica/package.mo\".</i>
         each final min=Modelica_Constants.small,
         each unit="F/m") = {2.38e-11,1.01e-10,8.56e-11,5.09e-12,2.71e-11,2.09e-11,
         7.16e-11,1.83e-11,1.23e-10,2.07e-11} "Capacitance per meter";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_R=0
+      parameter SI.LinearTemperatureCoefficient alpha_R=0
         "Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_G=0
+      parameter SI.LinearTemperatureCoefficient alpha_G=0
         "Temperature coefficient of conductance (G_actual = G_ref/(1 + alpha*(T_heatPort - T_ref))";
       parameter Boolean useHeatPort=false "=true, if HeatPort is enabled"
         annotation (
         Evaluate=true,
         HideResult=true,
         choices(checkBox=true));
-      parameter Modelica_SIunits.Temperature T=293.15
+      parameter SI.Temperature T=293.15
         "Fixed device temperature if useHeatPort = false"
         annotation (Dialog(enable=not useHeatPort));
-      parameter Modelica_SIunits.Temperature T_ref=300.15;
+      parameter SI.Temperature T_ref=300.15;
       Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort if useHeatPort
         annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
             iconTransformation(extent={{-80,-80},{-60,-60}})));
@@ -4930,39 +4887,39 @@ Modelica in file \"Modelica/package.mo\".</i>
           "Inductance matrix";
         parameter Real Gl[dim_vector_lgc]=fill(1, dim_vector_lgc)
           "Conductance matrix";
-        parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_R
+        parameter SI.LinearTemperatureCoefficient alpha_R
           "Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))";
-        parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_G
+        parameter SI.LinearTemperatureCoefficient alpha_G
           "Temperature coefficient of conductance (G_actual = G_ref/(1 + alpha*(T_heatPort - T_ref))";
         parameter Boolean useHeatPort=false "=true, if HeatPort is enabled"
           annotation (
           Evaluate=true,
           HideResult=true,
           choices(checkBox=true));
-        parameter Modelica_SIunits.Temperature T=293.15
+        parameter SI.Temperature T=293.15
           "Fixed device temperature if useHeatPort = false"
           annotation (Dialog(enable=not useHeatPort));
-        parameter Modelica_SIunits.Temperature T_ref;
+        parameter SI.Temperature T_ref;
 
         Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort if
           useHeatPort annotation (Placement(transformation(extent={{-10,-110},{10,
                   -90}}), iconTransformation(extent={{-80,-80},{-60,-60}})));
 
-        Modelica_Electrical_Analog.Basic.Capacitor C[dim_vector_lgc](C=Cl);
-        Modelica_Electrical_Analog.Basic.Resistor R[lines](
+        Basic.Capacitor C[dim_vector_lgc](C=Cl);
+        Basic.Resistor R[lines](
           R=Rl,
           T_ref=fill(T_ref, lines),
           alpha=fill(alpha_R, lines),
           useHeatPort=fill(useHeatPort, lines),
           T=fill(T, lines));
-        Modelica_Electrical_Analog.Basic.Conductor G[dim_vector_lgc](
+        Basic.Conductor G[dim_vector_lgc](
           G=Gl,
           T_ref=fill(T_ref, dim_vector_lgc),
           alpha=fill(alpha_G, dim_vector_lgc),
           useHeatPort=fill(useHeatPort, dim_vector_lgc),
           T=fill(T, dim_vector_lgc));
-        Modelica_Electrical_Analog.Basic.M_Transformer inductance(N=lines, L=Ll);
-        Modelica_Electrical_Analog.Basic.Ground M;
+        Basic.M_Transformer inductance(N=lines, L=Ll);
+        Basic.Ground M;
 
       equation
         for j in 1:lines - 1 loop
@@ -5032,27 +4989,27 @@ Modelica in file \"Modelica/package.mo\".</i>
         parameter Real Rl[lines]=fill(1, lines) "Resistance matrix";
         parameter Real Ll[dim_vector_lgc]=fill(1, dim_vector_lgc)
           "Inductance matrix";
-        parameter Modelica_SIunits.LinearTemperatureCoefficient alpha_R
+        parameter SI.LinearTemperatureCoefficient alpha_R
           "Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))";
         parameter Boolean useHeatPort=false "=true, if HeatPort is enabled"
           annotation (
           Evaluate=true,
           HideResult=true,
           choices(checkBox=true));
-        parameter Modelica_SIunits.Temperature T=293.15
+        parameter SI.Temperature T=293.15
           "Fixed device temperature if useHeatPort = false"
           annotation (Dialog(enable=not useHeatPort));
-        parameter Modelica_SIunits.Temperature T_ref;
+        parameter SI.Temperature T_ref;
         Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort if
           useHeatPort annotation (Placement(transformation(extent={{-10,-110},{10,
                   -90}}), iconTransformation(extent={{-80,-80},{-60,-60}})));
-        Modelica_Electrical_Analog.Basic.Resistor R[lines](
+        Basic.Resistor R[lines](
           R=Rl,
           T_ref=fill(T_ref, lines),
           useHeatPort=fill(useHeatPort, lines),
           T=fill(T, lines));
-        Modelica_Electrical_Analog.Basic.M_Transformer inductance(N=lines, L=Ll);
-        Modelica_Electrical_Analog.Basic.Ground M;
+        Basic.M_Transformer inductance(N=lines, L=Ll);
+        Basic.Ground M;
 
       equation
         for j in 1:lines - 1 loop
@@ -5246,10 +5203,10 @@ Modelica in file \"Modelica/package.mo\".</i>
       Modelica_Electrical_Analog_Interfaces.Pin p3 annotation (Placement(
             transformation(extent={{-10,-110},{10,-90}}, rotation=0),
             iconTransformation(extent={{-10,-110},{10,-90}})));
-      Modelica_SIunits.Voltage v13;
-      Modelica_SIunits.Voltage v23;
-      Modelica_SIunits.Current i1;
-      Modelica_SIunits.Current i2;
+      SI.Voltage v13;
+      SI.Voltage v23;
+      SI.Current i1;
+      SI.Current i2;
       parameter Real r(
         final min=Modelica_Constants.small,
         unit="Ohm/m",
@@ -5258,31 +5215,31 @@ Modelica in file \"Modelica/package.mo\".</i>
         final min=Modelica_Constants.small,
         unit="F/m",
         start=1) "Capacitance per meter";
-      parameter Modelica_SIunits.Length length(final min=Modelica_Constants.small,
-          start=1) "Length of line";
+      parameter SI.Length length(final min=Modelica_Constants.small, start=1)
+        "Length of line";
       parameter Integer N(final min=1, start=1) "Number of lumped segments";
-      parameter Modelica_SIunits.LinearTemperatureCoefficient alpha=0
+      parameter SI.LinearTemperatureCoefficient alpha=0
         "Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))";
       parameter Boolean useHeatPort=false "=true, if HeatPort is enabled"
         annotation (
         Evaluate=true,
         HideResult=true,
         choices(checkBox=true));
-      parameter Modelica_SIunits.Temperature T=293.15
+      parameter SI.Temperature T=293.15
         "Fixed device temperature if useHeatPort = false"
         annotation (Dialog(enable=not useHeatPort));
-      parameter Modelica_SIunits.Temperature T_ref=300.15;
+      parameter SI.Temperature T_ref=300.15;
       Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort if useHeatPort
         annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
             iconTransformation(extent={{-80,-80},{-60,-60}})));
     protected
-      Modelica_Electrical_Analog.Basic.Resistor R[N + 1](
+      Basic.Resistor R[N + 1](
         R=fill(r*length/(N + 1), N + 1),
         T_ref=fill(T_ref, N + 1),
         alpha=fill(alpha, N + 1),
         useHeatPort=fill(useHeatPort, N + 1),
         T=fill(T, N + 1));
-      Modelica_Electrical_Analog.Basic.Capacitor C[N](C=fill(c*length/(N), N));
+      Basic.Capacitor C[N](C=fill(c*length/(N), N));
     equation
       v13 = p1.v - p3.v;
       v23 = p2.v - p3.v;
@@ -5360,12 +5317,11 @@ The capacitances are calculated with: C=c*length/N.
       "Lossless transmission line with characteristic impedance Z0 and transmission delay TD"
 
       extends Modelica_Electrical_Analog_Interfaces.TwoPort;
-      parameter Modelica_SIunits.Resistance Z0(start=1)
-        "Characteristic impedance";
-      parameter Modelica_SIunits.Time TD(start=1) "Transmission delay";
+      parameter SI.Resistance Z0(start=1) "Characteristic impedance";
+      parameter SI.Time TD(start=1) "Transmission delay";
     protected
-      Modelica_SIunits.Voltage er;
-      Modelica_SIunits.Voltage es;
+      SI.Voltage er;
+      SI.Voltage es;
     equation
       assert(Z0 > 0, "Z0 has to be positive");
       assert(TD > 0, "TD has to be positive");
@@ -5432,14 +5388,13 @@ The capacitances are calculated with: C=c*length/N.
       "Lossless transmission line with characteristic impedance Z0, frequency F and normalized length NL"
 
       extends Modelica_Electrical_Analog_Interfaces.TwoPort;
-      parameter Modelica_SIunits.Resistance Z0(start=1)
-        "Characteristic impedance";
-      parameter Modelica_SIunits.Frequency F(start=1) "Frequency";
+      parameter SI.Resistance Z0(start=1) "Characteristic impedance";
+      parameter SI.Frequency F(start=1) "Frequency";
       parameter Real NL(start=1) "Normalized length";
     protected
-      Modelica_SIunits.Voltage er;
-      Modelica_SIunits.Voltage es;
-      parameter Modelica_SIunits.Time TD=NL/F;
+      SI.Voltage er;
+      SI.Voltage es;
+      parameter SI.Time TD=NL/F;
     equation
       assert(Z0 > 0, "Z0 has to be positive");
       assert(NL > 0, "NL has to be positive");
@@ -5502,12 +5457,12 @@ The capacitances are calculated with: C=c*length/N.
     model TLine3
       "Lossless transmission line with characteristic impedance Z0 and frequency F"
       extends Modelica_Electrical_Analog_Interfaces.TwoPort;
-      parameter Modelica_SIunits.Resistance Z0(start=1) "Natural impedance";
-      parameter Modelica_SIunits.Frequency F(start=1) "Frequency";
+      parameter SI.Resistance Z0(start=1) "Natural impedance";
+      parameter SI.Frequency F(start=1) "Frequency";
     protected
-      Modelica_SIunits.Voltage er;
-      Modelica_SIunits.Voltage es;
-      parameter Modelica_SIunits.Time TD=1/F/4;
+      SI.Voltage er;
+      SI.Voltage es;
+      parameter SI.Time TD=1/F/4;
     equation
       assert(Z0 > 0, "Z0 has to be positive");
       assert(F > 0, "F has to be positive");
@@ -5617,12 +5572,12 @@ Modelica in file \"Modelica/package.mo\".</i>
 
     model Diode "Simple diode"
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
-      parameter Modelica_SIunits.Current Ids=1.e-6 "Saturation current";
-      parameter Modelica_SIunits.Voltage Vt=0.04
+      parameter SIunits.Current Ids=1.e-6 "Saturation current";
+      parameter SIunits.Voltage Vt=0.04
         "Voltage equivalent of temperature (kT/qn)";
       parameter Real Maxexp(final min=Modelica_Constants.small) = 15
         "Max. exponent for linear continuation";
-      parameter Modelica_SIunits.Resistance R=1.e8 "Parallel ohmic resistance";
+      parameter SIunits.Resistance R=1.e8 "Parallel ohmic resistance";
       extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=
             293.15);
     equation
@@ -5688,15 +5643,15 @@ Modelica in file \"Modelica/package.mo\".</i>
 
    model ZDiode "Zener diode with 3 working areas"
      extends Modelica_Electrical_Analog_Interfaces.OnePort;
-     parameter Modelica_SIunits.Current Ids=1.e-6 "Saturation current";
-     parameter Modelica_SIunits.Voltage Vt=0.04
+     parameter SIunits.Current Ids=1.e-6 "Saturation current";
+     parameter SIunits.Voltage Vt=0.04
         "Voltage equivalent of temperature (kT/qn)";
      parameter Real Maxexp(final min=Modelica_Constants.small) = 30
         "Max. exponent for linear continuation";
-     parameter Modelica_SIunits.Resistance R=1.e8 "Parallel ohmic resistance";
-     parameter Modelica_SIunits.Voltage Bv=5.1
+     parameter SIunits.Resistance R=1.e8 "Parallel ohmic resistance";
+     parameter SIunits.Voltage Bv=5.1
         "Breakthrough voltage = Zener- or Z-voltage";
-     parameter Modelica_SIunits.Current Ibv=0.7 "Breakthrough knee current";
+     parameter SIunits.Current Ibv=0.7 "Breakthrough knee current";
      parameter Real Nbv=0.74 "Breakthrough emission coefficient";
      extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=293.15);
 
@@ -5768,16 +5723,16 @@ Modelica in file \"Modelica/package.mo\".</i>
           Placement(transformation(extent={{90,-40},{110,-60}}, rotation=0)));
       Modelica_Electrical_Analog_Interfaces.Pin B "Bulk" annotation (Placement(
             transformation(extent={{90,-10},{110,10}}, rotation=0)));
-      parameter Modelica_SIunits.Length W=20.0e-6 "Width";
-      parameter Modelica_SIunits.Length L=6.0e-6 "Length";
-      parameter Modelica_SIunits.Transconductance Beta=0.0105e-3
+      parameter SIunits.Length W=20.0e-6 "Width";
+      parameter SIunits.Length L=6.0e-6 "Length";
+      parameter SIunits.Transconductance Beta=0.0105e-3
         "Transconductance parameter";
-      parameter Modelica_SIunits.Voltage Vt=-1.0 "Zero bias threshold voltage";
+      parameter SIunits.Voltage Vt=-1.0 "Zero bias threshold voltage";
     parameter Real K2=0.41 "Bulk threshold parameter";
     parameter Real K5=0.839 "Reduction of pinch-off region";
-      parameter Modelica_SIunits.Length dW=-2.5e-6 "Narrowing of channel";
-      parameter Modelica_SIunits.Length dL=-2.1e-6 "Shortening of channel";
-      parameter Modelica_SIunits.Resistance RDS=1.e+7 "Drain-Source-Resistance";
+      parameter SIunits.Length dW=-2.5e-6 "Narrowing of channel";
+      parameter SIunits.Length dL=-2.1e-6 "Shortening of channel";
+      parameter SIunits.Resistance RDS=1.e+7 "Drain-Source-Resistance";
     extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=293.15);
     protected
     Real v;
@@ -5909,16 +5864,16 @@ Some typical parameter sets are:
           Placement(transformation(extent={{90,-40},{110,-60}}, rotation=0)));
       Modelica_Electrical_Analog_Interfaces.Pin B "Bulk" annotation (Placement(
             transformation(extent={{90,-10},{110,10}}, rotation=0)));
-      parameter Modelica_SIunits.Length W=20.e-6 "Width";
-      parameter Modelica_SIunits.Length L=6.e-6 "Length";
-      parameter Modelica_SIunits.Transconductance Beta=0.041e-3
+      parameter SIunits.Length W=20.e-6 "Width";
+      parameter SIunits.Length L=6.e-6 "Length";
+      parameter SIunits.Transconductance Beta=0.041e-3
         "Transconductance parameter";
-      parameter Modelica_SIunits.Voltage Vt=0.8 "Zero bias threshold voltage";
+      parameter SIunits.Voltage Vt=0.8 "Zero bias threshold voltage";
     parameter Real K2=1.144 "Bulk threshold parameter";
     parameter Real K5=0.7311 "Reduction of pinch-off region";
-      parameter Modelica_SIunits.Length dW=-2.5e-6 "narrowing of channel";
-      parameter Modelica_SIunits.Length dL=-1.5e-6 "shortening of channel";
-      parameter Modelica_SIunits.Resistance RDS=1.e+7 "Drain-Source-Resistance";
+      parameter SIunits.Length dW=-2.5e-6 "narrowing of channel";
+      parameter SIunits.Length dL=-1.5e-6 "shortening of channel";
+      parameter SIunits.Resistance RDS=1.e+7 "Drain-Source-Resistance";
     extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=293.15);
     protected
     Real v;
@@ -6051,33 +6006,27 @@ Muenchen Wien 1990.</DD>
   model NPN "Simple BJT according to Ebers-Moll"
     parameter Real Bf=50 "Forward beta";
     parameter Real Br=0.1 "Reverse beta";
-      parameter Modelica_SIunits.Current Is=1.e-16
-        "Transport saturation current";
-      parameter Modelica_SIunits.InversePotential Vak=0.02
+      parameter SIunits.Current Is=1.e-16 "Transport saturation current";
+      parameter SIunits.InversePotential Vak=0.02
         "Early voltage (inverse), 1/Volt";
-      parameter Modelica_SIunits.Time Tauf=0.12e-9 "Ideal forward transit time";
-      parameter Modelica_SIunits.Time Taur=5e-9 "Ideal reverse transit time";
-      parameter Modelica_SIunits.Capacitance Ccs=1e-12
+      parameter SIunits.Time Tauf=0.12e-9 "Ideal forward transit time";
+      parameter SIunits.Time Taur=5e-9 "Ideal reverse transit time";
+      parameter SIunits.Capacitance Ccs=1e-12
         "Collector-substrate(ground) cap.";
-      parameter Modelica_SIunits.Capacitance Cje=0.4e-12
+      parameter SIunits.Capacitance Cje=0.4e-12
         "Base-emitter zero bias depletion cap.";
-      parameter Modelica_SIunits.Capacitance Cjc=0.5e-12
+      parameter SIunits.Capacitance Cjc=0.5e-12
         "Base-coll. zero bias depletion cap.";
-      parameter Modelica_SIunits.Voltage Phie=0.8
-        "Base-emitter diffusion voltage";
+      parameter SIunits.Voltage Phie=0.8 "Base-emitter diffusion voltage";
     parameter Real Me=0.4 "Base-emitter gradation exponent";
-      parameter Modelica_SIunits.Voltage Phic=0.8
-        "Base-collector diffusion voltage";
+      parameter SIunits.Voltage Phic=0.8 "Base-collector diffusion voltage";
     parameter Real Mc=0.333 "Base-collector gradation exponent";
-      parameter Modelica_SIunits.Conductance Gbc=1e-15
-        "Base-collector conductance";
-      parameter Modelica_SIunits.Conductance Gbe=1e-15
-        "Base-emitter conductance";
-      parameter Modelica_SIunits.Voltage Vt=0.02585
-        "Voltage equivalent of temperature";
+      parameter SIunits.Conductance Gbc=1e-15 "Base-collector conductance";
+      parameter SIunits.Conductance Gbe=1e-15 "Base-emitter conductance";
+      parameter SIunits.Voltage Vt=0.02585 "Voltage equivalent of temperature";
     parameter Real EMin=-100 "if x < EMin, the exp(x) function is linearized";
     parameter Real EMax=40 "if x > EMax, the exp(x) function is linearized";
-    parameter Modelica_SIunits.Voltage IC=0 "Initial Value";
+    parameter SIunits.Voltage IC=0 "Initial Value";
     parameter Boolean UIC = false;
 
     extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=293.15);
@@ -6220,30 +6169,24 @@ on page 317 ff.</DD>
   model PNP "Simple BJT according to Ebers-Moll"
     parameter Real Bf=50 "Forward beta";
     parameter Real Br=0.1 "Reverse beta";
-      parameter Modelica_SIunits.Current Is=1.e-16
-        "Transport saturation current";
-      parameter Modelica_SIunits.InversePotential Vak=0.02
+      parameter SIunits.Current Is=1.e-16 "Transport saturation current";
+      parameter SIunits.InversePotential Vak=0.02
         "Early voltage (inverse), 1/Volt";
-      parameter Modelica_SIunits.Time Tauf=0.12e-9 "Ideal forward transit time";
-      parameter Modelica_SIunits.Time Taur=5e-9 "Ideal reverse transit time";
-      parameter Modelica_SIunits.Capacitance Ccs=1e-12
+      parameter SIunits.Time Tauf=0.12e-9 "Ideal forward transit time";
+      parameter SIunits.Time Taur=5e-9 "Ideal reverse transit time";
+      parameter SIunits.Capacitance Ccs=1e-12
         "Collector-substrate(ground) cap.";
-      parameter Modelica_SIunits.Capacitance Cje=0.4e-12
+      parameter SIunits.Capacitance Cje=0.4e-12
         "Base-emitter zero bias depletion cap.";
-      parameter Modelica_SIunits.Capacitance Cjc=0.5e-12
+      parameter SIunits.Capacitance Cjc=0.5e-12
         "Base-coll. zero bias depletion cap.";
-      parameter Modelica_SIunits.Voltage Phie=0.8
-        "Base-emitter diffusion voltage";
+      parameter SIunits.Voltage Phie=0.8 "Base-emitter diffusion voltage";
     parameter Real Me=0.4 "Base-emitter gradation exponent";
-      parameter Modelica_SIunits.Voltage Phic=0.8
-        "Base-collector diffusion voltage";
+      parameter SIunits.Voltage Phic=0.8 "Base-collector diffusion voltage";
     parameter Real Mc=0.333 "Base-collector gradation exponent";
-      parameter Modelica_SIunits.Conductance Gbc=1e-15
-        "Base-collector conductance";
-      parameter Modelica_SIunits.Conductance Gbe=1e-15
-        "Base-emitter conductance";
-      parameter Modelica_SIunits.Voltage Vt=0.02585
-        "Voltage equivalent of temperature";
+      parameter SIunits.Conductance Gbc=1e-15 "Base-collector conductance";
+      parameter SIunits.Conductance Gbe=1e-15 "Base-emitter conductance";
+      parameter SIunits.Voltage Vt=0.02585 "Voltage equivalent of temperature";
     parameter Real EMin=-100 "if x < EMin, the exp(x) function is linearized";
     parameter Real EMax=40 "if x > EMax, the exp(x) function is linearized";
     extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=293.15);
@@ -6381,25 +6324,25 @@ on page 317 ff.</DD>
 
   model HeatingDiode "Simple diode with heating port"
     extends Modelica_Electrical_Analog_Interfaces.OnePort;
-    parameter Modelica_SIunits.Current Ids=1.e-6 "Saturation current";
+    parameter SIunits.Current Ids=1.e-6 "Saturation current";
     /* parameter Modelica.SIunits.Voltage Vt=0.04 "Voltage equivalent of temperature (kT/qn)"; */
     parameter Real Maxexp(final min=Modelica_Constants.small) = 15
         "Max. exponent for linear continuation";
-    parameter Modelica_SIunits.Resistance R=1.e8 "Parallel ohmic resistance";
+    parameter SIunits.Resistance R=1.e8 "Parallel ohmic resistance";
     parameter Real EG=1.11 "activation energy";
     parameter Real N=1 "Emission coefficient";
-    parameter Modelica_SIunits.Temperature TNOM=300.15
+    parameter SIunits.Temperature TNOM=300.15
         "Parameter measurement temperature";
     parameter Real XTI=3 "Temperature exponent of saturation current";
     extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(
           useHeatPort=true);
 
-    Modelica_SIunits.Temperature vt_t "Temperature voltage";
-    Modelica_SIunits.Current id "diode current";
+    SIunits.Temperature vt_t "Temperature voltage";
+    SIunits.Current id "diode current";
     protected
     Real k=1.380662e-23 "Boltzmann's constant, J/K";
     Real q=1.6021892e-19 "Electron charge, As";
-    Modelica_SIunits.Temperature htemp "auxiliary temperature";
+    SIunits.Temperature htemp "auxiliary temperature";
     Real aux;
     Real auxp;
     Real maxexp=exp(Maxexp);
@@ -6490,20 +6433,17 @@ The thermal power is calculated by <i>i*v</i>.
           Placement(transformation(extent={{90,-40},{110,-60}}, rotation=0)));
             Modelica_Electrical_Analog_Interfaces.Pin B "Bulk" annotation (
           Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
-            parameter Modelica_SIunits.Length W=20.e-6 "Width";
-            parameter Modelica_SIunits.Length L=6.e-6 "Length";
-            parameter Modelica_SIunits.Transconductance Beta=0.041e-3
+            parameter SIunits.Length W=20.e-6 "Width";
+            parameter SIunits.Length L=6.e-6 "Length";
+            parameter SIunits.Transconductance Beta=0.041e-3
         "Transconductance parameter";
-            parameter Modelica_SIunits.Voltage Vt=0.8
-        "Zero bias threshold voltage";
+            parameter SIunits.Voltage Vt=0.8 "Zero bias threshold voltage";
             parameter Real K2=1.144 "Bulk threshold parameter";
             parameter Real K5=0.7311 "Reduction of pinch-off region";
-            parameter Modelica_SIunits.Length dW=-2.5e-6 "Narrowing of channel";
-            parameter Modelica_SIunits.Length dL=-1.5e-6
-        "Shortening of channel";
-            parameter Modelica_SIunits.Resistance RDS=1.e+7
-        "Drain-Source-Resistance";
-            parameter Modelica_SIunits.Temperature Tnom=300.15
+            parameter SIunits.Length dW=-2.5e-6 "Narrowing of channel";
+            parameter SIunits.Length dL=-1.5e-6 "Shortening of channel";
+            parameter SIunits.Resistance RDS=1.e+7 "Drain-Source-Resistance";
+            parameter SIunits.Temperature Tnom=300.15
         "Parameter measurement temperature";
             parameter Real kvt=-6.96e-3 "Fitting parameter for Vt";
             parameter Real kk2=6.0e-4 "Fitting parameter for K2";
@@ -6640,20 +6580,17 @@ The thermal power is calculated by <i>i*v</i>.
           Placement(transformation(extent={{90,-40},{110,-60}}, rotation=0)));
             Modelica_Electrical_Analog_Interfaces.Pin B "Bulk" annotation (
           Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
-            parameter Modelica_SIunits.Length W=20.0e-6 "Width";
-            parameter Modelica_SIunits.Length L=6.0e-6 "Length";
-            parameter Modelica_SIunits.Transconductance Beta=0.0105e-3
+            parameter SIunits.Length W=20.0e-6 "Width";
+            parameter SIunits.Length L=6.0e-6 "Length";
+            parameter SIunits.Transconductance Beta=0.0105e-3
         "Transconductance parameter";
-            parameter Modelica_SIunits.Voltage Vt=-1.0
-        "Zero bias threshold voltage";
+            parameter SIunits.Voltage Vt=-1.0 "Zero bias threshold voltage";
             parameter Real K2=0.41 "Bulk threshold parameter";
             parameter Real K5=0.839 "Reduction of pinch-off region";
-            parameter Modelica_SIunits.Length dW=-2.5e-6 "Narrowing of channel";
-            parameter Modelica_SIunits.Length dL=-2.1e-6
-        "Shortening of channel";
-            parameter Modelica_SIunits.Resistance RDS=1.e+7
-        "Drain-Source-Resistance";
-            parameter Modelica_SIunits.Temperature Tnom=300.15
+            parameter SIunits.Length dW=-2.5e-6 "Narrowing of channel";
+            parameter SIunits.Length dL=-2.1e-6 "Shortening of channel";
+            parameter SIunits.Resistance RDS=1.e+7 "Drain-Source-Resistance";
+            parameter SIunits.Temperature Tnom=300.15
         "Parameter measurement temperature";
             parameter Real kvt=-2.9e-3 "Fitting parameter for Vt";
             parameter Real kk2=6.2e-4 "Fitting parameter for K2";
@@ -6773,35 +6710,30 @@ The thermal power is calculated by <i>i*v</i>.
       "Simple NPN BJT according to Ebers-Moll with heating port"
             parameter Real Bf=50 "Forward beta";
             parameter Real Br=0.1 "Reverse beta";
-            parameter Modelica_SIunits.Current Is=1.e-16
-        "Transport saturation current";
-            parameter Modelica_SIunits.InversePotential Vak=0.02
+            parameter SIunits.Current Is=1.e-16 "Transport saturation current";
+            parameter SIunits.InversePotential Vak=0.02
         "Early voltage (inverse), 1/Volt";
-            parameter Modelica_SIunits.Time Tauf=0.12e-9
-        "Ideal forward transit time";
-            parameter Modelica_SIunits.Time Taur=5e-9
-        "Ideal reverse transit time";
-            parameter Modelica_SIunits.Capacitance Ccs=1e-12
+            parameter SIunits.Time Tauf=0.12e-9 "Ideal forward transit time";
+            parameter SIunits.Time Taur=5e-9 "Ideal reverse transit time";
+            parameter SIunits.Capacitance Ccs=1e-12
         "Collector-substrate(ground) cap.";
-            parameter Modelica_SIunits.Capacitance Cje=0.4e-12
+            parameter SIunits.Capacitance Cje=0.4e-12
         "Base-emitter zero bias depletion cap.";
-            parameter Modelica_SIunits.Capacitance Cjc=0.5e-12
+            parameter SIunits.Capacitance Cjc=0.5e-12
         "Base-coll. zero bias depletion cap.";
-            parameter Modelica_SIunits.Voltage Phie=0.8
-        "Base-emitter diffusion voltage";
+            parameter SIunits.Voltage Phie=0.8 "Base-emitter diffusion voltage";
             parameter Real Me=0.4 "Base-emitter gradation exponent";
-            parameter Modelica_SIunits.Voltage Phic=0.8
+            parameter SIunits.Voltage Phic=0.8
         "Base-collector diffusion voltage";
             parameter Real Mc=0.333 "Base-collector gradation exponent";
-            parameter Modelica_SIunits.Conductance Gbc=1e-15
+            parameter SIunits.Conductance Gbc=1e-15
         "Base-collector conductance";
-            parameter Modelica_SIunits.Conductance Gbe=1e-15
-        "Base-emitter conductance";
+            parameter SIunits.Conductance Gbe=1e-15 "Base-emitter conductance";
             parameter Real EMin=-100
         "if x < EMin, the exp(x) function is linearized";
             parameter Real EMax=40
         "if x > EMax, the exp(x) function is linearized";
-            parameter Modelica_SIunits.Temperature Tnom=300.15
+            parameter SIunits.Temperature Tnom=300.15
         "Parameter measurement temperature";
             parameter Real XTI=3 "Temperature exponent for effect on Is";
             parameter Real XTB=0
@@ -6943,35 +6875,30 @@ The thermal power is calculated by <i>i*v</i>.
       "Simple PNP BJT according to Ebers-Moll with heating port"
             parameter Real Bf=50 "Forward beta";
             parameter Real Br=0.1 "Reverse beta";
-            parameter Modelica_SIunits.Current Is=1.e-16
-        "Transport saturation current";
-            parameter Modelica_SIunits.InversePotential Vak=0.02
+            parameter SIunits.Current Is=1.e-16 "Transport saturation current";
+            parameter SIunits.InversePotential Vak=0.02
         "Early voltage (inverse), 1/Volt";
-            parameter Modelica_SIunits.Time Tauf=0.12e-9
-        "Ideal forward transit time";
-            parameter Modelica_SIunits.Time Taur=5e-9
-        "Ideal reverse transit time";
-            parameter Modelica_SIunits.Capacitance Ccs=1e-12
+            parameter SIunits.Time Tauf=0.12e-9 "Ideal forward transit time";
+            parameter SIunits.Time Taur=5e-9 "Ideal reverse transit time";
+            parameter SIunits.Capacitance Ccs=1e-12
         "Collector-substrate(ground) cap.";
-            parameter Modelica_SIunits.Capacitance Cje=0.4e-12
+            parameter SIunits.Capacitance Cje=0.4e-12
         "Base-emitter zero bias depletion cap.";
-            parameter Modelica_SIunits.Capacitance Cjc=0.5e-12
+            parameter SIunits.Capacitance Cjc=0.5e-12
         "Base-coll. zero bias depletion cap.";
-            parameter Modelica_SIunits.Voltage Phie=0.8
-        "Base-emitter diffusion voltage";
+            parameter SIunits.Voltage Phie=0.8 "Base-emitter diffusion voltage";
             parameter Real Me=0.4 "Base-emitter gradation exponent";
-            parameter Modelica_SIunits.Voltage Phic=0.8
+            parameter SIunits.Voltage Phic=0.8
         "Base-collector diffusion voltage";
             parameter Real Mc=0.333 "Base-collector gradation exponent";
-            parameter Modelica_SIunits.Conductance Gbc=1e-15
+            parameter SIunits.Conductance Gbc=1e-15
         "Base-collector conductance";
-            parameter Modelica_SIunits.Conductance Gbe=1e-15
-        "Base-emitter conductance";
+            parameter SIunits.Conductance Gbe=1e-15 "Base-emitter conductance";
             parameter Real EMin=-100
         "if x < EMin, the exp(x) function is linearized";
             parameter Real EMax=40
         "if x > EMax, the exp(x) function is linearized";
-            parameter Modelica_SIunits.Temperature Tnom=300.15
+            parameter SIunits.Temperature Tnom=300.15
         "Parameter measurement temperature";
             parameter Real XTI=3 "Temperature exponent for effect on Is";
             parameter Real XTB=0
@@ -7134,21 +7061,21 @@ The thermal power is calculated by <i>i*v</i>.
 
   public
     model Thyristor "Simple Thyristor Model"
-      parameter Modelica_SIunits.Voltage VDRM(final min=0) = 100
+      parameter SIunits.Voltage VDRM(final min=0)=100
         "Forward breakthrough voltage";
-      parameter Modelica_SIunits.Voltage VRRM(final min=0) = 100
+      parameter SIunits.Voltage VRRM(final min=0)=100
         "Reverse breakthrough voltage";
-      parameter Modelica_SIunits.Current IDRM=0.1 "Saturation current";
-      parameter Modelica_SIunits.Voltage VTM= 1.7 "Conducting voltage";
-      parameter Modelica_SIunits.Current IH=6e-3 "Holding current";
-      parameter Modelica_SIunits.Current ITM= 25 "Conducting current";
+      parameter SIunits.Current IDRM=0.1 "Saturation current";
+      parameter SIunits.Voltage VTM=1.7 "Conducting voltage";
+      parameter SIunits.Current IH=6e-3 "Holding current";
+      parameter SIunits.Current ITM=25 "Conducting current";
 
-      parameter Modelica_SIunits.Voltage VGT= 0.7 "Gate trigger voltage";
-      parameter Modelica_SIunits.Current IGT= 5e-3 "Gate trigger current";
+      parameter SIunits.Voltage VGT=0.7 "Gate trigger voltage";
+      parameter SIunits.Current IGT=5e-3 "Gate trigger current";
 
-      parameter Modelica_SIunits.Time TON = 1e-6 "Switch on time";
-      parameter Modelica_SIunits.Time TOFF = 15e-6 "Switch off time";
-      parameter Modelica_SIunits.Voltage Vt=0.04
+      parameter SIunits.Time TON=1e-6 "Switch on time";
+      parameter SIunits.Time TOFF=15e-6 "Switch off time";
+      parameter SIunits.Voltage Vt=0.04
         "Voltage equivalent of temperature (kT/qn)";
       parameter Real Nbv=0.74 "Reverse Breakthrough emission coefficient";
      extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort;
@@ -7171,11 +7098,11 @@ The thermal power is calculated by <i>i*v</i>.
             iconTransformation(extent={{60,80},{80,100}})));
 
     protected
-      parameter Modelica_SIunits.Voltage Von=5;
-      parameter Modelica_SIunits.Voltage Voff= 1.5;
-      parameter Modelica_SIunits.Resistance Ron=(VTM-0.7)/ITM
+      parameter SIunits.Voltage Von=5;
+      parameter SIunits.Voltage Voff=1.5;
+      parameter SIunits.Resistance Ron=(VTM - 0.7)/ITM
         "Forward conducting mode resistance";
-      parameter Modelica_SIunits.Resistance Roff=(VDRM^2)/VTM/IH
+      parameter SIunits.Resistance Roff=(VDRM^2)/VTM/IH
         "Blocking mode resistance";
 
     equation
@@ -7318,21 +7245,21 @@ The thermal power is calculated by <i>i*v</i>.
 
     model SimpleTriac "Simple triac, based on Semiconductors.Thyristor model"
 
-      parameter Modelica_SIunits.Voltage VDRM(final min=0) = 100
+      parameter SIunits.Voltage VDRM(final min=0)=100
         "Forward breakthrough voltage";
-      parameter Modelica_SIunits.Voltage VRRM(final min=0) = 100
+      parameter SIunits.Voltage VRRM(final min=0)=100
         "Reverse breakthrough voltage";
-      parameter Modelica_SIunits.Current IDRM=0.1 "Saturation current";
-      parameter Modelica_SIunits.Voltage VTM= 1.7 "Conducting voltage";
-      parameter Modelica_SIunits.Current IH=6e-3 "Holding current";
-      parameter Modelica_SIunits.Current ITM= 25 "Conducting current";
+      parameter SIunits.Current IDRM=0.1 "Saturation current";
+      parameter SIunits.Voltage VTM=1.7 "Conducting voltage";
+      parameter SIunits.Current IH=6e-3 "Holding current";
+      parameter SIunits.Current ITM=25 "Conducting current";
 
-      parameter Modelica_SIunits.Voltage VGT= 0.7 "Gate trigger voltage";
-      parameter Modelica_SIunits.Current IGT= 5e-3 "Gate trigger current";
+      parameter SIunits.Voltage VGT=0.7 "Gate trigger voltage";
+      parameter SIunits.Current IGT=5e-3 "Gate trigger current";
 
-      parameter Modelica_SIunits.Time TON = 1e-6 "Switch on time";
-      parameter Modelica_SIunits.Time TOFF = 15e-6 "Switch off time";
-      parameter Modelica_SIunits.Voltage Vt=0.04
+      parameter SIunits.Time TON=1e-6 "Switch on time";
+      parameter SIunits.Time TOFF=15e-6 "Switch off time";
+      parameter SIunits.Voltage Vt=0.04
         "Voltage equivalent of temperature (kT/qn)";
       parameter Real Nbv=0.74 "Reverse Breakthrough emission coefficient";
 
@@ -7342,12 +7269,12 @@ The thermal power is calculated by <i>i*v</i>.
         annotation (Placement(transformation(extent={{94,-10},{114,10}})));
       Modelica_Electrical_Analog_Interfaces.PositivePin g "Gate"
         annotation (Placement(transformation(extent={{-72,-106},{-52,-86}})));
-      Modelica_Electrical_Analog.Semiconductors.Thyristor thyristor(
+      Thyristor thyristor(
         VDRM=VDRM,
         VRRM=VRRM,
         useHeatPort=useHeatPort,
         T=T) annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-      Modelica_Electrical_Analog.Semiconductors.Thyristor thyristor1(
+      Thyristor thyristor1(
         VDRM=VDRM,
         VRRM=VRRM,
         useHeatPort=useHeatPort,
@@ -7356,18 +7283,19 @@ The thermal power is calculated by <i>i*v</i>.
             rotation=180,
             origin={-12,-40})));
 
-      Modelica_Electrical_Analog.Ideal.IdealDiode idealDiode(Vknee=0)
+      Ideal.IdealDiode idealDiode(Vknee=0)
         annotation (Placement(transformation(extent={{-40,58},{-20,78}})));
-      Modelica_Electrical_Analog.Ideal.IdealDiode idealDiode1(Vknee=0)
-        annotation (Placement(transformation(
+      Ideal.IdealDiode idealDiode1(Vknee=0) annotation (Placement(
+            transformation(
             extent={{-10,-10},{10,10}},
             rotation=90,
             origin={-20,-72})));
 
     parameter Boolean useHeatPort = false "=true, if HeatPort is enabled"
       annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
-    parameter Modelica_SIunits.Temperature T=293.15
-        "Fixed device temperature if useHeatPort = false" annotation(Dialog(enable=not useHeatPort));
+    parameter SIunits.Temperature T=293.15
+        "Fixed device temperature if useHeatPort = false"
+        annotation (Dialog(enable=not useHeatPort));
 
     Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPort if useHeatPort
         annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
@@ -7465,24 +7393,23 @@ The thermal power is calculated by <i>i*v</i>.
     model Diode2 "Improved diode model"
        import SIunits = Modelica_SIunits;
         extends Modelica_Electrical_Analog_Interfaces.OnePort;
-      parameter Modelica_SIunits.Voltage Vf=0.7 "Forward voltage";
-      parameter Modelica_SIunits.Current Ids=1.e-13
-        "Reverse saturation current";
-      parameter Modelica_SIunits.Resistance Rs=16 "Ohmic resistance";
-      parameter Modelica_SIunits.Voltage Vt=0.026 "Thermal voltage (kT/q)";
+      parameter SIunits.Voltage Vf=0.7 "Forward voltage";
+      parameter SIunits.Current Ids=1.e-13 "Reverse saturation current";
+      parameter SIunits.Resistance Rs=16 "Ohmic resistance";
+      parameter SIunits.Voltage Vt=0.026 "Thermal voltage (kT/q)";
         parameter Real N = 1 "Emission coefficient";
-      parameter Modelica_SIunits.Voltage Bv=100 "Reverse breakdown voltage";
-      parameter Modelica_SIunits.Conductance Gp=1e-6
+      parameter SIunits.Voltage Bv=100 "Reverse breakdown voltage";
+      parameter SIunits.Conductance Gp=1e-6
         "Parallel conductance for numerical stability";
     protected
-      parameter Modelica_SIunits.Voltage VdMax=Vf + (N*Vt)
+      parameter SIunits.Voltage VdMax=Vf + (N*Vt)
         "Linear continuation threshold";
-      parameter Modelica_SIunits.Current iVdMax=Ids*(exp(VdMax/(N*Vt)) - 1)
+      parameter SIunits.Current iVdMax=Ids*(exp(VdMax/(N*Vt)) - 1)
         "Current at threshold";
-      parameter Modelica_SIunits.Conductance diVdMax=Ids*exp(VdMax/(N*Vt))/(N*
-          Vt) "Conductance at threshold";
-      Modelica_SIunits.Voltage Vd "Voltage across pure diode part";
-      Modelica_SIunits.Current id "diode current";
+      parameter SIunits.Conductance diVdMax=Ids*exp(VdMax/(N*Vt))/(N*Vt)
+        "Conductance at threshold";
+      SIunits.Voltage Vd "Voltage across pure diode part";
+      SIunits.Current id "diode current";
         extends Modelica_Electrical_Analog_Interfaces.ConditionalHeatPort(T=
             293.15);
     equation
@@ -7768,13 +7695,12 @@ Christoph Clau&szlig;
             origin={-80,-110},
             extent={{-10,10},{10,-10}},
             rotation=270)));
-    Modelica_Electrical_Analog.Sensors.VoltageSensor voltageSensor annotation (
-          Placement(transformation(
+    VoltageSensor voltageSensor annotation (Placement(transformation(
             origin={0,-30},
             extent={{10,10},{-10,-10}},
             rotation=90)));
-    Modelica_Electrical_Analog.Sensors.CurrentSensor currentSensor annotation (
-          Placement(transformation(extent={{-50,-10},{-30,10}}, rotation=0)));
+    CurrentSensor currentSensor annotation (Placement(transformation(extent={{-50,
+                -10},{-30,10}}, rotation=0)));
     Modelica_Blocks.Math.Product product
       annotation (Placement(transformation(
             origin={-30,-50},
@@ -7863,7 +7789,7 @@ Modelica in file \"Modelica/package.mo\".</i>
             origin={0,70},
             extent={{-20,-20},{20,20}},
             rotation=270)));
-      Modelica_SIunits.Current i "Current flowing from pin p to pin n";
+      SI.Current i "Current flowing from pin p to pin n";
     equation
       v = p.v - n.v;
       0 = p.i + n.i;
@@ -7929,7 +7855,7 @@ Modelica in file \"Modelica/package.mo\".</i>
     end SignalVoltage;
 
     model ConstantVoltage "Source for constant voltage"
-      parameter Modelica_SIunits.Voltage V(start=1) "Value of constant voltage";
+      parameter SI.Voltage V(start=1) "Value of constant voltage";
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
 
     equation
@@ -7970,7 +7896,7 @@ Modelica in file \"Modelica/package.mo\".</i>
     end ConstantVoltage;
 
     model StepVoltage "Step voltage source"
-      parameter Modelica_SIunits.Voltage V(start=1) "Height of step";
+      parameter SI.Voltage V(start=1) "Height of step";
       extends Modelica_Electrical_Analog_Interfaces.VoltageSource(
                                        redeclare Modelica_Blocks.Sources.Step
           signalSource(height=V));
@@ -8052,9 +7978,9 @@ Modelica in file \"Modelica/package.mo\".</i>
     end StepVoltage;
 
     model RampVoltage "Ramp voltage source"
-      parameter Modelica_SIunits.Voltage V(start=1) "Height of ramp";
-      parameter Modelica_SIunits.Time duration(min=Modelica_Constants.small,
-          start=2) "Duration of ramp";
+      parameter SI.Voltage V(start=1) "Height of ramp";
+      parameter SI.Time duration(min=Modelica_Constants.small, start=2)
+        "Duration of ramp";
       extends Modelica_Electrical_Analog_Interfaces.VoltageSource(
                                        redeclare Modelica_Blocks.Sources.Ramp
           signalSource(final height=V, final duration=duration));
@@ -8152,10 +8078,9 @@ Modelica in file \"Modelica/package.mo\".</i>
     end RampVoltage;
 
     model SineVoltage "Sine voltage source"
-      parameter Modelica_SIunits.Voltage V(start=1) "Amplitude of sine wave";
-      parameter Modelica_SIunits.Angle phase=0 "Phase of sine wave";
-      parameter Modelica_SIunits.Frequency freqHz(start=1)
-        "Frequency of sine wave";
+      parameter SI.Voltage V(start=1) "Amplitude of sine wave";
+      parameter SI.Angle phase=0 "Phase of sine wave";
+      parameter SI.Frequency freqHz(start=1) "Frequency of sine wave";
       extends Modelica_Electrical_Analog_Interfaces.VoltageSource(
                                        redeclare Modelica_Blocks.Sources.Sine
           signalSource(
@@ -8242,10 +8167,9 @@ Modelica in file \"Modelica/package.mo\".</i>
     end SineVoltage;
 
     model CosineVoltage "Cosine voltage source"
-      parameter Modelica_SIunits.Voltage V(start=1) "Amplitude of cosine wave";
-      parameter Modelica_SIunits.Angle phase=0 "Phase of cosine wave";
-      parameter Modelica_SIunits.Frequency freqHz(start=1)
-        "Frequency of cosine wave";
+      parameter SI.Voltage V(start=1) "Amplitude of cosine wave";
+      parameter SI.Angle phase=0 "Phase of cosine wave";
+      parameter SI.Frequency freqHz(start=1) "Frequency of cosine wave";
       extends Modelica_Electrical_Analog_Interfaces.VoltageSource(
                                        redeclare Modelica_Blocks.Sources.Cosine
           signalSource(
@@ -8336,12 +8260,10 @@ Modelica in file \"Modelica/package.mo\".</i>
     end CosineVoltage;
 
     model ExpSineVoltage "Exponentially damped sine voltage source"
-      parameter Modelica_SIunits.Voltage V(start=1) "Amplitude of sine wave";
-      parameter Modelica_SIunits.Frequency freqHz(start=2)
-        "Frequency of sine wave";
-      parameter Modelica_SIunits.Angle phase=0 "Phase of sine wave";
-      parameter Modelica_SIunits.Damping damping(start=1)
-        "Damping coefficient of sine wave";
+      parameter SI.Voltage V(start=1) "Amplitude of sine wave";
+      parameter SI.Frequency freqHz(start=2) "Frequency of sine wave";
+      parameter SI.Angle phase=0 "Phase of sine wave";
+      parameter SI.Damping damping(start=1) "Damping coefficient of sine wave";
       extends Modelica_Electrical_Analog_Interfaces.VoltageSource(
                                        redeclare
           Modelica_Blocks.Sources.ExpSine
@@ -8450,11 +8372,11 @@ Modelica in file \"Modelica/package.mo\".</i>
 
     model ExponentialsVoltage "Rising and falling exponential voltage source"
       parameter Real vMax(start=1) "Upper bound for rising edge";
-      parameter Modelica_SIunits.Time riseTime(min=0, start=0.5) "Rise time";
-      parameter Modelica_SIunits.Time riseTimeConst(min=Modelica_Constants.small,
-          start=0.1) "Rise time constant";
-      parameter Modelica_SIunits.Time fallTimeConst(min=Modelica_Constants.small,
-          start=riseTimeConst) "Fall time constant";
+      parameter SI.Time riseTime(min=0, start=0.5) "Rise time";
+      parameter SI.Time riseTimeConst(min=Modelica_Constants.small, start=0.1)
+        "Rise time constant";
+      parameter SI.Time fallTimeConst(min=Modelica_Constants.small, start=
+            riseTimeConst) "Fall time constant";
       extends Modelica_Electrical_Analog_Interfaces.VoltageSource(
                                        redeclare
           Modelica_Blocks.Sources.Exponentials signalSource(
@@ -8561,13 +8483,13 @@ Modelica in file \"Modelica/package.mo\".</i>
     end ExponentialsVoltage;
 
     model PulseVoltage "Pulse voltage source"
-      parameter Modelica_SIunits.Voltage V(start=1) "Amplitude of pulse";
+      parameter SI.Voltage V(start=1) "Amplitude of pulse";
       parameter Real width(
         final min=Modelica_Constants.small,
         final max=100,
         start=50) "Width of pulse in % of period";
-      parameter Modelica_SIunits.Time period(final min=Modelica_Constants.small,
-          start=1) "Time for one period";
+      parameter SI.Time period(final min=Modelica_Constants.small, start=1)
+        "Time for one period";
       extends Modelica_Electrical_Analog_Interfaces.VoltageSource(
                                        redeclare Modelica_Blocks.Sources.Pulse
           signalSource(
@@ -8689,8 +8611,8 @@ Modelica in file \"Modelica/package.mo\".</i>
     end PulseVoltage;
 
     model SawToothVoltage "Saw tooth voltage source"
-      parameter Modelica_SIunits.Voltage V(start=1) "Amplitude of saw tooth";
-      parameter Modelica_SIunits.Time period(start=1) "Time for one period";
+      parameter SI.Voltage V(start=1) "Amplitude of saw tooth";
+      parameter SI.Time period(start=1) "Time for one period";
       extends Modelica_Electrical_Analog_Interfaces.VoltageSource(
                                        redeclare
           Modelica_Blocks.Sources.SawTooth
@@ -8791,15 +8713,15 @@ Modelica in file \"Modelica/package.mo\".</i>
     end SawToothVoltage;
 
     model TrapezoidVoltage "Trapezoidal voltage source"
-      parameter Modelica_SIunits.Voltage V(start=1) "Amplitude of trapezoid";
-      parameter Modelica_SIunits.Time rising(final min=0, start=0)
+      parameter SI.Voltage V(start=1) "Amplitude of trapezoid";
+      parameter SI.Time rising(final min=0, start=0)
         "Rising duration of trapezoid";
-      parameter Modelica_SIunits.Time width(final min=0, start=0.5)
+      parameter SI.Time width(final min=0, start=0.5)
         "Width duration of trapezoid";
-      parameter Modelica_SIunits.Time falling(final min=0, start=0)
+      parameter SI.Time falling(final min=0, start=0)
         "Falling duration of trapezoid";
-      parameter Modelica_SIunits.Time period(final min=Modelica_Constants.small,
-          start=1) "Time for one period";
+      parameter SI.Time period(final min=Modelica_Constants.small, start=1)
+        "Time for one period";
       parameter Integer nperiod(start=-1)
         "Number of periods (< 0 means infinite number of periods)";
       extends Modelica_Electrical_Analog_Interfaces.VoltageSource(
@@ -9053,8 +8975,7 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
             transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
       Modelica_Electrical_Analog_Interfaces.NegativePin n annotation (Placement(
             transformation(extent={{110,-10},{90,10}}, rotation=0)));
-      Modelica_SIunits.Voltage v
-        "Voltage drop between the two pins (= p.v - n.v)";
+      SI.Voltage v "Voltage drop between the two pins (= p.v - n.v)";
       Modelica_Blocks_Interfaces.RealInput i(unit="A")
         "Current flowing from pin p to pin n as input signal" annotation (
           Placement(transformation(
@@ -9105,7 +9026,7 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end SignalCurrent;
 
     model ConstantCurrent "Source for constant current"
-      parameter Modelica_SIunits.Current I(start=1) "Value of constant current";
+      parameter SI.Current I(start=1) "Value of constant current";
       extends Modelica_Electrical_Analog_Interfaces.OnePort;
     equation
       i = I;
@@ -9149,7 +9070,7 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end ConstantCurrent;
 
     model StepCurrent "Step current source"
-      parameter Modelica_SIunits.Current I(start=1) "Height of step";
+      parameter SI.Current I(start=1) "Height of step";
       extends Modelica_Electrical_Analog_Interfaces.CurrentSource(
                                        redeclare Modelica_Blocks.Sources.Step
           signalSource(height=I));
@@ -9231,9 +9152,9 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end StepCurrent;
 
     model RampCurrent "Ramp current source"
-      parameter Modelica_SIunits.Current I(start=1) "Height of ramp";
-      parameter Modelica_SIunits.Time duration(min=Modelica_Constants.small,
-          start=2) "Duration of ramp";
+      parameter SI.Current I(start=1) "Height of ramp";
+      parameter SI.Time duration(min=Modelica_Constants.small, start=2)
+        "Duration of ramp";
       extends Modelica_Electrical_Analog_Interfaces.CurrentSource(
                                        redeclare Modelica_Blocks.Sources.Ramp
           signalSource(final height=I, final duration=duration));
@@ -9331,10 +9252,9 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end RampCurrent;
 
     model SineCurrent "Sine current source"
-      parameter Modelica_SIunits.Current I(start=1) "Amplitude of sine wave";
-      parameter Modelica_SIunits.Angle phase=0 "Phase of sine wave";
-      parameter Modelica_SIunits.Frequency freqHz(start=1)
-        "Frequency of sine wave";
+      parameter SI.Current I(start=1) "Amplitude of sine wave";
+      parameter SI.Angle phase=0 "Phase of sine wave";
+      parameter SI.Frequency freqHz(start=1) "Frequency of sine wave";
       extends Modelica_Electrical_Analog_Interfaces.CurrentSource(
                                        redeclare Modelica_Blocks.Sources.Sine
           signalSource(
@@ -9421,10 +9341,9 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end SineCurrent;
 
     model CosineCurrent "Cosine current source"
-      parameter Modelica_SIunits.Current I(start=1) "Amplitude of cosine wave";
-      parameter Modelica_SIunits.Angle phase=0 "Phase of cosine wave";
-      parameter Modelica_SIunits.Frequency freqHz(start=1)
-        "Frequency of cosine wave";
+      parameter SI.Current I(start=1) "Amplitude of cosine wave";
+      parameter SI.Angle phase=0 "Phase of cosine wave";
+      parameter SI.Frequency freqHz(start=1) "Frequency of cosine wave";
       extends Modelica_Electrical_Analog_Interfaces.CurrentSource(
                                        redeclare Modelica_Blocks.Sources.Cosine
           signalSource(
@@ -9519,11 +9438,9 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
 
     model ExpSineCurrent "Exponentially damped sine current source"
       parameter Real I(start=1) "Amplitude of sine wave";
-      parameter Modelica_SIunits.Frequency freqHz(start=2)
-        "Frequency of sine wave";
-      parameter Modelica_SIunits.Angle phase=0 "Phase of sine wave";
-      parameter Modelica_SIunits.Damping damping(start=1)
-        "Damping coefficient of sine wave";
+      parameter SI.Frequency freqHz(start=2) "Frequency of sine wave";
+      parameter SI.Angle phase=0 "Phase of sine wave";
+      parameter SI.Damping damping(start=1) "Damping coefficient of sine wave";
       extends Modelica_Electrical_Analog_Interfaces.CurrentSource(
                                        redeclare
           Modelica_Blocks.Sources.ExpSine
@@ -9632,11 +9549,11 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
 
     model ExponentialsCurrent "Rising and falling exponential current source"
       parameter Real iMax(start=1) "Upper bound for rising edge";
-      parameter Modelica_SIunits.Time riseTime(min=0, start=0.5) "Rise time";
-      parameter Modelica_SIunits.Time riseTimeConst(min=Modelica_Constants.small,
-          start=0.1) "Rise time constant";
-      parameter Modelica_SIunits.Time fallTimeConst(min=Modelica_Constants.small,
-          start=riseTimeConst) "Fall time constant";
+      parameter SI.Time riseTime(min=0, start=0.5) "Rise time";
+      parameter SI.Time riseTimeConst(min=Modelica_Constants.small, start=0.1)
+        "Rise time constant";
+      parameter SI.Time fallTimeConst(min=Modelica_Constants.small, start=
+            riseTimeConst) "Fall time constant";
       extends Modelica_Electrical_Analog_Interfaces.CurrentSource(
                                        redeclare
           Modelica_Blocks.Sources.Exponentials signalSource(
@@ -9729,13 +9646,13 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end ExponentialsCurrent;
 
     model PulseCurrent "Pulse current source"
-      parameter Modelica_SIunits.Current I(start=1) "Amplitude of pulse";
+      parameter SI.Current I(start=1) "Amplitude of pulse";
       parameter Real width(
         final min=Modelica_Constants.small,
         final max=100,
         start=50) "Width of pulse in % of period";
-      parameter Modelica_SIunits.Time period(final min=Modelica_Constants.small,
-          start=1) "Time for one period";
+      parameter SI.Time period(final min=Modelica_Constants.small, start=1)
+        "Time for one period";
       extends Modelica_Electrical_Analog_Interfaces.CurrentSource(
                                        redeclare Modelica_Blocks.Sources.Pulse
           signalSource(
@@ -9858,8 +9775,8 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end PulseCurrent;
 
     model SawToothCurrent "Saw tooth current source"
-      parameter Modelica_SIunits.Current I(start=1) "Amplitude of saw tooth";
-      parameter Modelica_SIunits.Time period(start=1) "Time for one period";
+      parameter SI.Current I(start=1) "Amplitude of saw tooth";
+      parameter SI.Time period(start=1) "Time for one period";
       extends Modelica_Electrical_Analog_Interfaces.CurrentSource(
                                        redeclare
           Modelica_Blocks.Sources.SawTooth
@@ -9960,15 +9877,15 @@ If, e.g., time = 1.0, the voltage v =  0.0 (before event), 1.0 (after event)
     end SawToothCurrent;
 
     model TrapezoidCurrent "Trapezoidal current source"
-      parameter Modelica_SIunits.Current I(start=1) "Amplitude of trapezoid";
-      parameter Modelica_SIunits.Time rising(final min=0, start=0)
+      parameter SI.Current I(start=1) "Amplitude of trapezoid";
+      parameter SI.Time rising(final min=0, start=0)
         "Rising duration of trapezoid";
-      parameter Modelica_SIunits.Time width(final min=0, start=0.5)
+      parameter SI.Time width(final min=0, start=0.5)
         "Width duration of trapezoid";
-      parameter Modelica_SIunits.Time falling(final min=0, start=0)
+      parameter SI.Time falling(final min=0, start=0)
         "Falling duration of trapezoid";
-      parameter Modelica_SIunits.Time period(final min=Modelica_Constants.small,
-          start=1) "Time for one period";
+      parameter SI.Time period(final min=Modelica_Constants.small, start=1)
+        "Time for one period";
       parameter Integer nperiod(start=-1)
         "Number of periods (< 0 means infinite number of periods)";
       extends Modelica_Electrical_Analog_Interfaces.CurrentSource(
@@ -10216,19 +10133,17 @@ If, e.g., time = 1.0, the current i =  0.0 (before event), 1.0 (after event)
     end TableCurrent;
 
     model SupplyVoltage "Supply voltage (positive and negative)"
-      parameter Modelica_SIunits.Voltage Vps=+15 "Positive supply";
-      parameter Modelica_SIunits.Voltage Vns=-15 "Negative supply";
+      parameter SI.Voltage Vps=+15 "Positive supply";
+      parameter SI.Voltage Vns=-15 "Negative supply";
       Modelica_Electrical_Analog_Interfaces.PositivePin pin_p
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
       Modelica_Electrical_Analog_Interfaces.NegativePin pin_n
         annotation (Placement(transformation(extent={{90,-10},{110,10}})));
       Modelica_Electrical_Analog_Interfaces.NegativePin ground
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-      Modelica_Electrical_Analog.Sources.ConstantVoltage positiveSupply(final V=
-            Vps)
+      ConstantVoltage positiveSupply(final V=Vps)
         annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-      Modelica_Electrical_Analog.Sources.ConstantVoltage negativeSupply(final V=-
-            Vns)
+      ConstantVoltage negativeSupply(final V=-Vns)
         annotation (Placement(transformation(extent={{40,-10},{60,10}})));
     equation
       connect(pin_p, positiveSupply.p) annotation (Line(
@@ -10368,5 +10283,6 @@ Christoph Clau&szlig;
           points={{-12,60},{-12,-60}},
           color={0,0,0}),
         Line(points={{-80,0},{-12,0}}, color={0,0,0}),
-        Line(points={{12,0},{80,0}}, color={0,0,0})}));
+        Line(points={{12,0},{80,0}}, color={0,0,0})}),
+    uses(Modelica(version="3.2.1")));
 end Modelica_Electrical_Analog;
