@@ -829,5 +829,12 @@ a color map. Predefined color map functions are defined in package
 This package contains connectors and partial models (i.e., models
 that are only used to build other models) of the MultiBody library.
 </p>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"), uses(Modelica_Blocks(version="3.2.2"),
+                Modelica_Blocks_Interfaces(version="3.2.2"),
+                Modelica_Math(version="3.2.2"),
+                Modelica_Mechanics_Rotational_Interfaces(version="3.2.2"),
+                Modelica_Mechanics_MultiBody(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2"),
+                Modelica_Icons(version="3.2.2")),
+            version="3.2.2");
 end Modelica_Mechanics_MultiBody_Interfaces;

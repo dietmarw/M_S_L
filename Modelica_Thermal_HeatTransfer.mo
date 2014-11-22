@@ -2712,5 +2712,10 @@ Hubertus Tummescheit, Lund Institute of Technology, Lund, Sweden.
 
 </ul>
 </html>"),
-    uses(Modelica(version="3.2.1")));
+    uses(Modelica_Constants(version="3.2.2"),
+Modelica_Blocks_Interfaces(version="3.2.2"),
+Modelica_Thermal_HeatTransfer_Interfaces(version="3.2.2"),
+Modelica_SIunits(version="3.2.2"),
+Modelica_Icons(version="3.2.2")),
+version="3.2.2");
 end Modelica_Thermal_HeatTransfer;

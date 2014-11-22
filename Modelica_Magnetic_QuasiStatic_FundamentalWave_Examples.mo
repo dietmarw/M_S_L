@@ -2860,7 +2860,7 @@ Default machine parameters of model <a href=\"modelica://Modelica.Electrical.Mac
                 extent={{-64,100},{100,14}},
                 lineColor={0,0,0},
                 fillColor={255,255,170},
-                fillPattern=FillPattern.Solid,
+                fillPatterne=FillPattern.Solid,
                 pattern=LinePattern.Dash), Rectangle(
                 extent={{-64,12},{100,-100}},
                 lineColor={0,0,0},
@@ -2870,5 +2870,16 @@ Default machine parameters of model <a href=\"modelica://Modelica.Electrical.Mac
       end SMR_CurrentSource;
     end SynchronousMachines;
   end BasicMachines;
-  annotation (uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
+  annotation (uses(Modelica_Mechanics_Rotational(version="3.2.2"),
+                   Modelica_Magnetic_FundamentalWave(version="3.2.2"),
+                   Modelica_Electrical_Machines(version="3.2.2"),
+                   Modelica_Electrical_Analog(version="3.2.2"),
+                   Modelica_Blocks(version="3.2.2"),
+                   Modelica_Magnetic_QuasiStatic_FundamentalWave(version="3.2.2"),
+                   Modelica_Electrical_MultiPhase(version="3.2.2"),
+                   Modelica_Electrical_QuasiStationary(version="3.2.2"),
+                   Modelica_SIunits(version="3.2.2"),
+                   Modelica_Icons(version="3.2.2"),
+                   Complex(version="3.2.2")),
+              version="3.2.2");
 end Modelica_Magnetic_QuasiStatic_FundamentalWave_Examples;

@@ -8067,6 +8067,16 @@ This package contains example models to demonstrate the usage of the
 MultiBody package. Open the models and
 simulate them according to the provided description in the models.
 </p>
-
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"),
+uses(Modelica_Electrical_Analog(version="3.2.2"),
+     Modelica_Math(version="3.2.2"),
+     Modelica_Constants(version="3.2.2"),
+     Modelica_Thermal_HeatTransfer(version="3.2.2"),
+     Modelica_Mechanics_Translational(version="3.2.2"),
+     Modelica_SIunits(version="3.2.2"),
+     Modelica_Blocks(version="3.2.2"),
+     Modelica_Mechanics_Rotational(version="3.2.2"),
+     Modelica_Mechanics_MultiBody(version="3.2.2"),
+     Modelica_Icons(version="3.2.2")),
+version="3.2.2");
 end Modelica_Mechanics_MultiBody_Examples;

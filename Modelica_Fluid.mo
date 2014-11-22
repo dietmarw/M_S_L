@@ -27506,5 +27506,17 @@ Copyright &copy; 2002-2013, ABB, DLR, Dassault Syst&egrave;mes AB, Modelon, TU B
 <i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica_UsersGuide.ModelicaLicense2\">Modelica_UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
 </p>
 </html>"),
-    uses(Modelica_Icons, Modelica(version="3.2.1")));
+    uses(Modelica_Utilities(version="3.2.2"),
+         Modelica_Blocks(version="3.2.2"),
+         Modelica_Mechanics_Rotational_Interfaces(version="3.2.2"),
+         Modelica_Mechanics_Translational_Interfaces(version="3.2.2"),
+         Modelica_Media(version="3.2.2"),
+         Modelica_Math(version="3.2.2"),
+         Modelica_Blocks_Interfaces(version="3.2.2"),
+         Modelica_Thermal_HeatTransfer_Interfaces(version="3.2.2"),
+         Modelica_Fluid_Interfaces(version="3.2.2"),
+         Modelica_Constants(version="3.2.2"),
+         Modelica_Media_Interfaces(version="3.2.2"),
+         Modelica_Icons(version="3.2.2")),
+     version="3.2.2");
 end Modelica_Fluid;

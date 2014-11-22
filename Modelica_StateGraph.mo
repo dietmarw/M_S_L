@@ -1789,5 +1789,10 @@ Copyright &copy; 1998-2013, Modelica Association and DLR
         fillPattern=FillPattern.Solid,
         points={{-3.3333,10.0},{16.667,0.0},{-3.3333,-10.0}}),
       Line(origin={15.0,-0.0},  points={{15.0,0.0},{-15.0,-0.0}})}),
-    uses(Modelica(version="3.2.1")));
+    uses(Modelica_Blocks(version="3.2.2"),
+Modelica_SIunits(version="3.2.2"),
+Modelica_Blocks_Interfaces(version="3.2.2"),
+Modelica_StateGraph_Interfaces(version="3.2.2"),
+Modelica_Icons(version="3.2.2")),
+version="3.2.2");
 end Modelica_StateGraph;

@@ -698,8 +698,8 @@ Grounding of the complex magnetic potential. Each magnetic circuit has to be gro
       import Modelica_Constants.pi;
       extends
         Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPortElementary;
-      parameter Modelica_Magnetic_FundamentalWave.Types.SalientReluctance R_m(d(start=1),
-          q(start=1)) "Magnetic reluctance in d=re and q=im axis";
+      parameter Types.SalientReluctance R_m(d(start=1), q(start=1))
+        "Magnetic reluctance in d=re and q=im axis";
     equation
       (pi/2)*V_m.re = R_m.d*Phi.re;
       (pi/2)*V_m.im = R_m.q*Phi.im;
@@ -740,8 +740,8 @@ The salient reluctance models the relationship between the complex magnetic pote
       import Modelica_Constants.pi;
       extends
         Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPortElementary;
-      parameter Modelica_Magnetic_FundamentalWave.Types.SalientPermeance G_m(d(start=1),
-          q(start=1)) "Magnetic permeance in d=re and q=im axis";
+      parameter Types.SalientPermeance G_m(d(start=1), q(start=1))
+        "Magnetic permeance in d=re and q=im axis";
     equation
       (pi/2)*G_m.d*V_m.re = Phi.re;
       (pi/2)*G_m.q*V_m.im = Phi.im;
@@ -1053,9 +1053,8 @@ The voltage <img src=\"modelica://Modelica/Resources/Images/Magnetic/Fundamental
       parameter Real effectiveTurns[m] "Effective number of turns";
       parameter Modelica_SIunits.Angle orientation[m]
         "Orientation of the resulting fundamental wave field phasor";
-      Modelica_Magnetic_FundamentalWave.Components.SinglePhaseElectroMagneticConverter
-        singlePhaseElectroMagneticConverter[m](final effectiveTurns=
-            effectiveTurns, final orientation=orientation)
+      SinglePhaseElectroMagneticConverter singlePhaseElectroMagneticConverter[m](final
+          effectiveTurns=effectiveTurns, final orientation=orientation)
         annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
     equation
       connect(plug_p.pin, singlePhaseElectroMagneticConverter.pin_p)
@@ -1339,8 +1338,7 @@ located at <a href=\"modelica://Modelica.Magnetic.FundamentalWave.BasicMachines.
               group="Operational temperatures", enable=not useThermalPort));
         output Modelica_SIunits.Current ir[m] = rotorCage.i
           "Rotor cage currents";
-        Modelica_Magnetic_FundamentalWave.BasicMachines.Components.SymmetricMultiPhaseCageWinding
-          rotorCage(
+        Components.SymmetricMultiPhaseCageWinding rotorCage(
           final Lsigma=Lrsigma,
           final effectiveTurns=effectiveStatorTurns,
           final useHeatPort=true,
@@ -1566,6 +1564,7 @@ Resistances and stray inductances of the machine always refer to either stator o
       extends Modelica_Icons.VariantsPackage;
       model SM_PermanentMagnet
         "Permanent magnet synchronous machine with optional damper cage"
+        import Modelica_Magnetic_FundamentalWave;
         extends
           Modelica_Magnetic_FundamentalWave_Interfaces.PartialBasicInductionMachine(
           is(start=zeros(m)),
@@ -1654,8 +1653,9 @@ Resistances and stray inductances of the machine always refer to either stator o
           annotation (Dialog(tab="Losses"));
         Modelica_Blocks_Interfaces.RealOutput ir[2](
           start=zeros(2),
-          each final quantity="ElectricCurrent", each final unit="A") if useDamperCage
-          "Damper cage currents" annotation(Dialog(showStartAttribute=true));
+          each final quantity="ElectricCurrent",
+          each final unit="A") if useDamperCage "Damper cage currents"
+          annotation (Dialog(showStartAttribute=true));
         Modelica_Magnetic_FundamentalWave.Components.Ground groundR
           "Ground of rotor magnetic circuit" annotation (Placement(
               transformation(extent={{-40,-30},{-20,-10}}, rotation=0)));
@@ -2035,6 +2035,7 @@ The symmetry of the stator is assumed. For rotor asymmetries can be taken into a
       end SM_ElectricalExcited;
 
       model SM_ReluctanceRotor "Reluctance machine with optional damper cage"
+        import Modelica_Magnetic_FundamentalWave;
         extends
           Modelica_Magnetic_FundamentalWave_Interfaces.PartialBasicInductionMachine(
           is(start=zeros(m)),
@@ -2207,6 +2208,7 @@ The symmetry of the stator is assumed. For rotor asymmetries can be taken into a
     package Components "Components specially for electric machines"
       model SinglePhaseWinding
         "Symmetric winding model coupling electrical and magnetic domain"
+        import Modelica_Magnetic_FundamentalWave;
 
         Modelica_Electrical_Analog_Interfaces.PositivePin pin_p "Positive pin"
           annotation (Placement(transformation(
@@ -2352,6 +2354,7 @@ The single phase winding consists of a
       extends Modelica_Icons.Package;
       model SymmetricMultiPhaseWinding
         "Symmetric winding model coupling electrical and magnetic domain"
+        import Modelica_Magnetic_FundamentalWave;
         // Orientation changed
         Modelica_Electrical_MultiPhase_Interfaces.PositivePlug plug_p(final m=m)
           "Positive plug" annotation (Placement(transformation(
@@ -2562,12 +2565,10 @@ heat <a href=\"modelica://Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a\">
           "Support at which the reaction torque is acting" annotation (
             Placement(transformation(extent={{-10,-110},{10,-90}}, rotation=0)));
         parameter Integer p "Number of pole pairs";
-        parameter Modelica_Magnetic_FundamentalWave.Types.SalientInductance L0(d(start=1),
-            q(start=1))
+        parameter Types.SalientInductance L0(d(start=1), q(start=1))
           "Salient inductance of a single unchorded coil w.r.t. the fundamental wave";
-        final parameter
-          Modelica_Magnetic_FundamentalWave.Types.SalientReluctance R_m(d=1/L0.d,
-            q=1/L0.q) "Reluctance of the air gap model";
+        final parameter Types.SalientReluctance R_m(d=1/L0.d, q=1/L0.q)
+          "Reluctance of the air gap model";
         // Complex phasors of magnetic potential differences
         Modelica_SIunits.ComplexMagneticPotentialDifference V_mss
           "Complex magnetic potential difference of stator w.r.t. stator reference frame";
@@ -2701,6 +2702,7 @@ according to the following figure.
 
       model SymmetricMultiPhaseCageWinding "Symmetrical rotor cage"
         import Modelica_Constants.pi;
+        import Modelica_Magnetic_FundamentalWave;
         extends
           Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPortExtended;
         parameter Integer m=3 "Number of phases";
@@ -2756,17 +2758,14 @@ according to the following figure.
         Modelica_Thermal_HeatTransfer_Interfaces.HeatPort_a heatPortWinding if
           useHeatPort "Heat ports of winding resistor"
           annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-        Modelica_Thermal_HeatTransfer.Components.ThermalCollector
-          thermalCollector(final m=m) if
-                          useHeatPort
-          "Connector of thermal rotor resistance heat ports"
+        Modelica_Thermal_HeatTransfer.Components.ThermalCollector thermalCollector(final m=m)
+          if useHeatPort "Connector of thermal rotor resistance heat ports"
           annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
         Modelica_Electrical_MultiPhase.Basic.Star starAuxiliary(final m=m)
           annotation (Placement(transformation(extent={{30,-90},{50,-70}},
                 rotation=0)));
-        Modelica_Magnetic_FundamentalWave.Components.Reluctance strayReluctance(
-            final R_m(d=m*effectiveTurns^2/2/Lsigma, q=m*effectiveTurns^2/2/
-                Lsigma))
+        Modelica_Magnetic_FundamentalWave.Components.Reluctance strayReluctance(final R_m(
+              d=m*effectiveTurns^2/2/Lsigma, q=m*effectiveTurns^2/2/Lsigma))
           "Stray reluctance equivalent to ideally coupled stray inductances"
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
@@ -2864,13 +2863,14 @@ The symmetric rotor cage model of this library does not consist of rotor bars an
       end SymmetricMultiPhaseCageWinding;
 
       model SaliencyCageWinding "Rotor cage with saliency in d- and q-axis"
+        import Modelica_Magnetic_FundamentalWave;
         extends
           Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPortExtended;
         parameter Boolean useHeatPort=false
           "Enable / disable (=fixed temperatures) thermal port"
           annotation (Evaluate=true);
-        parameter Modelica_Magnetic_FundamentalWave.Types.SalientResistance RRef(d(
-              start=1), q(start=1)) "Salient cage resistance";
+        parameter Types.SalientResistance RRef(d(start=1), q(start=1))
+          "Salient cage resistance";
         parameter Modelica_SIunits.Temperature TRef(start=293.15)
           "Reference temperature of winding";
         parameter
@@ -2884,8 +2884,8 @@ The symmetric rotor cage model of this library does not consist of rotor bars an
         parameter Modelica_SIunits.Temperature TOperational(start=293.15)
           "Operational temperature of winding"
           annotation (Dialog(enable=not useHeatPort));
-        parameter Modelica_Magnetic_FundamentalWave.Types.SalientInductance Lsigma(
-            d(start=1), q(start=1)) "Salient cage stray inductance";
+        parameter Types.SalientInductance Lsigma(d(start=1), q(start=1))
+          "Salient cage stray inductance";
         parameter Real effectiveTurns=1 "Effective number of turns";
         Modelica_Blocks_Interfaces.RealOutput i[2](
           each final quantity="ElectricCurrent", each final unit="A")=electroMagneticConverter.i
@@ -2927,8 +2927,8 @@ The symmetric rotor cage model of this library does not consist of rotor bars an
                           useHeatPort
           "Connector of thermal rotor resistance heat ports"
           annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
-        Modelica_Magnetic_FundamentalWave.Components.Reluctance strayReluctance(
-            final R_m(d=effectiveTurns^2/Lsigma.d, q=effectiveTurns^2/Lsigma.q))
+        Modelica_Magnetic_FundamentalWave.Components.Reluctance strayReluctance(final R_m(
+              d=effectiveTurns^2/Lsigma.d, q=effectiveTurns^2/Lsigma.q))
           "Stray reluctance equivalent to ideally coupled stray inductances"
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
@@ -3030,8 +3030,7 @@ The salient cage model is a two axis model with two phases. The electromagnetic 
 
       model PermanentMagnet
         "Permanent magnet represented by magnetic potential difference"
-        extends
-          Modelica_Magnetic_FundamentalWave.Sources.ConstantMagneticPotentialDifference;
+        extends Sources.ConstantMagneticPotentialDifference;
         extends
           Modelica_Electrical_Machines.Losses.InductionMachines.PermanentMagnetLosses;
         annotation (Documentation(info="<html>
@@ -3050,6 +3049,7 @@ The permanent magnet is modeled by a magnetic potential difference. The internal
 
       model SymmetricMultiPhaseCageWinding_obsolete "Symmetrical rotor cage"
         import Modelica_Constants.pi;
+        import Modelica_Magnetic_FundamentalWave;
         extends Modelica_Icons.ObsoleteModel;
         extends
           Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPortExtended;
@@ -3204,14 +3204,15 @@ The symmetric rotor cage model of this library does not consist of rotor bars an
 
       model SaliencyCageWinding_obsolete
         "Rotor cage with saliency in d- and q-axis"
+        import Modelica_Magnetic_FundamentalWave;
         extends Modelica_Icons.ObsoleteModel;
         extends
           Modelica_Magnetic_FundamentalWave_Interfaces.PartialTwoPortExtended;
         parameter Boolean useHeatPort=false
           "Enable / disable (=fixed temperatures) thermal port"
           annotation (Evaluate=true);
-        parameter Modelica_Magnetic_FundamentalWave.Types.SalientResistance RRef(d(start=1),
-            q(start=1)) "Salient cage resistance";
+        parameter Types.SalientResistance RRef(d(start=1), q(start=1))
+          "Salient cage resistance";
         parameter Modelica_SIunits.Temperature TRef(start=293.15)
           "Reference temperature of winding";
         parameter
@@ -3225,8 +3226,8 @@ The symmetric rotor cage model of this library does not consist of rotor bars an
         parameter Modelica_SIunits.Temperature TOperational(start=293.15)
           "Operational temperature of winding"
           annotation (Dialog(enable=not useHeatPort));
-        parameter Modelica_Magnetic_FundamentalWave.Types.SalientInductance Lsigma(d(start=1),
-            q(start=1)) "Salient cage stray inductance";
+        parameter Types.SalientInductance Lsigma(d(start=1), q(start=1))
+          "Salient cage stray inductance";
         parameter Real effectiveTurns=1 "Effective number of turns";
         Modelica_Blocks_Interfaces.RealOutput i[2](
           each final quantity="ElectricCurrent", each final unit="A")=resistor.i
@@ -3724,7 +3725,6 @@ This package provides sensors for the magnetic potential difference and the magn
 </html>"));
   end Sensors;
 
-
   package Types "Definition of salient types"
     extends Modelica_Icons.TypesPackage;
     record Salient "Base record of saliency with d and q component"
@@ -3867,5 +3867,22 @@ Copyright &copy; 2009-2014, Modelica Association, <a href=\"modelica://Modelica.
 <i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
 </p>
 </html>"),
-    uses(Complex(version="3.2.2"), ModelicaIcons));
+    uses(Modelica_ComplexBlocks_Interfaces(version="3.2.2"),
+         Modelica_Thermal_HeatTransfer(version="3.2.2"),
+         Modelica_Mechanics_Rotational_Interfaces(version="3.2.2"),
+         Modelica_Electrical_Analog(version="3.2.2"),
+         Modelica_Blocks_Interfaces(version="3.2.2"),
+         Modelica_Constants(version="3.2.2"),
+         Modelica_Electrical_MultiPhase(version="3.2.2"),
+         Modelica_Electrical_Machines_Interfaces(version="3.2.2"),
+         Modelica_Electrical_Machines(version="3.2.2"),
+         Modelica_Electrical_MultiPhase_Interfaces(version="3.2.2"),
+         Modelica_ComplexMath(version="3.2.2"),
+         Modelica_Electrical_Analog_Interfaces(version="3.2.2"),
+         Modelica_SIunits(version="3.2.2"),
+         Modelica_Thermal_HeatTransfer_Interfaces(version="3.2.2"),
+         Modelica_Magnetic_FundamentalWave_Interfaces(version="3.2.2"),
+         Modelica_Icons(version="3.2.2"),
+         Complex(version="3.2.2")),
+     version="3.2.2");
 end Modelica_Magnetic_FundamentalWave;

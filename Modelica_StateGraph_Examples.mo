@@ -1055,5 +1055,9 @@ buttons:
     end CompositeStep2;
 
   end Utilities;
-  annotation (uses(Modelica(version="3.2.1")));
+  annotation (uses(Modelica_Constants(version="3.2.2"),
+                   Modelica_Blocks(version="3.2.2"),
+                   Modelica_StateGraph(version="3.2.2"),
+                   Modelica_Icons(version="3.2.2")),
+              version="3.2.2");
 end Modelica_StateGraph_Examples;

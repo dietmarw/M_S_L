@@ -1349,5 +1349,10 @@ This package contains utility models and bus definitions needed for the
 This package contains example models to demonstrate the
 usage of package blocks.
 </p>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"),
+              uses(Modelica_Constants(version="3.2.2"),
+                   Modelica_Mechanics_Rotational(version="3.2.2"),
+                   Modelica_SIunits(version="3.2.2"),
+                   Modelica_Icons(version="3.2.2")),
+              version="3.2.2");
 end Modelica_Blocks_Examples;

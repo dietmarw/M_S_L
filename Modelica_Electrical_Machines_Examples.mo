@@ -4712,5 +4712,17 @@ This package contains test examples of electric machines.
   <li> v2.1.2 2010/02/09 Anton Haumer<br>
        included new Examples (AIMC_Transformer, DC_Comparison)</li>
   </ul>
-</HTML>"), uses(Modelica(version="3.2.1")));
+</HTML>"), uses(Modelica_Electrical_Machines_Interfaces(version="3.2.2"),
+                Modelica_Thermal_FluidHeatFlow(version="3.2.2"),
+                Modelica_Thermal_HeatTransfer(version="3.2.2"),
+                Modelica_Utilities(version="3.2.2"),
+                Modelica_Mechanics_Rotational(version="3.2.2"),
+                Modelica_Blocks(version="3.2.2"),
+                Modelica_Electrical_MultiPhase(version="3.2.2"),
+                Modelica_Electrical_Analog(version="3.2.2"),
+                Modelica_Electrical_Machines(version="3.2.2"),
+                Modelica_Constants(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2"),
+                Modelica_Icons(version="3.2.2")),
+              version="3.2.2");
 end Modelica_Electrical_Machines_Examples;

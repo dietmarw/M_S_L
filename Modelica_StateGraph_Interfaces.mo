@@ -349,5 +349,8 @@ top level your model.");
       defaultComponentPrefixes="inner",
       missingInnerMessage="A \"stateGraphRoot\" component was automatically introduced.");
   end CompositeStepState;
-  annotation (uses(Modelica(version="3.2.1")));
+  annotation (uses(Modelica_SIunits(version="3.2.2"),
+                   Modelica_StateGraph(version="3.2.2"),
+                   Modelica_Icons(version="3.2.2")),
+              version="3.2.2");
 end Modelica_StateGraph_Interfaces;

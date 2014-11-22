@@ -1696,5 +1696,9 @@ partial models for continuous and discrete blocks.
        Realized a first version, based on an existing Dymola library
        of Dieter Moormann and Hilding Elmqvist.</li>
 </ul>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"),
+              uses(Modelica_Constants(version="3.2.2"),
+                   Modelica_Blocks(version="3.2.2"),
+                   Modelica_Icons(version="3.2.2")),
+              version="3.2.2");
 end Modelica_Blocks_Interfaces;

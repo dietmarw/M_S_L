@@ -9,8 +9,8 @@ encapsulated package Modelica_Mechanics_Translational
   import Modelica_Mechanics_Rotational;
   import Modelica_Blocks;
   import Modelica_Constants;
-  extends Modelica_Icons.Package;
   import SI = Modelica_SIunits;
+  extends Modelica_Icons.Package;
 
   package Components "Components for 1D translational mechanical drive trains"
     extends Modelica_Icons.Package;
@@ -2966,5 +2966,14 @@ Copyright &copy; 1998-2013, Modelica Association, Anton Haumer and Universit&aum
        by Martin Otter and an existing Dymola library onedof.lib by Peter Beater.</li>
 </ul>
 </html>"),
-    uses(Modelica_Icons, Modelica(version="3.2.1")));
+uses(Modelica_SIunits(version="3.2.2"),
+Modelica_Constants(version="3.2.2"),
+Modelica_Blocks(version="3.2.2"),
+Modelica_Mechanics_Rotational(version="3.2.2"),
+Modelica_Blocks_Interfaces(version="3.2.2"),
+Modelica_Math(version="3.2.2"),
+Modelica_Thermal_HeatTransfer_Interfaces(version="3.2.2"),
+Modelica_Mechanics_Translational_Interfaces(version="3.2.2"),
+Modelica_Icons(version="3.2.2")),
+version="3.2.2");
 end Modelica_Mechanics_Translational;

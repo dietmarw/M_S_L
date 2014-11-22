@@ -909,5 +909,13 @@ Copyright &copy; 1998-2013, Modelica Association, Anton Haumer, Christian Kral a
         fillColor = {255,128,0},
         fillPattern = FillPattern.Solid,
         points = {{-20,10},{0,-10},{-20,-30},{40,-30},{60,-10},{40,10},{-20,10}})}),
-    uses(Modelica(version="3.2.1")));
+    uses(Modelica_Mechanics_Rotational_Interfaces(version="3.2.2"),
+         Modelica_Math(version="3.2.2"),
+         Modelica_Blocks_Interfaces(version="3.2.2"),
+         Modelica_Thermal_HeatTransfer_Interfaces(version="3.2.2"),
+         Modelica_Constants(version="3.2.2"),
+         Modelica_SIunits(version="3.2.2"),
+         Modelica_Thermal_FluidHeatFlow_Interfaces(version="3.2.2"),
+         Modelica_Icons(version="3.2.2")),
+     version="3.2.2");
 end Modelica_Thermal_FluidHeatFlow;

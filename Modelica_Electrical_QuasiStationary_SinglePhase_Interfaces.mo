@@ -290,5 +290,11 @@ The source partial model relies on the
   end Source;
   annotation (Documentation(info="<html>
 <p>This package contains connector specifications and partial models for more complex components.</p>
-</html>"), uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
+</html>"), uses(Modelica_ComplexBlocks_Interfaces(version="3.2.2"),
+                Modelica_ComplexMath(version="3.2.2"),
+                Modelica_Electrical_QuasiStationary(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2"),
+                Modelica_Icons(version="3.2.2"),
+                Complex(version="3.2.2")),
+           version="3.2.2");
 end Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces;

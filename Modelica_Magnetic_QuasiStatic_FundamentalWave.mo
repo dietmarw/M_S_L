@@ -3636,8 +3636,27 @@ Copyright &copy; 2013-2014, <a href=\"modelica://Modelica.Magnetic.FundamentalWa
 <p>
 <i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
 </p>
-</html>"), uses(
-      Complex(version="3.2.2"),
-      Modelica_ComplexBlocks(version="3.2.2"),
-      Modelica(version="3.2.1")));
+</html>"), uses(Modelica_ComplexBlocks(version="3.2.2"),
+                Modelica_Blocks(version="3.2.2"),
+                Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces(version="3.2.2"),
+                Modelica_Thermal_HeatTransfer(version="3.2.2"),
+                Modelica_Mechanics_Rotational_Interfaces(version="3.2.2"),
+                Modelica_Electrical_Analog(version="3.2.2"),
+                Modelica_Blocks_Interfaces(version="3.2.2"),
+                Modelica_ComplexBlocks_Interfaces(version="3.2.2"),
+                Modelica_Constants(version="3.2.2"),
+                Modelica_Electrical_QuasiStationary(version="3.2.2"),
+                Modelica_Electrical_Machines_Interfaces(version="3.2.2"),
+                Modelica_Electrical_Machines(version="3.2.2"),
+                Modelica_Electrical_Analog_Interfaces(version="3.2.2"),
+                Modelica_Electrical_MultiPhase(version="3.2.2"),
+                Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces(version="3.2.2"),
+                Modelica_ComplexMath(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2"),
+                Modelica_Thermal_HeatTransfer_Interfaces(version="3.2.2"),
+                Modelica_Magnetic_FundamentalWave(version="3.2.2"),
+                Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces(version="3.2.2"),
+                Modelica_Icons(version="3.2.2"),
+                Complex(version="3.2.2")),
+         version="3.2.2");
 end Modelica_Magnetic_QuasiStatic_FundamentalWave;

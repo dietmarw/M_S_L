@@ -8,9 +8,8 @@ encapsulated package Modelica_Mechanics_Rotational
   import Modelica_Math;
   import Modelica_Blocks_Interfaces;
   import Modelica_Blocks;
-  extends Modelica_Icons.Package;
   import SI = Modelica_SIunits;
-
+  extends Modelica_Icons.Package;
   package UsersGuide "User's Guide of Rotational Library"
     extends Modelica_Icons.Information;
 
@@ -5085,5 +5084,13 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
       fillColor={192,192,192},
       fillPattern=FillPattern.HorizontalCylinder,
       extent={{27.6923,-80.0},{67.6923,-60.0}})}),
-    uses(Modelica_Icons, Modelica(version="3.2.1")));
+uses(Modeica_SIunits(version="3.2.2"),
+Modelica_Blocks(version="3.2.2"),
+Modelica_Blocks_Interfaces(version="3.2.2"),
+Modelica_Math(version="3.2.2"),
+Modelica_Constants(version="3.2.2"),
+Modelica_Thermal_HeatTransfer_Interfaces(version="3.2.2"),
+Modelica_Mechanics_Rotational_Interfaces(version="3.2.2"),
+Modelica_Icons(version="3.2.2")),
+version="3.2.2");
 end Modelica_Mechanics_Rotational;

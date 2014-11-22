@@ -417,5 +417,10 @@ annotation (Documentation(info="<HTML>
   <li> v1.50 2005/09/07 Anton Haumer<br>
        semiLinear works fine</li>
   </ul>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"), uses(Modelica_Blocks_Interfaces(version="3.2.2"),
+                Modelica_Constants(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2"),
+                Modelica_Thermal_FluidHeatFlow(version="3.2.2"),
+                Modelica_Icons(version="3.2.2")),
+           version="3.2.2");
 end Modelica_Thermal_FluidHeatFlow_Interfaces;

@@ -276,5 +276,10 @@ Please refer to the description of  the sub-package <a href=\"modelica://Modelic
 This package contains connectors for the magnetic domain and partial models for lumped magnetic network components.
 </p>
 
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"), uses(Modelica_Mechanics_Translational_Interfaces(version="3.2.2"),
+                Modelica_Constants(version="3.2.2"),
+                Modelica_Magnetic_FluxTubes(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2"),
+                Modelica_Icons(version="3.2.2")),
+           version="3.2.2");
 end Modelica_Magnetic_FluxTubes_Interfaces;

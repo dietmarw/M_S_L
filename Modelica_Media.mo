@@ -4,9 +4,9 @@ encapsulated package Modelica_Media "Library of media property models"
   import Modelica_Constants;
   import Modelica_Media_Interfaces;
   import Modelica_Math;
-extends Modelica_Icons.Package;
 import SI = Modelica_SIunits;
 import Cv = Modelica_SIunits.Conversions;
+  extends Modelica_Icons.Package;
 
 package UsersGuide "User's Guide of Media Library"
   extends Modelica_Icons.Information;
@@ -54228,5 +54228,10 @@ Copyright &copy; 1998-2013, Modelica Association.
           points={{-76,-80},{-94,-16},{-94,-16}},
           color={175,175,175},
           smooth=Smooth.None)}),
-    uses(Modelica(version="3.2.1")));
+    uses(Modelica_SIunits(version="3.2.2"),
+Modelica_Math(version="3.2.2"),
+Modelica_Media_Interfaces(version="3.2.2"),
+Modelica_Constants(version="3.2.2"),
+Modelica_Icons(version="3.2.2")),
+version="3.2.2");
 end Modelica_Media;

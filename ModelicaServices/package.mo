@@ -761,7 +761,8 @@ annotation (
   versionDate="2013-08-14",
   dateModified = "2013-08-14 08:44:41Z",
   revisionId="$Id::                                       $",
-  uses(Modelica_Icons, Modelica(version="3.2.1")),
+  uses(Modelica_Utilities(version="3.2.2"),
+       Modelica_Icons(version="3.2.2")),
   conversion(
     noneFromVersion="1.0",
     noneFromVersion="1.1",

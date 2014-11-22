@@ -4726,5 +4726,13 @@ Christoph Clau&szlig;
     D-01069 Dresden
 </dd>
 </dl>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"),
+            uses(Modelica_Electrical_Digital(version="3.2.2"),
+                 Modelica_Thermal_HeatTransfer(version="3.2.2"),
+                 Modelica_Blocks(version="3.2.2"),
+                 Modelica_Constants(version="3.2.2"),
+                 Modelica_Electrical_Analog(version="3.2.2"),
+                 Modelica_SIunits(version="3.2.2"),
+                 Modelica_Icons(version="3.2.2")),
+            version="3.2.2");
 end Modelica_Electrical_Analog_Examples;

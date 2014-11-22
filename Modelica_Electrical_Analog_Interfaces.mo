@@ -551,5 +551,10 @@ Modelica in file \"Modelica/package.mo\".</i>
        by Christoph Clauss<br> initially implemented<br>
        </li>
 </ul>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"),
+              uses(Modelica_Blocks_Interfaces(version="3.2.2"),
+                   Modelica_Thermal_HeatTransfer_Interfaces(version="3.2.2"),
+                   Modelica_SIunits(version="3.2.2"),
+                   Modelica_Icons(version="3.2.2")),
+              version="3.2.2");
 end Modelica_Electrical_Analog_Interfaces;

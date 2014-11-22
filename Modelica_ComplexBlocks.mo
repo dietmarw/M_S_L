@@ -2225,7 +2225,13 @@ The output y is a complex phasor with constant magnitude, spinning with constant
                  pattern=LinePattern.None,
                  fillPattern=FillPattern.Solid,
                  points={{-10.0,0.0},{5.0,5.0},{5.0,-5.0}})}),
-    uses(Complex(version="3.2.2"), Modelica_Icons,
-      Modelica(version="3.2.1")),
+    uses(Modelica_Math(version="3.2.2"),
+         Modelica_SIunits(version="3.2.2"),
+         Modelica_Blocks_Interfaces(version="3.2.2"),
+         Modelica_Blocks(version="3.2.2"),
+         Modelica_ComplexMath(version="3.2.2"),
+         Modelica_ComplexBlocks_Interfaces(version="3.2.2"),
+         Modelica_Icons(version="3.2.2"),
+         Complex(version="3.2.2")),
     version="3.2.2");
 end Modelica_ComplexBlocks;

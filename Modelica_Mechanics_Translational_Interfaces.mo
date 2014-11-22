@@ -5,7 +5,7 @@ encapsulated package Modelica_Mechanics_Translational_Interfaces
   import Modelica_SIunits;
   import Modelica_Mechanics_Translational;
   import Modelica_Mechanics_Rotational_Interfaces;
-    extends Modelica_Icons.InterfacesPackage;
+  extends Modelica_Icons.InterfacesPackage;
 
   connector Flange_a
     "(left) 1D translational flange (flange axis directed INTO cut plane, e. g. from left to right)"
@@ -1024,5 +1024,9 @@ translational mechanical components. The components of this package can
 only be used as basic building elements for models.
 </p>
 
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"), uses(Modelica_Mechanics_Rotational_Interfaces(version="3.2.2"),
+                Modelica_Mechanics_Translational(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2"),
+                Modelica_Icons(version="3.2.2")),
+            version="3.2.2");
 end Modelica_Mechanics_Translational_Interfaces;

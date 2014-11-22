@@ -984,5 +984,6 @@ This icon of an <b>electrical motor</b> model will be removed in future versions
 <p>Copyright &copy; 1998-2013, Modelica Association, DLR, AIT, and Modelon AB. </p>
 <p><i>This Modelica package is <b>free</b> software; it can be redistributed and/or modified under the terms of the <b>Modelica license</b>, see the license conditions and the accompanying <b>disclaimer</b> in <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a>.</i> </p>
 </html>"),
-    uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
+    uses(Complex(version="3.2.2")),
+    version="3.2.2");
 end Modelica_Icons;

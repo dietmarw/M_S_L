@@ -26713,7 +26713,19 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
           lineColor={135,135,135},
           fillPattern=FillPattern.Sphere,
           fillColor={255,255,255})}),
-    uses(                                   ModelicaIcons,
-      ModelicaServices(version="3.2.1"),
-      Modelica(version="3.2.1")));
+    uses(Modelica_Constants(version="3.2.2"),
+         Modelica_SIunits(version="3.2.2"),
+         Modelica_Utilities(version="3.2.2"),
+         Modelica_Blocks(version="3.2.2"),
+         Modelica_Mechanics_Rotational(version="3.2.2"),
+         Modelica_Mechanics_Rotational_Interfaces(version="3.2.2"),
+         Modelica_Thermal_HeatTransfer_Interfaces(version="3.2.2"),
+         Modelica_Mechanics_Translational(version="3.2.2"),
+         Modelica_Mechanics_Translational_Interfaces(version="3.2.2"),
+         Modelica_Blocks_Interfaces(version="3.2.2"),
+         Modelica_Math(version="3.2.2"),
+         Modelica_Mechanics_MultiBody_Interfaces(version="3.2.2"),
+         Modelica_Icons(version="3.2.2"),
+         ModelicaServices(version="3.2.1")),
+    version="3.2.1");
 end Modelica_Mechanics_MultiBody;

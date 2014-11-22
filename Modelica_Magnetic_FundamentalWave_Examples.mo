@@ -3357,5 +3357,15 @@ Simulate for 1.5 seconds and plot (versus time):
 <a href=\"modelica://Modelica.Electrical.Machines.BasicMachines\">Electrical.Machines.BasicMachines</a> with
 <a href=\"modelica://Modelica.Magnetic.FundamentalWave.BasicMachines\">Magnetic.FundamentalWave.BasicMachines</a>.
 </p>
-</html>"), uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
+</html>"), uses(Modelica_Mechanics_Rotational(version="3.2.2"),
+                Modelica_Electrical_Machines(version="3.2.2"),
+                Modelica_Blocks(version="3.2.2"),
+                Modelica_Constants(version="3.2.2"),
+                Modelica_Magnetic_FundamentalWave(version="3.2.2"),
+                Modelica_Electrical_MultiPhase(version="3.2.2"),
+                Modelica_Electrical_Analog(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2"),
+                Modelica_Icons(version="3.2.2"),
+                Complex(version="3.2.2")),
+         version="3.2.2");
 end Modelica_Magnetic_FundamentalWave_Examples;

@@ -224,5 +224,8 @@ The device temperature <b>internalHeatPort.T</b> can be used to describe the inf
 </html>"));
   end PartialConditionalHeatPort;
 
-  annotation (uses(Modelica(version="3.2.1")));
+  annotation (uses(Modelica_Thermal_HeatTransfer(version="3.2.2"),
+                   Modelica_SIunits(version="3.2.2"),
+                   Modelica_Icons(version="3.2.2")),
+              version="3.2.2");
 end Modelica_Thermal_HeatTransfer_Interfaces;

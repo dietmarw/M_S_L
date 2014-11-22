@@ -227,5 +227,9 @@ electrical multiphase components, based on Modelica.Electrical.Analog.
   and the accompanying <b>disclaimer</b> in the documentation of package
   Modelica in file \"Modelica/package.mo\".</i></dd>
 </dl>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"), uses(Modelica_Thermal_HeatTransfer_Interfaces(version="3.2.2"),
+                Modelica_Electrical_Analog_Interfaces(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2"),
+                Modelica_Icons(version="3.2.2")),
+           version="3.2.2");
 end Modelica_Electrical_MultiPhase_Interfaces;

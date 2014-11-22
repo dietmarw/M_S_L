@@ -1,7 +1,7 @@
 within ;
 encapsulated package Modelica_Math
   "Library of mathematical functions (e.g., sin, cos) and of functions operating on vectors and matrices"
-import SI = Modelica_SIunits;
+  import SI = Modelica_SIunits;
   import Modelica_Icons;
   import Modelica_Constants;
 
@@ -14141,5 +14141,8 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
 </ul>
 
 </html>"),
-    uses(Modelica_Icons, Modelica(version="3.2.1")));
+            uses(Modelica_Constants(version="3.2.2"),
+                 Modelica_Icons(version="3.2.2"),
+                 Modelica_SIunits(version="3.2.2")),
+            version="3.2.2");
 end Modelica_Math;

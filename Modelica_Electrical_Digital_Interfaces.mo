@@ -204,5 +204,7 @@ encapsulated package Modelica_Electrical_Digital_Interfaces "Basic definitions"
 
   annotation (                                Documentation(info="<html>
 <p>This package contains basic definitions: Type definitions of Logic and Strength,  interface definitions (connectors) for digital electrical components, and partial models for connection patterns which are often used.</p>
-</html>"), uses(Modelica(version="3.2.1")));
+</html>"),
+              uses(Modelica_Icons(version="3.2.2")),
+              version="3.2.2");
 end Modelica_Electrical_Digital_Interfaces;

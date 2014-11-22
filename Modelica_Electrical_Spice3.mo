@@ -10705,5 +10705,12 @@ to the internal parameters (e.g. m_drainResistance). It also does the analysis o
           Line(points={{0,0},{90,0}},   color={0,0,0}),
           Line(points={{20,90},{20,40},{0,40},{0,-40},{20,-40},{20,-90}},
               color={0,0,0})}),
-    uses(Modelica(version="3.2.1")));
+    uses(Modelica_SIunits(version="3.2.2"),
+         Modelica_Blocks(version="3.2.2"),
+         Modelica_Math(version="3.2.2"),
+         Modelica_Constants(version="3.2.2"),
+         Modelica_Electrical_Spice3_Interfaces(version="3.2.2"),
+         Modelica_Electrical_Analog_Interfaces(version="3.2.2"),
+         Modelica_Icons(version="3.2.2")),
+     version="3.2.2");
 end Modelica_Electrical_Spice3;

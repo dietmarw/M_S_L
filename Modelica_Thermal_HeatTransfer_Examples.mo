@@ -270,7 +270,10 @@ Simulate for 7200 s; plot Twinding.T and Tcore.T.
 </HTML>"),
       experiment(StopTime=7200, Interval=0.01));
   end Motor;
-  annotation (                              Documentation(info="<html>
-
-</html>"), uses(Modelica(version="3.2.1")));
+  annotation (uses(Modelica_Blocks(version="3.2.2"),
+                   Modelica_Electrical_Analog(version="3.2.2"),
+                   Modelica_Thermal_HeatTransfer(version="3.2.2"),
+                   Modelica_SIunits(version="3.2.2"),
+                   Modelica_Icons(version="3.2.2")),
+              version="3.2.2");
 end Modelica_Thermal_HeatTransfer_Examples;

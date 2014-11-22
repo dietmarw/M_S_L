@@ -5645,8 +5645,7 @@ Copyright &copy; 1998-2013, Modelica Association and Fraunhofer-Gesellschaft.
 <p>
 <i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
 </p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false,
-                extent={{-100,-100},{100,100}}, graphics={
+</html>"), Icon(graphics={
           Line(
             origin={7,47},
             points={{-84,-6},{-52,-6}}),
@@ -5669,6 +5668,12 @@ Copyright &copy; 1998-2013, Modelica Association and Fraunhofer-Gesellschaft.
         Line(
           points={{42,-12},{17,-12},{17,-54},{-71,-54}},
           color={0,0,0},
-          smooth=Smooth.None)})),
-    uses(Modelica(version="3.2.1")));
+          smooth=Smooth.None)}),
+uses(Modelica_Utilities(version="3.2.2"),
+Modelica_Blocks_Interfaces(version="3.2.2"),
+Modelica_Constants(version="3.2.2"),
+Modelica_Electrical_Digital_Interfaces(version="3.2.2"),
+Modelica_SIunits(version="3.2.2"),
+Modelica_Icons(version="3.2.2")),
+version="3.2.2");
 end Modelica_Electrical_Digital;

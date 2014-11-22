@@ -8,6 +8,7 @@ import SI = Modelica_SIunits;
   import Modelica_Math;
   import Modelica_Blocks_Interfaces;
 
+
 extends Modelica_Icons.Package;
 
   package Continuous
@@ -17654,5 +17655,11 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
        of Dieter Moormann and Hilding Elmqvist.</li>
 </ul>
 </html>"),
-    uses(Modelica_Icons, Modelica(version="3.2.1")));
+    uses(Modelica_Blocks_Interfaces(version="3.2.2"),
+         Modelica_Math(version="3.2.2"),
+         Modelica_Utilities(version="3.2.2"),
+         Modelica_Constants(version="3.2.2"),
+         Modelica_Icons(version="3.2.2"),
+         Modelica_Blocks(version="3.2.2")),
+    version="3.2.2");
 end Modelica_Blocks;

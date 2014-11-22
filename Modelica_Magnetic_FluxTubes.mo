@@ -2214,5 +2214,12 @@ See <a href=\"modelica://Modelica.Magnetic.FluxTubes.UsersGuide.ReleaseNotes\">r
       fillColor={160,160,164},
       fillPattern=FillPattern.Solid,
       extent={{-12.5,-50.0},{12.5,50.0}})}),
-    uses(Modelica(version="3.2.1")));
+    uses(Modelica_SIunits(version="3.2.2"),
+         Modelica_Blocks_Interfaces(version="3.2.2"),
+         Modelica_Math(version="3.2.2"),
+         Modelica_Constants(version="3.2.2"),
+         Modelica_Electrical_Analog_Interfaces(version="3.2.2"),
+         Modelica_Magnetic_FluxTubes_Interfaces(version="3.2.2"),
+         Modelica_Icons(version="3.2.2")),
+     version="3.2.2");
 end Modelica_Magnetic_FluxTubes;

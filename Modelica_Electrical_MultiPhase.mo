@@ -3117,5 +3117,17 @@ Copyright &copy; 1998-2014, Modelica Association and Anton Haumer.
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           extent={{-20,-74},{0,-54}})}),
-    uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
+    uses(Modelica_Blocks(version="3.2.2"),
+         Modelica_ComplexMath(version="3.2.2"),
+         Modelica_Constants(version="3.2.2"),
+         Modelica_Blocks_Interfaces(version="3.2.2"),
+         Modelica_Utilities(version="3.2.2"),
+         Modelica_Math(version="3.2.2"),
+         Modelica_Electrical_Analog(version="3.2.2"),
+         Modelica_SIunits(version="3.2.2"),
+         Modelica_Electrical_Analog_Interfaces(version="3.2.2"),
+         Modelica_Electrical_MultiPhase_Interfaces(version="3.2.2"),
+         Modelica_Icons(version="3.2.2"),
+         Complex(version="3.2.2")),
+     version="3.2.2");
 end Modelica_Electrical_MultiPhase;

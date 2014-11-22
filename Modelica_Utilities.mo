@@ -2940,5 +2940,9 @@ Copyright &copy; 1998-2013, Modelica Association, DLR, and Dassault Syst&egrave;
 </p>
 
 </html>"),
-    uses(ModelicaServices(version="3.2.1"), Modelica(version="3.2.1")));
+uses(Modelica_Mechanics_MultiBody_Interfaces(version="3.2.2"),
+     Modelica_SIunits(version="3.2.2"),
+     ModelicaServices(version="3.2.2"),
+     Modelica_Icons(version="3.2.2")),
+version="3.2.2");
 end Modelica_Utilities;

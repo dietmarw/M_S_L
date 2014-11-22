@@ -10284,5 +10284,15 @@ Christoph Clau&szlig;
           color={0,0,0}),
         Line(points={{-80,0},{-12,0}}, color={0,0,0}),
         Line(points={{12,0},{80,0}}, color={0,0,0})}),
-    uses(Modelica(version="3.2.1")));
+    uses(Modelica_Electrical_Digital_Interfaces(version="3.2.2"),
+         Modelica_Blocks(version="3.2.2"),
+         Modelica_Blocks_Interfaces(version="3.2.2"),
+         Modelica_Mechanics_Translational(version="3.2.2"),
+         Modelica_Mechanics_Translational_Interfaces(version="3.2.2"),
+         Modelica_Mechanics_Rotational(version="3.2.2"),
+         Modelica_Mechanics_Rotational_Interfaces(version="3.2.2"),
+         Modelica_Math(version="3.2.2"), Modelica_Constants(version="3.2.2"),
+         Modelica_Electrical_Analog_Interfaces(version="3.2.2"),
+         Modelica_Icons(version="3.2.2")),
+     version="3.2.2");
 end Modelica_Electrical_Analog;

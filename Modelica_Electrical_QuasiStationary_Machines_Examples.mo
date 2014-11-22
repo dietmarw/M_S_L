@@ -250,6 +250,11 @@ even though the source's or load's starpoint are grounded; you may use a reasona
   end TransformerTestbench;
   annotation (Documentation(info="<html>
 Examples to demonstrate the usage of quasistationary electric components.
-</html>"), uses(Modelica_ComplexBlocks(version="3.2.2"), Modelica(version=
-            "3.2.1")));
+</html>"), uses(Modelica_Utilities(version="3.2.2"),
+                Modelica_Electrical_Machines(version="3.2.2"),
+                Modelica_ComplexBlocks(version="3.2.2"),
+                Modelica_Electrical_QuasiStationary(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2"),
+                Modelica_Icons(version="3.2.2")),
+              version="3.2.2");
 end Modelica_Electrical_QuasiStationary_Machines_Examples;

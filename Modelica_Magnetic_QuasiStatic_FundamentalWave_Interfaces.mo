@@ -532,5 +532,19 @@ The partial two port elementary model extends from the partial two port model an
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics));
   end PartialBasicMachine;
-  annotation (uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
+  annotation (uses(Modelica_Math(version="3.2.2"),
+                   Modelica_Magnetic_QuasiStatic_FundamentalWave(version="3.2.2"),
+                   Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces(version="3.2.2"),
+                   Modelica_Mechanics_Rotational(version="3.2.2"),
+                   Modelica_Mechanics_Rotational_Interfaces(version="3.2.2"),
+                   Modelica_Electrical_Machines_Interfaces(version="3.2.2"),
+                   Modelica_Magnetic_FundamentalWave(version="3.2.2"),
+                   Modelica_Constants(version="3.2.2"),
+                   Modelica_Electrical_Machines(version="3.2.2"),
+                   Modelica_ComplexMath(version="3.2.2"),
+                   Modelica_Electrical_QuasiStationary(version="3.2.2"),
+                   Modelica_SIunits(version="3.2.2"),
+                   Modelica_Icons(version="3.2.2"),
+                   Complex(version="3.2.2")),
+              version="3.2.2");
 end Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces;

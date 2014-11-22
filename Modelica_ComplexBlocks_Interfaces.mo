@@ -270,5 +270,11 @@ generated signal.
     end ComplexSignalSource;
 annotation(Documentation(info="<html>
 <p>This library defines Complex input and output signals, as well as partial blocks.</p>
-</html>"), uses(Complex(version="3.2.2"), Modelica(version="3.2.1")));
+</html>"),
+           uses(Modelica_ComplexMath(version="3.2.2"),
+                Modelica_Blocks(version="3.2.2"),
+                Modelica_Icons(version="3.2.2"),
+                Complex(version="3.2.2"),
+                Modelica_SIunits(version="3.2.2")),
+           version="3.2.2");
 end Modelica_ComplexBlocks_Interfaces;

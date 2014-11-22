@@ -111,5 +111,8 @@ on the model behaviour.
       Documentation(info="<html>
 <p>The SPICE3 package uses the Modelica.Electrical.Analog interfaces. Only special partial models used in the SPICE3 package are located in this Interfaces package.</p>
 </html>"),
-    uses(Modelica(version="3.2.1")));
+    uses(Modelica_Electrical_Analog_Interfaces(version="3.2.2"),
+         Modelica_SIunits(version="3.2.2"),
+         Modelica_Icons(version="3.2.2")),
+    version="3.2.2");
 end Modelica_Electrical_Spice3_Interfaces;
