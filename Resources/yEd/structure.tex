@@ -1,0 +1,408 @@
+%% Class hierarchy of M_S_L
+\documentclass[aspectratio=1610]{beamer}
+\usepackage[english]{babel}
+\usepackage[scaled=.90]{helvet}
+\graphicspath{{images/}}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multimedia}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{footline}[frame number]
+
+\title{84\textsuperscript{th} Modelica Design Meeting}
+\subtitle{\texttt{uses} structure of the current \texttt{M\_S\_L} (v3.2.2-dev)}
+\author{Dietmar Winkler}
+\institute{Telemark University College}
+\date{1\textsuperscript{st} December 2014}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+  \frametitle{\texttt{Complex}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Complex}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Blocks\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Blocks_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Blocks}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Blocks}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_ComplexBlocks\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_ComplexBlocks_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_ComplexBlocks}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_ComplexBlocks}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_ComplexMath}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_ComplexMath}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Constants}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Constants}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_Analog\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_Analog_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_Analog}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_Analog}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_Digital\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_Digital_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_Digital}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_Digital}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_Machines\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_Machines_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_Machines}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_Machines}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_MultiPhase\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_MultiPhase_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_MultiPhase}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_MultiPhase}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_QuasiStationary\_Machines\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_QuasiStationary_Machines_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_QuasiStationary\_MultiPhase\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_QuasiStationary_MultiPhase_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_QuasiStationary}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_QuasiStationary}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_QuasiStationary\_SinglePhase\_Interphases}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_QuasiStationary_SinglePhase_Interphases}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_Spice3\_Interphases}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_Spice3_Interphases}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Electrical\_Spice3}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Electrical_Spice3}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Fluid\_interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Fluid_interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Fluid}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Fluid}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Icons}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Icons}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Magnetic\_FluxTubes\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Magnetic_FluxTubes_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Magnetic\_FluxTubes}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Magnetic_FluxTubes}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Magnetic\_FundamentalWave\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Magnetic_FundamentalWave_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Magnetic\_FundamentalWave}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Magnetic_FundamentalWave}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Magnetic\_QuasiStatic\_FundamentalWave\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Magnetic\_QuasiStatic\_FundamentalWave}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Magnetic_QuasiStatic_FundamentalWave}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Math}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Math}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Mechanics\_MultiBody\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Mechanics_MultiBody_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Mechanics\_MultiBody}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Mechanics_MultiBody}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Mechanics\_Rotational\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Mechanics_Rotational_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Mechanics\_Rotational}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Mechanics_Rotational}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Mechanics\_Translational\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Mechanics_Translational_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Mechanics\_Translational}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Mechanics_Translational}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Media\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Media_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Media}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Media}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{ModelicaServices}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{ModelicaServices}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_SIunits}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_SIunits}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Stategraph\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Stategraph_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_StateGraph}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_StateGraph}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Thermal\_FluidHeatFlow\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Thermal_FluidHeatFlow_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Thermal\_FluidHeatFlow}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Thermal_FluidHeatFlow}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Thermal\_HeatTransfer\_Interfaces}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Thermal_HeatTransfer_Interfaces}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Thermal\_HeatTransfer}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Thermal_HeatTransfer}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{Modelica\_Utilities}}
+  \framesubtitle{Successors}
+  \begin{figure}
+      \includegraphics[width=\textwidth]{Modelica_Utilities}
+  \end{figure}
+\end{frame}
+
+\end{document}
+
