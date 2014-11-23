@@ -1,6 +1,5 @@
 deps = {}
-deps['Modelica_Blocks'] = ['Modelica_Icons',
-                           'Modelica_Constants',
+deps['Modelica_Blocks'] = ['Modelica_Constants',
                            'Modelica_Utilities',
                            'Modelica_Math',
                            'Modelica_Blocks_Interfaces',
@@ -32,7 +31,7 @@ deps['Modelica_ComplexBlocks_Examples'] = ['Modelica_Icons',
                                            'Modelica_ComplexBlocks']
 
 deps['Modelica_ComplexBlocks_Interfaces'] = ['Modelica_Icons',
-                                             'Complex'
+                                             'Complex',
                                              'Modelica_Blocks',
                                              'Modelica_ComplexMath']
 
@@ -56,7 +55,8 @@ deps['Modelica_Electrical_Analog'] = ['Modelica_Icons',
                                       'Modelica_Mechanics_Translational',
                                       'Modelica_Blocks_Interfaces',
                                       'Modelica_Blocks',
-                                      'Modelica_Electrical_Digital_Interfaces']
+                                      'Modelica_Electrical_Digital_Interfaces',
+                                      'Modelica_SIunits']
 
 deps['Modelica_Electrical_Analog_Examples'] = ['Modelica_Icons',
                                                'Modelica_SIunits',
@@ -98,8 +98,7 @@ deps['Modelica_Electrical_Machines'] = ['Modelica_Icons',
                                         'Modelica_Mechanics_Rotational',
                                         'Modelica_Math',
                                         'Modelica_Thermal_HeatTransfer_Interfaces',
-                                        'Modelica_Thermal_HeatTransfer',
-                                        'Modelica_Icons.Package']
+                                        'Modelica_Thermal_HeatTransfer']
 
 deps['Modelica_Electrical_Machines_Examples'] = ['Modelica_Icons',
                                          'Modelica_SIunits',
@@ -130,7 +129,7 @@ deps['Modelica_Electrical_Machines_Interfaces'] = ['Modelica_Icons',
                                                    'Modelica_Electrical_Analog_Interfaces',
                                                    'Modelica_Utilities']
 
-deps['Modelica_Electrical_Multiphase'] = ['Modelica_Icons',
+deps['Modelica_Electrical_MultiPhase'] = ['Modelica_Icons',
                                           'Modelica_Electrical_MultiPhase_Interfaces',
                                           'Modelica_Electrical_Analog_Interfaces',
                                           'Modelica_SIunits',
@@ -143,7 +142,7 @@ deps['Modelica_Electrical_Multiphase'] = ['Modelica_Icons',
                                           'Modelica_ComplexMath',
                                           'Modelica_Blocks']
 
-deps['Modelica_Electrical_Multiphase_Examples'] = ['Modelica_Icons',
+deps['Modelica_Electrical_MultiPhase_Examples'] = ['Modelica_Icons',
                                                    'Modelica_SIunits',
                                                    'Modelica_Electrical_MultiPhase',
                                                    'Modelica_Electrical_Analog',
@@ -151,7 +150,7 @@ deps['Modelica_Electrical_Multiphase_Examples'] = ['Modelica_Icons',
                                                    'Modelica_Constants',
                                                    'Modelica_Blocks']
 
-deps['Modelica_Electrical_Multiphase_Interphases'] = ['Modelica_Icons',
+deps['Modelica_Electrical_MultiPhase_Interphases'] = ['Modelica_Icons',
                                                       'Modelica_SIunits',
                                                       'Modelica_Electrical_Analog_Interfaces',
                                                       'Modelica_Thermal_HeatTransfer_Interfaces']
@@ -216,7 +215,7 @@ deps['Modelica_Electrical_QuasiStationary_SinglePhase_Examples'] = ['Modelica_Ic
                                                                     'Modelica_SIunits',
                                                                     'Modelica_Electrical_Analog']
 
-deps['Modelica_Electrical_QuasiStationary_SinglePhase_Interphases'] = ['Modelica_Icons',
+deps['Modelica_Electrical_QuasiStationary_SinglePhase_Interfaces'] = ['Modelica_Icons',
                                                                        'Modelica_SIunits',
                                                                        'Modelica_Electrical_QuasiStationary',
                                                                        'Modelica_ComplexMath',
@@ -234,7 +233,7 @@ deps['Modelica_Electrical_Spice3'] = ['Modelica_Icons',
 deps['Modelica_Electrical_Spice3_Examples'] = ['Modelica_Icons',
                                                'Modelica_Electrical_Spice3']
 
-deps['Modelica_Electrical_Spice3_Interphases'] = ['Modelica_Icons',
+deps['Modelica_Electrical_Spice3_Interfaces'] = ['Modelica_Icons',
                                                   'Modelica_SIunits',
                                                   'Modelica_Electrical_Analog_Interfaces']
 
@@ -249,7 +248,8 @@ deps['Modelica_Fluid'] = ['Modelica_Icons',
                           'Modelica_Mechanics_Translational_Interfaces',
                           'Modelica_Mechanics_Rotational_Interfaces',
                           'Modelica_Blocks',
-                          'Modelica_Utilities']
+                          'Modelica_Utilities',
+                          'SIunits']
 
 deps['Modelica_Fluid_Examples'] = ['Modelica_Icons',
                                    'Modelica_Media',
@@ -335,7 +335,7 @@ deps['Modelica_Magnetic_FundamentalWave_Interfaces'] = ['Modelica_Icons',
                                                         'Modelica_Math',
                                                         'Complex']
 
-deps['Modelica_Magnetic_Quasistatic_FundamentalWave'] = ['Modelica_Icons',
+deps['Modelica_Magnetic_QuasiStatic_FundamentalWave'] = ['Modelica_Icons',
                                                          'Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces',
                                                          'Modelica_Magnetic_FundamentalWave',
                                                          'Modelica_Thermal_HeatTransfer_Interfaces',
@@ -358,7 +358,7 @@ deps['Modelica_Magnetic_Quasistatic_FundamentalWave'] = ['Modelica_Icons',
                                                          'Modelica_ComplexBlocks',
                                                          'Complex']
 
-deps['Modelica_Magnetic_Quasistatic_FundamentalWave_Examples'] = ['Modelica_Icons',
+deps['Modelica_Magnetic_QuasiStatic_FundamentalWave_Examples'] = ['Modelica_Icons',
                                                                   'Modelica_SIunits',
                                                                   'Modelica_Electrical_QuasiStationary',
                                                                   'Modelica_Electrical_MultiPhase',
@@ -371,7 +371,7 @@ deps['Modelica_Magnetic_Quasistatic_FundamentalWave_Examples'] = ['Modelica_Icon
                                                                   'Complex']
 
 
-deps['Modelica_Magnetic_Quasistatic_FundamentalWave_Interfaces'] = ['Modelica_Icons',
+deps['Modelica_Magnetic_QuasiStatic_FundamentalWave_Interfaces'] = ['Modelica_Icons',
                                                                     'Modelica_SIunits',
                                                                     'Modelica_Electrical_QuasiStationary',
                                                                     'Modelica_ComplexMath',
