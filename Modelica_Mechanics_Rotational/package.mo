@@ -5084,7 +5084,7 @@ Copyright &copy; 1998-2013, Modelica Association and DLR.
       fillColor={192,192,192},
       fillPattern=FillPattern.HorizontalCylinder,
       extent={{27.6923,-80.0},{67.6923,-60.0}})}),
-uses(Modeica_SIunits(version="3.2.2"),
+uses(Modelica_SIunits(version="3.2.2"),
 Modelica_Blocks(version="3.2.2"),
 Modelica_Blocks_Interfaces(version="3.2.2"),
 Modelica_Math(version="3.2.2"),
